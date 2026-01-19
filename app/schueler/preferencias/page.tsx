@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
-const STORAGE_KEY = "group_preferences_v1.0";
+const STORAGE_KEY = "group_preferences_v1.1";
 
 
 /* ============================

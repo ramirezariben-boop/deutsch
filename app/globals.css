@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* ANIMACIÓN PERSONALIZADA */
+@keyframes alertPulse {
+  0% {
+    box-shadow: 0 0 0px rgba(255, 0, 0, 0);
+    border-color: rgba(255, 0, 0, 0.2);
+  }
+  40% {
+    box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
+    border-color: rgba(255, 0, 0, 1);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(255, 0, 0, 0);
+    border-color: rgba(255, 0, 0, 0.2);
+  }
+}
+
+.alert-flash {
+  animation: alertPulse 0.9s ease-out;
+}

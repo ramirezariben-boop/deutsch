@@ -44,6 +44,15 @@ export default function MainPage() {
           >
             🤑 Extra MXP 💰
           </a>
+
+          <a
+            href="https://lyrickahoot.ariiben.com/game/player.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
+          >
+            🎶 Lyrickahoot! 🧩
+          </a>
         </div>
 
         {/* Columna derecha */}

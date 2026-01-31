@@ -1,30 +1,27 @@
-// prisma/schema.prisma
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL") // ESTA ES LA DEL EXAMEN
-}
-
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model User {
-  id       Int    @id
-  password String
-  name     String
+  id             Int     @id
+  password       String
+  name           String?
+  current_course String?
 }
 
 model WritingExam {
-  id        Int @id @default(autoincrement())
-  studentId Int @unique
-  text      String
-  createdAt DateTime @default(now())
-
+  id             Int             @id @default(autoincrement())
+  studentId      Int             @unique
+  text           String
+  createdAt      DateTime        @default(now())
   cheatingEvents CheatingEvent[]
 }
-
 
 model CheatingEvent {
   id        Int         @id @default(autoincrement())
@@ -32,17 +29,16 @@ model CheatingEvent {
   eventType String
   timestamp DateTime    @default(now())
   metadata  Json?
-
-  exam WritingExam @relation(fields: [examId], references: [id], onDelete: Cascade)
+  exam      WritingExam @relation(fields: [examId], references: [id], onDelete: Cascade)
 }
 
 model WritingLog {
   id        Int      @id @default(autoincrement())
   studentId Int
   event     String
-
   data      String?
   suspected Boolean? @default(false)
-
   createdAt DateTime @default(now())
+
+  @@index([studentId, id])
 }

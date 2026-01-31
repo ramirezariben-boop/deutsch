@@ -25,26 +25,33 @@ export default function AttendanceBar({
   const [data, setData] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let alive = true;
+  // 🔥 confirmación de montaje
+  console.log("AttendanceBar mounted", { studentId, course });
 
+  useEffect(() => {
     async function load() {
       try {
+        console.log("Fetching attendance...");
+
         const res = await fetch(
           `/api/attendance?student_id=${studentId}&course=${course}&class=2026_2_01`,
           { cache: "no-store" }
         );
 
         if (!res.ok) {
-          console.error("Attendance fetch failed");
+          console.error("Attendance fetch failed", res.status);
           return;
         }
 
         const json = await res.json();
 
-        // 👇 attendance ES UN OBJETO { "1A": 74.9, ... }
-        const attendance: Record<string, number | null> =
-          json.attendance ?? {};
+        // 🔥 LOG 1: respuesta cruda
+        console.log("ATTENDANCE RAW JSON:", json);
+
+        const attendance = json.attendance ?? {};
+
+        // 🔥 LOG 2: objeto attendance
+        console.log("ATTENDANCE OBJECT:", attendance);
 
         const parsed: Row[] = Object.entries(attendance)
           .filter(([, pct]) => pct !== null)
@@ -53,30 +60,30 @@ export default function AttendanceBar({
             pct: Number(pct),
           }));
 
-        if (alive) {
-          // 🔑 forzamos render después de que el modal ya existe
-          requestAnimationFrame(() => {
-            setData(parsed);
-            setLoading(false);
-          });
-        }
+        // 🔥 LOG 3: datos finales para el chart
+        console.log("PARSED ATTENDANCE DATA:", parsed);
+
+        setData(parsed);
       } catch (err) {
         console.error("Error cargando asistencia:", err);
-        if (alive) setLoading(false);
+      } finally {
+        setLoading(false);
       }
     }
 
     load();
-    return () => {
-      alive = false;
-    };
   }, [studentId, course]);
+
+  // =========================
+  // RENDER
+  // =========================
 
   if (loading) {
     return <div className="text-sm text-neutral-400">Cargando…</div>;
   }
 
   if (!data.length) {
+    console.warn("AttendanceBar: data vacío tras parseo");
     return (
       <div className="text-sm text-neutral-400">
         No hay registros de asistencia
@@ -85,10 +92,9 @@ export default function AttendanceBar({
   }
 
   return (
-    // 🔑 NO w-full / NO porcentajes → tamaño explícito
-    <div style={{ width: 620, height: 320 }}>
+    <div className="w-full h-64">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} key={data.length}>
+        <BarChart data={data}>
           <XAxis dataKey="session" />
           <YAxis domain={[0, 100]} />
           <Tooltip formatter={(v: any) => `${v}%`} />

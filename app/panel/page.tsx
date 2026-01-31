@@ -1,6 +1,7 @@
-// app/panel/page.tsx
-import { redirect } from "next/navigation";
-
-export default function PanelIndex() {
-  redirect("/panel/asistencia");
+export default function CalificacionesPage() {
+  return (
+    <div className="p-10 text-neutral-400">
+      Calificaciones (en construcción)
+    </div>
+  );
 }

@@ -34,7 +34,8 @@ export default function AttendanceBar({
         console.log("Fetching attendance...");
 
         const res = await fetch(
-          `/api/attendance?student_id=${studentId}&course=${course}&class=2026_2_01`,
+  `/api/attendance?student_id=${studentId}&course=2026_2&class=2026_2_01`,
+
           { cache: "no-store" }
         );
 

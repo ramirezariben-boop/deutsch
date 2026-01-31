@@ -26,6 +26,8 @@ export default function AttendanceBar({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let alive = true;
+
     async function load() {
       try {
         const res = await fetch(
@@ -40,8 +42,9 @@ export default function AttendanceBar({
 
         const json = await res.json();
 
-        // 👇 CLAVE: attendance es un OBJETO, no un array
-        const attendance = json.attendance ?? {};
+        // 👇 attendance ES UN OBJETO { "1A": 74.9, ... }
+        const attendance: Record<string, number | null> =
+          json.attendance ?? {};
 
         const parsed: Row[] = Object.entries(attendance)
           .filter(([, pct]) => pct !== null)
@@ -50,15 +53,23 @@ export default function AttendanceBar({
             pct: Number(pct),
           }));
 
-        setData(parsed);
+        if (alive) {
+          // 🔑 forzamos render después de que el modal ya existe
+          requestAnimationFrame(() => {
+            setData(parsed);
+            setLoading(false);
+          });
+        }
       } catch (err) {
         console.error("Error cargando asistencia:", err);
-      } finally {
-        setLoading(false);
+        if (alive) setLoading(false);
       }
     }
 
     load();
+    return () => {
+      alive = false;
+    };
   }, [studentId, course]);
 
   if (loading) {
@@ -74,9 +85,10 @@ export default function AttendanceBar({
   }
 
   return (
-    <div className="w-full h-64">
+    // 🔑 NO w-full / NO porcentajes → tamaño explícito
+    <div style={{ width: 620, height: 320 }}>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
+        <BarChart data={data} key={data.length}>
           <XAxis dataKey="session" />
           <YAxis domain={[0, 100]} />
           <Tooltip formatter={(v: any) => `${v}%`} />

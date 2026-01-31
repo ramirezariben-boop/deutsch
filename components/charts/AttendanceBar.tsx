@@ -10,9 +10,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+type AttendanceRow = {
+  session_id: string;
+  attendance_pct: number | string | null;
+};
+
 type Row = {
   session: string;
-  pct: number | null;
+  pct: number;
 };
 
 export default function AttendanceBar({
@@ -36,14 +41,15 @@ export default function AttendanceBar({
         if (!res.ok) return;
 
         const json = await res.json();
-        const attendance = json.attendance ?? {};
 
-        const parsed = Object.entries(attendance).map(
-          ([session, pct]) => ({
-            session,
-            pct,
-          })
-        );
+        const rows: AttendanceRow[] = json.attendance ?? [];
+
+        const parsed: Row[] = rows
+          .filter(r => r.attendance_pct !== null) // null ≠ 0
+          .map(r => ({
+            session: `Sesión ${r.session_id}`,
+            pct: Number(r.attendance_pct),
+          }));
 
         setData(parsed);
       } catch (err) {
@@ -60,7 +66,7 @@ export default function AttendanceBar({
     return <div className="text-sm text-neutral-400">Cargando…</div>;
   }
 
-  if (!data.some(d => d.pct !== null)) {
+  if (!data.length) {
     return (
       <div className="text-sm text-neutral-400">
         No hay registros de asistencia
@@ -74,7 +80,7 @@ export default function AttendanceBar({
         <BarChart data={data}>
           <XAxis dataKey="session" />
           <YAxis domain={[0, 100]} />
-          <Tooltip formatter={(v: any) => v === null ? "—" : `${v}%`} />
+          <Tooltip formatter={(v: any) => `${v}%`} />
           <Bar dataKey="pct" fill="#60a5fa" />
         </BarChart>
       </ResponsiveContainer>

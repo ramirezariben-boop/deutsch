@@ -72,7 +72,6 @@ export default async function MainPage() {
     🤖 Roblox 🌎
   </a>
 
-  {/* 🔴 ESTE ES EL QUE NO PUEDE FALTAR */}
   <a
     href="https://www.youtube.com/@AriiBen"
     target="_blank"

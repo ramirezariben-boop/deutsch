@@ -7,14 +7,21 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 type Row = {
   session: string;
-  pct: number;
+  pct: number | null;
 };
 
-export default function AttendanceBar({ studentId }: { studentId: number }) {
+export default function AttendanceBar({
+  studentId,
+  course,
+}: {
+  studentId: number;
+  course: string;
+}) {
   const [data, setData] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,23 +29,23 @@ export default function AttendanceBar({ studentId }: { studentId: number }) {
     async function load() {
       try {
         const res = await fetch(
-          `/api/attendance?student_id=${studentId}`,
+          `/api/attendance?student_id=${studentId}&course=${course}&class=2026_2_01`,
           { cache: "no-store" }
         );
 
         if (!res.ok) return;
 
         const json = await res.json();
-        const rows = Array.isArray(json)
-          ? json
-          : json.attendance ?? [];
+        const attendance = json.attendance ?? {};
 
-        setData(
-          rows.map((r: any) => ({
-            session: `Sesión ${r.session_id}`,
-            pct: Number(Number(r.attendance_pct).toFixed(2)),
-          }))
+        const parsed = Object.entries(attendance).map(
+          ([session, pct]) => ({
+            session,
+            pct,
+          })
         );
+
+        setData(parsed);
       } catch (err) {
         console.error("Error cargando asistencia:", err);
       } finally {
@@ -47,13 +54,13 @@ export default function AttendanceBar({ studentId }: { studentId: number }) {
     }
 
     load();
-  }, [studentId]);
+  }, [studentId, course]);
 
   if (loading) {
     return <div className="text-sm text-neutral-400">Cargando…</div>;
   }
 
-  if (!data.length) {
+  if (!data.some(d => d.pct !== null)) {
     return (
       <div className="text-sm text-neutral-400">
         No hay registros de asistencia
@@ -62,13 +69,15 @@ export default function AttendanceBar({ studentId }: { studentId: number }) {
   }
 
   return (
-    <div className="flex justify-center">
-      <BarChart width={620} height={260} data={data}>
-        <XAxis dataKey="session" />
-        <YAxis domain={[0, 100]} />
-        <Tooltip formatter={(v: any) => `${v}%`} />
-        <Bar dataKey="pct" fill="#60a5fa" />
-      </BarChart>
+    <div className="w-full h-64">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data}>
+          <XAxis dataKey="session" />
+          <YAxis domain={[0, 100]} />
+          <Tooltip formatter={(v: any) => v === null ? "—" : `${v}%`} />
+          <Bar dataKey="pct" fill="#60a5fa" />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }

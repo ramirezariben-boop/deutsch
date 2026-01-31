@@ -36,7 +36,7 @@ export default function AlumnoTabs({ alumnoId, course }: Props) {
       {open && (
         <MetricModal onClose={() => setOpen(null)}>
           {open === "attendance" && (
-            <AttendanceBar studentId={alumnoId} />
+            <AttendanceBar studentId={alumnoId} course={course}/>
           )}
 
           {open === "grades" && (

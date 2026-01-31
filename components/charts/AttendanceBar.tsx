@@ -10,11 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-type AttendanceRow = {
-  session_id: string;
-  attendance_pct: number | string | null;
-};
-
 type Row = {
   session: string;
   pct: number;
@@ -38,17 +33,21 @@ export default function AttendanceBar({
           { cache: "no-store" }
         );
 
-        if (!res.ok) return;
+        if (!res.ok) {
+          console.error("Attendance fetch failed");
+          return;
+        }
 
         const json = await res.json();
 
-        const rows: AttendanceRow[] = json.attendance ?? [];
+        // 👇 CLAVE: attendance es un OBJETO, no un array
+        const attendance = json.attendance ?? {};
 
-        const parsed: Row[] = rows
-          .filter(r => r.attendance_pct !== null) // null ≠ 0
-          .map(r => ({
-            session: `Sesión ${r.session_id}`,
-            pct: Number(r.attendance_pct),
+        const parsed: Row[] = Object.entries(attendance)
+          .filter(([, pct]) => pct !== null)
+          .map(([session, pct]) => ({
+            session,
+            pct: Number(pct),
           }));
 
         setData(parsed);

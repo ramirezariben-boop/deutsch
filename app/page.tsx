@@ -2,7 +2,6 @@
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import AlumnoGate from "@/components/alumno/AlumnoGate";
 
 export const metadata: Metadata = {
   title: "Deutsch mit AriiBen · Clases de alemán con Ari Ben Ramírez Villegas",
@@ -11,9 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function MainPage() {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const session = cookieStore.get("session")?.value;
 
+  // 🔐 Si hay sesión, fuera de aquí → /schueler
   if (session) {
     redirect("/schueler");
   }
@@ -62,9 +62,6 @@ export default async function MainPage() {
             🎶 Lyrickahoot! 🧩
           </a>
         </div>
-
-        {/* 👉 AQUÍ PUEDE VIVIR TU MODAL DE LOGIN */}
-        <AlumnoGate />
 
         {/* Columna derecha */}
         <div className="flex flex-col gap-4">

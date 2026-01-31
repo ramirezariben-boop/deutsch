@@ -1,29 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import AlumnoCard from "./AlumnoCard";
-
-type Alumno = {
-  id: number;
-  name: string;
-  course: string;
-  list_number: number;
-};
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AlumnoGate() {
-  const [alumno, setAlumno] = useState<Alumno | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    // 🔐 login temporal (luego lo cambias)
-    const raw = localStorage.getItem("alumnoLogueado");
-    if (!raw) return;
+    async function checkSession() {
+      try {
+        const res = await fetch("/api/session", {
+          credentials: "include",
+        });
 
-    try {
-      setAlumno(JSON.parse(raw));
-    } catch {}
-  }, []);
+        if (!res.ok) return;
 
-  if (!alumno) return null;
+        const json = await res.json();
 
-  return <AlumnoCard alumno={alumno} />;
+        if (json.loggedIn) {
+          router.push("/schueler");
+        }
+      } catch (err) {
+        console.error("Error comprobando sesión:", err);
+      }
+    }
+
+    checkSession();
+  }, [router]);
+
+  return null; // 👈 importante: NO renderiza nada
 }

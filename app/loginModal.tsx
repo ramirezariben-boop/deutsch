@@ -25,14 +25,21 @@ export default function LoginModal() {
           <input
             name="id"
             placeholder="ID"
+	    inputMode="numeric"
+	    pattern="[0-9]*"
             className="p-2 bg-black border border-gray-700 text-white rounded"
           />
 
-          <input
-            name="nip"
-            placeholder="NIP"
-            className="p-2 bg-black border border-gray-700 text-white rounded"
-          />
+
+<input
+  name="nip"
+  placeholder="NIP"
+  type="text"               
+  inputMode="numeric"      
+  pattern="[0-9]*"         
+  autoComplete="off"
+  className="p-2 bg-black border border-gray-700 text-white rounded"
+/>
 
           <button
             type="submit"

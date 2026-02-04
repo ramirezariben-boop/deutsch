@@ -19,3 +19,15 @@
 .alert-flash {
   animation: alertPulse 0.9s ease-out;
 }
+
+.attendance-ok {
+  color: #22c55e;
+}
+
+.attendance-warning {
+  color: #facc15;
+}
+
+.attendance-danger {
+  color: #ef4444;
+}

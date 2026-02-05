@@ -76,13 +76,18 @@ return raw
     const m = r.class_id.match(/_(\d{2})$/);
     const classNum = m ? Number(m[1]) : i + 1;
 
-    return {
-      label: `${classNum}${r.session_id}`,
-      pct: r.attendance_pct,
-      minutes: r.minutes_attended,
-      max: r.max_minutes,
-      session: r.session_id,
-    };
+return {
+  label: `${classNum}${r.session_id}`,
+  pct:
+  r.max_minutes > 0
+    ? +( ((r.minutes_attended ?? 0) / r.max_minutes) * 100 ).toFixed(2)
+    : 0,
+
+  minutes: r.minutes_attended ?? 0,
+  max: r.max_minutes ?? 0,
+  session: r.session_id,
+};
+
   })
 
     .sort((a, b) => {
@@ -98,7 +103,11 @@ return raw
   // =========================
 
   // --- asistencia real (minutos)
-  const totalMinutes = raw.reduce((s, r) => s + r.minutes_attended, 0);
+  const totalMinutes = raw.reduce(
+  (s, r) => s + (r.minutes_attended ?? 0),
+  0
+);
+
   const totalPossible = raw.reduce((s, r) => s + r.max_minutes, 0);
 
   const realPct =
@@ -111,9 +120,11 @@ return raw
     return session === "A" ? 0.5 : 0.25;
   }
 
-  function attended(r: AttendanceRow) {
-    return r.minutes_attended >= r.max_minutes * 0.5;
-  }
+function attended(r: AttendanceRow) {
+  const minutes = r.minutes_attended ?? 0;
+  return minutes >= r.max_minutes * 0.5;
+}
+
 
   let instAttended = 0;
   let instPossible = 0;
@@ -201,12 +212,13 @@ return (
   itemStyle={{
     color: "#ffffff",          // 👈 valor pct / minutos
   }}
-  formatter={(_: any, __: any, ctx: any) => {
-    const d = ctx.payload;
-    return `${d.pct}% (${d.minutes} / ${d.max} min)`;
-  }}
+formatter={(_: any, __: any, ctx: any) => {
+  const d = ctx.payload;
+  const mins = d.minutes ?? 0;
+  const max = d.max ?? 0;
+  return `${d.pct}% (${mins} / ${max} min)`;
+}}
 />
-
 
           <Bar
             dataKey="pct"

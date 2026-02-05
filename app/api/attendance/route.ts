@@ -48,23 +48,24 @@ export async function GET(req: Request) {
       : [];
 
     // Normaliza tipos
-    const out = rows.map((r) => ({
-      student_id: Number(r.student_id),
-      class_id: String(r.class_id),
-      session_id: String(r.session_id).toUpperCase(), // A/B/C
-      attendance_pct:
-        r.attendance_pct === null || r.attendance_pct === undefined
-          ? null
-          : Number(r.attendance_pct),
-      minutes_attended:
-        r.minutes_attended === null || r.minutes_attended === undefined
-          ? null
-          : Number(r.minutes_attended),
-      max_minutes:
-        r.max_minutes === null || r.max_minutes === undefined
-          ? null
-          : Number(r.max_minutes),
-    }));
+const out = rows.map((r) => ({
+  student_id: Number(r.student_id),
+  class_id: String(r.class_id),
+  session_id: String(r.session_id).toUpperCase(),
+  attendance_pct:
+    r.attendance_pct === null || r.attendance_pct === undefined
+      ? null
+      : Number(r.attendance_pct),
+  minutes_attended:
+    r.minutes_attended === null || r.minutes_attended === undefined
+      ? null
+      : Number(r.minutes_attended),
+  max_minutes:
+    r.max_minutes === null || r.max_minutes === undefined
+      ? null
+      : Number(r.max_minutes),
+}));
+
 
     return NextResponse.json(out);
   } catch (err) {

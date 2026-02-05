@@ -10,12 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-console.log("AttendanceBar render", {
-  loading,
-  rawLength: raw.length,
-});
-
-
 type AttendanceRow = {
   class_id: string;
   session_id: "A" | "B" | "C";
@@ -41,32 +35,56 @@ export default function AttendanceBar({
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("🔁 AttendanceBar render", {
+    studentId,
+    course,
+    loading,
+    rawLength: raw.length,
+  });
+
 useEffect(() => {
   let cancelled = false;
 
+  console.log("🟡 useEffect fired", { studentId });
+
   async function load() {
     try {
+      console.log("🟠 Fetching attendance...");
+
       const res = await fetch(
         `/api/attendance?student_id=${studentId}&course=${course}`,
         { cache: "no-store" }
       );
 
+      console.log("🟢 Fetch response", res.status);
+
       if (!res.ok) throw new Error("Fetch failed");
 
       const json = await res.json();
-      if (!cancelled) setRaw(json);
+      console.log("🟢 JSON recibido", json);
+
+      if (!cancelled) {
+        console.log("🟣 setRaw()", json.length);
+        setRaw(json);
+      }
     } catch (err) {
-      console.error("Error cargando asistencia:", err);
+      console.error("🔴 Error cargando asistencia:", err);
     } finally {
-      if (!cancelled) setLoading(false);
+      if (!cancelled) {
+        console.log("🟤 setLoading(false)");
+        setLoading(false);
+      }
     }
   }
 
   load();
+
   return () => {
     cancelled = true;
+    console.log("⚪ cleanup useEffect");
   };
-}, [studentId]); // 👈 SOLO studentId
+}, [studentId]);
+
 
 
   // =========================

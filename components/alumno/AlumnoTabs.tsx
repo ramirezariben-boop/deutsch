@@ -13,7 +13,7 @@ type Props = {
 };
 
 
-export default function AlumnoTabs({ alumnoId, course }: Props) {
+export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
   const [open, setOpen] =
     useState<null | "attendance" | "grades">(null);
 

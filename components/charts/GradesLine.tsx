@@ -65,7 +65,7 @@ const avg =
 
 
 return (
-  <div className="w-full h-full">
+  <div className="w-full h-[260px]">
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         data={data}

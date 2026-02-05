@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ResponsiveContainer } from "recharts";
 import {
   LineChart,
   Line,
@@ -59,9 +60,12 @@ export default function GradesLine({
   }
 
 return (
-  <div className="w-full h-[260px]">
+  <div className="w-full h-full">
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+      <LineChart
+        data={data}
+        margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
+      >
         <XAxis
           dataKey="key"
           tick={{ fill: "#9ca3af", fontSize: 12 }}
@@ -77,7 +81,6 @@ return (
             borderRadius: 8,
             color: "#ffffff",
           }}
-          itemStyle={{ color: "#ffffff" }}
         />
         <Line
           type="monotone"

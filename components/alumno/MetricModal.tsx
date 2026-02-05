@@ -17,7 +17,17 @@ export default function MetricModal({
       />
 
       {/* contenido */}
-      <div className="relative z-10 w-[700px] min-h-[360px] rounded-xl bg-neutral-900 border border-neutral-700 p-6">
+<div className="
+  relative z-10
+  w-[700px]
+  max-h-[80vh]
+  overflow-y-auto
+  rounded-xl
+  bg-neutral-900
+  border border-neutral-700
+  p-6
+">
+
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-neutral-400 hover:text-white"

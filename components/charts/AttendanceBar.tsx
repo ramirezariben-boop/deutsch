@@ -35,43 +35,28 @@ export default function AttendanceBar({
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("🔁 AttendanceBar render", {
-    studentId,
-    courseId,
-    loading,
-    rawLength: raw.length,
-  });
-
 useEffect(() => {
   let cancelled = false;
 
-  console.log("🟡 useEffect fired", { studentId });
 
   async function load() {
     try {
-      console.log("🟠 Fetching attendance...");
 
       const res = await fetch(
         `/api/attendance?student_id=${studentId}&course_id=${courseId}`,
         { cache: "no-store" }
       );
 
-      console.log("🟢 Fetch response", res.status);
-
       if (!res.ok) throw new Error("Fetch failed");
 
       const json = await res.json();
-      console.log("🟢 JSON recibido", json);
 
       if (!cancelled) {
-        console.log("🟣 setRaw()", json.length);
         setRaw(json);
       }
     } catch (err) {
-      console.error("🔴 Error cargando asistencia:", err);
     } finally {
       if (!cancelled) {
-        console.log("🟤 setLoading(false)");
         setLoading(false);
       }
     }
@@ -81,7 +66,6 @@ useEffect(() => {
 
   return () => {
     cancelled = true;
-    console.log("⚪ cleanup useEffect");
   };
 }, [studentId, courseId]);
 
@@ -168,34 +152,36 @@ const chartData: ChartRow[] = useMemo(() => {
   }
 
   return (
-    <div className="w-full h-72">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData}>
-          <XAxis dataKey="label" />
-          <YAxis domain={[0, 100]} />
-          <Tooltip
-            formatter={(_: any, __: any, ctx: any) => {
-              const d = ctx.payload;
-              return `${d.pct}% (${d.minutes} / ${d.max} min)`;
-            }}
-          />
-          <Bar dataKey="pct" fill="#60a5fa" radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
+<div className="w-full h-72 min-h-[280px]">
+  <ResponsiveContainer width="100%" height="100%">
+    <BarChart data={chartData}>
+      <XAxis dataKey="label" />
+      <YAxis domain={[0, 100]} />
+      <Tooltip
+        formatter={(_: any, __: any, ctx: any) => {
+          const d = ctx?.payload;
+          if (!d) return "";
+          return `${d.pct}% (${d.minutes} / ${d.max} min)`;
+        }}
+      />
+      <Bar dataKey="pct" fill="#60a5fa" radius={[4, 4, 0, 0]} />
+    </BarChart>
+  </ResponsiveContainer>
+
 
       {/* Resúmenes */}
-      <div className="mt-4 text-center text-sm text-neutral-300">
-        Asistencia real del curso:{" "}
-        <strong className="text-sky-400">{realPct} %</strong>
-      </div>
+<div className="mt-3 text-center text-xs text-neutral-400">
+  Asistencia real del curso:
+  <span className="ml-1 text-sky-400 font-semibold">
+    {realPct} %
+  </span>
+</div>
 
-      <div
-        className={`mt-1 text-center text-sm attendance-${status}`}
-      >
-        Asistencias institucionales:{" "}
-        <strong>{instAttended}</strong> / {instPossible} · Faltas:{" "}
-        <strong>{absences}</strong> / 2
-      </div>
+<div className={`mt-1 text-center text-xs attendance-${status}`}>
+  Institucional: <strong>{instAttended}</strong> / {instPossible}
+  · Faltas: <strong>{absences}</strong> / 2
+</div>
+
     </div>
   );
 }

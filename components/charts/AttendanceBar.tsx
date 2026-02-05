@@ -35,49 +35,58 @@ export default function AttendanceBar({
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(
-          `/api/attendance?student_id=${studentId}&course=${course}`,
-          { cache: "no-store" }
-        );
+useEffect(() => {
+  let cancelled = false;
 
-        if (!res.ok) throw new Error("Fetch failed");
+  async function load() {
+    try {
+      const res = await fetch(
+        `/api/attendance?student_id=${studentId}&course=${course}`,
+        { cache: "no-store" }
+      );
 
-        const json = await res.json();
-        setRaw(json);
-      } catch (err) {
-        console.error("Error cargando asistencia:", err);
-      } finally {
-        setLoading(false);
-      }
+      if (!res.ok) throw new Error("Fetch failed");
+
+      const json = await res.json();
+      if (!cancelled) setRaw(json);
+    } catch (err) {
+      console.error("Error cargando asistencia:", err);
+    } finally {
+      if (!cancelled) setLoading(false);
     }
+  }
 
-    load();
-  }, [studentId, course]);
+  load();
+  return () => {
+    cancelled = true;
+  };
+}, [studentId]); // 👈 SOLO studentId
+
 
   // =========================
   // TRANSFORMACIÓN PARA GRÁFICO
   // =========================
 
-  const chartData: ChartRow[] = useMemo(() => {
-    return raw
-      .map((r) => {
-        const classNum = Number(r.class_id.split("_").pop());
-        return {
-          label: `${classNum}${r.session_id}`,
-          pct: r.attendance_pct,
-          minutes: r.minutes_attended,
-          max: r.max_minutes,
-        };
-      })
-      .sort((a, b) => {
-        const nA = parseInt(a.label);
-        const nB = parseInt(b.label);
-        return nA - nB || a.label.localeCompare(b.label);
-      });
-  }, [raw]);
+const chartData: ChartRow[] = useMemo(() => {
+  return raw
+    .map((r, i) => {
+      const m = r.class_id.match(/_(\d{2})$/);
+      const classNum = m ? Number(m[1]) : i + 1;
+
+      return {
+        label: `${classNum}${r.session_id}`,
+        pct: r.attendance_pct,
+        minutes: r.minutes_attended,
+        max: r.max_minutes,
+      };
+    })
+    .sort((a, b) => {
+      const nA = Number(a.label.match(/\d+/)?.[0] ?? 0);
+      const nB = Number(b.label.match(/\d+/)?.[0] ?? 0);
+      return nA - nB || a.label.localeCompare(b.label);
+    });
+}, [raw]);
+
 
   // =========================
   // CÁLCULOS DE RESUMEN

@@ -10,6 +10,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+console.log("AttendanceBar render", {
+  loading,
+  rawLength: raw.length,
+});
+
+
 type AttendanceRow = {
   class_id: string;
   session_id: "A" | "B" | "C";

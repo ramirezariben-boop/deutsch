@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ResponsiveContainer } from "recharts";
 import {
   LineChart,
   Line,
@@ -9,6 +8,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 
 type GradePoint = {
@@ -59,6 +59,11 @@ export default function GradesLine({
     );
   }
 
+const avg =
+  data.filter(d => d.value != null).reduce((s, d) => s + (d.value ?? 0), 0) /
+  data.filter(d => d.value != null).length;
+
+
 return (
   <div className="w-full h-full">
     <ResponsiveContainer width="100%" height="100%">
@@ -74,6 +79,7 @@ return (
           domain={[0, 100]}
           tick={{ fill: "#9ca3af", fontSize: 12 }}
         />
+
         <Tooltip
           contentStyle={{
             background: "#0f172a",
@@ -82,17 +88,43 @@ return (
             color: "#ffffff",
           }}
         />
+
+        {/* línea de promedio */}
+        <ReferenceLine
+          y={avg}
+          stroke="#94a3b8"
+          strokeDasharray="4 4"
+          strokeOpacity={0.35}
+        />
+
+        {/* línea de calificaciones */}
         <Line
           type="monotone"
           dataKey="value"
           stroke="#60a5fa"
           strokeWidth={2}
+          isAnimationActive
           connectNulls={false}
           dot={({ cx, cy, payload }) =>
             payload.value == null ? null : (
-              <circle cx={cx} cy={cy} r={4} fill="#60a5fa" />
+              <circle
+                cx={cx}
+                cy={cy}
+                r={4}
+                fill="#60a5fa"
+                style={{
+                  filter: "drop-shadow(0 0 4px rgba(96,165,250,0.6))",
+                }}
+              />
             )
           }
+          activeDot={{
+            r: 6,
+            fill: "#93c5fd",
+            style: {
+              filter: "drop-shadow(0 0 8px rgba(147,197,253,0.9))",
+            },
+          }}
         />
       </LineChart>
     </ResponsiveContainer>

@@ -5,12 +5,11 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const course = searchParams.get("course");
+    const courseId = searchParams.get("course_id");
     const studentId = searchParams.get("student_id");
-    // class es opcional: si viene, filtra; si no, trae todo el curso
-    const classId = searchParams.get("class");
+    const classId = searchParams.get("class"); // opcional
 
-    if (!course || !studentId) {
+    if (!courseId || !studentId) {
       return NextResponse.json({ error: "Missing params" }, { status: 400 });
     }
 
@@ -23,7 +22,8 @@ export async function GET(req: Request) {
     }
 
     const url =
-      `${SHEETS_ENDPOINT}?course=${encodeURIComponent(course)}` +
+      `${SHEETS_ENDPOINT}` +
+      `?course=${encodeURIComponent(courseId)}` +
       `&student_id=${encodeURIComponent(studentId)}` +
       (classId ? `&class=${encodeURIComponent(classId)}` : "");
 
@@ -38,7 +38,6 @@ export async function GET(req: Request) {
 
     const raw = await res.json();
 
-    // raw debe ser array según el apps script (si no, normalizamos)
     const rows: any[] = Array.isArray(raw)
       ? raw
       : Array.isArray(raw.data)
@@ -47,25 +46,17 @@ export async function GET(req: Request) {
       ? raw.attendance_records
       : [];
 
-    // Normaliza tipos
-const out = rows.map((r) => ({
-  student_id: Number(r.student_id),
-  class_id: String(r.class_id),
-  session_id: String(r.session_id).toUpperCase(),
-  attendance_pct:
-    r.attendance_pct === null || r.attendance_pct === undefined
-      ? null
-      : Number(r.attendance_pct),
-  minutes_attended:
-    r.minutes_attended === null || r.minutes_attended === undefined
-      ? null
-      : Number(r.minutes_attended),
-  max_minutes:
-    r.max_minutes === null || r.max_minutes === undefined
-      ? null
-      : Number(r.max_minutes),
-}));
-
+    const out = rows.map((r) => ({
+      student_id: Number(r.student_id),
+      class_id: String(r.class_id),
+      session_id: String(r.session_id).toUpperCase(),
+      attendance_pct:
+        r.attendance_pct == null ? null : Number(r.attendance_pct),
+      minutes_attended:
+        r.minutes_attended == null ? null : Number(r.minutes_attended),
+      max_minutes:
+        r.max_minutes == null ? null : Number(r.max_minutes),
+    }));
 
     return NextResponse.json(out);
   } catch (err) {

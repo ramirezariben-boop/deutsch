@@ -27,17 +27,17 @@ type ChartRow = {
 
 export default function AttendanceBar({
   studentId,
-  course,
+  courseId,
 }: {
   studentId: number;
-  course: string;
+  courseId: string;
 }) {
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   console.log("🔁 AttendanceBar render", {
     studentId,
-    course,
+    courseId,
     loading,
     rawLength: raw.length,
   });
@@ -52,7 +52,7 @@ useEffect(() => {
       console.log("🟠 Fetching attendance...");
 
       const res = await fetch(
-        `/api/attendance?student_id=${studentId}&course=${course}`,
+        `/api/attendance?student_id=${studentId}&course_id=${courseId}`,
         { cache: "no-store" }
       );
 
@@ -83,7 +83,7 @@ useEffect(() => {
     cancelled = true;
     console.log("⚪ cleanup useEffect");
   };
-}, [studentId]);
+}, [studentId, courseId]);
 
 
 

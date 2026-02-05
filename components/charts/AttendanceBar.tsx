@@ -181,19 +181,27 @@ return (
             tick={{ fill: "#9ca3af", fontSize: 12 }}
           />
 
-          <Tooltip
-            cursor={{ fill: "rgba(255,255,255,0.06)" }}
-            contentStyle={{
-              background: "#0f172a",
-              border: "1px solid #334155",
-              borderRadius: 8,
-              fontSize: "12px",
-            }}
-            formatter={(_: any, __: any, ctx: any) => {
-              const d = ctx.payload;
-              return `${d.pct}% (${d.minutes} / ${d.max} min)`;
-            }}
-          />
+<Tooltip
+  cursor={{ fill: "rgba(255,255,255,0.05)" }}
+  contentStyle={{
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: 8,
+    color: "#ffffff",          // 👈 TEXTO BLANCO
+  }}
+  labelStyle={{
+    color: "#e5e7eb",          // 👈 label (1A, 2B…) claro
+    fontWeight: 500,
+  }}
+  itemStyle={{
+    color: "#ffffff",          // 👈 valor pct / minutos
+  }}
+  formatter={(_: any, __: any, ctx: any) => {
+    const d = ctx.payload;
+    return `${d.pct}% (${d.minutes} / ${d.max} min)`;
+  }}
+/>
+
 
           <Bar
             dataKey="pct"

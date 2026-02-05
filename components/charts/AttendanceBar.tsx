@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 type AttendanceRow = {
   class_id: string;
@@ -19,11 +12,13 @@ type AttendanceRow = {
 };
 
 type ChartRow = {
-  label: string; // 1A, 1B, 2C...
+  label: string;
   pct: number;
   minutes: number;
   max: number;
+  session: "A" | "B" | "C";
 };
+
 
 export default function AttendanceBar({
   studentId,
@@ -34,6 +29,21 @@ export default function AttendanceBar({
 }) {
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
+
+function getBarColor(
+  pct: number,
+  session: "A" | "B" | "C"
+) {
+  // estado crítico domina
+  if (pct < 50) return "#ef4444";     // rojo
+  if (pct < 80) return "#facc15";     // amarillo
+
+  // estado OK → color por sesión
+  if (session === "A") return "#60a5fa"; // azul
+  if (session === "B") return "#a78bfa"; // violeta
+  return "#22d3ee";                     // cyan
+}
+
 
 useEffect(() => {
   let cancelled = false;
@@ -76,18 +86,20 @@ useEffect(() => {
   // =========================
 
 const chartData: ChartRow[] = useMemo(() => {
-  return raw
-    .map((r, i) => {
-      const m = r.class_id.match(/_(\d{2})$/);
-      const classNum = m ? Number(m[1]) : i + 1;
+return raw
+  .map((r, i) => {
+    const m = r.class_id.match(/_(\d{2})$/);
+    const classNum = m ? Number(m[1]) : i + 1;
 
-      return {
-        label: `${classNum}${r.session_id}`,
-        pct: r.attendance_pct,
-        minutes: r.minutes_attended,
-        max: r.max_minutes,
-      };
-    })
+    return {
+      label: `${classNum}${r.session_id}`,
+      pct: r.attendance_pct,
+      minutes: r.minutes_attended,
+      max: r.max_minutes,
+      session: r.session_id,
+    };
+  })
+
     .sort((a, b) => {
       const nA = Number(a.label.match(/\d+/)?.[0] ?? 0);
       const nB = Number(b.label.match(/\d+/)?.[0] ?? 0);
@@ -151,37 +163,68 @@ const chartData: ChartRow[] = useMemo(() => {
     );
   }
 
-  return (
-<div className="w-full h-72 min-h-[280px]">
-  <ResponsiveContainer width="100%" height="100%">
-    <BarChart data={chartData}>
-      <XAxis dataKey="label" />
-      <YAxis domain={[0, 100]} />
-      <Tooltip
-        formatter={(_: any, __: any, ctx: any) => {
-          const d = ctx?.payload;
-          if (!d) return "";
-          return `${d.pct}% (${d.minutes} / ${d.max} min)`;
-        }}
-      />
-      <Bar dataKey="pct" fill="#60a5fa" radius={[4, 4, 0, 0]} />
-    </BarChart>
-  </ResponsiveContainer>
+return (
+  <div className="w-full h-full flex flex-col">
+    {/* ===== CHART ===== */}
+    <div className="flex-1 min-h-[240px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+
+<XAxis dataKey="label" tick={{ fill: "#9ca3af", fontSize: 11 }} />
+<YAxis tick={{ fill: "#9ca3af", fontSize: 11 }} />
+
+<Tooltip
+  cursor={{ fill: "rgba(255,255,255,0.05)" }}
+  contentStyle={{
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: 8,
+    fontSize: "12px",
+  }}
+  formatter={(_: any, __: any, ctx: any) => {
+    const d = ctx.payload;
+    return `${d.pct}% (${d.minutes} / ${d.max} min)`;
+  }}
+/>
+
+<Bar
+  dataKey="pct"
+  radius={[6, 6, 0, 0]}
+  isAnimationActive
+  activeBar={{
+    fill: "#e0f2fe",
+    stroke: "#38bdf8",
+    strokeWidth: 2,
+  }}
+>
+  {chartData.map((entry, index) => (
+    <Cell
+      key={`cell-${index}`}
+      fill={getBarColor(entry.pct, entry.session)}
+    />
+  ))}
+</Bar>
 
 
-      {/* Resúmenes */}
-<div className="mt-3 text-center text-xs text-neutral-400">
-  Asistencia real del curso:
-  <span className="ml-1 text-sky-400 font-semibold">
-    {realPct} %
-  </span>
-</div>
-
-<div className={`mt-1 text-center text-xs attendance-${status}`}>
-  Institucional: <strong>{instAttended}</strong> / {instPossible}
-  · Faltas: <strong>{absences}</strong> / 2
-</div>
-
+        </BarChart>
+      </ResponsiveContainer>
     </div>
-  );
+
+    {/* ===== RESUMEN ===== */}
+    <div className="mt-3 text-center text-xs text-neutral-400 space-y-1">
+      <div>
+        Asistencia real del curso:
+        <span className="ml-1 text-sky-400 font-semibold">
+          {realPct} %
+        </span>
+      </div>
+
+      <div className={`attendance-${status}`}>
+        Institucional: <strong>{instAttended}</strong> / {instPossible}
+        · Faltas: <strong>{absences}</strong> / 2
+      </div>
+    </div>
+  </div>
+);
+
 }

@@ -21,7 +21,7 @@ export default function MetricModal({
   className="
     relative z-10
     w-[720px]
-    h-[520px]
+    max-h-[80vh]
     rounded-xl
     bg-neutral-900
     border border-neutral-700

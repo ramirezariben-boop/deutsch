@@ -164,54 +164,59 @@ return raw
   }
 
 return (
-  <div className="w-full h-full flex flex-col">
+  <div className="w-full">
     {/* ===== CHART ===== */}
-    <div className="flex-1 min-h-[240px]">
+    <div className="w-full h-[260px]">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+        <BarChart
+          data={chartData}
+          margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
+        >
+          <XAxis
+            dataKey="label"
+            tick={{ fill: "#9ca3af", fontSize: 12 }}
+          />
+          <YAxis
+            domain={[0, 100]}
+            tick={{ fill: "#9ca3af", fontSize: 12 }}
+          />
 
-<XAxis dataKey="label" tick={{ fill: "#9ca3af", fontSize: 11 }} />
-<YAxis tick={{ fill: "#9ca3af", fontSize: 11 }} />
+          <Tooltip
+            cursor={{ fill: "rgba(255,255,255,0.06)" }}
+            contentStyle={{
+              background: "#0f172a",
+              border: "1px solid #334155",
+              borderRadius: 8,
+              fontSize: "12px",
+            }}
+            formatter={(_: any, __: any, ctx: any) => {
+              const d = ctx.payload;
+              return `${d.pct}% (${d.minutes} / ${d.max} min)`;
+            }}
+          />
 
-<Tooltip
-  cursor={{ fill: "rgba(255,255,255,0.05)" }}
-  contentStyle={{
-    background: "#0f172a",
-    border: "1px solid #334155",
-    borderRadius: 8,
-    fontSize: "12px",
-  }}
-  formatter={(_: any, __: any, ctx: any) => {
-    const d = ctx.payload;
-    return `${d.pct}% (${d.minutes} / ${d.max} min)`;
-  }}
-/>
-
-<Bar
-  dataKey="pct"
-  radius={[6, 6, 0, 0]}
-  isAnimationActive
-  activeBar={{
-    fill: "#e0f2fe",
-    stroke: "#38bdf8",
-    strokeWidth: 2,
-  }}
->
-  {chartData.map((entry, index) => (
-    <Cell
-      key={`cell-${index}`}
-      fill={getBarColor(entry.pct, entry.session)}
-    />
-  ))}
-</Bar>
-
-
+          <Bar
+            dataKey="pct"
+            radius={[6, 6, 0, 0]}
+            activeBar={{
+              fill: "#e0f2fe",
+              stroke: "#38bdf8",
+              strokeWidth: 2,
+            }}
+          >
+            {chartData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={getBarColor(entry.pct, entry.session)}
+              />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>
 
     {/* ===== RESUMEN ===== */}
-    <div className="mt-3 text-center text-xs text-neutral-400 space-y-1">
+    <div className="mt-4 text-center text-xs text-neutral-400 space-y-1">
       <div>
         Asistencia real del curso:
         <span className="ml-1 text-sky-400 font-semibold">
@@ -219,7 +224,15 @@ return (
         </span>
       </div>
 
-      <div className={`attendance-${status}`}>
+      <div
+        className={
+          status === "danger"
+            ? "text-red-400"
+            : status === "warning"
+            ? "text-yellow-400"
+            : "text-emerald-400"
+        }
+      >
         Institucional: <strong>{instAttended}</strong> / {instPossible}
         · Faltas: <strong>{absences}</strong> / 2
       </div>

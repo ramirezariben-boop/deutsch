@@ -71,31 +71,32 @@ useEffect(() => {
   // =========================
 
 const chartData: ChartRow[] = useMemo(() => {
-return raw
-  .map((r, i) => {
-    const m = r.class_id.match(/_(\d{2})$/);
-    const classNum = m ? Number(m[1]) : i + 1;
+  return raw
+    .map((r, i) => {
+      const m = r.class_id.match(/_(\d{2})$/);
+      const classNum = m ? Number(m[1]) : i + 1;
 
-return {
-  label: `${classNum}${r.session_id}`,
-  pct:
-  r.max_minutes > 0
-    ? +( ((r.minutes_attended ?? 0) / r.max_minutes) * 100 ).toFixed(2)
-    : 0,
+      const minutes = r.minutes_attended ?? 0;
+      const max = r.max_minutes ?? 0;
 
-  minutes: r.minutes_attended ?? 0,
-  max: r.max_minutes ?? 0,
-  session: r.session_id,
-};
+      const pct =
+        max > 0 ? +(minutes / max * 100).toFixed(2) : 0;
 
-  })
-
+      return {
+        label: `${classNum}${r.session_id}`,
+        pct,                 // ✅ SIEMPRE número
+        minutes,
+        max,
+        session: r.session_id,
+      };
+    })
     .sort((a, b) => {
       const nA = Number(a.label.match(/\d+/)?.[0] ?? 0);
       const nB = Number(b.label.match(/\d+/)?.[0] ?? 0);
       return nA - nB || a.label.localeCompare(b.label);
     });
 }, [raw]);
+
 
 
   // =========================
@@ -122,8 +123,10 @@ return {
 
 function attended(r: AttendanceRow) {
   const minutes = r.minutes_attended ?? 0;
-  return minutes >= r.max_minutes * 0.5;
+  const max = r.max_minutes ?? 0;
+  return max > 0 && minutes >= max * 0.5;
 }
+
 
 
   let instAttended = 0;

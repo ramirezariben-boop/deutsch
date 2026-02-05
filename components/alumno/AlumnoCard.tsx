@@ -27,10 +27,12 @@ export default function AlumnoCard({ alumno }: { alumno: Alumno }) {
         Curso: {alumno.course} · Lista: {alumno.list_number} · ID: {alumno.id}
       </div>
 
-      <AlumnoTabs
+<AlumnoTabs
   alumnoId={alumno.id}
-  course={alumno.course}
+  course={alumno.course}          // basico_4
+  courseId="2026_1"                // por ahora puede ser hardcodeado mientras
 />
+
 
     </div>
   );

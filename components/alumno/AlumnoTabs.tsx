@@ -9,7 +9,9 @@ import GradesLine from "../charts/GradesLine";
 type Props = {
   alumnoId: number;
   course: string;
+  courseId: string; 
 };
+
 
 export default function AlumnoTabs({ alumnoId, course }: Props) {
   const [open, setOpen] =
@@ -36,7 +38,11 @@ export default function AlumnoTabs({ alumnoId, course }: Props) {
       {open && (
         <MetricModal onClose={() => setOpen(null)}>
           {open === "attendance" && (
-            <AttendanceBar studentId={alumnoId} courseId={course}/>
+            <AttendanceBar
+  studentId={alumnoId}
+  courseId={courseId}
+/>
+	
           )}
 
           {open === "grades" && (

@@ -30,21 +30,6 @@ export default function AttendanceBar({
   const [raw, setRaw] = useState<AttendanceRow[]>([]);
   const [loading, setLoading] = useState(true);
 
-function getBarColor(
-  pct: number,
-  session: "A" | "B" | "C"
-) {
-  // estado crítico domina
-  if (pct < 50) return "#ef4444";     // rojo
-  if (pct < 80) return "#facc15";     // amarillo
-
-  // estado OK → color por sesión
-  if (session === "A") return "#60a5fa"; // azul
-  if (session === "B") return "#a78bfa"; // violeta
-  return "#22d3ee";                     // cyan
-}
-
-
 useEffect(() => {
   let cancelled = false;
 
@@ -163,6 +148,26 @@ return raw
     );
   }
 
+const SESSION_COLORS = {
+  A: [96, 165, 250],  // azul
+  B: [167, 139, 250], // violeta
+  C: [34, 211, 238],  // cyan
+};
+
+
+function colorByPct(
+  pct: number,
+  session: "A" | "B" | "C"
+) {
+  const [r, g, b] = SESSION_COLORS[session];
+
+  // clamp 40–100 → 0.4–1
+  const intensity = Math.max(0.4, Math.min(1, pct / 100));
+
+  return `rgba(${r}, ${g}, ${b}, ${intensity})`;
+}
+
+
 return (
   <div className="w-full">
     {/* ===== CHART ===== */}
@@ -215,7 +220,7 @@ return (
             {chartData.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={getBarColor(entry.pct, entry.session)}
+                fill={colorByPct(entry.pct, entry.session)}
               />
             ))}
           </Bar>

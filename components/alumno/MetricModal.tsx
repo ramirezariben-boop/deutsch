@@ -27,6 +27,7 @@ export default function MetricModal({
     border border-neutral-700
     p-6
     flex flex-col 
+    animate-scale-in
   "
 >
 

@@ -3,20 +3,21 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
-    // Leemos SIEMPRE como texto, da igual si viene JSON o urlencoded
+    // 🔑 LEER UNA SOLA VEZ
     const raw = await req.text();
-    // console.log("RAW BODY LOGIN:", raw);
+    console.log("RAW LOGIN BODY >>>", JSON.stringify(raw));
 
     let id: string | null = null;
     let secret: string | null = null;
 
-    // Si parece JSON (empieza con "{"), lo parseamos como JSON
+    // JSON
     if (raw.trim().startsWith("{")) {
       const body = JSON.parse(raw);
       id = body.id ?? null;
       secret = body.password ?? body.nip ?? null;
-    } else {
-      // Si no, lo tratamos como URLSearchParams: id=64&nip=1672
+    } 
+    // URL encoded
+    else {
       const params = new URLSearchParams(raw);
       id = params.get("id");
       secret = params.get("password") ?? params.get("nip");
@@ -26,7 +27,6 @@ export async function POST(req: Request) {
       return new NextResponse("Datos inválidos", { status: 400 });
     }
 
-    // Buscar usuario en la tabla "User"
     const rows: any[] = await prisma.$queryRawUnsafe(
       `SELECT id, password, name FROM "User" WHERE id = $1`,
       Number(id)
@@ -38,11 +38,16 @@ export async function POST(req: Request) {
 
     const user = rows[0];
 
-    // Comparamos con la columna password,
-    // aunque el frontend lo llame nip o password
-    if (user.password !== secret) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    console.log("DB PASSWORD >>>", user.password, typeof user.password);
+    console.log("INPUT SECRET >>>", secret, typeof secret);
+
+    // comparación STRING–STRING (ceros intactos)
+const normalize = (v: string) => v.padStart(4, "0");
+
+if (normalize(String(user.password)) !== normalize(String(secret))) {
+  return new NextResponse("Unauthorized", { status: 401 });
+}
+
 
     const res = NextResponse.json({ ok: true, name: user.name });
 

@@ -48,6 +48,20 @@ useEffect(() => {
 
       if (!cancelled) {
         setRaw(json);
+console.log(
+  "RAW attendance (debug)",
+  json
+    .filter((r: any) => String(r.student_id) === "7")
+    .map(r => ({
+      student_id: r.student_id,
+      typeof_student_id: typeof r.student_id,
+      class_id: r.class_id,
+      session_id: r.session_id,
+      minutes: r.minutes_attended,
+    }))
+);
+
+
       }
     } catch (err) {
     } finally {
@@ -76,11 +90,18 @@ const chartData: ChartRow[] = useMemo(() => {
       const m = r.class_id.match(/_(\d{2})$/);
       const classNum = m ? Number(m[1]) : i + 1;
 
-      const minutes = r.minutes_attended ?? 0;
-      const max = r.max_minutes ?? 0;
+const minutes =
+  r.minutes_attended != null
+    ? r.minutes_attended
+    : r.attendance_pct != null && r.max_minutes
+    ? +(r.attendance_pct / 100 * r.max_minutes).toFixed(2)
+    : 0;
 
-      const pct =
-        max > 0 ? +(minutes / max * 100).toFixed(2) : 0;
+const max = r.max_minutes ?? 0;
+
+const pct =
+  max > 0 ? +(minutes / max * 100).toFixed(2) : 0;
+
 
       return {
         label: `${classNum}${r.session_id}`,
@@ -122,10 +143,15 @@ const chartData: ChartRow[] = useMemo(() => {
   }
 
 function attended(r: AttendanceRow) {
-  const minutes = r.minutes_attended ?? 0;
-  const max = r.max_minutes ?? 0;
-  return max > 0 && minutes >= max * 0.5;
+  const pct =
+    r.attendance_pct ??
+    (r.max_minutes > 0 && r.minutes_attended != null
+      ? (r.minutes_attended / r.max_minutes) * 100
+      : 0);
+
+  return pct >= 50;
 }
+
 
 
 

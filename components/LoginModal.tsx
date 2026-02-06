@@ -7,21 +7,29 @@ export default function LoginModal({ onClose }) {
   const [nip, setNip] = useState("");
   const [error, setError] = useState("");
 
-  async function handleLogin(e) {
-    e.preventDefault();
+async function handleLogin(e) {
+  e.preventDefault();
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `id=${id}&nip=${nip}`,
-    });
+  const body = new URLSearchParams({
+    id,
+    nip, // 👈 sigue siendo string, conserva ceros
+  });
 
-    if (res.ok) {
-      window.location.reload();
-    } else {
-      setError("ID oder NIP falsch.");
-    }
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: body.toString(),
+  });
+
+  if (res.ok) {
+    window.location.reload();
+  } else {
+    setError("ID oder NIP falsch.");
   }
+}
+
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[2000]">

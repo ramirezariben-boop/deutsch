@@ -40,7 +40,7 @@ export default async function MainPage() {
           </a>
 
           <a
-            href="https://classroom.google.com"
+            href="https://classroom.google.com/c/NzkyODQ5MTgyOTkx"
             className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
           >
             🤑 Extra MXP 💰

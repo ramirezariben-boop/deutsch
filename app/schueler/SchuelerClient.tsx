@@ -49,6 +49,15 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             🎶 Lyrickahoot! 🧩
           </a>
+
+          <a
+            href="https://race-panel.onrender.com/student.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
+          >
+            ✋ Nimm teil! 🏆
+          </a>
         </div>
 
         {/* Columna derecha */}

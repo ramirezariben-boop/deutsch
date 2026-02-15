@@ -65,7 +65,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
             rel="noopener noreferrer"
             className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
           >
-            🤓 Nimm teil! 📚
+            🤓 Grammatik 📚
           </a>
         </div>
 

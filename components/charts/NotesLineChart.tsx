@@ -67,7 +67,11 @@ const renderLine = (
       {renderLine("lesen", p.lesen)}
       {renderLine("grammatik", p.grammatik)}
       {renderLine("hoeren", p.hoeren, `(${p.hoeren_raw}/20)`)}
-      {renderLine("practica", p.practica, `(${p.practica_raw}/100)`)}
+      {renderLine(
+  	"practica",
+  	p.practica,
+ 	 `(${Number(p.practica_raw || 0).toFixed(2)}/100)`
+                )}
       {renderLine("tarea", p.tarea)}
       {renderLine("promedio", p.promedio)}
     </div>

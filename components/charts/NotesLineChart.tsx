@@ -108,6 +108,7 @@ export default function NotesLineChart({
   course: string;
 }) {
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const num = (v: any) => Number(v || 0);
 
   const [visible, setVisible] = useState({
@@ -128,6 +129,24 @@ export default function NotesLineChart({
     }));
   };
 
+const clearAll = () => {
+  setVisible((prev) =>
+    Object.keys(prev).reduce((acc, key) => {
+      acc[key as keyof typeof prev] = false;
+      return acc;
+    }, {} as typeof prev)
+  );
+};
+
+const selectAll = () => {
+  setVisible((prev) =>
+    Object.keys(prev).reduce((acc, key) => {
+      acc[key as keyof typeof prev] = true;
+      return acc;
+    }, {} as typeof prev)
+  );
+};
+
   const COLORS: Record<keyof typeof visible, string> = {
     sprechen: "#ff4d4f",
     schreiben: "#ffa940",
@@ -142,16 +161,29 @@ export default function NotesLineChart({
   /* ===============================
      FETCH
   ================================= */
-  useEffect(() => {
-    fetch(`/api/student-wide-grades?studentId=${studentId}`)
-      .then((res) => res.json())
-      .then((row) => {
-        if (!row || row.error) return;
-        course === "ALL"
-          ? buildAllCourses(row)
-          : buildSingleCourse(row);
-      });
-  }, [studentId, course]);
+useEffect(() => {
+  setLoading(true);
+
+  fetch(`/api/student-wide-grades?studentId=${studentId}`)
+    .then((res) => res.json())
+    .then((row) => {
+      if (!row || row.error) {
+        setData([]);
+        return;
+      }
+
+      course === "ALL"
+        ? buildAllCourses(row)
+        : buildSingleCourse(row);
+    })
+    .catch(() => {
+      setData([]);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+
+}, [studentId, course]);
 
   /* ===============================
      BUILD SINGLE
@@ -294,32 +326,66 @@ export default function NotesLineChart({
     <div className="w-full">
 
       {/* TOGGLES */}
-      <div className="flex flex-wrap gap-3 text-xs mb-4">
-        {Object.keys(visible).map((key) => {
+<div className="flex flex-wrap gap-3 text-xs mb-4">
+
+  {/* CONTROL GLOBAL */}
+<button
+  onClick={clearAll}
+  disabled={loading}
+  className="px-2 py-1 rounded border border-neutral-500 text-neutral-300 hover:bg-neutral-800 transition"
+>
+  Ninguno
+</button>
+
+  <button
+    onClick={selectAll}
+    disabled={loading}
+    className="px-2 py-1 rounded border border-neutral-500 text-neutral-300 hover:bg-neutral-800 transition"
+  >
+    Todos
+  </button>
+
+  {Object.keys(visible).map((key) => {
           const typedKey = key as keyof typeof visible;
           const color = COLORS[typedKey];
 
           return (
-            <button
-              key={key}
-              onClick={() => toggle(typedKey)}
-              className="px-2 py-1 rounded border transition"
-              style={{
-                borderColor: color,
-                color: visible[typedKey] ? color : "#666",
-                opacity: visible[typedKey] ? 1 : 0.4,
-                boxShadow: visible[typedKey]
-                  ? `0 0 4px ${color}`
-                  : "none",
-              }}
-            >
-              {LABELS[key]}
-            </button>
+           <button
+  key={key}
+  disabled={loading}
+  onClick={() => toggle(typedKey)}
+  className="px-2 py-1 rounded border transition"
+  style={{
+    borderColor: color,
+    color: visible[typedKey] ? color : "#666",
+    opacity: loading
+      ? 0.3
+      : visible[typedKey]
+      ? 1
+      : 0.4,
+    boxShadow:
+      !loading && visible[typedKey]
+        ? `0 0 4px ${color}`
+        : "none",
+    cursor: loading ? "not-allowed" : "pointer",
+  }}
+>
+  {LABELS[key]}
+</button>
           );
         })}
       </div>
 
-      <ResponsiveContainer width="100%" height={280}>
+      {loading ? (
+  <div className="animate-pulse text-neutral-500 text-sm mb-4">
+    Cargando cursos...
+  </div>
+) : data.length === 0 ? (
+  <div className="text-neutral-500 text-sm mb-4">
+    No hay cursos con calificación registrada.
+  </div>
+) : (
+  <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data}>
           <CartesianGrid stroke="#333" />
           <XAxis
@@ -360,6 +426,7 @@ export default function NotesLineChart({
           })}
         </LineChart>
       </ResponsiveContainer>
+)}
     </div>
   );
 }

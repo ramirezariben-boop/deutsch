@@ -5,6 +5,7 @@ import { useState } from "react";
 import MetricModal from "./MetricModal";
 import AttendanceBar from "../charts/AttendanceBar";
 import GradesLine from "../charts/GradesLine";
+import StudentNotes from "./StudentNotes";
 
 type Props = {
   alumnoId: number;
@@ -15,7 +16,7 @@ type Props = {
 
 export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
   const [open, setOpen] =
-    useState<null | "attendance" | "grades">(null);
+    useState<null | "attendance" | "grades" | "notas">(null);
 
   return (
     <>
@@ -31,8 +32,16 @@ export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
           onClick={() => setOpen("grades")}
           className="flex-1 rounded bg-neutral-800 hover:bg-neutral-700 py-2"
         >
-          Calificaciones
+          Práctica
         </button>
+
+        <button
+          onClick={() => setOpen("notas")}
+          className="flex-1 rounded bg-neutral-800 hover:bg-neutral-700 py-2"
+        >
+          Notas
+        </button>
+
       </div>
 
       {open && (
@@ -51,6 +60,13 @@ export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
               course={course}
             />
           )}
+
+          {open === "notas" && (
+            <StudentNotes
+              studentId={alumnoId}
+            />
+          )}
+
         </MetricModal>
       )}
     </>

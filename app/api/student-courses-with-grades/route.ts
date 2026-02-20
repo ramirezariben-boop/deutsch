@@ -7,8 +7,15 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const studentId = searchParams.get("studentId");
 
-  const res = await fetch(`${GAS_URL}?studentId=${studentId}`);
-  const row = await res.json();
+const res = await fetch(`${GAS_URL}?studentId=${studentId}`);
+
+if (!res.ok) {
+  const text = await res.text();
+  console.error("GAS ERROR:", text);
+  return NextResponse.json([]);
+}
+
+const row = await res.json();
 
   if (!row || row.error) {
     return NextResponse.json([]);

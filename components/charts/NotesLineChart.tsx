@@ -168,7 +168,7 @@ function buildAllCourses(row: any) {
 
   return (
     <div className="h-[420px]">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
 
 <defs>

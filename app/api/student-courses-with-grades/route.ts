@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbyw33MkXVwLR1Bz5jY0bpVz6Mhu7kpzetpvWH6GA4FLygTdWTiuG7PbkGqdjWqAF27B/exec";
+  "https://script.google.com/macros/s/AKfycbxGlJJlOHEVKiMsCxuZd4Ct28G0q6scNa9VeCYTjYKXX65VtOkhRJrBM2BOSu36jzs/exec";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

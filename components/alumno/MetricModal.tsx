@@ -20,14 +20,14 @@ export default function MetricModal({
 <div
   className="
     relative z-10
-    w-[1100px] 
-    gmax-w-[95vw]
-    max-h-[80vh]
+    w-full
+    max-w-6xl
+    max-h-[85vh]
     rounded-xl
     bg-neutral-900
     border border-neutral-700
     p-6
-    flex flex-col 
+    flex flex-col overflow-y-auto
     animate-scale-in
   "
 >

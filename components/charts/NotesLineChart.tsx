@@ -221,7 +221,7 @@ function buildSingleCourse(row: any) {
      RENDER
   ================================= */
   return (
-    <div className="h-[480px]">
+    <div className="w-full h-[360px]">
 
       {/* TOGGLES */}
       <div className="flex flex-wrap gap-3 text-xs mb-4">
@@ -254,7 +254,7 @@ function buildSingleCourse(row: any) {
         })}
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" aspect={2.2}>
         <LineChart data={data}>
           <CartesianGrid stroke="#333" />
           <XAxis

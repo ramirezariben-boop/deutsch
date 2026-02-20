@@ -54,7 +54,7 @@ const CustomTooltip = ({
       {renderLine("lesen", p.lesen)}
       {renderLine("grammatik", p.grammatik)}
       {renderLine("hoeren", p.hoeren, `(${p.hoeren_raw}/20)`)}
-      {renderLine("evaluacion", p.evaluacion)}
+      {renderLine("practica", p.practica, `(${p.practica_raw}/100)`)}
       {renderLine("tarea", p.tarea)}
       {renderLine("promedio", p.promedio)}
     </div>
@@ -80,7 +80,7 @@ export default function NotesLineChart({
     hoeren: true,
     lesen: true,
     grammatik: true,
-    evaluacion: true,
+    practica: true,
     tarea: true,
     promedio: true,
   });
@@ -98,7 +98,7 @@ export default function NotesLineChart({
     hoeren: "#36cfc9",
     lesen: "#597ef7",
     grammatik: "#9254de",
-    evaluacion: "#73d13d",
+    practica: "#73d13d",
     tarea: "#f759ab",
     promedio: "#ffffff",
   };
@@ -126,13 +126,14 @@ export default function NotesLineChart({
     const rawHoeren = num(row[base + "Hören"]);
     const rawSchreiben = num(row[base + "Schreiben"]);
     const rawSprechen = num(row[base + "Sprechen"]);
+    const rawPractica = num(row[base + "PracticaPromedio"]); // sobre 100
 
     const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
     const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
     const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
     const lesen = num(row[base + "Lesen"]);
     const grammatik = num(row[base + "Grammatik"]);
-    const evaluacion = num(row[base + "Continua"]);
+    const practica = rawPractica ? rawPractica / 10 : 0;
     const tarea = num(row[base + "Integrador"]);
 
     const promedio =
@@ -141,7 +142,7 @@ export default function NotesLineChart({
         hoeren +
         lesen +
         grammatik +
-        evaluacion +
+        practica +
         tarea) / 7;
 
     const hasData =
@@ -150,7 +151,7 @@ export default function NotesLineChart({
       hoeren > 0 ||
       lesen > 0 ||
       grammatik > 0 ||
-      evaluacion > 0 ||
+      practica > 0 ||
       tarea > 0;
 
     if (!hasData) {
@@ -169,8 +170,9 @@ export default function NotesLineChart({
         hoeren_raw: rawHoeren,
         lesen,
         grammatik,
-        evaluacion,
-        tarea,
+        practica,
+        practica_raw: rawPractica,
+	tarea,
         promedio,
       },
     ]);
@@ -195,14 +197,14 @@ export default function NotesLineChart({
       const rawSprechen = num(row[base + "Sprechen"]);
       const rawSchreiben = num(row[base + "Schreiben"]);
       const rawHoeren = num(row[base + "Hören"]);
-
+      const rawPractica = num(row[base + "PracticaPromedio"]); // sobre 100
 
       const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
       const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
       const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
       const lesen = num(row[base + "Lesen"]);
       const grammatik = num(row[base + "Grammatik"]);
-      const evaluacion = num(row[base + "Continua"]);
+      const practica = rawPractica ? rawPractica / 10 : 0;
       const tarea = num(row[base + "Integrador"]);
 
       const promedio =
@@ -211,7 +213,7 @@ export default function NotesLineChart({
           hoeren +
           lesen +
           grammatik +
-          evaluacion +
+          practica +
           tarea) / 7;
 
       const hasData =
@@ -220,7 +222,7 @@ export default function NotesLineChart({
         hoeren > 0 ||
         lesen > 0 ||
         grammatik > 0 ||
-        evaluacion > 0 ||
+        practica > 0 ||
         tarea > 0;
 
       if (!hasData) return;
@@ -228,12 +230,15 @@ export default function NotesLineChart({
       result.push({
         label: `${courseName}${examNumber === "1" ? "a" : "b"}`,
         sprechen,
+	sprechen_raw: rawSprechen,
         schreiben,
+        schreiben_raw: rawSchreiben,
+	hoeren,
         hoeren_raw: rawHoeren,
-        hoeren,
         lesen,
         grammatik,
-        evaluacion,
+        practica,
+	practica_raw: rawPractica,
         tarea,
         promedio,
       });

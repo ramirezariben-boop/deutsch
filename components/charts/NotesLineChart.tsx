@@ -124,8 +124,11 @@ export default function NotesLineChart({
     const base = `${course}_`;
 
     const rawHoeren = num(row[base + "Hören"]);
-    const sprechen = num(row[base + "Sprechen"]);
-    const schreiben = num(row[base + "Schreiben"]);
+    const rawSchreiben = num(row[base + "Schreiben"]);
+    const rawSprechen = num(row[base + "Sprechen"]);
+
+    const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
+    const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
     const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
     const lesen = num(row[base + "Lesen"]);
     const grammatik = num(row[base + "Grammatik"]);
@@ -158,10 +161,12 @@ export default function NotesLineChart({
     setData([
       {
         exam: course.split("_").slice(-1)[0],
+	sprechen,
         sprechen_raw: rawSprechen,
+	schreiben,
         schreiben_raw: rawSchreiben,
+	hoeren,
         hoeren_raw: rawHoeren,
-        hoeren,
         lesen,
         grammatik,
         evaluacion,
@@ -190,6 +195,8 @@ export default function NotesLineChart({
       const rawSprechen = num(row[base + "Sprechen"]);
       const rawSchreiben = num(row[base + "Schreiben"]);
       const rawHoeren = num(row[base + "Hören"]);
+
+
       const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
       const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
       const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;

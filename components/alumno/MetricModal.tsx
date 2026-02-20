@@ -22,12 +22,13 @@ export default function MetricModal({
     relative z-10
     w-full
     max-w-6xl
-    h-[85vh]
+    max-h-[85vh]
     rounded-xl
     bg-neutral-900
     border border-neutral-700
     p-6
-    flex flex-col overflow-y-auto
+    flex flex-col
+    overflow-y-auto
     animate-scale-in
   "
 >

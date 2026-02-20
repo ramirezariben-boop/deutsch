@@ -254,7 +254,7 @@ function buildSingleCourse(row: any) {
         })}
       </div>
 
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" aspect={2.2}>
         <LineChart data={data}>
           <CartesianGrid stroke="#333" />
           <XAxis

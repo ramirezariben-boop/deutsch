@@ -56,26 +56,45 @@ const renderLine = (
     );
   };
 
-  return (
-    <div className="pointer-events-none bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
-      <p className="font-semibold mb-1">
-        {label}
-      </p>
+return (
+  <div className="pointer-events-none bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
+    <p className="font-semibold mb-1">
+      {label}
+    </p>
 
-      {renderLine("sprechen", p.sprechen, `(${p.sprechen_raw || 0}/20)`)}
-      {renderLine("schreiben", p.schreiben, `(${p.schreiben_raw || 0}/20)`)}
-      {renderLine("lesen", p.lesen)}
-      {renderLine("grammatik", p.grammatik)}
-      {renderLine("hoeren", p.hoeren, `(${p.hoeren_raw}/20)`)}
-      {renderLine(
-  	"practica",
-  	p.practica,
- 	 `(${Number(p.practica_raw || 0).toFixed(2)}/100)`
-                )}
-      {renderLine("tarea", p.tarea)}
-      {renderLine("promedio", p.promedio)}
-    </div>
-  );
+    {renderLine(
+      "sprechen",
+      p.sprechen,
+      `(${Number(p.sprechen_raw || 0).toFixed(2)}/20)`
+    )}
+
+    {renderLine(
+      "schreiben",
+      p.schreiben,
+      `(${Number(p.schreiben_raw || 0).toFixed(2)}/20)`
+    )}
+
+    {renderLine("lesen", p.lesen)}
+
+    {renderLine("grammatik", p.grammatik)}
+
+    {renderLine(
+      "hoeren",
+      p.hoeren,
+      `(${Number(p.hoeren_raw || 0).toFixed(2)}/20)`
+    )}
+
+    {renderLine(
+      "practica",
+      p.practica,
+      `(${Number(p.practica_raw || 0).toFixed(2)}/100)`
+    )}
+
+    {renderLine("tarea", p.tarea)}
+
+    {renderLine("promedio", p.promedio)}
+  </div>
+);
 };
 
 /* ===============================

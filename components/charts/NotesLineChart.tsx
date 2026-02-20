@@ -20,7 +20,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   const p = payload[0].payload;
 
   return (
-    <div className="bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
+    <div className="pointer-events-none bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
       <p className="font-semibold mb-1">{label}</p>
       <p>Sprechen: {p.sprechen?.toFixed(1)}</p>
       <p>Schreiben: {p.schreiben?.toFixed(1)}</p>
@@ -246,7 +246,7 @@ export default function NotesLineChart({
         })}
       </div>
 
-      <ResponsiveContainer width="100%" aspect={2.2}>
+      <ResponsiveContainer width="100%" height={450}>
         <LineChart data={data}>
           <CartesianGrid stroke="#333" />
           <XAxis

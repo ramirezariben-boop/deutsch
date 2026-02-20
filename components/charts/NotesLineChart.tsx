@@ -62,9 +62,6 @@ export default function NotesLineChart({
     promedio: true,
   });
 
-  const [hovered, setHovered] =
-    useState<keyof typeof visible | null>(null);
-
   const toggle = (key: keyof typeof visible) => {
     setVisible((prev) => ({
       ...prev,
@@ -100,57 +97,56 @@ export default function NotesLineChart({
   /* ===============================
      BUILD SINGLE
   ================================= */
-function buildSingleCourse(row: any) {
+  function buildSingleCourse(row: any) {
+    const base = `${course}_`;
 
-  const base = `${course}_`;
+    const rawHoeren = num(row[base + "Hören"]);
+    const sprechen = num(row[base + "Sprechen"]);
+    const schreiben = num(row[base + "Schreiben"]);
+    const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
+    const lesen = num(row[base + "Lesen"]);
+    const grammatik = num(row[base + "Grammatik"]);
+    const evaluacion = num(row[base + "Continua"]);
+    const tarea = num(row[base + "Integrador"]);
 
-  const rawHoeren = num(row[base + "Hören"]);
-  const sprechen = num(row[base + "Sprechen"]);
-  const schreiben = num(row[base + "Schreiben"]);
-  const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
-  const lesen = num(row[base + "Lesen"]);
-  const grammatik = num(row[base + "Grammatik"]);
-  const evaluacion = num(row[base + "Continua"]);
-  const tarea = num(row[base + "Integrador"]);
+    const promedio =
+      (sprechen +
+        schreiben +
+        hoeren +
+        lesen +
+        grammatik +
+        evaluacion +
+        tarea) / 7;
 
-  const promedio =
-    (sprechen +
-      schreiben +
-      hoeren +
-      lesen +
-      grammatik +
-      evaluacion +
-      tarea) / 7;
+    const hasData =
+      sprechen > 0 ||
+      schreiben > 0 ||
+      hoeren > 0 ||
+      lesen > 0 ||
+      grammatik > 0 ||
+      evaluacion > 0 ||
+      tarea > 0;
 
-  const hasData =
-    sprechen > 0 ||
-    schreiben > 0 ||
-    hoeren > 0 ||
-    lesen > 0 ||
-    grammatik > 0 ||
-    evaluacion > 0 ||
-    tarea > 0;
+    if (!hasData) {
+      setData([]);
+      return;
+    }
 
-  if (!hasData) {
-    setData([]);
-    return;
+    setData([
+      {
+        exam: course.split("_").slice(-1)[0],
+        sprechen,
+        schreiben,
+        hoeren_raw: rawHoeren,
+        hoeren,
+        lesen,
+        grammatik,
+        evaluacion,
+        tarea,
+        promedio,
+      },
+    ]);
   }
-
-  setData([
-    {
-      exam: course.split("_").slice(-1)[0], // E1
-      sprechen,
-      schreiben,
-      hoeren_raw: rawHoeren,
-      hoeren,
-      lesen,
-      grammatik,
-      evaluacion,
-      tarea,
-      promedio,
-    },
-  ]);
-}
 
   /* ===============================
      BUILD ALL
@@ -159,7 +155,9 @@ function buildSingleCourse(row: any) {
     const result: any[] = [];
 
     Object.keys(row).forEach((key) => {
-      const match = key.match(/^(basico_\d+|intermedio_\d+)_E(1|2)_Sprechen$/);
+      const match = key.match(
+        /^(basico_\d+|intermedio_\d+)_E(1|2)_Sprechen$/
+      );
       if (!match) return;
 
       const courseName = match[1];
@@ -182,19 +180,18 @@ function buildSingleCourse(row: any) {
           lesen +
           grammatik +
           evaluacion +
-          tarea) /
-        7;
+          tarea) / 7;
 
       const hasData =
-          sprechen > 0 ||
-  	  schreiben > 0 ||
-  	  hoeren > 0 ||
-  	  lesen > 0 ||
-  	  grammatik > 0 ||
-  	  evaluacion > 0 ||
-  	  tarea > 0;
+        sprechen > 0 ||
+        schreiben > 0 ||
+        hoeren > 0 ||
+        lesen > 0 ||
+        grammatik > 0 ||
+        evaluacion > 0 ||
+        tarea > 0;
 
-	if (!hasData) return;
+      if (!hasData) return;
 
       result.push({
         label: `${courseName}${examNumber === "1" ? "a" : "b"}`,
@@ -221,7 +218,7 @@ function buildSingleCourse(row: any) {
      RENDER
   ================================= */
   return (
-    <div className="flex-1 w-full">
+    <div className="w-full">
 
       {/* TOGGLES */}
       <div className="flex flex-wrap gap-3 text-xs mb-4">
@@ -233,19 +230,14 @@ function buildSingleCourse(row: any) {
             <button
               key={key}
               onClick={() => toggle(typedKey)}
-              onMouseEnter={() => setHovered(typedKey)}
-              onMouseLeave={() => setHovered(null)}
-              className="px-2 py-1 rounded border transition duration-200"
+              className="px-2 py-1 rounded border transition"
               style={{
                 borderColor: color,
                 color: visible[typedKey] ? color : "#666",
                 opacity: visible[typedKey] ? 1 : 0.4,
-                boxShadow:
-                  hovered === typedKey
-                    ? `0 0 8px ${color}`
-                    : visible[typedKey]
-                    ? `0 0 4px ${color}`
-                    : "none",
+                boxShadow: visible[typedKey]
+                  ? `0 0 4px ${color}`
+                  : "none",
               }}
             >
               {key}
@@ -278,37 +270,11 @@ function buildSingleCourse(row: any) {
                 type="monotone"
                 dataKey={typedKey}
                 stroke={color}
-                strokeWidth={
-                  hovered === typedKey ? 4 : 2
-                }
-                opacity={
-                  hovered &&
-                  hovered !== typedKey
-                    ? 0.2
-                    : typedKey === "promedio"
-                    ? 0.6
-                    : 1
-                }
-                dot={{
-                  r:
-                    hovered === typedKey ? 5 : 3,
-                }}
-                onMouseEnter={() =>
-                  setHovered(typedKey)
-                }
-                onMouseLeave={() =>
-                  setHovered(null)
-                }
-                onClick={() =>
-                  toggle(typedKey)
-                }
-                style={{
-                  cursor: "pointer",
-                  filter:
-                    hovered === typedKey
-                      ? `drop-shadow(0 0 6px ${color})`
-                      : "none",
-                }}
+                strokeWidth={2}
+                dot={{ r: 3 }}
+                activeDot={{ r: 6 }}
+                onClick={() => toggle(typedKey)}
+                style={{ cursor: "pointer" }}
               />
             );
           })}

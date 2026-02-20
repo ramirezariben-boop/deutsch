@@ -1,15 +1,30 @@
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+
+const GAS_URL =
+  "https://script.google.com/macros/s/TU_WEB_APP_ID/exec";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const studentId = Number(searchParams.get("studentId"));
+  const studentId = searchParams.get("studentId");
 
-  const rows = await prisma.calificaciones.findMany({
-    where: { studentId },
-    select: { course: true },
-    distinct: ["course"],
+  const res = await fetch(`${GAS_URL}?studentId=${studentId}`);
+  const row = await res.json();
+
+  if (!row || row.error) {
+    return NextResponse.json([]);
+  }
+
+  // Detectar cursos dinámicamente
+  const courses = new Set<string>();
+
+  Object.keys(row).forEach((key) => {
+    const match = key.match(/(basico_|intermedio_)\d+/);
+    if (match) {
+      courses.add(match[0]);
+    }
   });
 
-  return NextResponse.json(rows);
+  return NextResponse.json(
+    Array.from(courses).map((course) => ({ course }))
+  );
 }

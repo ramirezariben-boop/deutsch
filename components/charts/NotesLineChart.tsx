@@ -126,7 +126,7 @@ export default function NotesLineChart({
     const rawHoeren = num(row[base + "Hören"]);
     const rawSchreiben = num(row[base + "Schreiben"]);
     const rawSprechen = num(row[base + "Sprechen"]);
-    const rawPractica = num(row[base + "PracticaPromedio"]); // sobre 100
+    const rawPractica = num(row[base + "Continua"]); // sobre 100
 
     const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
     const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
@@ -197,7 +197,7 @@ export default function NotesLineChart({
       const rawSprechen = num(row[base + "Sprechen"]);
       const rawSchreiben = num(row[base + "Schreiben"]);
       const rawHoeren = num(row[base + "Hören"]);
-      const rawPractica = num(row[base + "PracticaPromedio"]); // sobre 100
+      const rawPractica = num(row[base + "Continua"]); // sobre 100
 
       const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
       const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;

@@ -11,6 +11,21 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/* ==================
+   LABELS
+================== */
+
+const LABELS: Record<string, string> = {
+  sprechen: "Sprechen",
+  schreiben: "Schreiben",
+  hoeren: "Hören",
+  lesen: "Lesen",
+  grammatik: "Grammatik",
+  practica: "Práctica",
+  tarea: "Tarea",
+  promedio: "Promedio",
+};
+
 /* ===============================
    TOOLTIP
 ================================ */
@@ -26,20 +41,18 @@ const CustomTooltip = ({
 
   const p = payload[0].payload;
 
-  const renderLine = (
-    key: string,
-    value: number | undefined,
-    extra?: string
-  ) => {
+const renderLine = (
+  key: keyof typeof LABELS,
+  value: number | undefined,
+  extra?: string
+) => {
     if (!visible[key]) return null;
 
     return (
-      <p style={{ color: colors[key] }}>
-        {key.charAt(0).toUpperCase() +
-          key.slice(1)}
-        : {value?.toFixed(1)}{" "}
-        {extra ? extra : ""}
-      </p>
+<p style={{ color: colors[key] }}>
+  {LABELS[key]}: {value?.toFixed(1)}{" "}
+  {extra ? extra : ""}
+</p>
     );
   };
 
@@ -277,7 +290,7 @@ export default function NotesLineChart({
                   : "none",
               }}
             >
-              {key}
+              {LABELS[key]}
             </button>
           );
         })}

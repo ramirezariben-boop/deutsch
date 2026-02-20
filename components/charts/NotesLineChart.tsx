@@ -323,7 +323,7 @@ useEffect(() => {
      RENDER
   ================================= */
   return (
-    <div className="w-full">
+    <div className="w-full max-w-[920px] mx-auto">
 
       {/* TOGGLES */}
 <div className="flex flex-wrap gap-3 text-xs mb-4">

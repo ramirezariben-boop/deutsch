@@ -22,7 +22,7 @@ export default function MetricModal({
     relative z-10
     w-full
     max-w-6xl
-    max-h-[85vh]
+    h-[85vh]
     rounded-xl
     bg-neutral-900
     border border-neutral-700

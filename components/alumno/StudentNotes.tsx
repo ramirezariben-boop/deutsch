@@ -20,7 +20,7 @@ export default function StudentNotes({ studentId }: { studentId: number }) {
   }, [studentId]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 h-full">
 
       {/* 🔹 BOTONES DE MODO */}
       <div className="flex gap-2">

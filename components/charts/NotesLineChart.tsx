@@ -246,7 +246,7 @@ export default function NotesLineChart({
         })}
       </div>
 
-      <ResponsiveContainer width="100%" height={350}>
+      <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data}>
           <CartesianGrid stroke="#333" />
           <XAxis

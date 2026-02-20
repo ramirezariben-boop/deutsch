@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import NotesLineChart from "../charts/NotesLineChart";
 
-type Course = {
+type CourseExam = {
   course: string;
+  exam: string;
 };
 
 export default function StudentNotes({ studentId }: { studentId: number }) {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<CourseExam[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"single" | "all">("single");
 
@@ -28,7 +29,7 @@ export default function StudentNotes({ studentId }: { studentId: number }) {
             setViewMode("single");
             setSelected(null);
           }}
-          className="bg-neutral-800 px-3 py-1 rounded"
+          className="bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded transition"
         >
           Ver curso
         </button>
@@ -38,7 +39,7 @@ export default function StudentNotes({ studentId }: { studentId: number }) {
             setViewMode("all");
             setSelected("ALL");
           }}
-          className="bg-neutral-800 px-3 py-1 rounded"
+          className="bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded transition"
         >
           Todos los cursos
         </button>
@@ -51,15 +52,30 @@ export default function StudentNotes({ studentId }: { studentId: number }) {
             Cursos con evaluación
           </h3>
 
-          {courses.map(c => (
-            <button
-              key={c.course}
-              onClick={() => setSelected(c.course)}
-              className="bg-neutral-800 hover:bg-neutral-700 rounded p-2"
-            >
-              {c.course}
-            </button>
-          ))}
+          {courses.length === 0 ? (
+            <p className="text-neutral-500 text-sm">
+              No hay cursos con calificación registrada.
+            </p>
+          ) : (
+           <div className="grid grid-cols-2 gap-3">
+  {courses.map(c => (
+    <button
+      key={`${c.course}_${c.exam}`}
+      onClick={() => setSelected(`${c.course}_${c.exam}`)}
+      className="
+        bg-neutral-800
+        hover:bg-neutral-700
+        rounded
+        px-3 py-2
+        text-sm
+        transition
+      "
+    >
+      {c.course} {c.exam}
+    </button>
+  ))}
+</div>
+          )}
         </>
       )}
 

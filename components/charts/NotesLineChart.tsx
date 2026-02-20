@@ -100,47 +100,57 @@ export default function NotesLineChart({
   /* ===============================
      BUILD SINGLE
   ================================= */
-  function buildSingleCourse(row: any) {
-    const exams = ["E1", "E2"];
+function buildSingleCourse(row: any) {
 
-    const result = exams.map((exam) => {
-      const base = `${course}_${exam}_`;
+  const base = `${course}_`;
 
-      const rawHoeren = num(row[base + "Hören"]);
-      const sprechen = num(row[base + "Sprechen"]);
-      const schreiben = num(row[base + "Schreiben"]);
-      const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
-      const lesen = num(row[base + "Lesen"]);
-      const grammatik = num(row[base + "Grammatik"]);
-      const evaluacion = num(row[base + "Continua"]);
-      const tarea = num(row[base + "Integrador"]);
+  const rawHoeren = num(row[base + "Hören"]);
+  const sprechen = num(row[base + "Sprechen"]);
+  const schreiben = num(row[base + "Schreiben"]);
+  const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
+  const lesen = num(row[base + "Lesen"]);
+  const grammatik = num(row[base + "Grammatik"]);
+  const evaluacion = num(row[base + "Continua"]);
+  const tarea = num(row[base + "Integrador"]);
 
-      const promedio =
-        (sprechen +
-          schreiben +
-          hoeren +
-          lesen +
-          grammatik +
-          evaluacion +
-          tarea) /
-        7;
+  const promedio =
+    (sprechen +
+      schreiben +
+      hoeren +
+      lesen +
+      grammatik +
+      evaluacion +
+      tarea) / 7;
 
-      return {
-        exam,
-        sprechen,
-        schreiben,
-        hoeren_raw: rawHoeren,
-        hoeren,
-        lesen,
-        grammatik,
-        evaluacion,
-        tarea,
-        promedio,
-      };
-    });
+  const hasData =
+    sprechen > 0 ||
+    schreiben > 0 ||
+    hoeren > 0 ||
+    lesen > 0 ||
+    grammatik > 0 ||
+    evaluacion > 0 ||
+    tarea > 0;
 
-    setData(result);
+  if (!hasData) {
+    setData([]);
+    return;
   }
+
+  setData([
+    {
+      exam: course.split("_").slice(-1)[0], // E1
+      sprechen,
+      schreiben,
+      hoeren_raw: rawHoeren,
+      hoeren,
+      lesen,
+      grammatik,
+      evaluacion,
+      tarea,
+      promedio,
+    },
+  ]);
+}
 
   /* ===============================
      BUILD ALL
@@ -149,7 +159,7 @@ export default function NotesLineChart({
     const result: any[] = [];
 
     Object.keys(row).forEach((key) => {
-      const match = key.match(/(.*)_E(1|2)_Sprechen/);
+      const match = key.match(/^(basico_\d+|intermedio_\d+)_E(1|2)_Sprechen$/);
       if (!match) return;
 
       const courseName = match[1];
@@ -174,6 +184,17 @@ export default function NotesLineChart({
           evaluacion +
           tarea) /
         7;
+
+      const hasData =
+          sprechen > 0 ||
+  	  schreiben > 0 ||
+  	  hoeren > 0 ||
+  	  lesen > 0 ||
+  	  grammatik > 0 ||
+  	  evaluacion > 0 ||
+  	  tarea > 0;
+
+	if (!hasData) return;
 
       result.push({
         label: `${courseName}${examNumber === "1" ? "a" : "b"}`,

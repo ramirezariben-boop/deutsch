@@ -8,10 +8,12 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
+/* ===============================
+   TOOLTIP
+================================ */
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload || !payload.length) return null;
 
@@ -20,188 +22,275 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return (
     <div className="bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
       <p className="font-semibold mb-1">{label}</p>
-
       <p>Sprechen: {p.sprechen?.toFixed(1)}</p>
       <p>Schreiben: {p.schreiben?.toFixed(1)}</p>
       <p>Lesen: {p.lesen?.toFixed(1)}</p>
       <p>Grammatik: {p.grammatik?.toFixed(1)}</p>
-
       <p className="text-cyan-400">
         Hören: {p.hoeren?.toFixed(1)} ({p.hoeren_raw}/20)
       </p>
-
       <p>Evaluación continua: {p.evaluacion?.toFixed(1)}</p>
       <p>Tarea Integradora: {p.tarea?.toFixed(1)}</p>
+      <p className="text-white">
+        Promedio: {p.promedio?.toFixed(1)}
+      </p>
     </div>
   );
 };
 
-type DataPoint = {
-  exam: string;
-  sprechen: number;
-  schreiben: number;
-  hoeren: number;
-  lesen: number;
-  grammatik: number;
-  evaluacion: number;
-  tarea: number;
-};
-
-
-export default function NotesLineChart({ studentId, course }: {
+/* ===============================
+   COMPONENTE
+================================ */
+export default function NotesLineChart({
+  studentId,
+  course,
+}: {
   studentId: number;
   course: string;
 }) {
-  const [data, setData] = useState<DataPoint[]>([]);
-
-  // 🔹 Helper elegante
+  const [data, setData] = useState<any[]>([]);
   const num = (v: any) => Number(v || 0);
 
-
-useEffect(() => {
-  fetch(`/api/student-wide-grades?studentId=${studentId}`)
-    .then(res => res.json())
-    .then(row => {
-
-      if (!row || row.error) return;
-
-      if (course === "ALL") {
-        buildAllCourses(row);
-      } else {
-        buildSingleCourse(row);
-      }
-    });
-}, [studentId, course]);
-
-function buildSingleCourse(row: any) {
-  const exams = ["E1", "E2"];
-
-  const result = exams.map((exam) => {
-    const base = `${course}_${exam}_`;
-
-    const rawHoeren = num(row[base + "Hören"]);
-
-    const sprechen = num(row[base + "Sprechen"]);
-    const schreiben = num(row[base + "Schreiben"]);
-    const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
-    const lesen = num(row[base + "Lesen"]);
-    const grammatik = num(row[base + "Grammatik"]);
-    const evaluacion = num(row[base + "Continua"]);
-    const tarea = num(row[base + "Integrador"]);
-
-    const promedio =
-      (sprechen +
-        schreiben +
-        hoeren +
-        lesen +
-        grammatik +
-        evaluacion +
-        tarea) / 7;
-
-    return {
-      exam,
-      sprechen,
-      schreiben,
-      hoeren_raw: rawHoeren,
-      hoeren,
-      lesen,
-      grammatik,
-      evaluacion,
-      tarea,
-      promedio,
-    };
+  const [visible, setVisible] = useState({
+    sprechen: true,
+    schreiben: true,
+    hoeren: true,
+    lesen: true,
+    grammatik: true,
+    evaluacion: true,
+    tarea: true,
+    promedio: true,
   });
 
-  setData(result);
-}
+  const [hovered, setHovered] =
+    useState<keyof typeof visible | null>(null);
 
-function buildAllCourses(row: any) {
-  const result: any[] = [];
+  const toggle = (key: keyof typeof visible) => {
+    setVisible((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
-  Object.keys(row).forEach((key) => {
-    const match = key.match(/(.*)_E(1|2)_Sprechen/);
-    if (!match) return;
+  const COLORS: Record<keyof typeof visible, string> = {
+    sprechen: "#ff4d4f",
+    schreiben: "#ffa940",
+    hoeren: "#36cfc9",
+    lesen: "#597ef7",
+    grammatik: "#9254de",
+    evaluacion: "#73d13d",
+    tarea: "#f759ab",
+    promedio: "#ffffff",
+  };
 
-    const courseName = match[1];
-    const examNumber = match[2];
+  /* ===============================
+     FETCH
+  ================================= */
+  useEffect(() => {
+    fetch(`/api/student-wide-grades?studentId=${studentId}`)
+      .then((res) => res.json())
+      .then((row) => {
+        if (!row || row.error) return;
+        course === "ALL"
+          ? buildAllCourses(row)
+          : buildSingleCourse(row);
+      });
+  }, [studentId, course]);
 
-    const base = `${courseName}_E${examNumber}_`;
+  /* ===============================
+     BUILD SINGLE
+  ================================= */
+  function buildSingleCourse(row: any) {
+    const exams = ["E1", "E2"];
 
-    const rawHoeren = num(row[base + "Hören"]);
+    const result = exams.map((exam) => {
+      const base = `${course}_${exam}_`;
 
-    const sprechen = num(row[base + "Sprechen"]);
-    const schreiben = num(row[base + "Schreiben"]);
-    const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
-    const lesen = num(row[base + "Lesen"]);
-    const grammatik = num(row[base + "Grammatik"]);
-    const evaluacion = num(row[base + "Continua"]);
-    const tarea = num(row[base + "Integrador"]);
+      const rawHoeren = num(row[base + "Hören"]);
+      const sprechen = num(row[base + "Sprechen"]);
+      const schreiben = num(row[base + "Schreiben"]);
+      const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
+      const lesen = num(row[base + "Lesen"]);
+      const grammatik = num(row[base + "Grammatik"]);
+      const evaluacion = num(row[base + "Continua"]);
+      const tarea = num(row[base + "Integrador"]);
 
-    const promedio =
-      (sprechen +
-        schreiben +
-        hoeren +
-        lesen +
-        grammatik +
-        evaluacion +
-        tarea) / 7;
+      const promedio =
+        (sprechen +
+          schreiben +
+          hoeren +
+          lesen +
+          grammatik +
+          evaluacion +
+          tarea) /
+        7;
 
-    result.push({
-      label: `${courseName}${examNumber === "1" ? "a" : "b"}`,
-      sprechen,
-      schreiben,
-      hoeren_raw: rawHoeren,
-      hoeren,
-      lesen,
-      grammatik,
-      evaluacion,
-      tarea,
-      promedio,
+      return {
+        exam,
+        sprechen,
+        schreiben,
+        hoeren_raw: rawHoeren,
+        hoeren,
+        lesen,
+        grammatik,
+        evaluacion,
+        tarea,
+        promedio,
+      };
     });
-  });
 
-  result.sort((a, b) => a.label.localeCompare(b.label));
+    setData(result);
+  }
 
-  setData(result);
-}
+  /* ===============================
+     BUILD ALL
+  ================================= */
+  function buildAllCourses(row: any) {
+    const result: any[] = [];
 
+    Object.keys(row).forEach((key) => {
+      const match = key.match(/(.*)_E(1|2)_Sprechen/);
+      if (!match) return;
 
+      const courseName = match[1];
+      const examNumber = match[2];
+      const base = `${courseName}_E${examNumber}_`;
+
+      const rawHoeren = num(row[base + "Hören"]);
+      const sprechen = num(row[base + "Sprechen"]);
+      const schreiben = num(row[base + "Schreiben"]);
+      const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
+      const lesen = num(row[base + "Lesen"]);
+      const grammatik = num(row[base + "Grammatik"]);
+      const evaluacion = num(row[base + "Continua"]);
+      const tarea = num(row[base + "Integrador"]);
+
+      const promedio =
+        (sprechen +
+          schreiben +
+          hoeren +
+          lesen +
+          grammatik +
+          evaluacion +
+          tarea) /
+        7;
+
+      result.push({
+        label: `${courseName}${examNumber === "1" ? "a" : "b"}`,
+        sprechen,
+        schreiben,
+        hoeren_raw: rawHoeren,
+        hoeren,
+        lesen,
+        grammatik,
+        evaluacion,
+        tarea,
+        promedio,
+      });
+    });
+
+    result.sort((a, b) =>
+      a.label.localeCompare(b.label)
+    );
+
+    setData(result);
+  }
+
+  /* ===============================
+     RENDER
+  ================================= */
   return (
-    <div className="h-[420px]">
+    <div className="h-[480px]">
+
+      {/* TOGGLES */}
+      <div className="flex flex-wrap gap-3 text-xs mb-4">
+        {Object.keys(visible).map((key) => {
+          const typedKey = key as keyof typeof visible;
+          const color = COLORS[typedKey];
+
+          return (
+            <button
+              key={key}
+              onClick={() => toggle(typedKey)}
+              onMouseEnter={() => setHovered(typedKey)}
+              onMouseLeave={() => setHovered(null)}
+              className="px-2 py-1 rounded border transition duration-200"
+              style={{
+                borderColor: color,
+                color: visible[typedKey] ? color : "#666",
+                opacity: visible[typedKey] ? 1 : 0.4,
+                boxShadow:
+                  hovered === typedKey
+                    ? `0 0 8px ${color}`
+                    : visible[typedKey]
+                    ? `0 0 4px ${color}`
+                    : "none",
+              }}
+            >
+              {key}
+            </button>
+          );
+        })}
+      </div>
+
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
-
-<defs>
-  <filter id="glow-white" height="300%" width="300%" x="-75%" y="-75%">
-    <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-    <feMerge>
-      <feMergeNode in="coloredBlur" />
-      <feMergeNode in="SourceGraphic" />
-    </feMerge>
-  </filter>
-</defs>
-
           <CartesianGrid stroke="#333" />
-          <XAxis dataKey={course === "ALL" ? "label" : "exam"} />
+          <XAxis
+            dataKey={
+              course === "ALL" ? "label" : "exam"
+            }
+          />
           <YAxis domain={[0, 10]} />
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
 
-          <Line type="monotone" dataKey="sprechen" stroke="#ff4d4f" />
-          <Line type="monotone" dataKey="schreiben" stroke="#ffa940" />
-          <Line type="monotone" dataKey="hoeren" stroke="#36cfc9" />
-          <Line type="monotone" dataKey="lesen" stroke="#597ef7" />
-          <Line type="monotone" dataKey="grammatik" stroke="#9254de" />
-          <Line type="monotone" dataKey="evaluacion" stroke="#73d13d" />
-          <Line type="monotone" dataKey="tarea" stroke="#f759ab" />
-  	  <Line
-  type="monotone"
-  dataKey="promedio"
-  stroke="#ffffff"
-  strokeWidth={3}
-  dot={{ r: 5, fill: "#ffffff" }}
-  style={{ filter: "url(#glow-white)" }}
-/>
+          {Object.keys(visible).map((key) => {
+            const typedKey =
+              key as keyof typeof visible;
+            if (!visible[typedKey]) return null;
+
+            const color = COLORS[typedKey];
+
+            return (
+              <Line
+                key={key}
+                type="monotone"
+                dataKey={typedKey}
+                stroke={color}
+                strokeWidth={
+                  hovered === typedKey ? 4 : 2
+                }
+                opacity={
+                  hovered &&
+                  hovered !== typedKey
+                    ? 0.2
+                    : typedKey === "promedio"
+                    ? 0.6
+                    : 1
+                }
+                dot={{
+                  r:
+                    hovered === typedKey ? 5 : 3,
+                }}
+                onMouseEnter={() =>
+                  setHovered(typedKey)
+                }
+                onMouseLeave={() =>
+                  setHovered(null)
+                }
+                onClick={() =>
+                  toggle(typedKey)
+                }
+                style={{
+                  cursor: "pointer",
+                  filter:
+                    hovered === typedKey
+                      ? `drop-shadow(0 0 6px ${color})`
+                      : "none",
+                }}
+              />
+            );
+          })}
         </LineChart>
       </ResponsiveContainer>
     </div>

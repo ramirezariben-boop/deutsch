@@ -20,7 +20,8 @@ export default function MetricModal({
 <div
   className="
     relative z-10
-    w-[720px]
+    w-[1100px] 
+    gmax-w-[95vw]
     max-h-[80vh]
     rounded-xl
     bg-neutral-900

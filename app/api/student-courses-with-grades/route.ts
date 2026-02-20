@@ -7,27 +7,26 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const studentId = searchParams.get("studentId");
 
-const res = await fetch(`${GAS_URL}?studentId=${studentId}`);
+  const res = await fetch(`${GAS_URL}?studentId=${studentId}`);
 
-if (!res.ok) {
-  const text = await res.text();
-  console.error("GAS ERROR:", text);
-  return NextResponse.json([]);
-}
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("GAS ERROR:", text);
+    return NextResponse.json([]);
+  }
 
-const row = await res.json();
+  const row = await res.json();
 
   if (!row || row.error) {
     return NextResponse.json([]);
   }
 
-  // Detectar cursos dinámicamente
   const courses = new Set<string>();
 
   Object.keys(row).forEach((key) => {
-    const match = key.match(/(basico_|intermedio_)\d+/);
+    const match = key.match(/^(basico_\d+|intermedio_\d+)_/);
     if (match) {
-      courses.add(match[0]);
+      courses.add(match[1]);
     }
   });
 

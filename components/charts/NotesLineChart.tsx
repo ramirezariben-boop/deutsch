@@ -14,26 +14,49 @@ import {
 /* ===============================
    TOOLTIP
 ================================ */
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (!active || !payload || !payload.length) return null;
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+  visible,
+  colors,
+}: any) => {
+  if (!active || !payload || !payload.length)
+    return null;
 
   const p = payload[0].payload;
 
+  const renderLine = (
+    key: string,
+    value: number | undefined,
+    extra?: string
+  ) => {
+    if (!visible[key]) return null;
+
+    return (
+      <p style={{ color: colors[key] }}>
+        {key.charAt(0).toUpperCase() +
+          key.slice(1)}
+        : {value?.toFixed(1)}{" "}
+        {extra ? extra : ""}
+      </p>
+    );
+  };
+
   return (
     <div className="pointer-events-none bg-neutral-800 p-3 rounded border border-neutral-600 text-xs">
-      <p className="font-semibold mb-1">{label}</p>
-      <p>Sprechen: {p.sprechen?.toFixed(1)}</p>
-      <p>Schreiben: {p.schreiben?.toFixed(1)}</p>
-      <p>Lesen: {p.lesen?.toFixed(1)}</p>
-      <p>Grammatik: {p.grammatik?.toFixed(1)}</p>
-      <p className="text-cyan-400">
-        Hören: {p.hoeren?.toFixed(1)} ({p.hoeren_raw}/20)
+      <p className="font-semibold mb-1">
+        {label}
       </p>
-      <p>Evaluación continua: {p.evaluacion?.toFixed(1)}</p>
-      <p>Tarea Integradora: {p.tarea?.toFixed(1)}</p>
-      <p className="text-white">
-        Promedio: {p.promedio?.toFixed(1)}
-      </p>
+
+      {renderLine("sprechen", p.sprechen, `(${p.sprechen_raw || 0}/20)`)}
+      {renderLine("schreiben", p.schreiben, `(${p.schreiben_raw || 0}/20)`)}
+      {renderLine("lesen", p.lesen)}
+      {renderLine("grammatik", p.grammatik)}
+      {renderLine("hoeren", p.hoeren, `(${p.hoeren_raw}/20)`)}
+      {renderLine("evaluacion", p.evaluacion)}
+      {renderLine("tarea", p.tarea)}
+      {renderLine("promedio", p.promedio)}
     </div>
   );
 };
@@ -135,8 +158,8 @@ export default function NotesLineChart({
     setData([
       {
         exam: course.split("_").slice(-1)[0],
-        sprechen,
-        schreiben,
+        sprechen_raw: rawSprechen,
+        schreiben_raw: rawSchreiben,
         hoeren_raw: rawHoeren,
         hoeren,
         lesen,
@@ -164,9 +187,11 @@ export default function NotesLineChart({
       const examNumber = match[2];
       const base = `${courseName}_E${examNumber}_`;
 
+      const rawSprechen = num(row[base + "Sprechen"]);
+      const rawSchreiben = num(row[base + "Schreiben"]);
       const rawHoeren = num(row[base + "Hören"]);
-      const sprechen = num(row[base + "Sprechen"]);
-      const schreiben = num(row[base + "Schreiben"]);
+      const sprechen = rawSprechen ? (rawSprechen / 20) * 10 : 0;
+      const schreiben = rawSchreiben ? (rawSchreiben / 20) * 10 : 0;
       const hoeren = rawHoeren ? (rawHoeren / 20) * 10 : 0;
       const lesen = num(row[base + "Lesen"]);
       const grammatik = num(row[base + "Grammatik"]);
@@ -255,7 +280,14 @@ export default function NotesLineChart({
             }
           />
           <YAxis domain={[0, 10]} />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+  content={
+    <CustomTooltip
+      visible={visible}
+      colors={COLORS}
+    />
+  }
+/>
 
           {Object.keys(visible).map((key) => {
             const typedKey =

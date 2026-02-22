@@ -69,7 +69,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           </a>
 
 {/* Este botón se libera cuando haya examen */}
-{/* 
+{/* */}
           <a
             href="https://deutsch.ariiben.com/schreiben"
             target="_blank"
@@ -78,7 +78,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             🧾 Schreiben
           </a>
-*/}
+
 
 
         </div>

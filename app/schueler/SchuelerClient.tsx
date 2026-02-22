@@ -78,7 +78,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             🧾 Schreiben
           </a>
-
+*/}
 
 
         </div>

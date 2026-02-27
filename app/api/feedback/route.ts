@@ -1,58 +1,41 @@
 import { NextResponse } from "next/server";
-import { google } from "googleapis";
-import { authorize } from "@/lib/google/auth";
-
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-const SPREADSHEET_ID = "1rnpzil7N_2GocQ5l29btCrYCmsr9axWrv07vAbNQXa4";
-const SHEET_NAME = "feedback_examen";
+import { readSheetJSON } from "@/lib/readSheet";
 
 export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get("studentId");
+  const { searchParams } = new URL(req.url);
+  const studentId = Number(searchParams.get("studentId"));
 
-    if (!studentId)
-      return NextResponse.json({ error: "Missing studentId" }, { status: 400 });
-
-    const auth = await authorize();
-    const sheets = google.sheets({ version: "v4", auth });
-
-    const res = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!A1:ZZ`,
-    });
-
-    const rows = res.data.values;
-    if (!rows || rows.length < 2)
-      return NextResponse.json({ feedback: [] });
-
-    const headers = rows[0];
-    const dataRows = rows.slice(1);
-
-    const row = dataRows.find(r => r[0] === studentId);
-
-    if (!row) return NextResponse.json({ feedback: [] });
-
-    const feedback = [];
-
-    for (let i = 1; i < headers.length; i++) {
-      if (row[i] && row[i].trim() !== "") {
-        feedback.push({
-          curso: headers[i],
-          texto: row[i]
-        });
-      }
-    }
-
-    return NextResponse.json({ feedback });
-
-  } catch (e: any) {
-    console.error("FEEDBACK ERROR:", e);
+  if (!studentId) {
     return NextResponse.json(
-      { error: e.message || "Server error" },
-      { status: 500 }
+      { error: "Missing studentId" },
+      { status: 400 }
     );
   }
+
+  const endpoint = process.env.GS_GRADES_ENDPOINT;
+  if (!endpoint)
+    throw new Error("GS_GRADES_ENDPOINT no definido");
+
+  const rows = await readSheetJSON(
+    `${endpoint}?sheet=feedback_examen`
+  );
+
+  if (!rows.length)
+    return NextResponse.json({ feedback: [] });
+
+  const studentRow = rows.find(
+    r => Number(r.studentId) === studentId
+  );
+
+  if (!studentRow)
+    return NextResponse.json({ feedback: [] });
+
+  const feedback = Object.keys(studentRow)
+    .filter(k => k !== "studentId" && studentRow[k])
+    .map(k => ({
+      curso: k,
+      texto: studentRow[k]
+    }));
+
+  return NextResponse.json({ feedback });
 }

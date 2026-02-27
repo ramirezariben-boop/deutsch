@@ -21,7 +21,7 @@ export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
 
   return (
     <>
-      <div className="flex gap-2 text-sm">
+      <div className="grid grid-cols-2 gap-2 text-sm">
         <button
           onClick={() => setOpen("attendance")}
           className="flex-1 rounded bg-neutral-800 hover:bg-neutral-700 py-2"

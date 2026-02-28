@@ -42,3 +42,49 @@ model WritingLog {
 
   @@index([studentId, id])
 }
+
+model ExternalStudent {
+  id        String   @id   // "n1", "n2", etc.
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+
+  exams     ExternalWritingExam[]
+  logs      ExternalWritingLog[]
+}
+
+model ExternalWritingExam {
+  id            Int      @id @default(autoincrement())
+  studentId     String   @unique
+  textFinal     String
+  wordCount     Int
+  charCount     Int
+  suspicionScore Int     @default(0)
+  submittedAt   DateTime @default(now())
+
+  student ExternalStudent @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  cheatingEvents ExternalCheatingEvent[]
+}
+
+model ExternalCheatingEvent {
+  id        Int      @id @default(autoincrement())
+  examId    Int
+  eventType String
+  timestamp DateTime @default(now())
+  metadata  Json?
+
+  exam ExternalWritingExam @relation(fields: [examId], references: [id], onDelete: Cascade)
+}
+
+model ExternalWritingLog {
+  id        Int      @id @default(autoincrement())
+  studentId String
+  event     String
+  data      String?
+  suspected Boolean? @default(false)
+  createdAt DateTime @default(now())
+
+  student ExternalStudent @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, id])
+}

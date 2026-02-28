@@ -4,9 +4,9 @@ if (typeof window !== "undefined") console.log("SCHREIBEN CARGÓ");
 
 import { useState, useEffect, useRef } from "react";
 
-function getStudentId() {
+function getStudentId(): string | null {
   const c = document.cookie.split("; ").find((x) => x.startsWith("session="));
-  return Number(c?.split("=")[1] ?? 0);
+  return c?.split("=")[1] ?? null;
 }
 
 export default function Schreiben() {

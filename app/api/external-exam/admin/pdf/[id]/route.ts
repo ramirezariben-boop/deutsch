@@ -1,13 +1,16 @@
 import { prisma } from "@/lib/prisma";
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument, StandardFonts } from "pdf-lib";
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
+
   const exam = await prisma.externalWritingExam.findUnique({
-    where: { id: Number(params.id) },
+    where: { id: Number(id) },
     include: { student: true }
   });
 
@@ -17,42 +20,19 @@ export async function GET(
 
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595, 842]);
-
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const { height } = page.getSize();
 
-  const { width, height } = page.getSize();
+  page.drawText(`Writing Exam`, { x: 50, y: height - 50, size: 18, font });
+  page.drawText(`Alumno: ${exam.student.name}`, { x: 50, y: height - 80, size: 12, font });
+  page.drawText(`Palabras: ${exam.wordCount}`, { x: 50, y: height - 100, size: 12, font });
+  page.drawText(`Sospecha: ${exam.suspicionScore}`, { x: 50, y: height - 120, size: 12, font });
 
-  page.drawText(`Writing Exam`, {
-    x: 50,
-    y: height - 50,
-    size: 18,
-    font,
-  });
-
-  page.drawText(`Alumno: ${exam.student.name}`, {
-    x: 50,
-    y: height - 80,
-    size: 12,
-    font,
-  });
-
-  page.drawText(`Palabras: ${exam.wordCount}`, {
-    x: 50,
-    y: height - 100,
-    size: 12,
-    font,
-  });
-
-  let y = height - 130;
+  let y = height - 150;
   const lines = exam.textFinal.match(/.{1,90}/g) || [];
 
   lines.forEach((line) => {
-    page.drawText(line, {
-      x: 50,
-      y,
-      size: 11,
-      font,
-    });
+    page.drawText(line, { x: 50, y, size: 11, font });
     y -= 14;
   });
 

@@ -66,6 +66,13 @@ model ExternalWritingExam {
   cheatingEvents ExternalCheatingEvent[]
 }
 
+model ExternalAdmin {
+  id        String   @id
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
 model ExternalCheatingEvent {
   id        Int      @id @default(autoincrement())
   examId    Int

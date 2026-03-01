@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import LoginModal from "./LoginModal";
 
 export default function HeaderClient({ loggedIn }) {
   const [showLogin, setShowLogin] = useState(false);
+  const pathname = usePathname();
+
+  // 🚨 Ocultar header en writing
+  if (pathname.startsWith("/writing")) {
+    return null;
+  }
 
   return (
     <>

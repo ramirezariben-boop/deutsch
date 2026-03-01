@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/app/globals.css";
 import { cookies } from "next/headers";
 import HeaderClient from "@/components/HeaderClient";
 

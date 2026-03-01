@@ -36,9 +36,10 @@ export async function GET(
     y -= 14;
   });
 
-  const pdfBytes = await pdfDoc.save();
+const pdfBytes = await pdfDoc.save();
+const buffer = Buffer.from(pdfBytes);
 
-  return new NextResponse(pdfBytes, {
+return new NextResponse(buffer, {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": `attachment; filename=${exam.studentId}.pdf`,

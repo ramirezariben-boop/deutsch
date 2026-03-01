@@ -13,6 +13,12 @@ export default function WritingPage() {
   const pendingText = useRef("");
   const lastSavedText = useRef("");
 
+  const blurStart = useRef<number | null>(null);
+
+  const blurStartRef = useRef<number | null>(null);
+
+   const [showExamImage, setShowExamImage] = useState(false);
+
   // ============================================
   // LOGIN
   // ============================================
@@ -61,45 +67,105 @@ export default function WritingPage() {
     const interval = setInterval(() => {
       if (submitted) return;
 
-      if (pendingText.current !== lastSavedText.current) {
-        log("typing", pendingText.current);
-        lastSavedText.current = pendingText.current;
-      }
+if (pendingText.current !== lastSavedText.current) {
+  const words = pendingText.current.trim()
+    ? pendingText.current.trim().split(/\s+/).length
+    : 0;
+
+  log("typing", {
+    wordCount: words,
+    charCount: pendingText.current.length,
+    timestamp: Date.now()
+  });
+
+  lastSavedText.current = pendingText.current;
+}
     }, 5000);
 
     return () => clearInterval(interval);
   }, [logged, submitted]);
 
+useEffect(() => {
+  if (!logged || submitted) return;
+
+  const onBlur = () => {
+    blurStartRef.current = Date.now();
+  };
+
+  const onFocus = () => {
+    if (!blurStartRef.current) return;
+
+    const durationMs = Date.now() - blurStartRef.current;
+
+    log("blur_duration", {
+      durationMs,
+      startedAt: blurStartRef.current,
+      endedAt: Date.now(),
+    });
+
+    blurStartRef.current = null;
+  };
+
+  window.addEventListener("blur", onBlur);
+  window.addEventListener("focus", onFocus);
+
+  return () => {
+    window.removeEventListener("blur", onBlur);
+    window.removeEventListener("focus", onFocus);
+  };
+}, [logged, submitted]);
+
   // ============================================
   // SUBMIT
   // ============================================
 
-  async function handleSubmit() {
-    if (submitted) return;
+async function handleSubmit() {
+  if (submitted) return;
 
-    const ok = confirm("Solo puedes entregar una vez. ¿Deseas continuar?");
-    if (!ok) return;
+  const confirmPassword = prompt("Confirma la contraseña para enviar el examen:");
 
-    const c = document.cookie.split("; ").find((x) => x.startsWith("external_session="));
-    const id = c?.split("=")[1];
+  if (!confirmPassword) return;
 
-    const res = await fetch("/api/external-exam/finalizar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentId: id, text }),
-    });
+  // validar password contra backend
+  const check = await fetch("/api/external-exam/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: studentId,
+      password: confirmPassword
+    })
+  });
 
-    const json = await res.json();
+  const checkJson = await check.json();
 
-    if (!json.ok) {
-      alert(json.error || "Error.");
-      return;
-    }
-
-    setSubmitted(true);
-    log("submitted", { length: text.length });
-    alert("Examen entregado.");
+  if (!checkJson.ok) {
+    alert("Contraseña incorrecta.");
+    return;
   }
+
+  const ok = confirm("Solo puedes entregar una vez. ¿Deseas continuar?");
+  if (!ok) return;
+
+  const res = await fetch("/api/external-exam/finalizar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ studentId, text }),
+  });
+
+  const json = await res.json();
+
+  if (!json.ok) {
+    alert(json.error || "Error.");
+    return;
+  }
+
+  setSubmitted(true);
+
+  // 🔥 logout automático
+  document.cookie = "external_session=; Max-Age=0; path=/";
+
+  alert("Examen entregado. Sesión cerrada.");
+}
 
   // ============================================
   // UI
@@ -141,15 +207,51 @@ export default function WritingPage() {
 
   return (
     <div className="p-10 text-white bg-black min-h-screen">
-      <textarea
-        className="w-full h-[70vh] bg-black border border-white p-4"
-        value={text}
-        disabled={submitted}
-        onChange={(e) => {
-          setText(e.target.value);
-          pendingText.current = e.target.value;
-        }}
-      />
+<div className="flex justify-center items-center mb-4">
+  <button
+    onClick={() => setShowExamImage(true)}
+    className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500"
+  >
+    Instructions
+  </button>
+</div>
+
+<textarea
+  className="w-full h-[70vh] bg-black border border-white p-4"
+  value={text}
+  disabled={submitted}
+  onChange={(e) => {
+    setText(e.target.value);
+    pendingText.current = e.target.value;
+  }}
+  onPaste={() => {
+    log("paste", {
+      timestamp: Date.now()
+    });
+  }}
+/>
+
+{showExamImage && (
+  <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+    <div className="relative bg-neutral-900 p-6 rounded-lg max-w-4xl w-full">
+      
+      <button
+        onClick={() => setShowExamImage(false)}
+        className="absolute top-3 right-3 text-white text-xl"
+      >
+        ✖
+      </button>
+
+<img
+  src="/extern/exam1.png"
+  alt="Consigna"
+  draggable={false}
+  onContextMenu={(e) => e.preventDefault()}
+  className="w-full max-h-[80vh] object-contain select-none"
+/>
+    </div>
+  </div>
+)}
 
       <div className="flex justify-center">
         <button

@@ -18,6 +18,7 @@ export default function WritingPage() {
   const blurStartRef = useRef<number | null>(null);
 
    const [showExamImage, setShowExamImage] = useState(false);
+   const [recovered, setRecovered] = useState(false);
 
   // ============================================
   // LOGIN
@@ -73,6 +74,7 @@ if (pendingText.current !== lastSavedText.current) {
     : 0;
 
   log("typing", {
+    text: pendingText.current,
     wordCount: words,
     charCount: pendingText.current.length,
     timestamp: Date.now()
@@ -114,6 +116,40 @@ useEffect(() => {
     window.removeEventListener("focus", onFocus);
   };
 }, [logged, submitted]);
+
+useEffect(() => {
+  if (!logged) return;
+
+  async function initializeExam() {
+    // 1️⃣ revisar si ya entregó
+    const statusRes = await fetch(
+      `/api/external-exam/student/status?studentId=${studentId}`
+    );
+
+    const statusJson = await statusRes.json();
+
+    if (statusJson.ok && statusJson.submitted) {
+      setSubmitted(true);
+      return; // 🔥 NO restaurar nada
+    }
+
+    // 2️⃣ restaurar texto solo si no entregó
+    const res = await fetch(
+      `/api/external-exam/student/last-writing?studentId=${studentId}`
+    );
+
+    const json = await res.json();
+
+    if (json.ok && json.text) {
+      setText(json.text);
+      pendingText.current = json.text;
+      lastSavedText.current = json.text;
+      setRecovered(true);
+    }
+  }
+
+  initializeExam();
+}, [logged, studentId]);
 
   // ============================================
   // SUBMIT
@@ -215,6 +251,18 @@ async function handleSubmit() {
     Instructions
   </button>
 </div>
+
+{recovered && (
+  <div className="mb-4 text-green-400 text-sm text-center">
+    ✔ Se recuperó automáticamente tu último avance.
+  </div>
+)}
+
+{submitted && (
+  <div className="mb-6 text-red-400 text-center">
+    Este examen ya fue entregado.
+  </div>
+)}
 
 <textarea
   className="w-full h-[70vh] bg-black border border-white p-4"

@@ -23,7 +23,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false }, { status: 401 });
     }
 
-    return NextResponse.json({ ok: true });
+    const res = NextResponse.json({ ok: true });
+
+    // 🔐 Cookie HTTP-only
+    res.cookies.set("external_admin_session", cleanId, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false, // true en producción
+      path: "/"
+    });
+
+    return res;
 
   } catch (err) {
     console.error(err);

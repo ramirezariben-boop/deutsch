@@ -17,16 +17,25 @@ export default function WritingAdmin() {
   const [logs, setLogs] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [authorized, setAuthorized] = useState<boolean | null>(null);
 
   // =========================
   // LOAD DATA (auto refresh)
   // =========================
-  async function loadData() {
-    const res = await fetch("/api/external-exam/admin/data");
-    const json = await res.json();
-    setExams(json.exams || []);
-    setLogs(json.logs || []);
+async function loadData() {
+  const res = await fetch("/api/external-exam/admin/data");
+
+  if (res.status === 401) {
+    setAuthorized(false);
+    return;
   }
+
+  const json = await res.json();
+
+  setAuthorized(true);
+  setExams(json.exams || []);
+  setLogs(json.logs || []);
+}
 
   useEffect(() => {
     loadData();
@@ -59,11 +68,23 @@ export default function WritingAdmin() {
   // =========================
   // LOGS SOSPECHOSOS
   // =========================
-  const filteredLogs = logs.filter(
-    (l) =>
-      l.suspected === true &&
-      (!selectedId || l.studentId === selectedId)
+const filteredLogs = logs.filter(
+  (l) =>
+    l.suspected &&
+    (!selectedId || l.studentId === selectedId) &&
+    matchesSearch(l.studentId)
+);
+
+function matchesSearch(studentId: string) {
+  if (!search) return true;
+
+  const student = exams.find(e => e.studentId === studentId);
+
+  return (
+    studentId.toLowerCase().includes(search.toLowerCase()) ||
+    student?.student?.name?.toLowerCase().includes(search.toLowerCase())
   );
+}
 
   function suspiciousLogs(studentId: string) {
     return logs.filter(
@@ -200,13 +221,39 @@ export default function WritingAdmin() {
       .filter(Boolean);
   }
 
+if (authorized === null) {
+  return (
+    <div className="h-screen flex items-center justify-center bg-black text-white">
+      Verificando sesión...
+    </div>
+  );
+}
+
+if (authorized === false) {
+  return <AdminLogin />;
+}
+
   // =========================
   // UI
   // =========================
   return (
     <div className="p-10 text-white space-y-8">
+<div className="flex justify-end">
+  <button
+    onClick={async () => {
+      await fetch("/api/external-exam/admin/logout", {
+        method: "POST",
+      });
+
+      window.location.reload();
+    }}
+    className="px-4 py-2 bg-purple-700 rounded hover:bg-purple-600"
+  >
+    Cerrar sesión
+  </button>
+</div>
       <h1 className="text-3xl font-bold">
-        📝 Panel de Entregas – Writing
+        Panel de Entregas – Writing
       </h1>
 
       {/* BUSCADOR */}
@@ -216,6 +263,68 @@ export default function WritingAdmin() {
         className="px-4 py-2 bg-neutral-900 border border-neutral-700 rounded w-80"
         onChange={(e) => setSearch(e.target.value)}
       />
+
+
+
+{/* ========================= */}
+{/* TABLA ENTREGAS */}
+{/* ========================= */}
+<div className="mt-8">
+  <h2 className="text-xl font-semibold mb-3">
+    Entregas
+  </h2>
+
+{filteredExams.length > 0 && (
+  <a
+    href="/api/external-exam/admin/pdf-all"
+    target="_blank"
+    className="px-4 py-1 bg-green-700 rounded hover:bg-green-600"
+  >
+    Descargar PDF – Todos ({filteredExams.length})
+  </a>
+)}
+
+  <table className="w-full text-left border border-neutral-700">
+    <thead className="bg-neutral-800">
+      <tr>
+        <th className="p-3">ID</th>
+        <th className="p-3">Nombre</th>
+        <th className="p-3">Fecha</th>
+        <th className="p-3">Palabras</th>
+        <th className="p-3">Nivel riesgo</th>
+        <th className="p-3">PDF</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {filteredExams.map((exam) => (
+        <tr
+          key={exam.id}
+          className="border-t border-neutral-700 hover:bg-neutral-800"
+        >
+          <td className="p-3">{exam.studentId}</td>
+          <td className="p-3">{exam.student?.name}</td>
+          <td className="p-3">
+            {new Date(exam.submittedAt || exam.createdAt).toLocaleString()}
+          </td>
+          <td className="p-3">{exam.wordCount}</td>
+          <td className="p-3">
+            {riskLevel(exam.studentId)}
+          </td>
+          <td className="p-3">
+            <a
+              href={`/api/external-exam/admin/pdf/${exam.id}`}
+              target="_blank"
+              className="px-2 py-1 bg-blue-700 rounded hover:bg-blue-600"
+            >
+              PDF
+            </a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
       {/* ========================= */}
       {/* SELECTOR SIEMPRE VISIBLE */}
@@ -309,6 +418,65 @@ export default function WritingAdmin() {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+function AdminLogin() {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  async function handleLogin() {
+    const res = await fetch("/api/external-exam/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, password }),
+    });
+
+    const json = await res.json();
+
+    if (!json.ok) {
+      setError("Credenciales incorrectas");
+      return;
+    }
+
+    window.location.reload();
+  }
+
+  return (
+    <div className="h-screen flex items-center justify-center bg-black text-white">
+      <div className="bg-neutral-900 p-8 rounded w-[350px]">
+        <h2 className="mb-4 text-lg font-semibold text-purple-400">
+          Acceso administrador
+        </h2>
+
+        <input
+          placeholder="ID"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          className="w-full mb-3 p-2 bg-black border border-white"
+        />
+
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-3 p-2 bg-black border border-white"
+        />
+
+        {error && (
+          <p className="text-red-500 text-sm mb-2">{error}</p>
+        )}
+
+        <button
+          onClick={handleLogin}
+          className="w-full bg-purple-600 py-2 hover:bg-purple-500"
+        >
+          Entrar
+        </button>
       </div>
     </div>
   );

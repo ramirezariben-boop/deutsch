@@ -17,8 +17,15 @@ export default function WritingPage() {
 
   const blurStartRef = useRef<number | null>(null);
 
-   const [showExamImage, setShowExamImage] = useState(false);
-   const [recovered, setRecovered] = useState(false);
+  const [showExamImage, setShowExamImage] = useState(false);
+  const [recovered, setRecovered] = useState(false);
+
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+
+  const wordCount =
+  text.trim().length > 0
+    ? text.trim().split(/\s+/).length
+    : 0;
 
   // ============================================
   // LOGIN
@@ -54,6 +61,7 @@ export default function WritingPage() {
 
     await fetch("/api/external-exam/log", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ studentId: id, event, data }),
     });
   }
@@ -121,19 +129,21 @@ useEffect(() => {
   if (!logged) return;
 
   async function initializeExam() {
-    // 1️⃣ revisar si ya entregó
+
     const statusRes = await fetch(
       `/api/external-exam/student/status?studentId=${studentId}`
     );
 
     const statusJson = await statusRes.json();
 
-    if (statusJson.ok && statusJson.submitted) {
+    if (statusJson.submitted) {
       setSubmitted(true);
-      return; // 🔥 NO restaurar nada
+      setTimeLeft(0);
+      return;
     }
 
-    // 2️⃣ restaurar texto solo si no entregó
+    setTimeLeft(statusJson.remainingSeconds);
+
     const res = await fetch(
       `/api/external-exam/student/last-writing?studentId=${studentId}`
     );
@@ -150,6 +160,31 @@ useEffect(() => {
 
   initializeExam();
 }, [logged, studentId]);
+
+useEffect(() => {
+  if (!logged || submitted) return;
+  if (timeLeft === null) return;
+
+  const interval = setInterval(() => {
+    setTimeLeft(prev => {
+      if (prev === null) return null;
+
+      if (prev <= 1) {
+        clearInterval(interval);
+        autoSubmit();
+        return 0;
+      }
+
+      if (prev === 300) {
+        alert("Quedan 5 minutos.");
+      }
+
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [logged, submitted, timeLeft]);
 
   // ============================================
   // SUBMIT
@@ -203,6 +238,21 @@ async function handleSubmit() {
   alert("Examen entregado. Sesión cerrada.");
 }
 
+async function autoSubmit() {
+  if (submitted) return;
+
+  await fetch("/api/external-exam/finalizar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ studentId, text }),
+  });
+
+  setSubmitted(true);
+  document.cookie = "external_session=; Max-Age=0; path=/";
+
+  alert("Tiempo finalizado. El examen fue enviado automáticamente.");
+}
+
   // ============================================
   // UI
   // ============================================
@@ -243,13 +293,20 @@ async function handleSubmit() {
 
   return (
     <div className="p-10 text-white bg-black min-h-screen">
-<div className="flex justify-center items-center mb-4">
+<div className="relative flex justify-center items-center mb-4">
   <button
     onClick={() => setShowExamImage(true)}
     className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500"
   >
     Instructions
   </button>
+
+  {timeLeft !== null && (
+    <div className="absolute right-0 text-lg font-semibold text-yellow-400">
+      ⏳ {Math.floor(timeLeft / 60)}:
+      {(timeLeft % 60).toString().padStart(2, "0")}
+    </div>
+  )}
 </div>
 
 {recovered && (
@@ -279,6 +336,10 @@ async function handleSubmit() {
   }}
 />
 
+<div className="mt-2 text-sm text-neutral-400 text-right">
+  Words: {wordCount}
+</div>
+
 {showExamImage && (
   <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
     <div className="relative bg-neutral-900 p-6 rounded-lg max-w-4xl w-full">
@@ -291,7 +352,11 @@ async function handleSubmit() {
       </button>
 
 <img
-  src="/extern/exam1.png"
+  src={
+    parseInt(studentId.replace(/\D/g, "")) % 2 === 0
+      ? "/extern/exam2.png"
+      : "/extern/exam1.png"
+  }
   alt="Consigna"
   draggable={false}
   onContextMenu={(e) => e.preventDefault()}
@@ -307,7 +372,7 @@ async function handleSubmit() {
           onClick={handleSubmit}
           disabled={submitted}
         >
-          Entregar examen
+          Submit exam
         </button>
       </div>
     </div>

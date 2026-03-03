@@ -54,16 +54,25 @@ model ExternalStudent {
 }
 
 model ExternalWritingExam {
-  id            Int      @id @default(autoincrement())
-  studentId     String   @unique
-  textFinal     String
-  wordCount     Int
-  charCount     Int
-  suspicionScore Int     @default(0)
-  submittedAt   DateTime @default(now())
+  id               Int       @id @default(autoincrement())
 
-  student ExternalStudent @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  cheatingEvents ExternalCheatingEvent[]
+  studentId        String @unique
+  student          ExternalStudent @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  startedAt        DateTime  @default(now())
+  durationMinutes  Int
+  submittedAt      DateTime?
+  expired          Boolean   @default(false)
+  submittedBy      String?
+
+  textFinal        String?
+  wordCount        Int?
+  charCount        Int?
+  suspicionScore   Int?
+
+  cheatingEvents   ExternalCheatingEvent[]
+
+  createdAt        DateTime  @default(now())
 }
 
 model ExternalAdmin {

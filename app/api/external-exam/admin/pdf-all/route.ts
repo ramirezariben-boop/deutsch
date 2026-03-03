@@ -16,12 +16,13 @@ export async function GET() {
     const { height } = page.getSize();
 
     page.drawText(`Writing Exam`, { x: 50, y: height - 50, size: 18, font });
-    page.drawText(`Alumno: ${exam.student.name}`, { x: 50, y: height - 80, size: 12, font });
-    page.drawText(`Palabras: ${exam.wordCount}`, { x: 50, y: height - 100, size: 12, font });
-    page.drawText(`Sospecha: ${exam.suspicionScore}`, { x: 50, y: height - 120, size: 12, font });
+    page.drawText(`Alumno: ${exam.student.name ?? "Desconocido"}`, { x: 50, y: height - 80, size: 12, font });
+    page.drawText(`Palabras: ${exam.wordCount ?? 0}`, { x: 50, y: height - 100, size: 12, font });
+    page.drawText(`Sospecha: ${exam.suspicionScore ?? 0}`, { x: 50, y: height - 120, size: 12, font });
 
     let y = height - 150;
-    const lines = exam.textFinal.match(/.{1,90}/g) || [];
+    const text = exam.textFinal ?? "";
+    const lines = text.match(/.{1,90}/g) || [];
 
     lines.forEach((line) => {
       page.drawText(line, { x: 50, y, size: 11, font });

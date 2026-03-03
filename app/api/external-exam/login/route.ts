@@ -26,13 +26,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Alumno no encontrado" }, { status: 404 });
     }
 
-    const alreadySubmitted = await prisma.externalWritingExam.findUnique({
-      where: { studentId: id }
-    });
+const exam = await prisma.externalWritingExam.findUnique({
+  where: { studentId: id }
+});
 
-    if (alreadySubmitted) {
-      return NextResponse.json({ ok: false, error: "Examen ya entregado." }, { status: 403 });
-    }
+if (exam?.submittedAt) {
+  return NextResponse.json(
+    { ok: false, error: "Examen ya entregado." },
+    { status: 403 }
+  );
+}
 
     return NextResponse.json({ ok: true });
   } catch (err) {

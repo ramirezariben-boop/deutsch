@@ -28,8 +28,8 @@ if (
   suspected = true;
 }
 
-if (event === "typing" && typeof data === "string") {
-  const currentCount = data.trim().split(/\s+/).length;
+if (event === "typing" && data?.text) {
+  const currentCount = data.text.trim().split(/\s+/).length;
 
   const lastTyping = await prisma.externalWritingLog.findFirst({
     where: {

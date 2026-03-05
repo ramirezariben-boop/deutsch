@@ -38,9 +38,11 @@ export async function GET(
     ? text.trim().split(/\s+/).length
     : 0;
 
-  const date = new Date(
-    exam.submittedAt ?? exam.createdAt
-  ).toLocaleString();
+const date = new Date(
+  exam.submittedAt ?? exam.createdAt
+).toLocaleString("es-MX", {
+  timeZone: "America/Mexico_City"
+});
 
   // ===== HEADER =====
 

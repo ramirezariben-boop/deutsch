@@ -137,8 +137,14 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
         Toggle panel
       </button> */}
 
-
 <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
+
+  <p className="text-xs text-neutral-500 max-w-xl mx-auto mb-3 leading-relaxed">
+    La información mostrada en este panel tiene fines informativos y de
+    retroalimentación académica y no sustituye los registros oficiales
+    de la institución.
+  </p>
+
   AriiBen © · Deutsch mit AriiBen ·{" "}
   <a
     href="https://legal.ariiben.com/es/privacy.html"
@@ -166,6 +172,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
   >
     Legal
   </a>
+
 </footer>
 
     </div>

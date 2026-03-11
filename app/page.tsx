@@ -93,5 +93,18 @@ export default async function MainPage() {
 
       </div>
     </div>
+
+<footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
+  AriiBen © · Deutsch mit AriiBen ·{" "}
+  <a
+    href="https://legal.ariiben.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:text-neutral-300"
+  >
+    Legal
+  </a>
+</footer>
+
   );
 }

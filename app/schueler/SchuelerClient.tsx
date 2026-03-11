@@ -136,7 +136,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
       {/* <button onClick={() => setShowAlumno((s) => !s)} className="mt-8 text-xs text-neutral-400 underline">
         Toggle panel
       </button> */}
-    </div>
+
 
 <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
   AriiBen © · Deutsch mit AriiBen ·{" "}
@@ -149,6 +149,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
     Legal
   </a>
 </footer>
+    </div>
 
   );
 }

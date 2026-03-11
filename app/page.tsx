@@ -92,7 +92,7 @@ export default async function MainPage() {
 </div>
 
       </div>
-    </div>
+
 
 <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
   AriiBen © · Deutsch mit AriiBen ·{" "}
@@ -105,6 +105,7 @@ export default async function MainPage() {
     Legal
   </a>
 </footer>
+    </div>
 
   );
 }

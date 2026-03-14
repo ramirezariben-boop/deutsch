@@ -264,7 +264,7 @@ async function autoSubmit() {
           <h2 className="mb-4 text-lg font-semibold">Acceso examen</h2>
 
           <input
-            placeholder="ID (ej. n3)"
+            placeholder="ID"
             value={studentId}
             onChange={(e) => setStudentId(e.target.value)}
             className="w-full mb-3 p-2 bg-black border border-white"
@@ -290,6 +290,22 @@ async function autoSubmit() {
       </div>
     );
   }
+
+const sabado = [
+  81,82,83,84,85,41,87,88,89,90,91,92,93,94,95,96,97,98,99,
+  54,101,102,103,104,105,57,107,59
+];
+
+const domingo = [
+  111,112,113,114,115,116,7,
+  63,119,120,121,122,123,23,125,126,127,128,129,130,131
+];
+
+const id = Number(studentId.replace(/\D/g, ""));
+
+const examImage = sabado.includes(id)
+  ? "/extern/exam1.png"
+  : "/extern/exam2.png";
 
   return (
     <div className="p-10 text-white bg-black min-h-screen">
@@ -352,11 +368,7 @@ async function autoSubmit() {
       </button>
 
 <img
-  src={
-    parseInt(studentId.replace(/\D/g, "")) % 2 === 0
-      ? "/extern/exam2.png"
-      : "/extern/exam1.png"
-  }
+  src={examImage}
   alt="Consigna"
   draggable={false}
   onContextMenu={(e) => e.preventDefault()}

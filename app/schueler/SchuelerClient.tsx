@@ -13,6 +13,8 @@ type Alumno = {
 export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
   const [showAlumno, setShowAlumno] = useState(true);
 
+const isAdmin = alumno.id === 64;
+
   return (
     <div className="p-10 text-white relative">
       <div className="text-sm text-gray-400 mb-4">Versión Beta</div>
@@ -120,6 +122,15 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             📚 Privatunterricht 📖
           </a>
+
+          {isAdmin && (
+            <button
+              onClick={() => window.open("/api/admin/exam-eligibility", "_blank")}
+              className="px-6 py-2 bg-red-700 hover:bg-red-800 rounded text-center w-56"
+            >
+              🚫 Bajas por faltas
+            </button>
+          )}
         </div>
       </div>
 

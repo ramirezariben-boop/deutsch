@@ -35,7 +35,7 @@ const isAdmin = alumno.id === 64;
           </a>
 
           <a
-            href="https://classroom.google.com/c/NzkyODQ5MTgyOTkx"
+            href="https://classroom.google.com/c/NzkyODQ5MTgyOTkx?hl=es&cjc=yuqnyyqw"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
@@ -148,43 +148,43 @@ const isAdmin = alumno.id === 64;
         Toggle panel
       </button> */}
 
-<footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
+      <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
 
-  <p className="text-xs text-neutral-500 max-w-xl mx-auto mb-3 leading-relaxed">
-    La información mostrada en este panel tiene fines informativos y de
-    retroalimentación académica y no sustituye los registros oficiales
-    de la institución.
-  </p>
+        <p className="text-xs text-neutral-500 max-w-xl mx-auto mb-3 leading-relaxed">
+          La información mostrada en este panel tiene fines informativos y de
+          retroalimentación académica y no sustituye los registros oficiales
+          de la institución.
+        </p>
 
-  AriiBen © · Deutsch mit AriiBen ·{" "}
-  <a
-    href="https://legal.ariiben.com/es/privacy.html"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline hover:text-neutral-300"
-  >
-    Privacy
-  </a>{" "}
-  ·{" "}
-  <a
-    href="https://legal.ariiben.com/es/terms.html"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline hover:text-neutral-300"
-  >
-    Terms
-  </a>{" "}
-  ·{" "}
-  <a
-    href="https://legal.ariiben.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline hover:text-neutral-300"
-  >
-    Legal
-  </a>
+        AriiBen © · Deutsch mit AriiBen ·{" "}
+        <a
+          href="https://legal.ariiben.com/es/privacy.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-neutral-300"
+        >
+          Privacy
+        </a>{" "}
+        ·{" "}
+        <a
+          href="https://legal.ariiben.com/es/terms.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-neutral-300"
+        >
+          Terms
+        </a>{" "}
+        ·{" "}
+        <a
+          href="https://legal.ariiben.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-neutral-300"
+        >
+          Legal
+        </a>
 
-</footer>
+      </footer>
 
     </div>
 

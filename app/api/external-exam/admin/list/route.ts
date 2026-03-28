@@ -1,30 +1,29 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { requireAdmin } from "@/lib/auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const cookieStore = await cookies();
-    const adminCookie = cookieStore.get("external_admin_session");
+    const session = await requireAdmin();
 
-    if (!adminCookie) {
+    if (!session) {
       return NextResponse.json(
         { error: "No autorizado" },
         { status: 401 }
       );
     }
 
-const exams = await prisma.externalWritingExam.findMany({
-  include: {
-    student: true,
-  },
-  orderBy: { submittedAt: "asc" }
-});
+    const exams = await prisma.externalWritingExam.findMany({
+      include: {
+        student: true,
+      },
+      orderBy: { submittedAt: "asc" }
+    });
 
-const logs = await prisma.externalWritingLog.findMany();
+    const logs = await prisma.externalWritingLog.findMany();
 
     return NextResponse.json({ exams, logs });
 

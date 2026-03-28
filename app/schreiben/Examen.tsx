@@ -4,10 +4,10 @@ import ExamenClient from "./ExamenClient";
 
 export default async function SchreibenPage() {
   const cookieStore = await cookies();
-  const session = cookieStore.get("session");
+  const session = cookieStore.get("session")?.value;
 
   // Protección del examen
-  if (!session) {
+  if (!session || session.trim() === "") {
     redirect("/");
   }
 

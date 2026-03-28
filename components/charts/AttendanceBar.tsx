@@ -48,22 +48,13 @@ useEffect(() => {
 
       if (!cancelled) {
         setRaw(json);
-console.log(
-  "RAW attendance (debug)",
-  json
-    .filter((r: any) => String(r.student_id) === "7")
-    .map(r => ({
-      student_id: r.student_id,
-      typeof_student_id: typeof r.student_id,
-      class_id: r.class_id,
-      session_id: r.session_id,
-      minutes: r.minutes_attended,
-    }))
-);
 
+        // 🔧 DEBUG eliminado (no hardcode)
+        // console.log("RAW attendance (debug)", json);
 
       }
     } catch (err) {
+      console.error("Attendance fetch error:", err); // ← FIX
     } finally {
       if (!cancelled) {
         setLoading(false);
@@ -105,7 +96,7 @@ const pct =
 
       return {
         label: `${classNum}${r.session_id}`,
-        pct,                 // ✅ SIEMPRE número
+        pct,
         minutes,
         max,
         session: r.session_id,
@@ -124,20 +115,21 @@ const pct =
   // CÁLCULOS DE RESUMEN
   // =========================
 
-  // --- asistencia real (minutos)
   const totalMinutes = raw.reduce(
-  (s, r) => s + (r.minutes_attended ?? 0),
-  0
-);
+    (s, r) => s + (r.minutes_attended ?? 0),
+    0
+  );
 
-  const totalPossible = raw.reduce((s, r) => s + r.max_minutes, 0);
+  const totalPossible = raw.reduce(
+    (s, r) => s + (r.max_minutes ?? 0), // ← FIX aquí
+    0
+  );
 
   const realPct =
     totalPossible > 0
       ? +(totalMinutes / totalPossible * 100).toFixed(1)
       : 0;
 
-  // --- asistencia institucional
   function weight(session: "A" | "B" | "C") {
     return session === "A" ? 0.5 : 0.25;
   }
@@ -172,10 +164,6 @@ function attended(r: AttendanceRow) {
   const status =
     absences >= 2 ? "danger" : absences >= 1 ? "warning" : "ok";
 
-  // =========================
-  // RENDER
-  // =========================
-
   if (loading) {
     return <div className="text-sm text-neutral-400">Cargando…</div>;
   }
@@ -189,9 +177,9 @@ function attended(r: AttendanceRow) {
   }
 
 const SESSION_COLORS = {
-  A: [96, 165, 250],  // azul
-  B: [167, 139, 250], // violeta
-  C: [34, 211, 238],  // cyan
+  A: [96, 165, 250],
+  B: [167, 139, 250],
+  C: [34, 211, 238],
 };
 
 
@@ -201,7 +189,6 @@ function colorByPct(
 ) {
   const [r, g, b] = SESSION_COLORS[session];
 
-  // clamp 40–100 → 0.4–1
   const intensity = Math.max(0.4, Math.min(1, pct / 100));
 
   return `rgba(${r}, ${g}, ${b}, ${intensity})`;
@@ -210,7 +197,6 @@ function colorByPct(
 
 return (
   <div className="w-full">
-    {/* ===== CHART ===== */}
     <div className="w-full h-[260px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -232,14 +218,14 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: 8,
-    color: "#ffffff",          // 👈 TEXTO BLANCO
+    color: "#ffffff",
   }}
   labelStyle={{
-    color: "#e5e7eb",          // 👈 label (1A, 2B…) claro
+    color: "#e5e7eb",
     fontWeight: 500,
   }}
   itemStyle={{
-    color: "#ffffff",          // 👈 valor pct / minutos
+    color: "#ffffff",
   }}
 formatter={(_: any, __: any, ctx: any) => {
   const d = ctx.payload;
@@ -269,7 +255,6 @@ formatter={(_: any, __: any, ctx: any) => {
       </ResponsiveContainer>
     </div>
 
-    {/* ===== RESUMEN ===== */}
     <div className="mt-4 text-center text-xs text-neutral-400 space-y-1">
       <div>
         Asistencia real del curso:

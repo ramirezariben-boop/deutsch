@@ -17,7 +17,7 @@ export default function AlumnoGate() {
 
         const json = await res.json();
 
-        if (json.loggedIn) {
+        if (json?.loggedIn) {
           router.push("/schueler");
         }
       } catch (err) {
@@ -28,5 +28,5 @@ export default function AlumnoGate() {
     checkSession();
   }, [router]);
 
-  return null; // 👈 importante: NO renderiza nada
+  return null;
 }

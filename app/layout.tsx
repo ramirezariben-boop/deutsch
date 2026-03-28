@@ -1,22 +1,19 @@
 import "@/app/globals.css";
-import { cookies } from "next/headers";
 import HeaderClient from "@/components/HeaderClient";
+import { readSessionFromHeaders } from "@/lib/auth";
 
 export const metadata = {
   title: "Deutsch mit AriiBen",
 };
 
 export default async function RootLayout({ children }) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session");
-  const loggedIn = !!session?.value;
+  const session = await readSessionFromHeaders();
+  const loggedIn = !!session;
 
   return (
     <html lang="de">
       <body className="bg-black text-white">
-        {/* El header cliente se encarga de los botones y el login modal */}
         <HeaderClient loggedIn={loggedIn} />
-
         <main>{children}</main>
       </body>
     </html>

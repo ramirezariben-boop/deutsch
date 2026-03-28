@@ -1,7 +1,7 @@
 // app/page.tsx
 import { Metadata } from "next";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { readSessionFromHeaders } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Deutsch mit AriiBen · Clases de alemán",
@@ -10,11 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default async function MainPage() {
-  // 👇 FIX CLAVE
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
+  const session = await readSessionFromHeaders();
 
-  // 🔐 Si ya hay sesión → fuera de aquí
+  // 🔐 Si ya hay sesión válida → redirigir
   if (session) {
     redirect("/schueler");
   }
@@ -90,9 +88,7 @@ export default async function MainPage() {
             📚 Privatunterricht 📖
           </a>
         </div>
-
       </div>
-
 
       <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
         AriiBen © · Deutsch mit AriiBen ·{" "}
@@ -123,7 +119,6 @@ export default async function MainPage() {
           Legal
         </a>
       </footer>
-          </div>
-
-        );
-      }
+    </div>
+  );
+}

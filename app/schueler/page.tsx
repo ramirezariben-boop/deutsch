@@ -1,17 +1,19 @@
-import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { readSessionFromHeaders } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import SchuelerClient from "./SchuelerClient";
 
 export default async function SchuelerPage() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
+  const session = await readSessionFromHeaders();
 
   if (!session) {
     return <div className="p-10 text-gray-400">No has iniciado sesión.</div>;
   }
 
+  const userId = Number(session.uid);
+
   const user = await prisma.user.findUnique({
-    where: { id: Number(session) },
+    where: { id: userId },
     select: {
       id: true,
       name: true,

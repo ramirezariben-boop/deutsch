@@ -1,31 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    const cookieHeader = req.headers.get("cookie") || "";
+    const session = await requireAdmin();
 
-    const sessionCookie = cookieHeader
-      .split("; ")
-      .find(c => c.startsWith("external_admin_session="));
-
-    if (!sessionCookie) {
-      return NextResponse.json(
-        { ok: false, error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
-
-    const adminId = sessionCookie.split("=")[1];
-
-    const admin = await prisma.externalAdmin.findUnique({
-      where: { id: adminId }
-    });
-
-    if (!admin) {
+    if (!session) {
       return NextResponse.json(
         { ok: false, error: "Unauthorized" },
         { status: 401 }

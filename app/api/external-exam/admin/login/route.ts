@@ -1,8 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+import { setSessionCookie } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -25,12 +23,10 @@ export async function POST(req: Request) {
 
     const res = NextResponse.json({ ok: true });
 
-    // 🔐 Cookie HTTP-only
-    res.cookies.set("external_admin_session", cleanId, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: false, // true en producción
-      path: "/"
+    // 🔐 ahora usamos JWT
+    setSessionCookie(res, {
+      uid: cleanId,
+      name: "Admin"
     });
 
     return res;

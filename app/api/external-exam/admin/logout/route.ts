@@ -1,16 +1,19 @@
 import { NextResponse } from "next/server";
+import { clearSession } from "@/lib/auth";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+function clearSessionAndRedirect(req: Request) {
+  const origin = new URL(req.url).origin;
+  const res = NextResponse.redirect(origin);
 
-export async function POST() {
-  const res = NextResponse.json({ ok: true });
-
-  // 🔥 eliminar cookie
-  res.cookies.set("external_admin_session", "", {
-    maxAge: 0,
-    path: "/",
-  });
+  clearSession(res);
 
   return res;
+}
+
+export async function POST(req: Request) {
+  return clearSessionAndRedirect(req);
+}
+
+export async function GET(req: Request) {
+  return clearSessionAndRedirect(req);
 }

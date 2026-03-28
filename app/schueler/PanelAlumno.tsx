@@ -1,8 +1,18 @@
 import { prisma } from "@/lib/prisma";
 
 export default async function PanelAlumno({ sessionId }: { sessionId: string }) {
+  const cleanId = sessionId?.trim();
+
+  if (!cleanId || isNaN(Number(cleanId))) {
+    return (
+      <div className="min-h-screen bg-black text-white p-10">
+        <h1 className="text-2xl text-red-400">Sesión inválida</h1>
+      </div>
+    );
+  }
+
   const user = await prisma.user.findUnique({
-    where: { id: Number(sessionId) },
+    where: { id: Number(cleanId) },
   });
 
   return (

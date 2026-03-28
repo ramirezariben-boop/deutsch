@@ -1,13 +1,20 @@
-// app/api/attendance/route.ts
 import { NextResponse } from "next/server";
+import { readSessionFromHeaders } from "@/lib/auth";
 
 export async function GET(req: Request) {
   try {
+    // 🔐 auth
+    const session = await readSessionFromHeaders();
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
 
     const courseId = searchParams.get("course_id");
     const studentId = searchParams.get("student_id");
-    const classId = searchParams.get("class"); // opcional
+    const classId = searchParams.get("class");
 
     if (!courseId || !studentId) {
       return NextResponse.json({ error: "Missing params" }, { status: 400 });

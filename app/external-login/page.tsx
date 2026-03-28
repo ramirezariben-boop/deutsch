@@ -1,9 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ExternalLogin() {
+function ExternalLoginInner() {
   const params = useSearchParams();
   const router = useRouter();
   const [error, setError] = useState("");
@@ -19,6 +20,7 @@ export default function ExternalLogin() {
       const res = await fetch("/api/external-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ id: n }),
       });
 
@@ -29,7 +31,7 @@ export default function ExternalLogin() {
         return;
       }
 
-      document.cookie = `session=${n}; path=/`;
+      document.cookie = `session=${n.trim()}; path=/; SameSite=Lax`;
       router.push("/external-schreiben");
     }
 
@@ -41,5 +43,13 @@ export default function ExternalLogin() {
       <h1>Validando acceso...</h1>
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
+  );
+}
+
+export default function ExternalLogin() {
+  return (
+    <Suspense fallback={<div className="p-10 text-white">Cargando...</div>}>
+      <ExternalLoginInner />
+    </Suspense>
   );
 }

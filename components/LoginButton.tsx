@@ -2,12 +2,21 @@
 
 import { useEffect, useState } from "react";
 
+function hasValidSession() {
+  const c = document.cookie
+    .split("; ")
+    .find((x) => x.startsWith("session="));
+
+  const value = c?.split("=")[1]?.trim();
+
+  return !!value;
+}
+
 export default function LoginButton() {
   const [logged, setLogged] = useState(false);
 
   useEffect(() => {
-    const has = document.cookie.includes("session=");
-    setLogged(has);
+    setLogged(hasValidSession());
   }, []);
 
   if (logged) {

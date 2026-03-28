@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+const CONFIRM_PASSWORD = "entregar";
+
 export async function POST(req: Request) {
   try {
     const { studentId, text, password } = await req.json();
@@ -12,28 +14,21 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validar la contraseña antes de guardar
-    const user = await prisma.user.findUnique({
-      where: { id: studentId },
-    });
-
-    if (!user || user.password !== password) {
+    if (password !== CONFIRM_PASSWORD) {
       return NextResponse.json(
         { ok: false, error: "Contraseña incorrecta" },
         { status: 401 }
       );
     }
 
-    // Guardar examen final
     await prisma.writingExam.upsert({
-      where: { studentId },
+      where: { studentId: Number(studentId) },
       update: { text },
-      create: { studentId, text },
+      create: { studentId: Number(studentId), text },
     });
 
-    // Log
     await prisma.writingLog.create({
-      data: { studentId, event: "final_submit", data: text },
+      data: { studentId: Number(studentId), event: "final_submit", data: text },
     });
 
     return NextResponse.json({ ok: true });

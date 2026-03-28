@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+const CONFIRM_PASSWORD = "entregar";
+
 export async function POST(req: Request) {
   try {
     const raw = await req.text();
@@ -24,18 +26,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: Number(studentId) },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { ok: false, error: "Alumno no encontrado" },
-        { status: 404 }
-      );
-    }
-
-    if (user.password !== password) {
+    if (password !== CONFIRM_PASSWORD) {
       return NextResponse.json(
         { ok: false, error: "Contraseña incorrecta" },
         { status: 401 }
@@ -43,17 +34,16 @@ export async function POST(req: Request) {
     }
 
     await prisma.writingExam.upsert({
-      where: { studentId },
+      where: { studentId: Number(studentId) },
       update: { text },
-      create: { studentId, text },
+      create: { studentId: Number(studentId), text },
     });
 
     await prisma.writingLog.create({
-      data: { studentId, event: "final_submit", data: text },
+      data: { studentId: Number(studentId), event: "final_submit", data: text },
     });
 
     return NextResponse.json({ ok: true });
-
   } catch (err) {
     console.error("Error en /schreiben/finalizar:", err);
     return NextResponse.json({ ok: false, error: "Error interno" }, { status: 500 });

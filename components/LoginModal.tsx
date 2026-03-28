@@ -45,10 +45,12 @@ async function handleLogin(e) {
           />
 
           <input
+            type="password"
             value={nip}
             onChange={(e) => setNip(e.target.value)}
             placeholder="NIP"
-            className="w-full p-2 rounded bg-black border border-gray-600"
+            autoComplete="current-password"
+	    className="w-full p-2 rounded bg-black border border-gray-600 text-white"
           />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}

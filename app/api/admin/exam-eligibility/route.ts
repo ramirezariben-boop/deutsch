@@ -32,7 +32,14 @@ export async function GET(req: Request) {
         `?course_id=${encodeURIComponent(COURSE_ID)}` +
         `&student_id=${encodeURIComponent(String(studentId))}`;
 
-      const res = await fetch(url, { cache: "no-store" });
+      const cookie = req.headers.get("cookie");
+
+      const res = await fetch(url, {
+        cache: "no-store",
+        headers: {
+          cookie: cookie || "",
+        },
+      });
 
       if (!res.ok) {
         console.error(`attendance failed for ${studentId}:`, res.status);

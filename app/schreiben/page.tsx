@@ -5,14 +5,19 @@ if (typeof window !== "undefined") console.log("SCHREIBEN CARGÓ");
 import { useState, useEffect, useRef } from "react";
 
 function getStudentId(): string | null {
-  const c = document.cookie.split("; ").find((x) => x.startsWith("session="));
-  return c?.split("=")[1] ?? null;
+  const c = document.cookie
+    .split("; ")
+    .find((x) => x.startsWith("session="));
+
+  const value = c?.split("=")[1]?.trim();
+
+  return value ? value : null;
 }
 
 export default function Schreiben() {
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [showImage, setShowImage] = useState(false); // ✅ AQUÍ va el hook
+  const [showImage, setShowImage] = useState(false);
 
   const pendingText = useRef("");
   const lastSavedText = useRef("");
@@ -26,6 +31,7 @@ export default function Schreiben() {
 
     await fetch("/api/exam/log", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ studentId, event, data }),
     });
   }
@@ -81,7 +87,9 @@ export default function Schreiben() {
   const handleSubmit = async () => {
     if (submitted) return;
 
-    const ok = confirm("Solo puedes entregar el examen una vez.\n¿Deseas continuar?");
+    const ok = confirm(
+      "Solo puedes entregar el examen una vez.\n¿Deseas continuar?"
+    );
     if (!ok) return;
 
     const password = prompt("Ingresa tu contraseña para confirmar:");
@@ -91,6 +99,11 @@ export default function Schreiben() {
     }
 
     const studentId = getStudentId();
+
+    if (!studentId) {
+      alert("Sesión inválida.");
+      return;
+    }
 
     try {
       const res = await fetch("/api/schreiben/finalizar", {
@@ -120,9 +133,6 @@ export default function Schreiben() {
   // ============================================
   return (
     <div className="p-10 text-white">
-      {/* ---------------------------------------- */}
-      {/*             IMAGEN DESPLEGABLE           */}
-      {/* ---------------------------------------- */}
       <div className="flex flex-col items-center mb-6">
         <button
           onClick={() => setShowImage(!showImage)}
@@ -133,16 +143,13 @@ export default function Schreiben() {
 
         {showImage && (
           <img
-            src="/imagen-ejemplo.png" // cambia esta ruta
+            src="/imagen-ejemplo.png"
             alt="Imagen de referencia"
             className="max-w-[600px] w-full rounded border border-gray-500 shadow-lg"
           />
         )}
       </div>
 
-      {/* ---------------------------------------- */}
-      {/*                 TEXTAREA                 */}
-      {/* ---------------------------------------- */}
       <textarea
         className="w-full h-[70vh] bg-black border border-white p-4"
         value={text}

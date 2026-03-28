@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
+import { clearSession } from "@/lib/auth";
 
-function clearSessionAndRedirect(req: Request) {
-  const origin = new URL(req.url).origin;   // ← crea URL absoluta correcta
-  const res = NextResponse.redirect(origin); // ← redirige a "/"
-  res.cookies.set("session", "", { path: "/", maxAge: 0 });
+export async function POST(req: Request) {
+  const res = NextResponse.json({ ok: true });
+  clearSession(res);
   return res;
 }
 
-export async function POST(req: Request) {
-  return clearSessionAndRedirect(req);
-}
-
 export async function GET(req: Request) {
-  return clearSessionAndRedirect(req);
+  const res = NextResponse.json({ ok: true });
+  clearSession(res);
+  return res;
 }

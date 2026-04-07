@@ -4,7 +4,6 @@ export async function generateConsentPDF(data: {
   name: string;
   workTitle?: string;
   workId: string;
-  fileHash: string;
   date: string;
 }) {
   const pdfDoc = await PDFDocument.create();
@@ -18,9 +17,6 @@ export async function generateConsentPDF(data: {
     `Alumno: ${data.name}`,
     `Trabajo: ${data.workTitle || "Sin título"}`,
     `Work ID: ${data.workId}`,
-    "",
-    `Hash del archivo:`,
-    `${data.fileHash}`,
     "",
     `Fecha de firma: ${data.date}`,
     "",
@@ -40,11 +36,26 @@ export async function generateConsentPDF(data: {
     page.drawText(line, {
       x: 50,
       y,
-      size: 11,
+      size: line === "AUTORIZACIÓN DE PUBLICACIÓN" ? 16 : 11,
       font,
     });
-    y -= 18;
+
+    y -= line === "" ? 10 : 18;
   }
+
+  page.drawText("Firma del alumno:", {
+    x: 50,
+    y: y - 30,
+    size: 11,
+    font,
+  });
+
+  page.drawText(data.name, {
+    x: 50,
+    y: y - 50,
+    size: 12,
+    font,
+  });
 
   return await pdfDoc.save();
 }

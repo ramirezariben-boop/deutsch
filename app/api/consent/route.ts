@@ -68,10 +68,14 @@ export async function POST(req: Request) {
   });
 
   // devolver PDF directamente
-  return new Response(pdfBytes, {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="consent-${workId}.pdf"`,
-    },
-  });
+const buffer = new ArrayBuffer(pdfBytes.length);
+const view = new Uint8Array(buffer);
+view.set(pdfBytes);
+
+return new Response(buffer, {
+  headers: {
+    "Content-Type": "application/pdf",
+    "Content-Disposition": `attachment; filename="consent-${workId}.pdf"`,
+  },
+});
 }

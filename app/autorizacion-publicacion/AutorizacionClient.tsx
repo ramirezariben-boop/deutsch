@@ -54,23 +54,36 @@ export default function AutorizacionClient() {
   }, [studentId, workId]);
 
   const handleSubmit = async () => {
-    if (!name || !accepted) {
-      alert("Debes completar todos los campos.");
+    if (!name || !accepted1 || !accepted2) {
+      alert("Debes completar todo.");
       return;
     }
 
-    await fetch("/api/consent", {
+    const res = await fetch("/api/consent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
-        studentId,
         workId,
-        workTitle: work?.title,
         name,
       }),
     });
+
+    if (!res.ok) {
+      alert("Error al firmar");
+      return;
+    }
+
+    // descargar PDF
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `consent-${workId}.pdf`;
+    a.click();
 
     setSubmitted(true);
   };

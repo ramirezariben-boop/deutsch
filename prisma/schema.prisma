@@ -105,30 +105,28 @@ model ExternalWritingLog {
   @@index([studentId, id])
 }
 
-model ConsentPublication {
-  id        Int      @id @default(autoincrement())
-
-  studentId String
-  workId    String
-  workTitle String?
-
-  name      String
-  accepted  Boolean  @default(true)
-
-  ip        String?
-  userAgent String?
-
-  createdAt DateTime @default(now())
-
-  @@unique([studentId, workId])
+model StudentWork {
+  id         String   @id
+  studentId  String
+  title      String?
+  fileUrl    String
+  fileHash   String
+  createdAt  DateTime @default(now())
 }
 
-model StudentWork {
-  id        String   @id
-  studentId String
+model ConsentPublication {
+  id         Int      @id @default(autoincrement())
+  studentId  String
+  workId     String
+  workTitle  String?
+  name       String
 
-  title     String?
-  fileUrl   String
+  fileHash   String
 
-  createdAt DateTime @default(now())
+  ip         String?
+  userAgent  String?
+
+  createdAt  DateTime @default(now())
+
+  @@unique([studentId, workId])
 }

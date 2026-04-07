@@ -1,26 +1,24 @@
 import { prisma } from "@/lib/prisma";
+import { readSessionFromHeaders } from "@/lib/auth";
 
 export async function GET(req: Request) {
+  const session = await readSessionFromHeaders();
+  if (!session) return new Response("Unauthorized", { status: 401 });
+
   const { searchParams } = new URL(req.url);
   const workId = searchParams.get("workId");
 
-  if (!workId) {
-    return new Response(
-      JSON.stringify({ error: "Missing workId" }),
-      { status: 400 }
-    );
-  }
-
   const work = await prisma.studentWork.findUnique({
-    where: { id: workId },
+    where: { id: workId! },
   });
 
   if (!work) {
-    return new Response(
-      JSON.stringify({ error: "Not found" }),
-      { status: 404 }
-    );
+    return new Response("Not found", { status: 404 });
   }
 
-  return new Response(JSON.stringify(work));
+  if (work.studentId !== session.uid) {
+    return new Response("Forbidden", { status: 403 });
+  }
+
+  return Response.json(work);
 }

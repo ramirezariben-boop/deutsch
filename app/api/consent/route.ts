@@ -54,7 +54,6 @@ export async function POST(req: Request) {
       workId,
       workTitle: work.title,
       name,
-      fileHash: work.fileHash,
       ip,
       userAgent,
     },
@@ -65,7 +64,6 @@ export async function POST(req: Request) {
     name,
     workTitle: work.title || "",
     workId,
-    fileHash: work.fileHash,
     date: now,
   });
 

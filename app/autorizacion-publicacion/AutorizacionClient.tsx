@@ -6,11 +6,11 @@ import { useSearchParams } from "next/navigation";
 export default function AutorizacionClient() {
   const params = useSearchParams();
 
-  const studentId = params.get("studentId");
   const workId = params.get("workId");
 
   const [name, setName] = useState("");
-  const [accepted, setAccepted] = useState(false);
+  const [accepted1, setAccepted1] = useState(false);
+  const [accepted2, setAccepted2] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [work, setWork] = useState<any>(null);
@@ -18,7 +18,19 @@ export default function AutorizacionClient() {
   const fetchWork = async () => {
     if (!workId) return;
 
-    const res = await fetch(`/api/work?workId=${workId}`);
+    const res = await fetch(`/api/work?workId=${workId}`, {
+      credentials: "include",
+    });
+
+    if (res.status === 401) {
+      alert("Debes iniciar sesión");
+      return;
+    }
+
+    if (res.status === 403) {
+      alert("No tienes permiso para este trabajo");
+      return;
+    }
 
     if (!res.ok) {
       setWork(null);
@@ -30,15 +42,17 @@ export default function AutorizacionClient() {
   };
 
   useEffect(() => {
-    if (!studentId || !workId) {
+    if (!workId) {
       setLoading(false);
       return;
     }
 
     const init = async () => {
       const res = await fetch(
-        `/api/consent/check?studentId=${studentId}&workId=${workId}`
+        `/api/consent/check?workId=${workId}`,
+        { credentials: "include" }
       );
+
       const data = await res.json();
 
       if (data.signed) {
@@ -51,7 +65,7 @@ export default function AutorizacionClient() {
     };
 
     init();
-  }, [studentId, workId]);
+  }, [workId]);
 
   const handleSubmit = async () => {
     if (!name || !accepted1 || !accepted2) {
@@ -76,7 +90,7 @@ export default function AutorizacionClient() {
       return;
     }
 
-    // descargar PDF
+    // 🔥 descarga PDF
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
 
@@ -90,7 +104,7 @@ export default function AutorizacionClient() {
 
   if (loading) return <p className="p-6">Cargando...</p>;
 
-  if (!studentId || !workId) {
+  if (!workId) {
     return <p className="p-6">Faltan datos en la URL.</p>;
   }
 
@@ -101,7 +115,7 @@ export default function AutorizacionClient() {
   if (submitted) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-bold">✅ Ya firmaste este consentimiento</h2>
+        <h2 className="text-xl font-bold">✅ Consentimiento registrado</h2>
         <p className="mt-2">{work.title}</p>
       </div>
     );
@@ -113,10 +127,8 @@ export default function AutorizacionClient() {
         Autorización para publicación
       </h1>
 
-      <p className="mb-2 text-sm text-gray-600">Trabajo:</p>
-      <p className="font-semibold mb-4">
-        {work.title || "Sin título"}
-      </p>
+      <p className="text-sm text-gray-600">Trabajo:</p>
+      <p className="font-semibold mb-2">{work.title}</p>
 
       <img
         src={work.fileUrl}
@@ -124,9 +136,29 @@ export default function AutorizacionClient() {
         className="mb-6 rounded border"
       />
 
-      <p className="mb-4 text-sm text-gray-600">
-        Este documento permite publicar tu trabajo con fines educativos sin transferir tus derechos.
-      </p>
+      <p className="text-xs text-gray-500">ID: {work.id}</p>
+
+      <label className="flex items-start gap-2 mb-3">
+        <input
+          type="checkbox"
+          checked={accepted1}
+          onChange={(e) => setAccepted1(e.target.checked)}
+        />
+        <span>
+          Declaro que soy el autor del trabajo y autorizo su publicación con fines educativos.
+        </span>
+      </label>
+
+      <label className="flex items-start gap-2 mb-6">
+        <input
+          type="checkbox"
+          checked={accepted2}
+          onChange={(e) => setAccepted2(e.target.checked)}
+        />
+        <span>
+          Entiendo que no cedo derechos y puedo solicitar su eliminación.
+        </span>
+      </label>
 
       <input
         type="text"
@@ -136,20 +168,11 @@ export default function AutorizacionClient() {
         className="w-full border p-2 rounded mb-4"
       />
 
-      <label className="flex items-center gap-2 mb-6">
-        <input
-          type="checkbox"
-          checked={accepted}
-          onChange={(e) => setAccepted(e.target.checked)}
-        />
-        Acepto la autorización de publicación
-      </label>
-
       <button
         onClick={handleSubmit}
         className="bg-black text-white px-4 py-2 rounded"
       >
-        Firmar y enviar
+        Firmar y descargar PDF
       </button>
     </div>
   );

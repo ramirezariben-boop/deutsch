@@ -110,7 +110,6 @@ model StudentWork {
   studentId  String
   title      String?
   fileUrl    String
-  fileHash   String
   createdAt  DateTime @default(now())
 }
 
@@ -120,8 +119,6 @@ model ConsentPublication {
   workId     String
   workTitle  String?
   name       String
-
-  fileHash   String
 
   ip         String?
   userAgent  String?

@@ -9,6 +9,9 @@ export type SessionPayload = {
   uid: string;
   name?: string;
   role: "ADMIN" | "USER";
+  nivelActual?: string;
+  listNumber?: number;
+  points?: number;
 };
 
 function isAdminId(id: string) {

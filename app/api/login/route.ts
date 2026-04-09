@@ -46,12 +46,16 @@ export async function POST(req: Request) {
       user: {
         id: user.id,
         name: user.name,
+ 	nivelActual: user.nivelActual,
       },
     });
 
     setSessionCookie(res, {
       uid: String(user.id),
       name: user.name,
+      nivelActual: user.nivelActual ?? undefined,
+      listNumber: user.listNumber ?? undefined,
+      points: user.points ?? undefined,
     });
 
     return res;

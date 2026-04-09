@@ -32,15 +32,14 @@ export function signSessionToken(payload: { uid: string; name?: string; nivelAct
   return jwt.sign(full, SECRET, { expiresIn: "30d" });
 }
 
+
 export async function readSessionFromHeaders(): Promise<SessionPayload | null> {
   try {
-    const cookieStore = await cookies(); // ← agregar await
+    const cookieStore = await cookies();
     const token = cookieStore.get(COOKIE_NAME)?.value;
     if (!token) return null;
-
     const decoded = jwt.verify(token, SECRET) as SessionPayload;
     const role = deriveRole(decoded.uid);
-
     return { ...decoded, role };
   } catch {
     return null;

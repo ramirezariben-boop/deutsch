@@ -1,4 +1,4 @@
-// components/missions/types/GridQuestion.tsx
+// components/missions/types/CheckboxGridQuestion.tsx
 "use client";
 
 type Props = {
@@ -11,7 +11,19 @@ type Props = {
   onAnswer: (pregunta: string, respuesta: string) => void;
 };
 
-export default function GridQuestion({ data, answers, onAnswer }: Props) {
+export default function CheckboxGridQuestion({ data, answers, onAnswer }: Props) {
+  function getSelected(key: string): string[] {
+    return answers[key] ? answers[key].split(",").map(s => s.trim()) : [];
+  }
+
+  function toggle(key: string, col: string) {
+    const current = getSelected(key);
+    const next = current.includes(col)
+      ? current.filter(c => c !== col)
+      : [...current, col];
+    onAnswer(key, next.join(", "));
+  }
+
   return (
     <div style={{ marginBottom: "2rem" }}>
       <p style={{ color: "#888", fontSize: "13px", marginBottom: "1rem", lineHeight: 1.5 }}>
@@ -30,17 +42,16 @@ export default function GridQuestion({ data, answers, onAnswer }: Props) {
           <tbody>
             {data.rows.map(row => {
               const key = `${data.prompt} [${row}]`;
+              const selected = getSelected(key);
               return (
                 <tr key={row}>
                   <td style={tdStyle}>{row}</td>
                   {data.columns.map(col => (
                     <td key={col} style={{ ...tdStyle, textAlign: "center" }}>
                       <input
-                        type="radio"
-                        name={key}
-                        value={col}
-                        checked={answers[key] === col}
-                        onChange={() => onAnswer(key, col)}
+                        type="checkbox"
+                        checked={selected.includes(col)}
+                        onChange={() => toggle(key, col)}
                         style={{ accentColor: "#4dff91", cursor: "pointer" }}
                       />
                     </td>

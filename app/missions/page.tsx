@@ -76,7 +76,7 @@ export default function MissionsPage() {
       sessionStorage.setItem("missionSession", JSON.stringify({
         missionId: data.missionId,
         curso: data.curso,
-        preguntas: data.preguntas,
+        blocks: data.blocks,
         remainingSec: data.remainingSec,
         rowIndex: data.rowIndex,
         alumnoId: session.id,
@@ -144,8 +144,8 @@ export default function MissionsPage() {
               style={{
                 ...inputStyle,
                 textAlign: "center",
-                fontSize: "24px",
-                letterSpacing: "12px",
+                fontSize: "20px",
+                letterSpacing: "8px",
               }}
             />
           </label>
@@ -192,4 +192,5 @@ const inputStyle: React.CSSProperties = {
   outline: "none",
   width: "100%",
   boxSizing: "border-box",
+  height: "52px", 
 };

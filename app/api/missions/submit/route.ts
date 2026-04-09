@@ -1,15 +1,17 @@
-// app/api/missions/submit/route.ts
 import { NextResponse } from "next/server";
 import { markPasswordUsed, getActiveMission } from "@/lib/sheets/passwords";
 import { escribirCalificacionSheet } from "@/lib/sheets/calificaciones";
-import { RESPUESTAS } from "@/config/respuestas-auto";
-import { MAPEO } from "@/config/mapeo-auto";
-import { MISSION_MAP } from "@/config/missionMap";
+import { MISSIONS_BASICO_2 } from "@/config/missions/basico_2";
+import { MISSIONS_BASICO_4 } from "@/config/missions/basico_4";
+
+const MISSION_CONFIGS: Record<string, any> = {
+  basico_2: MISSIONS_BASICO_2,
+  basico_4: MISSIONS_BASICO_4,
+};
 
 export async function POST(req: Request) {
   try {
-    const { alumnoId, rowIndex, respuestas, missionId, curso } =
-      await req.json();
+    const { alumnoId, rowIndex, respuestas, missionId, curso } = await req.json();
 
     if (!alumnoId || !rowIndex || !respuestas || !missionId || !curso) {
       return NextResponse.json({ error: "Faltan datos" }, { status: 400 });
@@ -18,45 +20,62 @@ export async function POST(req: Request) {
     // 1. Misión sigue activa
     const active = await getActiveMission();
     if (!active || active.missionId !== missionId || active.curso !== curso) {
-      return NextResponse.json(
-        { error: "La misión ya no está activa" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "La misión ya no está activa" }, { status: 403 });
     }
 
     // 2. Tiempo no agotado
-    const elapsed =
-      (Date.now() - new Date(active.startedAt).getTime()) / 1000 / 60;
+    const elapsed = (Date.now() - new Date(active.startedAt).getTime()) / 1000 / 60;
     if (elapsed > active.durationMin) {
-      return NextResponse.json(
-        { error: "Tiempo agotado" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Tiempo agotado" }, { status: 403 });
     }
 
-    // 3. Obtener la lista de preguntas de esta práctica desde el MAPEO
-    const missionKey = MISSION_MAP[curso]?.[missionId]; // "PRACTICA_1A"
-    if (!missionKey) {
+    // 3. Obtener bloques del config de misiones
+    const missionConfig = MISSION_CONFIGS[curso];
+    const missionData = missionConfig?.[missionId.toUpperCase()];
+    if (!missionData) {
       return NextResponse.json({ error: "Misión no configurada" }, { status: 500 });
     }
 
-    const preguntasDeLaPractica: string[] = MAPEO[curso]?.[missionKey] ?? [];
-    const todasLasRespuestas: Record<string, string> = RESPUESTAS[curso] ?? {};
-
-    // 4. Calificar — solo las preguntas de esta práctica
+    // 4. Calificar — recorrer cada bloque y cada pregunta
     let total = 0;
     let correctas = 0;
 
-    for (const pregunta of preguntasDeLaPractica) {
-      const correcta = todasLasRespuestas[pregunta];
-      if (!correcta) continue; // pregunta sin respuesta configurada
+    for (const block of missionData.blocks) {
+      if (block.type === "text") {
+        const key = block.prompt;
+        const correcta = block.correct;
+        if (!correcta) continue;
+        const alumnoResp = String(respuestas[key] ?? "").trim();
+        if (!alumnoResp) continue;
+        total++;
+        if (normalizar(alumnoResp) === normalizar(correcta)) correctas++;
 
-      const alumnoResp = String(respuestas[pregunta] ?? "").trim();
-      if (!alumnoResp) continue; // el alumno no contestó esta pregunta
+      } else if (block.type === "grid") {
+        for (const row of block.rows) {
+          const key = `${block.prompt} [${row}]`;
+          const correcta = block.correct?.[row];
+          if (!correcta) continue;
+          const alumnoResp = String(respuestas[key] ?? "").trim();
+          if (!alumnoResp) continue;
+          total++;
+          if (normalizar(alumnoResp) === normalizar(correcta)) correctas++;
+        }
 
-      total++;
-      if (normalizar(alumnoResp) === normalizar(correcta)) {
-        correctas++;
+      } else if (block.type === "checkbox_grid") {
+        for (const row of block.rows) {
+          const key = `${block.prompt} [${row}]`;
+          const correctas_arr: string[] = block.correct?.[row] ?? [];
+          if (correctas_arr.length === 0) continue;
+          const alumnoResp = String(respuestas[key] ?? "").trim();
+          if (!alumnoResp) continue;
+          const alumnoArr = alumnoResp.split(",").map(s => normalizar(s));
+          const correctaArr = correctas_arr.map(s => normalizar(s));
+          total++;
+          const match =
+            alumnoArr.length === correctaArr.length &&
+            correctaArr.every(c => alumnoArr.includes(c));
+          if (match) correctas++;
+        }
       }
     }
 
@@ -66,14 +85,14 @@ export async function POST(req: Request) {
     await escribirCalificacionSheet({
       curso,
       alumnoId: String(alumnoId),
-      practica: missionId, // "1A"
+      practica: missionId.toUpperCase(),
       score,
     });
 
-    // 6. Marcar password usado — DESPUÉS de escribir, no antes
+    // 6. Marcar password usado
     await markPasswordUsed(rowIndex);
 
-    console.log(`✅ ${curso} / ${missionId} — alumno ${alumnoId}: ${correctas}/${total} → ${score}`);
+    console.log(`✅ ${curso}/${missionId} alumno ${alumnoId}: ${correctas}/${total} → ${score}`);
 
     return NextResponse.json({ ok: true, correctas, total, score });
 

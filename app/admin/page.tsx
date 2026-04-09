@@ -1,9 +1,6 @@
-// app/admin/page.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { MISSION_MAP } from "@/config/missionMap";
-
-const ADMIN_SECRET = process.env.NEXT_PUBLIC_ADMIN_SECRET!;
 
 type MissionState = {
   missionId: string;
@@ -13,8 +10,6 @@ type MissionState = {
 } | null;
 
 export default function AdminPage() {
-  const [authed, setAuthed] = useState(false);
-  const [pin, setPin] = useState("");
   const [curso, setCurso] = useState("basico_2");
   const [missionId, setMissionId] = useState("1a");
   const [durationMin, setDurationMin] = useState(30);
@@ -22,6 +17,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [ahora, setAhora] = useState(Date.now());
+  const [grupalPassword, setGrupalPassword] = useState<string | null>(null);
 
   const cursos = Object.keys(MISSION_MAP);
   const misiones = Object.keys(MISSION_MAP[curso] ?? {});
@@ -48,6 +44,7 @@ export default function AdminPage() {
   async function handleStart() {
     setLoading(true);
     setStatus("");
+    setGrupalPassword(null);
     try {
       const res = await fetch("/api/missions/start", {
         method: "POST",
@@ -57,6 +54,7 @@ export default function AdminPage() {
       const data = await res.json();
       if (data.ok) {
         setStatus(`✅ Misión ${missionId} abierta — ${durationMin} min`);
+        setGrupalPassword(data.password);
         fetchActive();
       } else {
         setStatus(`❌ ${data.error}`);
@@ -76,7 +74,6 @@ export default function AdminPage() {
     return `${m}:${String(s).padStart(2, "0")} restantes`;
   }
 
-  // ── Panel principal ────────────────────────────────────────
   return (
     <div style={{
       minHeight: "100vh",
@@ -85,22 +82,14 @@ export default function AdminPage() {
       fontFamily: "monospace",
       padding: "2rem",
     }}>
-      <h1 style={{
-        color: "#4dff91",
-        letterSpacing: "4px",
-        fontSize: "14px",
-        marginBottom: "2rem",
-      }}>
+      <h1 style={{ color: "#4dff91", letterSpacing: "4px", fontSize: "14px", marginBottom: "2rem" }}>
         PANEL DE CONTROL — MISIONES
       </h1>
 
       {/* Misión activa */}
       <div style={{
-        border: "1px solid #1a3a1a",
-        borderRadius: "8px",
-        padding: "1.5rem",
-        marginBottom: "2rem",
-        background: "#060f06",
+        border: "1px solid #1a3a1a", borderRadius: "8px",
+        padding: "1.5rem", marginBottom: "2rem", background: "#060f06",
       }}>
         <p style={{ color: "#1da854", fontSize: "11px", letterSpacing: "2px", marginBottom: "0.5rem" }}>
           MISIÓN ACTIVA
@@ -118,18 +107,14 @@ export default function AdminPage() {
             </p>
           </>
         ) : (
-          <p style={{ color: "#555", fontSize: "14px", margin: 0 }}>
-            Ninguna misión activa
-          </p>
+          <p style={{ color: "#555", fontSize: "14px", margin: 0 }}>Ninguna misión activa</p>
         )}
       </div>
 
       {/* Abrir misión */}
       <div style={{
-        border: "1px solid #1a3a1a",
-        borderRadius: "8px",
-        padding: "1.5rem",
-        background: "#060f06",
+        border: "1px solid #1a3a1a", borderRadius: "8px",
+        padding: "1.5rem", background: "#060f06",
       }}>
         <p style={{ color: "#1da854", fontSize: "11px", letterSpacing: "2px", marginBottom: "1rem" }}>
           ABRIR NUEVA MISIÓN
@@ -176,24 +161,36 @@ export default function AdminPage() {
           disabled={loading}
           style={{
             background: loading ? "#1a3a1a" : "#4dff91",
-            color: "#000",
-            border: "none",
-            borderRadius: "6px",
-            padding: "0.75rem 2rem",
-            fontFamily: "monospace",
-            fontWeight: "bold",
-            fontSize: "13px",
-            letterSpacing: "2px",
+            color: "#000", border: "none", borderRadius: "6px",
+            padding: "0.75rem 2rem", fontFamily: "monospace",
+            fontWeight: "bold", fontSize: "13px", letterSpacing: "2px",
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >
           {loading ? "ABRIENDO..." : "▶ INICIAR MISIÓN"}
         </button>
 
+        {grupalPassword && (
+          <div style={{
+            marginTop: "1.5rem",
+            border: "1px solid #4dff91",
+            borderRadius: "8px",
+            padding: "1rem 1.5rem",
+            textAlign: "center",
+            background: "#020f02",
+          }}>
+            <p style={{ color: "#1da854", fontSize: "10px", letterSpacing: "3px", margin: "0 0 0.5rem" }}>
+              PASSWORD DE GRUPO · GRUPPENPASSWORT
+            </p>
+            <p style={{ color: "#4dff91", fontSize: "48px", fontWeight: "bold", letterSpacing: "12px", margin: 0 }}>
+              {grupalPassword}
+            </p>
+          </div>
+        )}
+
         {status && (
           <p style={{
-            marginTop: "1rem",
-            fontSize: "13px",
+            marginTop: "1rem", fontSize: "13px",
             color: status.startsWith("✅") ? "#4dff91" : "#ff4444",
           }}>
             {status}

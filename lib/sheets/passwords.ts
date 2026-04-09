@@ -28,7 +28,7 @@ async function getSheets() {
 
 // ── PASSWORDS ──────────────────────────────────────────────
 
-export async function findPassword(pwd: string, missionId: string) {
+export async function findPassword(pwd: string, missionId: string, alumnoId?: string) {
   const sheets = await getSheets();
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
@@ -36,15 +36,19 @@ export async function findPassword(pwd: string, missionId: string) {
   });
 
   const rows = res.data.values ?? [];
-  // columnas: alumno_id | password | mission_id | curso | used | created_at
   for (let i = 1; i < rows.length; i++) {
-    const [alumnoId, password, missionId_row, curso, used] = rows[i];
-    if (
-      password === pwd &&
-      missionId_row === missionId &&
-      used !== "true"
-    ) {
-      return { alumnoId, curso, rowIndex: i + 1 }; // rowIndex es 1-based
+    const [rowAlumnoId, password, missionId_row, curso, used] = rows[i];
+    if (password !== pwd) continue;
+    if (missionId_row !== missionId) continue;
+    if (used === "true") continue;
+
+    // Password grupal (alumno_id vacío) → acepta cualquier alumno
+    const esGrupal = !rowAlumnoId || rowAlumnoId.trim() === "";
+    // Password individual → solo acepta ese alumno
+    const esDelAlumno = alumnoId && String(rowAlumnoId).trim() === String(alumnoId).trim();
+
+    if (esGrupal || esDelAlumno) {
+      return { alumnoId: rowAlumnoId, curso, rowIndex: i + 1 };
     }
   }
   return null;
@@ -106,4 +110,51 @@ export async function writeMissionState(params: {
     },
   });
   return startedAt;
+}
+
+
+function generarPassword(): string {
+  return String(Math.floor(1000 + Math.random() * 9000));
+}
+
+export async function generarPasswordGrupal(params: {
+  missionId: string;
+  curso: string;
+}): Promise<string> {
+  const sheets = await getSheets();
+  const password = generarPassword();
+  const createdAt = new Date().toISOString();
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SPREADSHEET_ID,
+    range: "passwords!A:F",
+    valueInputOption: "RAW",
+    requestBody: {
+      // alumno_id vacío = password grupal
+      values: [["", password, params.missionId, params.curso, "false", createdAt]],
+    },
+  });
+
+  return password;
+}
+
+export async function generarPasswordIndividual(params: {
+  alumnoId: string;
+  missionId: string;
+  curso: string;
+}): Promise<string> {
+  const sheets = await getSheets();
+  const password = generarPassword();
+  const createdAt = new Date().toISOString();
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SPREADSHEET_ID,
+    range: "passwords!A:F",
+    valueInputOption: "RAW",
+    requestBody: {
+      values: [[params.alumnoId, password, params.missionId, params.curso, "false", createdAt]],
+    },
+  });
+
+  return password;
 }

@@ -7,7 +7,7 @@ import LoadingScreen from "@/components/missions/LoadingScreen";
 type MissionSession = {
   missionId: string;
   curso: string;
-  preguntas: string[];
+  blocks: any[];
   remainingSec: number;
   rowIndex: number;
   alumnoId: string;
@@ -26,40 +26,23 @@ export default function MissionPage() {
   const [alertShown, setAlertShown] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // 1. Leer sessionStorage
   useEffect(() => {
     const raw = sessionStorage.getItem("missionSession");
-    if (!raw) {
-      router.replace("/missions");
-      return;
-    }
+    if (!raw) { router.replace("/missions"); return; }
     const data: MissionSession = JSON.parse(raw);
-
-    // Verificar que la URL coincide con la misión
-    if (
-      data.missionId !== params.mission ||
-      data.curso !== params.nivel
-    ) {
-      router.replace("/missions");
-      return;
+    if (data.missionId !== params.mission || data.curso !== params.nivel) {
+      router.replace("/missions"); return;
     }
-
     setSession(data);
     setSecondsLeft(data.remainingSec);
     setPhase("active");
   }, []);
 
-  // 2. Countdown
   useEffect(() => {
     if (phase !== "active") return;
-
     timerRef.current = setInterval(() => {
       setSecondsLeft(prev => {
-        // Alerta a 5 minutos
-        if (prev === 300 && !alertShown) {
-          setAlertShown(true);
-          // No usamos alert() — mostramos un banner en la UI
-        }
+        if (prev === 300 && !alertShown) setAlertShown(true);
         if (prev <= 1) {
           clearInterval(timerRef.current!);
           setPhase("expired");
@@ -68,24 +51,20 @@ export default function MissionPage() {
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(timerRef.current!);
   }, [phase]);
 
-  // 3. Expiración → redirigir
   useEffect(() => {
-    if (phase === "expired") {
-      sessionStorage.removeItem("missionSession");
-      const t = setTimeout(() => router.replace("/missions"), 4000);
-      return () => clearTimeout(t);
-    }
+    if (phase !== "expired") return;
+    sessionStorage.removeItem("missionSession");
+    const t = setTimeout(() => router.replace("/missions"), 4000);
+    return () => clearTimeout(t);
   }, [phase]);
 
   async function handleSubmit() {
     if (!session) return;
     setPhase("submitting");
     clearInterval(timerRef.current!);
-
     try {
       const res = await fetch("/api/missions/submit", {
         method: "POST",
@@ -99,25 +78,19 @@ export default function MissionPage() {
         }),
       });
       const data = await res.json();
-
       if (data.ok) {
         sessionStorage.removeItem("missionSession");
         setResult(data);
         setPhase("done");
       } else {
-        // Si el tiempo se agotó en el servidor
         setPhase("expired");
       }
     } catch {
-      setPhase("active"); // permitir reintentar
+      setPhase("active");
     }
   }
 
-  // ── Pantallas de estado ────────────────────────────────────
-
-  if (phase === "loading") return <LoadingScreen />;
-
-  if (phase === "submitting") return <LoadingScreen />;
+  if (phase === "loading" || phase === "submitting") return <LoadingScreen />;
 
   if (phase === "expired") {
     return (
@@ -128,9 +101,7 @@ export default function MissionPage() {
         <p style={{ color: "#4dff91", fontSize: "20px", margin: "0 0 1rem" }}>
           La misión ha terminado
         </p>
-        <p style={{ color: "#555", fontSize: "13px" }}>
-          Redirigiendo en 4 segundos...
-        </p>
+        <p style={{ color: "#555", fontSize: "13px" }}>Redirigiendo en 4 segundos...</p>
       </FullScreen>
     );
   }
@@ -148,10 +119,7 @@ export default function MissionPage() {
         <p style={{ color: "#888", fontSize: "13px", margin: "0 0 2rem" }}>
           {result.correctas} / {result.total} correctas
         </p>
-        <button
-          onClick={() => router.replace("/schuler")}
-          style={btnStyle}
-        >
+        <button onClick={() => router.replace("/schueler")} style={btnStyle}>
           ← VOLVER AL PANEL
         </button>
       </FullScreen>
@@ -160,79 +128,47 @@ export default function MissionPage() {
 
   if (!session) return null;
 
-  // ── Misión activa ──────────────────────────────────────────
   const mins = Math.floor(secondsLeft / 60);
   const secs = secondsLeft % 60;
   const timerColor = secondsLeft <= 300 ? "#ff4444" : "#4dff91";
   const isLowTime = secondsLeft <= 300;
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0a0a0a",
-      color: "#e0e0e0",
-      fontFamily: "monospace",
-    }}>
-
-      {/* Header fijo con timer */}
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", color: "#e0e0e0", fontFamily: "monospace" }}>
       <div style={{
-        position: "sticky",
-        top: 0,
-        background: "#000",
-        borderBottom: "1px solid #1a3a1a",
-        padding: "0.75rem 1.5rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: 100,
+        position: "sticky", top: 0, background: "#000",
+        borderBottom: "1px solid #1a3a1a", padding: "0.75rem 1.5rem",
+        display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 100,
       }}>
         <span style={{ color: "#1da854", fontSize: "11px", letterSpacing: "2px" }}>
           {session.curso.toUpperCase()} — MISIÓN {session.missionId.toUpperCase()}
         </span>
-        <span style={{
-          color: timerColor,
-          fontSize: "20px",
-          fontWeight: "bold",
-          letterSpacing: "2px",
-          transition: "color 0.5s",
-        }}>
+        <span style={{ color: timerColor, fontSize: "20px", fontWeight: "bold", letterSpacing: "2px", transition: "color 0.5s" }}>
           {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
         </span>
       </div>
 
-      {/* Banner de advertencia */}
       {isLowTime && (
         <div style={{
-          background: "#1a0000",
-          borderBottom: "1px solid #ff4444",
-          padding: "0.5rem 1.5rem",
-          textAlign: "center",
-          fontSize: "11px",
-          color: "#ff4444",
-          letterSpacing: "2px",
+          background: "#1a0000", borderBottom: "1px solid #ff4444",
+          padding: "0.5rem 1.5rem", textAlign: "center",
+          fontSize: "11px", color: "#ff4444", letterSpacing: "2px",
         }}>
           ⚠ MENOS DE 5 MINUTOS · WENIGER ALS 5 MINUTEN
         </div>
       )}
 
-      {/* Preguntas */}
       <div style={{ padding: "1.5rem", maxWidth: "760px", margin: "0 auto" }}>
         <MissionRenderer
           mission={{
             title: `Misión ${session.missionId.toUpperCase()}`,
-            blocks: [{
-              id: "block-1",
-              type: "text",
-              preguntas: session.preguntas,
-            }],
+            blocks: session.blocks,
           }}
           answers={answers}
           onAnswer={(pregunta, respuesta) =>
             setAnswers(prev => ({ ...prev, [pregunta]: respuesta }))
           }
         />
-
-        {/* Botón enviar */}
         <div style={{ marginTop: "2rem", paddingBottom: "2rem" }}>
           <button
             onClick={handleSubmit}
@@ -246,20 +182,12 @@ export default function MissionPage() {
   );
 }
 
-// ── Helpers de UI ──────────────────────────────────────────────
-
 function FullScreen({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
-      minHeight: "100vh",
-      background: "#0a0a0a",
-      fontFamily: "monospace",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
-      padding: "2rem",
+      minHeight: "100vh", background: "#0a0a0a", fontFamily: "monospace",
+      display: "flex", flexDirection: "column", alignItems: "center",
+      justifyContent: "center", textAlign: "center", padding: "2rem",
     }}>
       {children}
     </div>
@@ -267,14 +195,8 @@ function FullScreen({ children }: { children: React.ReactNode }) {
 }
 
 const btnStyle: React.CSSProperties = {
-  background: "#4dff91",
-  color: "#000",
-  border: "none",
-  borderRadius: "6px",
-  padding: "0.875rem 2rem",
-  fontFamily: "monospace",
-  fontWeight: "bold",
-  fontSize: "13px",
-  letterSpacing: "2px",
-  cursor: "pointer",
+  background: "#4dff91", color: "#000", border: "none",
+  borderRadius: "6px", padding: "0.875rem 2rem",
+  fontFamily: "monospace", fontWeight: "bold",
+  fontSize: "13px", letterSpacing: "2px", cursor: "pointer",
 };

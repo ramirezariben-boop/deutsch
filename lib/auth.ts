@@ -26,7 +26,7 @@ function deriveRole(uid: string): "ADMIN" | "USER" {
   return isAdminId(uid) ? "ADMIN" : "USER";
 }
 
-export function signSessionToken(payload: { uid: string; name?: string }) {
+export function signSessionToken(payload: { uid: string; name?: string; nivelActual?: string; listNumber?: number; points?: number }) {
   const role = deriveRole(payload.uid);
   const full: SessionPayload = { ...payload, role };
   return jwt.sign(full, SECRET, { expiresIn: "30d" });
@@ -49,7 +49,7 @@ export async function readSessionFromHeaders(): Promise<SessionPayload | null> {
 
 export function setSessionCookie(
   res: NextResponse,
-  payload: { uid: string; name?: string },
+    payload: { uid: string; name?: string; nivelActual?: string; listNumber?: number; points?: number },
   maxAgeDays = 30
 ) {
   const token = signSessionToken(payload);

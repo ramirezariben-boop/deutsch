@@ -1,12 +1,11 @@
-// app/api/missions/start/route.ts
 import { NextResponse } from "next/server";
 import { writeMissionState } from "@/lib/sheets/passwords";
-
-const ADMIN_SECRET = process.env.ADMIN_SECRET!;
+import { requireAdmin } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const secret = req.headers.get("x-admin-secret");
-  if (secret !== ADMIN_SECRET) {
+  // Verificar sesión de admin en lugar de header secreto
+  const session = await requireAdmin();
+  if (!session) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
@@ -17,6 +16,5 @@ export async function POST(req: Request) {
   }
 
   const startedAt = await writeMissionState({ missionId, curso, durationMin });
-
   return NextResponse.json({ ok: true, missionId, curso, startedAt, durationMin });
 }

@@ -51,10 +51,7 @@ export default function AdminPage() {
     try {
       const res = await fetch("/api/missions/start", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-admin-secret": ADMIN_SECRET,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ missionId, curso, durationMin }),
       });
       const data = await res.json();

@@ -5,10 +5,23 @@ import path from "path";
 const SPREADSHEET_ID = "1rnpzil7N_2GocQ5l29btCrYCmsr9axWrv07vAbNQXa4";
 
 async function getSheets() {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(process.cwd(), "service-account.json"),
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
+  let auth;
+
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+    // Producción: credenciales desde variable de entorno
+    const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+    auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+  } else {
+    // Local: archivo en disco
+    auth = new google.auth.GoogleAuth({
+      keyFile: path.join(process.cwd(), "service-account.json"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+  }
+
   const client = await auth.getClient();
   return google.sheets({ version: "v4", auth: client });
 }

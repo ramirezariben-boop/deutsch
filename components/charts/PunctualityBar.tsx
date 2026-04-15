@@ -42,10 +42,7 @@ export default function PunctualityBar({
         const m = r.class_id.match(/_(\d{2})$/);
         const classNum = m ? Number(m[1]) : i + 1;
 
-        const late =
-          r.late_minutes == null || r.late_minutes === ""
-            ? null
-            : Number(r.late_minutes);
+        const late = r.late_minutes;
 
         const attended =
           (r.minutes_attended != null && r.minutes_attended > 0) ||

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { MISSION_MAP } from "@/config/missionMap";
 
 type MissionState = {
@@ -21,6 +21,11 @@ export default function AdminPage() {
 
   const cursos = Object.keys(MISSION_MAP);
   const misiones = Object.keys(MISSION_MAP[curso] ?? {});
+
+  const [currentCourseId, setCurrentCourseId] = useState("2026_2");
+  const [consolidateCourseId, setConsolidateCourseId] = useState("2026_1");
+  const [adminStatus, setAdminStatus] = useState("");
+  const [adminLoading, setAdminLoading] = useState(false);
 
   useEffect(() => {
     fetchActive();
@@ -73,6 +78,64 @@ export default function AdminPage() {
     const s = Math.floor((remaining - m) * 60);
     return `${m}:${String(s).padStart(2, "0")} restantes`;
   }
+
+async function handleSetCurrentCourse() {
+  setAdminLoading(true);
+  setAdminStatus("");
+
+  try {
+    const res = await fetch("/api/admin/current-course", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ courseId: currentCourseId }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.ok) {
+      setAdminStatus(`✅ Curso actual guardado: ${data.currentCourseId}`);
+    } else {
+      setAdminStatus(`❌ ${data.error || "No se pudo guardar el curso actual"}`);
+    }
+  } catch (err) {
+    setAdminStatus("❌ Error al guardar el curso actual");
+  } finally {
+    setAdminLoading(false);
+  }
+}
+
+async function handleConsolidateAttendance() {
+  setAdminLoading(true);
+  setAdminStatus("");
+
+  try {
+    const res = await fetch("/api/admin/attendance/consolidate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ courseId: consolidateCourseId }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.ok) {
+      setAdminStatus(
+        `✅ Consolidado ${data.courseId}: ${data.consolidated} alumnos, ${data.deleted} filas eliminadas`
+      );
+    } else {
+      setAdminStatus(`❌ ${data.error || "No se pudo consolidar"}`);
+    }
+  } catch (err) {
+    setAdminStatus("❌ Error al consolidar asistencia");
+  } finally {
+    setAdminLoading(false);
+  }
+}
+
+
 
   return (
     <div style={{
@@ -197,11 +260,136 @@ export default function AdminPage() {
           </p>
         )}
       </div>
+
+<div
+  style={{
+    border: "1px solid #1a3a1a",
+    borderRadius: "8px",
+    padding: "1.5rem",
+    background: "#060f06",
+    marginTop: "2rem",
+  }}
+>
+  <p
+    style={{
+      color: "#1da854",
+      fontSize: "11px",
+      letterSpacing: "2px",
+      marginBottom: "1rem",
+    }}
+  >
+    ADMIN · ASISTENCIA
+  </p>
+
+  <div
+    style={{
+      display: "flex",
+      gap: "2rem",
+      flexWrap: "wrap",
+      alignItems: "end",
+      marginBottom: "1rem",
+    }}
+  >
+    <label
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "4px",
+        fontSize: "11px",
+        color: "#888",
+      }}
+    >
+      CURSO ACTUAL GLOBAL
+      <input
+        value={currentCourseId}
+        onChange={(e) => setCurrentCourseId(e.target.value)}
+        style={selectStyle}
+      />
+    </label>
+
+    <button
+      onClick={handleSetCurrentCourse}
+      disabled={adminLoading}
+      style={{
+        background: adminLoading ? "#1a3a1a" : "#4dff91",
+        color: "#000",
+        border: "none",
+        borderRadius: "6px",
+        padding: "0.75rem 1.5rem",
+        fontFamily: "monospace",
+        fontWeight: "bold",
+        fontSize: "12px",
+        letterSpacing: "2px",
+        cursor: adminLoading ? "not-allowed" : "pointer",
+      }}
+    >
+      GUARDAR CURSO ACTUAL
+    </button>
+  </div>
+
+  <div
+    style={{
+      display: "flex",
+      gap: "2rem",
+      flexWrap: "wrap",
+      alignItems: "end",
+    }}
+  >
+    <label
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "4px",
+        fontSize: "11px",
+        color: "#888",
+      }}
+    >
+      CONSOLIDAR CURSO
+      <input
+        value={consolidateCourseId}
+        onChange={(e) => setConsolidateCourseId(e.target.value)}
+        style={selectStyle}
+      />
+    </label>
+
+    <button
+      onClick={handleConsolidateAttendance}
+      disabled={adminLoading}
+      style={{
+        background: adminLoading ? "#2a1a1a" : "#f59e0b",
+        color: "#000",
+        border: "none",
+        borderRadius: "6px",
+        padding: "0.75rem 1.5rem",
+        fontFamily: "monospace",
+        fontWeight: "bold",
+        fontSize: "12px",
+        letterSpacing: "2px",
+        cursor: adminLoading ? "not-allowed" : "pointer",
+      }}
+    >
+      CONSOLIDAR Y PURGAR
+    </button>
+  </div>
+
+  {adminStatus && (
+    <p
+      style={{
+        marginTop: "1rem",
+        fontSize: "13px",
+        color: adminStatus.startsWith("✅") ? "#4dff91" : "#ff4444",
+      }}
+    >
+      {adminStatus}
+    </p>
+  )}
+</div>
+
     </div>
   );
 }
 
-const selectStyle: React.CSSProperties = {
+const selectStyle: CSSProperties = {
   background: "#0a0a0a",
   color: "#4dff91",
   border: "1px solid #1a3a1a",

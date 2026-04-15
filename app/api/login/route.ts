@@ -46,7 +46,8 @@ export async function POST(req: Request) {
       user: {
         id: user.id,
         name: user.name,
- 	nivelActual: user.nivelActual,
+        nivelActual: user.nivelActual,
+        resolvedCourseId: user.resolvedCourseId ?? null,
       },
     });
 
@@ -56,6 +57,7 @@ export async function POST(req: Request) {
       nivelActual: user.nivelActual ?? undefined,
       listNumber: user.listNumber ?? undefined,
       points: user.points ?? undefined,
+      resolvedCourseId: user.resolvedCourseId ?? undefined,
     });
 
     return res;

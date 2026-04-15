@@ -12,6 +12,7 @@ export type SessionPayload = {
   nivelActual?: string;
   listNumber?: number;
   points?: number;
+  resolvedCourseId?: string;
 };
 
 function isAdminId(id: string) {
@@ -26,12 +27,18 @@ function deriveRole(uid: string): "ADMIN" | "USER" {
   return isAdminId(uid) ? "ADMIN" : "USER";
 }
 
-export function signSessionToken(payload: { uid: string; name?: string; nivelActual?: string; listNumber?: number; points?: number }) {
+export function signSessionToken(payload: {
+  uid: string;
+  name?: string;
+  nivelActual?: string;
+  listNumber?: number;
+  points?: number;
+  resolvedCourseId?: string;
+}) {
   const role = deriveRole(payload.uid);
   const full: SessionPayload = { ...payload, role };
   return jwt.sign(full, SECRET, { expiresIn: "30d" });
 }
-
 
 export async function readSessionFromHeaders(): Promise<SessionPayload | null> {
   try {
@@ -48,7 +55,14 @@ export async function readSessionFromHeaders(): Promise<SessionPayload | null> {
 
 export function setSessionCookie(
   res: NextResponse,
-    payload: { uid: string; name?: string; nivelActual?: string; listNumber?: number; points?: number },
+  payload: {
+    uid: string;
+    name?: string;
+    nivelActual?: string;
+    listNumber?: number;
+    points?: number;
+    resolvedCourseId?: string;
+  },
   maxAgeDays = 30
 ) {
   const token = signSessionToken(payload);
@@ -59,7 +73,7 @@ export function setSessionCookie(
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: maxAgeDays * 24 * 60 * 60,
-    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined, // ← fix
+    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
   });
 
   return res;
@@ -72,7 +86,7 @@ export function clearSession(res: NextResponse) {
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: 0,
-    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined, // ← fix
+    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
   });
 
   return res;

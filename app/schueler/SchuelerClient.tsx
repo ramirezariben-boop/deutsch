@@ -7,6 +7,7 @@ type Alumno = {
   id: number;
   name: string;
   course: string;
+  courseId: string | null;
   list_number: number | null;
 };
 

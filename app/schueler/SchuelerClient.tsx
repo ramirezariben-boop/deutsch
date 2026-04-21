@@ -68,6 +68,15 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           </a>
 
           <a
+            href="https://deutsch.ariiben.com/missions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
+          >
+            ⏱️ Missionen 👨‍💻
+          </a>
+
+          <a
             href="https://grammatik.ariiben.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -78,6 +87,15 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
         </div>
 
         <div className="flex flex-col gap-4">
+          <a
+            href="https://spaces.ariiben.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
+          >
+            💬 Sprechhaus 🏠
+          </a>
+
           <a
             href="https://spaces.ariiben.com"
             target="_blank"

@@ -108,7 +108,7 @@ export default function MissionsPage() {
       <div style={{ width: "100%", maxWidth: "420px" }}>
 
         <p style={{ color: "#1da854", fontSize: "10px", letterSpacing: "4px", marginBottom: "0.5rem" }}>
-          SISTEMA DE MISIONES
+          MISSIONENZENTRUM
         </p>
         <h1 style={{ color: "#4dff91", fontSize: "22px", margin: "0 0 2rem", letterSpacing: "2px" }}>
           {session?.name ?? "..."}

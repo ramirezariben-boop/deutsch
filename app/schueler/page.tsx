@@ -13,9 +13,18 @@ export default async function SchuelerPage() {
       alumno={{
         id: Number(session.uid),
         name: session.name ?? "Alumno",
+
+        points: session.points ?? null,
+        isCurrent: session.isCurrent ?? false,
+        listNumber: session.listNumber ?? null,
+
         course: session.nivelActual ?? "sin_curso",
         courseId: session.resolvedCourseId ?? null,
-        list_number: session.listNumber ?? null,
+        resolvedCourseId: session.resolvedCourseId ?? null,
+
+        nivelActual: session.nivelActual ?? null,
+        day: session.day ?? null,
+        privCode: session.privCode ?? null,
       }}
     />
   );

@@ -51,6 +51,8 @@ export async function POST(req: Request) {
         isCurrent: user.isCurrent ?? false,
         day: user.day ?? null,
         privCode: user.privCode ?? null,
+        listNumber: user.listNumber ?? null,
+        points: user.points ?? null,
       },
     });
 

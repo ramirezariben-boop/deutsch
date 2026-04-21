@@ -1,20 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import AlumnoCard from "@/components/alumno/AlumnoCard";
 
 type Alumno = {
-  id: number;
+  id: number | string;
   name: string;
-  course: string;
-  courseId: string | null;
-  list_number: number | null;
+
+  points?: number | null;
+  isCurrent?: boolean;
+  listNumber?: number | null;
+
+  course?: string | null;
+  courseId?: string | null;
+  resolvedCourseId?: string | null;
+
+  nivelActual?: string | null;
+  day?: string | null;
+  privCode?: string | null;
 };
 
 export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
-  const [showAlumno, setShowAlumno] = useState(true);
-
-const isAdmin = alumno.id === 64;
+  const showAlumno = true;
+  const isAdmin = Number(alumno.id) === 64;
 
   return (
     <div className="p-10 text-white relative">
@@ -22,9 +29,7 @@ const isAdmin = alumno.id === 64;
 
       <h1 className="text-3xl font-bold mb-10">Willkommen!</h1>
 
-      {/* ===== CONTENIDO NORMAL (NO SE MUEVE) ===== */}
       <div className="flex justify-between px-12 gap-12">
-        {/* Columna izquierda */}
         <div className="flex flex-col gap-4">
           <a
             href="https://classroom-trading.ariiben.com"
@@ -70,23 +75,8 @@ const isAdmin = alumno.id === 64;
           >
             🤓 Grammatik 📚
           </a>
-
-{/* Este botón se libera cuando haya examen */}
-{/* 
-          <a
-            href="https://deutsch.ariiben.com/schreiben"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
-          >
-            🧾 Schreiben
-          </a>
-*/}
-
-
         </div>
 
-        {/* Columna derecha */}
         <div className="flex flex-col gap-4">
           <a
             href="https://spaces.ariiben.com"
@@ -135,7 +125,6 @@ const isAdmin = alumno.id === 64;
         </div>
       </div>
 
-      {/* ===== PANEL CENTRAL FLOTANTE (NO BLOQUEA LOS BOTONES) ===== */}
       {showAlumno && (
         <div className="fixed inset-0 z-40 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
@@ -144,13 +133,7 @@ const isAdmin = alumno.id === 64;
         </div>
       )}
 
-      {/* (opcional) botón para ocultar/mostrar el panel sin afectar nada */}
-      {/* <button onClick={() => setShowAlumno((s) => !s)} className="mt-8 text-xs text-neutral-400 underline">
-        Toggle panel
-      </button> */}
-
       <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">
-
         <p className="text-xs text-neutral-500 max-w-xl mx-auto mb-3 leading-relaxed">
           La información mostrada en este panel tiene fines informativos y de
           retroalimentación académica y no sustituye los registros oficiales
@@ -184,10 +167,7 @@ const isAdmin = alumno.id === 64;
         >
           Legal
         </a>
-
       </footer>
-
     </div>
-
   );
 }

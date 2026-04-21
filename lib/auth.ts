@@ -13,6 +13,9 @@ export type SessionPayload = {
   listNumber?: number;
   points?: number;
   resolvedCourseId?: string;
+  isCurrent?: boolean;
+  day?: "SAM" | "SON" | "PRIV";
+  privCode?: string;
 };
 
 function isAdminId(id: string) {
@@ -34,6 +37,9 @@ export function signSessionToken(payload: {
   listNumber?: number;
   points?: number;
   resolvedCourseId?: string;
+  isCurrent?: boolean;
+  day?: "SAM" | "SON" | "PRIV";
+  privCode?: string;
 }) {
   const role = deriveRole(payload.uid);
   const full: SessionPayload = { ...payload, role };
@@ -45,8 +51,10 @@ export async function readSessionFromHeaders(): Promise<SessionPayload | null> {
     const cookieStore = await cookies();
     const token = cookieStore.get(COOKIE_NAME)?.value;
     if (!token) return null;
+
     const decoded = jwt.verify(token, SECRET) as SessionPayload;
     const role = deriveRole(decoded.uid);
+
     return { ...decoded, role };
   } catch {
     return null;
@@ -62,6 +70,9 @@ export function setSessionCookie(
     listNumber?: number;
     points?: number;
     resolvedCourseId?: string;
+    isCurrent?: boolean;
+    day?: "SAM" | "SON" | "PRIV";
+    privCode?: string;
   },
   maxAgeDays = 30
 ) {
@@ -73,7 +84,8 @@ export function setSessionCookie(
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: maxAgeDays * 24 * 60 * 60,
-    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
+    domain:
+      process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
   });
 
   return res;
@@ -86,7 +98,8 @@ export function clearSession(res: NextResponse) {
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: 0,
-    domain: process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
+    domain:
+      process.env.NODE_ENV === "production" ? ".ariiben.com" : undefined,
   });
 
   return res;

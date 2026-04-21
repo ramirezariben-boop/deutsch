@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import MetricModal from "./MetricModal";
+import PointsModal from "./PointsModal";
 import AttendanceBar from "../charts/AttendanceBar";
 import PunctualityBar from "../charts/PunctualityBar";
 import AttendanceHistoryBar from "../charts/AttendanceHistoryBar";
@@ -194,20 +195,24 @@ export default function AlumnoTabs({ alumnoId, course, courseId }: Props) {
         </button>
       </div>
 
-      {open && (
+      {open && open !== "progreso" && (
         <MetricModal onClose={() => setOpen(null)}>
           {open === "attendance" && (
             <AttendancePanel alumnoId={alumnoId} courseId={courseId} />
           )}
 
           {open === "grades" && (
-            <GradesLine studentId={alumnoId} course={course} />
+            <GradesLine studentId={alumnoId} />
           )}
 
           {open === "notas" && <StudentNotes studentId={alumnoId} />}
-
-          {open === "progreso" && <Progreso studentId={alumnoId} />}
         </MetricModal>
+      )}
+
+      {open === "progreso" && (
+        <PointsModal onClose={() => setOpen(null)}>
+          <Progreso studentId={alumnoId} />
+        </PointsModal>
       )}
     </>
   );

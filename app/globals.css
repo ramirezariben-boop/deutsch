@@ -46,3 +46,27 @@
 .animate-scale-in {
   animation: scaleIn 180ms ease-out;
 }
+
+.points-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #5a5a5a #151515;
+}
+
+.points-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.points-scrollbar::-webkit-scrollbar-track {
+  background: #151515;
+  border-radius: 9999px;
+}
+
+.points-scrollbar::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+  border-radius: 9999px;
+  border: 2px solid #151515;
+}
+
+.points-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #727272;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,51 +16,64 @@ type GradePoint = {
   value: number | null;
 };
 
+type GradesResponse = {
+  student_id: number;
+  course: string | null;
+  hasCurrentCourseData: boolean;
+  grades: GradePoint[];
+};
+
 export default function GradesLine({
   studentId,
-  course,
 }: {
   studentId: number;
-  course: string;
 }) {
   const [data, setData] = useState<GradePoint[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hasCurrentCourseData, setHasCurrentCourseData] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(
-          `/api/grades?student_id=${studentId}&course=${course}`,
-          { cache: "no-store" }
-        );
-        if (!res.ok) return;
+        const res = await fetch(`/api/grades?student_id=${studentId}`, {
+          cache: "no-store",
+        });
 
-        const json = await res.json();
-        setData(json.grades ?? []);
+        if (!res.ok) {
+          setData([]);
+          setHasCurrentCourseData(false);
+          return;
+        }
+
+        const json: GradesResponse = await res.json();
+
+        setHasCurrentCourseData(Boolean(json.hasCurrentCourseData));
+        setData(Array.isArray(json.grades) ? json.grades : []);
       } catch (err) {
         console.error("Error cargando calificaciones:", err);
+        setData([]);
+        setHasCurrentCourseData(false);
       } finally {
         setLoading(false);
       }
     }
 
     load();
-  }, [studentId, course]);
+  }, [studentId]);
 
   if (loading) {
     return <div className="text-sm text-neutral-400">Cargando…</div>;
   }
 
-  if (!data.length) {
+  if (!hasCurrentCourseData || !data.length) {
     return (
       <div className="text-sm text-neutral-400">
-        No hay calificaciones registradas
+        No hay prácticas del curso actual.
       </div>
     );
   }
 
-  // ===== CÁLCULOS =====
-  const graded = data.filter(d => d.value != null);
+  const graded = data.filter((d) => d.value != null);
 
   const avgPractices = graded.length
     ? graded.reduce((s, d) => s + (d.value ?? 0), 0) / graded.length
@@ -68,11 +81,9 @@ export default function GradesLine({
 
   const finalContribution = avgPractices * 0.1;
 
-  // ===== RENDER =====
   return (
-    <div className="w-full">
-      {/* ===== CHART ===== */}
-      <div className="w-full h-[260px]">
+    <div className="w-full min-w-0">
+      <div className="w-full h-[260px] min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
@@ -96,7 +107,6 @@ export default function GradesLine({
               }}
             />
 
-            {/* línea de promedio */}
             <ReferenceLine
               y={avgPractices}
               stroke="#94a3b8"
@@ -104,7 +114,6 @@ export default function GradesLine({
               strokeOpacity={0.35}
             />
 
-            {/* línea de calificaciones */}
             <Line
               type="monotone"
               dataKey="value"
@@ -137,7 +146,6 @@ export default function GradesLine({
         </ResponsiveContainer>
       </div>
 
-      {/* ===== RESUMEN ===== */}
       <div className="mt-4 text-center text-xs text-neutral-400 space-y-1">
         <div>
           Promedio de prácticas:

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbyNA6xgjPR6D0BikIgWzkKGdDpWp6aSu_92mZWt4-rRns_CY5AMSJUb7RoHuS2F8A/exec";
+const GAS_URL = process.env.GS_GRADES_ENDPOINT;
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

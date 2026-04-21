@@ -13,28 +13,34 @@ export async function GET(req: Request) {
   }
 
   const endpoint = process.env.GS_GRADES_ENDPOINT;
-  if (!endpoint)
+  if (!endpoint) {
     throw new Error("GS_GRADES_ENDPOINT no definido");
+  }
 
-  const rows = await readSheetJSON(
-    `${endpoint}?sheet=feedback_examen`
-  );
+  const rows = await readSheetJSON(`${endpoint}?sheet=feedback_examen`);
 
-  if (!rows.length)
+  if (!Array.isArray(rows) || !rows.length) {
     return NextResponse.json({ feedback: [] });
+  }
 
-  const studentRow = rows.find(
-    r => Number(r.studentId) === studentId
-  );
+  const studentRow = rows.find((r) => {
+    const id = r.studentId ?? r.id ?? r.ID;
+    return Number(id) === studentId;
+  });
 
-  if (!studentRow)
+  if (!studentRow) {
     return NextResponse.json({ feedback: [] });
+  }
 
   const feedback = Object.keys(studentRow)
-    .filter(k => k !== "studentId" && studentRow[k])
-    .map(k => ({
+    .filter((k) => {
+      if (k === "studentId" || k === "id" || k === "ID") return false;
+      const v = studentRow[k];
+      return v !== null && v !== undefined && String(v).trim() !== "";
+    })
+    .map((k) => ({
       curso: k,
-      texto: studentRow[k]
+      texto: String(studentRow[k]).trim(),
     }));
 
   return NextResponse.json({ feedback });

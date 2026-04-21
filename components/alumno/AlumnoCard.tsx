@@ -274,15 +274,17 @@ return (
             </div>
           )}
 
-          <div className="absolute inset-x-0 bottom-0 bg-black/55 px-3 py-2 text-[11px] leading-snug text-neutral-200">
-            Se guarda solo en este navegador
-          </div>
+          {!customImage && (
+            <div className="absolute inset-x-0 bottom-0 bg-black/55 px-3 py-2 text-[11px] leading-snug text-neutral-200">
+              Se guarda solo en este navegador
+            </div>
+          )}
 
           {customImage && (
             <button
               type="button"
               onClick={removeImage}
-              className="absolute top-2 right-2 rounded-md bg-black/70 px-2 py-1 text-[11px] text-white hover:bg-black"
+              className="absolute top-2 right-2 rounded-md bg-black/10 px-2 py-1 text-[11px] text-white/30 hover:bg-black/45"
             >
               Quitar
             </button>

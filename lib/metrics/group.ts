@@ -51,14 +51,6 @@ function resolveMetric(args: {
   return args.rawValue ?? args.historyValue;
 }
 
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) {
-    out.push(arr.slice(i, i + size));
-  }
-  return out;
-}
-
 function normalizeBucketKey(label: string): string {
   const clean = String(label ?? "")
     .normalize("NFD")
@@ -166,41 +158,37 @@ export async function buildGroupMetricsAverage(args: {
     return true;
   });
 
-  const chunks = chunkArray(filtered, 5);
-
   const metrics: Awaited<ReturnType<typeof buildStudentMetrics>>[] = [];
   const errors: Array<{ id: number; error: string }> = [];
 
-  for (const chunk of chunks) {
-    const settled = await Promise.allSettled(
-      chunk.map((s) => buildStudentMetrics(s, windows))
-    );
+  const settled = await Promise.allSettled(
+    filtered.map((s) => buildStudentMetrics(s, windows))
+  );
 
-    settled.forEach((result, index) => {
-      const student = chunk[index];
+  settled.forEach((result, index) => {
+    const student = filtered[index];
 
-      if (result.status === "fulfilled") {
-        metrics.push(result.value);
+    if (result.status === "fulfilled") {
+      metrics.push(result.value);
 
-        if (result.value.sourceErrors?.length) {
-          errors.push(
-            ...result.value.sourceErrors.map((msg) => ({
-              id: student.id,
-              error: msg,
-            }))
-          );
-        }
-      } else {
-        errors.push({
-          id: student.id,
-          error:
-            result.reason instanceof Error
-              ? result.reason.message
-              : String(result.reason),
-        });
+      if (result.value.sourceErrors?.length) {
+        errors.push(
+          ...result.value.sourceErrors.map((msg) => ({
+            id: student.id,
+            error: msg,
+          }))
+        );
       }
-    });
-  }
+    } else {
+      errors.push({
+        id: student.id,
+        error:
+          result.reason instanceof Error
+            ? result.reason.message
+            : String(result.reason),
+      });
+    }
+  });
 
   const rows: GroupMetricsStudentRow[] = metrics.map((m) => {
     const historyAttendance =

@@ -15,7 +15,7 @@ type Alumno = {
   resolvedCourseId?: string | null;
 
   nivelActual?: string | null;
-  day?: string | null;
+  day?: "SAM" | "SON" | "PRIV" | null;
   privCode?: string | null;
 };
 

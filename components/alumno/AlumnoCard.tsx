@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent, type DragEvent, type MouseEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type DragEvent,
+  type MouseEvent,
+} from "react";
 import AlumnoTabs from "./AlumnoTabs";
 
 type Alumno = {
@@ -13,6 +20,7 @@ type Alumno = {
 
   course?: string | null;
   nivelActual?: string | null;
+  day?: "SAM" | "SON" | "PRIV" | null;
 
   courseId?: string | null;
   resolvedCourseId?: string | null;
@@ -45,7 +53,11 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
-async function resizeAndCompressImage(file: File, maxSide = 420, quality = 0.82): Promise<string> {
+async function resizeAndCompressImage(
+  file: File,
+  maxSide = 420,
+  quality = 0.82
+): Promise<string> {
   if (!ACCEPTED_TYPES.includes(file.type)) {
     throw new Error("Solo se permiten imágenes PNG, JPEG o WEBP.");
   }
@@ -71,6 +83,23 @@ async function resizeAndCompressImage(file: File, maxSide = 420, quality = 0.82)
   ctx.drawImage(img, 0, 0, width, height);
 
   return canvas.toDataURL("image/webp", quality);
+}
+
+function formatCourseLabel(course?: string | null) {
+  if (!course) return "—";
+
+  const m = course.match(/^(basico|intermedio|avanzado)_(\d+)$/i);
+  if (!m) return course;
+
+  const [, nivel, numero] = m;
+
+  const nivelMap: Record<string, string> = {
+    basico: "Básico",
+    intermedio: "Intermedio",
+    avanzado: "Avanzado",
+  };
+
+  return `${nivelMap[nivel.toLowerCase()] ?? nivel} ${numero}`;
 }
 
 export default function AlumnoCard({ alumno }: { alumno: Alumno }) {
@@ -158,127 +187,136 @@ export default function AlumnoCard({ alumno }: { alumno: Alumno }) {
     if (inputRef.current) inputRef.current.value = "";
   }
 
-  return (
-    <div className="w-[560px] max-w-[95vw] rounded-xl bg-neutral-900 border border-neutral-700 p-6 shadow-xl">
-      <div className="flex flex-col md:flex-row gap-5">
-        <div className="flex-1 min-w-0">
-          <h2 className="text-3xl font-semibold mb-5 break-words">{alumno.name}</h2>
+return (
+  <div className="w-[420px] max-w-[95vw] rounded-xl bg-neutral-900 border border-neutral-700 p-6 shadow-xl">
+    <input
+      ref={inputRef}
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+      className="hidden"
+      onChange={onInputChange}
+    />
 
-          <div className="space-y-1 text-sm text-neutral-300 mb-5">
-            <div>
-              <span className="text-neutral-500">ID:</span> {alumno.id}
-            </div>
+    {/* Título a todo el ancho */}
+    <h2 className="text-[20px] sm:text-[22px] font-semibold leading-[1.08] mb-6 break-words">
+      {alumno.name}
+    </h2>
 
-            <div>
-              <span className="text-neutral-500">MXP:</span>{" "}
-              {alumno.points == null ? "—" : Number(alumno.points).toFixed(2)}
-            </div>
-
-            <div>
-              <span className="text-neutral-500">Vigente:</span> {isCurrent ? "Sí" : "No"}
-            </div>
-
-            {isCurrent && (
-              <>
-                <div>
-                  <span className="text-neutral-500">Número de lista:</span>{" "}
-                  {alumno.listNumber ?? "—"}
-                </div>
-
-                <div>
-                  <span className="text-neutral-500">Curso actual:</span>{" "}
-                  {alumno.course ?? "—"}
-                </div>
-
-                <div>
-                  <span className="text-neutral-500">Nivel:</span> próximamente
-                </div>
-
-                <div>
-                  <span className="text-neutral-500">Job:</span> próximamente
-                </div>
-              </>
-            )}
-          </div>
-
-          {!courseId ? (
-            <div className="text-xs text-red-400">
-              No hay courseId resuelto para este alumno.
-            </div>
-          ) : (
-            <AlumnoTabs
-              alumnoId={Number(alumno.id)}
-              course={alumno.course ?? ""}
-              courseId={courseId}
-            />
-          )}
+    {/* Cuerpo: datos + imagen */}
+    <div className="grid grid-cols-[1fr_150px] gap-5 items-start mb-5">
+      <div className="space-y-1 text-sm text-neutral-300 min-w-0">
+        <div>
+          <span className="text-neutral-500">ID:</span> {alumno.id}
         </div>
 
-        <div className="w-full md:w-44 shrink-0">
-          <input
-            ref={inputRef}
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-            className="hidden"
-            onChange={onInputChange}
-          />
+        <div>
+          <span className="text-neutral-500">MXP:</span>{" "}
+          {alumno.points == null ? "—" : Number(alumno.points).toFixed(2)}
+        </div>
 
-          <div
-            onClick={openFilePicker}
-            onDragOver={onDragOver}
-            onDragEnter={onDragEnter}
-            onDragLeave={onDragLeave}
-            onDrop={onDrop}
-            className={[
-              "relative h-56 rounded-xl border overflow-hidden cursor-pointer transition",
-              dragActive
-                ? "border-cyan-400 bg-cyan-500/10"
-                : "border-neutral-700 bg-neutral-800 hover:bg-neutral-700/70",
-            ].join(" ")}
-          >
-            {customImage ? (
-              <img
-                src={customImage}
-                alt="Imagen personalizada del alumno"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-neutral-400">
-                <div className="text-sm font-medium mb-1">Tu imagen</div>
-                <div className="text-xs leading-relaxed">
-                  Haz click o arrastra aquí un PNG, JPEG o WEBP
-                </div>
-              </div>
-            )}
+        <div>
+          <span className="text-neutral-500">Vigente:</span> {isCurrent ? "Sí" : "No"}
+        </div>
 
-            <div className="absolute inset-x-0 bottom-0 bg-black/55 px-3 py-2 text-[11px] text-neutral-200">
-              Se guarda solo en este navegador
+        {isCurrent && (
+          <>
+            <div>
+              <span className="text-neutral-500">Número de lista:</span>{" "}
+              {alumno.listNumber ?? "—"}
             </div>
 
-            {customImage && (
-              <button
-                type="button"
-                onClick={removeImage}
-                className="absolute top-2 right-2 rounded-md bg-black/70 px-2 py-1 text-[11px] text-white hover:bg-black"
-              >
-                Quitar
-              </button>
-            )}
+            <div>
+              <span className="text-neutral-500">Curso actual:</span>{" "}
+              {formatCourseLabel(alumno.course)}
+            </div>
 
-            {isSavingImage && (
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-xs text-white">
-                Guardando...
+            <div>
+              <span className="text-neutral-500">Grupo:</span>{" "}
+              {alumno.day === "PRIV" ? "Privado" : alumno.day ?? "—"}
+            </div>
+
+            <div>
+              <span className="text-neutral-500">Nivel:</span> próximamente
+            </div>
+
+            <div>
+              <span className="text-neutral-500">Job:</span> próximamente
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="w-[150px]">
+        <div
+          onClick={openFilePicker}
+          onDragOver={onDragOver}
+          onDragEnter={onDragEnter}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+          className={[
+            "relative w-[150px] h-[190px] rounded-xl border overflow-hidden cursor-pointer transition",
+            dragActive
+              ? "border-cyan-400 bg-cyan-500/10"
+              : "border-neutral-700 bg-neutral-800 hover:bg-neutral-700/70",
+          ].join(" ")}
+        >
+          {customImage ? (
+            <img
+              src={customImage}
+              alt="Imagen personalizada del alumno"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-neutral-400">
+              <div className="text-sm font-medium mb-1">Tu imagen</div>
+              <div className="text-xs leading-relaxed">
+                Haz click o arrastra aquí
               </div>
-            )}
+            </div>
+          )}
+
+          <div className="absolute inset-x-0 bottom-0 bg-black/55 px-3 py-2 text-[11px] leading-snug text-neutral-200">
+            Se guarda solo en este navegador
           </div>
 
-          {imageError && (
-            <div className="mt-2 text-[11px] leading-snug text-red-400">
-              {imageError}
+          {customImage && (
+            <button
+              type="button"
+              onClick={removeImage}
+              className="absolute top-2 right-2 rounded-md bg-black/70 px-2 py-1 text-[11px] text-white hover:bg-black"
+            >
+              Quitar
+            </button>
+          )}
+
+          {isSavingImage && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-xs text-white">
+              Guardando...
             </div>
           )}
         </div>
       </div>
     </div>
-  );
+
+    {imageError && (
+      <div className="mb-3 text-[11px] leading-snug text-red-400">
+        {imageError}
+      </div>
+    )}
+
+    <div>
+      {!courseId ? (
+        <div className="text-xs text-red-400">
+          No hay courseId resuelto para este alumno.
+        </div>
+      ) : (
+        <AlumnoTabs
+          alumnoId={Number(alumno.id)}
+          course={alumno.course ?? ""}
+          courseId={courseId}
+        />
+      )}
+    </div>
+  </div>
+);
 }

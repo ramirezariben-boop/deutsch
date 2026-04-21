@@ -12,24 +12,20 @@ export async function GET() {
     return NextResponse.json({
       loggedIn: true,
       user: {
-        // Identidad base
         id: session.uid,
         uid: session.uid,
         name: session.name,
         role: session.role,
 
-        // Datos académicos / panel
+        points: session.points ?? null,
         isCurrent: session.isCurrent ?? false,
         listNumber: session.listNumber ?? null,
+
         nivelActual: session.nivelActual ?? null,
-        course: session.course ?? null,
+        course: session.nivelActual ?? null,
         resolvedCourseId: session.resolvedCourseId ?? null,
         courseId: session.resolvedCourseId ?? null,
 
-        // Trading / puntos
-        points: session.points ?? null,
-
-        // Clasificación de curso
         day: session.day ?? null,
         privCode: session.privCode ?? null,
       },

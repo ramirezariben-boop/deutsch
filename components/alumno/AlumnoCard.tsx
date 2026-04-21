@@ -25,7 +25,6 @@ type Alumno = {
   courseId?: string | null;
   resolvedCourseId?: string | null;
 
-  day?: string | null;
   privCode?: string | null;
 };
 

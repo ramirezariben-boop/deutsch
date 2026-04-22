@@ -43,7 +43,8 @@ export async function POST(req: Request) {
       );
     }
 
-    if (String(match.alumnoId) !== String(alumnoId)) {
+    const esIndividual = match.alumnoId && match.alumnoId.trim() !== "";
+    if (esIndividual && String(match.alumnoId) !== String(alumnoId)) {
       return NextResponse.json(
         { error: "Este password no corresponde a tu cuenta" },
         { status: 401 }

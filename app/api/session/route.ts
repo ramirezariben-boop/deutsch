@@ -28,6 +28,10 @@ export async function GET() {
 
         day: session.day ?? null,
         privCode: session.privCode ?? null,
+
+        level: session.level ?? 0,
+        levelUpdatedAt: session.levelUpdatedAt ?? null,
+        levelMeta: session.levelMeta ?? null,
       },
     });
   } catch (error) {

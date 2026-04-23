@@ -1,5 +1,10 @@
 "use client";
 
+import type { ResolvedStudentLevel } from "@/lib/levels/studentLevel";
+import AlumnoLevelBadge from "./AlumnoLevelBadge";
+import AlumnoLevelStatic from "./AlumnoLevelStatic";
+
+
 import {
   useEffect,
   useRef,
@@ -26,6 +31,7 @@ type Alumno = {
   resolvedCourseId?: string | null;
 
   privCode?: string | null;
+  resolvedLevel?: ResolvedStudentLevel | null;
 };
 
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -235,7 +241,12 @@ return (
             </div>
 
             <div>
-              <span className="text-neutral-500">Nivel:</span> próximamente
+              <span className="text-neutral-500">Nivel:</span>{" "}
+              {alumno.resolvedLevel ? (
+                <AlumnoLevelStatic level={alumno.resolvedLevel} />
+              ) : (
+                <AlumnoLevelBadge />
+              )}
             </div>
 
             <div>

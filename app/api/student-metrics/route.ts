@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { readSessionFromHeaders } from "@/lib/auth";
-import { buildStudentMetrics } from "@/lib/metrics/student";
 import type { DayCode } from "@/lib/metrics/types";
+import { resolveStudentLevelForContext } from "@/lib/levels/resolveStudentLevelForContext";
 
 function toPositiveInt(value: string | null, fallback: number) {
   const n = Number(value);
@@ -22,15 +22,20 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const studentId = Number(session.uid);
+  if (!Number.isFinite(studentId)) {
+    return NextResponse.json({ error: "Invalid session uid" }, { status: 400 });
+  }
+
   const { searchParams } = new URL(req.url);
 
   const attendanceLastN = toPositiveInt(searchParams.get("attendanceLastN"), 3);
   const punctualityLastN = toPositiveInt(searchParams.get("punctualityLastN"), 3);
   const practicesLastN = toPositiveInt(searchParams.get("practicesLastN"), 9);
 
-  const metrics = await buildStudentMetrics(
+  const data = await resolveStudentLevelForContext(
     {
-      id: Number(session.uid),
+      id: studentId,
       nivelActual: session.nivelActual ?? null,
       resolvedCourseId: session.resolvedCourseId ?? null,
       isCurrent: session.isCurrent ?? false,
@@ -44,5 +49,9 @@ export async function GET(req: Request) {
     }
   );
 
-  return NextResponse.json(metrics);
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "private, no-store, max-age=0",
+    },
+  });
 }

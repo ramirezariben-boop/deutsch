@@ -2,11 +2,11 @@ export type DayCode = "SAM" | "SON" | "PRIV";
 
 export type StudentMetricContext = {
   id: number;
-  nivelActual?: string | null;
-  resolvedCourseId?: string | null;
-  isCurrent?: boolean;
-  day?: DayCode | null;
-  privCode?: string | null;
+  nivelActual: string | null;
+  resolvedCourseId: string | null;
+  isCurrent: boolean;
+  day: DayCode | null;
+  privCode: string | null;
 };
 
 export type AttendanceRow = {

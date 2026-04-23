@@ -53,6 +53,10 @@ export async function POST(req: Request) {
         privCode: user.privCode ?? null,
         listNumber: user.listNumber ?? null,
         points: user.points ?? null,
+
+        level: user.level ?? 0,
+        levelUpdatedAt: user.levelUpdatedAt ?? null,
+        levelMeta: user.levelMeta ?? null,
       },
     });
 
@@ -66,6 +70,10 @@ export async function POST(req: Request) {
       isCurrent: user.isCurrent ?? false,
       day: user.day ?? undefined,
       privCode: user.privCode ?? undefined,
+
+      level: user.level ?? 0,
+      levelUpdatedAt: user.levelUpdatedAt ?? undefined,
+      levelMeta: user.levelMeta ?? undefined,
     });
 
     return res;

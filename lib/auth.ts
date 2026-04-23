@@ -16,6 +16,10 @@ export type SessionPayload = {
   isCurrent?: boolean;
   day?: "SAM" | "SON" | "PRIV";
   privCode?: string;
+
+  level?: number;
+  levelUpdatedAt?: string;
+  levelMeta?: unknown;
 };
 
 function isAdminId(id: string) {
@@ -40,6 +44,10 @@ export function signSessionToken(payload: {
   isCurrent?: boolean;
   day?: "SAM" | "SON" | "PRIV";
   privCode?: string;
+
+  level?: number;
+  levelUpdatedAt?: string;
+  levelMeta?: unknown;
 }) {
   const role = deriveRole(payload.uid);
   const full: SessionPayload = { ...payload, role };
@@ -73,6 +81,10 @@ export function setSessionCookie(
     isCurrent?: boolean;
     day?: "SAM" | "SON" | "PRIV";
     privCode?: string;
+
+    level?: number;
+    levelUpdatedAt?: string;
+    levelMeta?: unknown;
   },
   maxAgeDays = 30
 ) {

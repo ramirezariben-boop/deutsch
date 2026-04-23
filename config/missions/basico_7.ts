@@ -1,1 +1,1 @@
-export const MISSIONS_BASICO_7 = { ... } as const;
+export const MISSIONS_BASICO_7 = {} as const;

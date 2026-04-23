@@ -1,1 +1,1 @@
-export const MISSIONS_INTERMEDIO_8 = { ... } as const;
+export const MISSIONS_INTERMEDIO_8 = {} as const;

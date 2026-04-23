@@ -8,7 +8,7 @@ export default function AlumnoLevelTooltip({
   level: ResolvedStudentLevel;
 }) {
   return (
-    <div className="pointer-events-none absolute left-0 top-full z-30 mt-2 hidden w-[340px] rounded-xl border border-neutral-700 bg-neutral-950/95 p-3 text-xs shadow-2xl group-hover:block">
+    <div className="pointer-events-none absolute left-0 bottom-full z-30 mb-2 hidden w-[340px] rounded-xl border border-neutral-700 bg-neutral-950/95 p-3 text-xs shadow-2xl group-hover:block">
       <div className="mb-1 text-sm font-semibold text-white">
         Nivel {level.currentLevel}
       </div>

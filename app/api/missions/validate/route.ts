@@ -4,25 +4,7 @@ import { yaTieneCalificacionSheet } from "@/lib/sheets/calificaciones";
 import { MISSIONS_BASICO_2 } from "@/config/missions/basico_2";
 import { MISSIONS_BASICO_4 } from "@/config/missions/basico_4";
 import { MISSIONS_INTERMEDIO_2 } from "@/config/missions/intermedio_2";
-
-const MISSION_CONFIGS: Record<string, any> = {
-  basico_1: MISSIONS_BASICO_1,
-  basico_2: MISSIONS_BASICO_2,
-  basico_3: MISSIONS_BASICO_3,
-  basico_4: MISSIONS_BASICO_4,
-  basico_5: MISSIONS_BASICO_5,
-  basico_6: MISSIONS_BASICO_6,
-  basico_7: MISSIONS_BASICO_7,
-  basico_8: MISSIONS_BASICO_8,
-  intermedio_1: MISSIONS_INTERMEDIO_1,
-  intermedio_2: MISSIONS_INTERMEDIO_2,
-  intermedio_3: MISSIONS_INTERMEDIO_3,
-  intermedio_4: MISSIONS_INTERMEDIO_4,
-  intermedio_5: MISSIONS_INTERMEDIO_5,
-  intermedio_6: MISSIONS_INTERMEDIO_6,
-  intermedio_7: MISSIONS_INTERMEDIO_7,
-  intermedio_8: MISSIONS_INTERMEDIO_8,
-};
+import { MISSION_CONFIGS } from "@/config/missions";
 
 export async function POST(req: Request) {
   try {

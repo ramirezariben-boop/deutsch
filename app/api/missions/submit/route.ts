@@ -1,12 +1,30 @@
 import { NextResponse } from "next/server";
-import { markPasswordUsed, getActiveMission } from "@/lib/sheets/passwords";
-import { escribirCalificacionSheet } from "@/lib/sheets/calificaciones";
+import { markPasswordUsedIfIndividual, getActiveMission } from "@/lib/sheets/passwords";
+import {
+  escribirCalificacionSheet,
+  yaTieneCalificacionSheet,
+} from "@/lib/sheets/calificaciones";
 import { MISSIONS_BASICO_2 } from "@/config/missions/basico_2";
 import { MISSIONS_BASICO_4 } from "@/config/missions/basico_4";
+import { MISSIONS_INTERMEDIO_2 } from "@/config/missions/intermedio_2";
 
 const MISSION_CONFIGS: Record<string, any> = {
+  basico_1: MISSIONS_BASICO_1,
   basico_2: MISSIONS_BASICO_2,
+  basico_3: MISSIONS_BASICO_3,
   basico_4: MISSIONS_BASICO_4,
+  basico_5: MISSIONS_BASICO_5,
+  basico_6: MISSIONS_BASICO_6,
+  basico_7: MISSIONS_BASICO_7,
+  basico_8: MISSIONS_BASICO_8,
+  intermedio_1: MISSIONS_INTERMEDIO_1,
+  intermedio_2: MISSIONS_INTERMEDIO_2,
+  intermedio_3: MISSIONS_INTERMEDIO_3,
+  intermedio_4: MISSIONS_INTERMEDIO_4,
+  intermedio_5: MISSIONS_INTERMEDIO_5,
+  intermedio_6: MISSIONS_INTERMEDIO_6,
+  intermedio_7: MISSIONS_INTERMEDIO_7,
+  intermedio_8: MISSIONS_INTERMEDIO_8,
 };
 
 export async function POST(req: Request) {
@@ -17,26 +35,32 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Faltan datos" }, { status: 400 });
     }
 
-    // 1. Misión sigue activa
     const active = await getActiveMission();
     if (!active || active.missionId !== missionId || active.curso !== curso) {
       return NextResponse.json({ error: "La misión ya no está activa" }, { status: 403 });
     }
 
-    // 2. Tiempo no agotado
     const elapsed = (Date.now() - new Date(active.startedAt).getTime()) / 1000 / 60;
     if (elapsed > active.durationMin) {
       return NextResponse.json({ error: "Tiempo agotado" }, { status: 403 });
     }
 
-    // 3. Obtener bloques del config de misiones
+    const yaEntrego = await yaTieneCalificacionSheet({
+      curso,
+      alumnoId: String(alumnoId),
+      practica: missionId.toUpperCase(),
+    });
+
+    if (yaEntrego) {
+      return NextResponse.json({ error: "Ya entregaste esta misión" }, { status: 409 });
+    }
+
     const missionConfig = MISSION_CONFIGS[curso];
     const missionData = missionConfig?.[missionId.toUpperCase()];
     if (!missionData) {
       return NextResponse.json({ error: "Misión no configurada" }, { status: 500 });
     }
 
-    // 4. Calificar — recorrer cada bloque y cada pregunta
     let total = 0;
     let correctas = 0;
 
@@ -68,12 +92,12 @@ export async function POST(req: Request) {
           if (correctas_arr.length === 0) continue;
           const alumnoResp = String(respuestas[key] ?? "").trim();
           if (!alumnoResp) continue;
-          const alumnoArr = alumnoResp.split(",").map(s => normalizar(s));
-          const correctaArr = correctas_arr.map(s => normalizar(s));
+          const alumnoArr = alumnoResp.split(",").map((s) => normalizar(s));
+          const correctaArr = correctas_arr.map((s) => normalizar(s));
           total++;
           const match =
             alumnoArr.length === correctaArr.length &&
-            correctaArr.every(c => alumnoArr.includes(c));
+            correctaArr.every((c) => alumnoArr.includes(c));
           if (match) correctas++;
         }
       }
@@ -81,7 +105,6 @@ export async function POST(req: Request) {
 
     const score = total === 0 ? 0 : Math.round((correctas / total) * 100) / 100;
 
-    // 5. Escribir en Sheet
     await escribirCalificacionSheet({
       curso,
       alumnoId: String(alumnoId),
@@ -89,13 +112,11 @@ export async function POST(req: Request) {
       score,
     });
 
-    // 6. Marcar password usado
-    await markPasswordUsed(rowIndex);
+    await markPasswordUsedIfIndividual(Number(rowIndex));
 
     console.log(`✅ ${curso}/${missionId} alumno ${alumnoId}: ${correctas}/${total} → ${score}`);
 
     return NextResponse.json({ ok: true, correctas, total, score });
-
   } catch (err: any) {
     console.error("submit error:", err);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });

@@ -24,6 +24,48 @@ async function getSheets() {
   return google.sheets({ version: "v4", auth: client });
 }
 
+export async function leerCalificacionSheet(params: {
+  curso: string;
+  alumnoId: string;
+  practica: string;
+}): Promise<string> {
+  const { curso, alumnoId, practica } = params;
+  const sheets = await getSheets();
+
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: `${curso}!A:ZZ`,
+  });
+
+  const rows = res.data.values ?? [];
+  if (rows.length === 0) throw new Error(`Hoja ${curso} vacía`);
+
+  const headers = rows[0];
+  const idxId = headers.indexOf("ID");
+  const idxPractica = headers.indexOf(practica);
+
+  if (idxId === -1) throw new Error(`No existe columna ID en ${curso}`);
+  if (idxPractica === -1) throw new Error(`No existe columna ${practica} en ${curso}`);
+
+  const rowIndex = rows.findIndex(
+    (row, i) => i > 0 && String(row[idxId]).trim() === String(alumnoId).trim()
+  );
+
+  if (rowIndex === -1) throw new Error(`Alumno ${alumnoId} no encontrado en ${curso}`);
+
+  const value = rows[rowIndex][idxPractica];
+  return value == null ? "" : String(value).trim();
+}
+
+export async function yaTieneCalificacionSheet(params: {
+  curso: string;
+  alumnoId: string;
+  practica: string;
+}): Promise<boolean> {
+  const actual = await leerCalificacionSheet(params);
+  return actual !== "";
+}
+
 export async function escribirCalificacionSheet(params: {
   curso: string;
   alumnoId: string;

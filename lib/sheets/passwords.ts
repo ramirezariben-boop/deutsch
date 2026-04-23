@@ -28,7 +28,12 @@ async function getSheets() {
 
 // ── PASSWORDS ──────────────────────────────────────────────
 
-export async function findPassword(pwd: string, missionId: string, alumnoId?: string) {
+export async function findPassword(
+  pwd: string,
+  missionId: string,
+  cursoEsperado?: string,
+  alumnoId?: string
+) {
   const sheets = await getSheets();
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
@@ -38,25 +43,59 @@ export async function findPassword(pwd: string, missionId: string, alumnoId?: st
   const rows = res.data.values ?? [];
   for (let i = 1; i < rows.length; i++) {
     const [rowAlumnoId, password, missionId_row, curso, used] = rows[i];
+
     if (password !== pwd) continue;
     if (missionId_row !== missionId) continue;
+    if (cursoEsperado && curso !== cursoEsperado) continue;
     if (used === "true") continue;
 
-    // Password grupal (alumno_id vacío) → acepta cualquier alumno
     const esGrupal = !rowAlumnoId || rowAlumnoId.trim() === "";
-    // Password individual → solo acepta ese alumno
-    const esDelAlumno = alumnoId && String(rowAlumnoId).trim() === String(alumnoId).trim();
+    const esDelAlumno =
+      alumnoId &&
+      String(rowAlumnoId).trim() === String(alumnoId).trim();
 
     if (esGrupal || esDelAlumno) {
-      return { alumnoId: rowAlumnoId, curso, rowIndex: i + 1 };
+      return {
+        alumnoId: rowAlumnoId ?? "",
+        curso,
+        rowIndex: i + 1,
+        esGrupal,
+      };
     }
   }
+
   return null;
 }
 
-export async function markPasswordUsed(rowIndex: number) {
+export async function getPasswordRow(rowIndex: number) {
   const sheets = await getSheets();
-  // columna E = índice 5 = "used"
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: `passwords!A${rowIndex}:F${rowIndex}`,
+  });
+
+  const row = res.data.values?.[0];
+  if (!row) return null;
+
+  const [alumnoId, password, missionId, curso, used, createdAt] = row;
+
+  return {
+    alumnoId: alumnoId ?? "",
+    password: password ?? "",
+    missionId: missionId ?? "",
+    curso: curso ?? "",
+    used: String(used) === "true",
+    createdAt: createdAt ?? "",
+    esGrupal: !alumnoId || String(alumnoId).trim() === "",
+  };
+}
+
+export async function markPasswordUsedIfIndividual(rowIndex: number) {
+  const row = await getPasswordRow(rowIndex);
+  if (!row) throw new Error(`Password row ${rowIndex} no encontrada`);
+  if (row.esGrupal) return;
+
+  const sheets = await getSheets();
   await sheets.spreadsheets.values.update({
     spreadsheetId: SPREADSHEET_ID,
     range: `passwords!E${rowIndex}`,

@@ -184,7 +184,7 @@ export const MISSIONS_INTERMEDIO_3 = {
       ]
     },
 
-    medizin-schule: {
+    "medizin-schule": {
       title: "Mission 1A – Medizin & Schule",
       shortDescription:
         "Foco en cambios en medicina y escuela: diagnóstico, cura, tecnología, disciplina, castigos, medios y miedo.",

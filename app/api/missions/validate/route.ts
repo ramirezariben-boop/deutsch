@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { findPassword, getActiveMission } from "@/lib/sheets/passwords";
 import { yaTieneCalificacionSheet } from "@/lib/sheets/calificaciones";
-import { MISSIONS_BASICO_2 } from "@/config/missions/basico_2";
-import { MISSIONS_BASICO_4 } from "@/config/missions/basico_4";
-import { MISSIONS_INTERMEDIO_2 } from "@/config/missions/intermedio_2";
-import { MISSION_CONFIGS } from "@/config/missions";
+import {
+  getMissionDefinition,
+  getMissionVariants,
+} from "@/lib/missions/resolve";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
@@ -22,11 +25,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const startedAt = new Date(active.startedAt).getTime();
-    const now = Date.now();
-    const elapsed = (now - startedAt) / 1000 / 60;
+    const startedAtMs = new Date(active.startedAt).getTime();
+    const nowMs = Date.now();
+    const elapsedMin = (nowMs - startedAtMs) / 1000 / 60;
 
-    if (elapsed > active.durationMin) {
+    if (elapsedMin > active.durationMin) {
       return NextResponse.json(
         { error: "El tiempo de esta misión ya terminó" },
         { status: 403 }
@@ -36,7 +39,7 @@ export async function POST(req: Request) {
     const yaEntrego = await yaTieneCalificacionSheet({
       curso: active.curso,
       alumnoId: String(alumnoId),
-      practica: active.missionId.toUpperCase(),
+      practica: String(active.missionId).toUpperCase(),
     });
 
     if (yaEntrego) {
@@ -68,27 +71,19 @@ export async function POST(req: Request) {
       );
     }
 
-    const missionConfig = MISSION_CONFIGS[active.curso];
-    const missionData = missionConfig?.[active.missionId.toUpperCase()];
+    const missionDef = getMissionDefinition(active.curso, active.missionId);
+    const variants = getMissionVariants(active.curso, active.missionId);
 
-    if (!missionData) {
-      return NextResponse.json(
-        { error: "Misión no configurada" },
-        { status: 500 }
-      );
-    }
-
-    const remainingSec = Math.floor(
-      active.durationMin * 60 - (now - startedAt) / 1000
-    );
+    const expiresAt = startedAtMs + active.durationMin * 60_000;
 
     return NextResponse.json({
       ok: true,
-      missionId: active.missionId,
+      missionId: String(active.missionId).toUpperCase(),
+      missionTitle: missionDef.title,
       curso: active.curso,
-      blocks: missionData.blocks,
-      remainingSec,
+      expiresAt,
       rowIndex: match.rowIndex,
+      variants,
     });
   } catch (err: any) {
     console.error("validate error:", err);

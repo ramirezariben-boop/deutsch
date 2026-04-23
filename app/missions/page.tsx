@@ -1,37 +1,34 @@
-// app/missions/page.tsx
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { MISSION_MAP } from "@/config/missionMap";
-import LoadingScreen from "@/components/missions/LoadingScreen";
 
-type Phase = "select" | "loading" | "error";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingScreen from "@/components/missions/LoadingScreen";
+import type { MissionAccessSession } from "@/lib/missions/types";
+
+type Phase = "select" | "loading";
 
 export default function MissionsPage() {
   const router = useRouter();
-  const [session, setSession] = useState<{ id: string; name: string; curso: string } | null>(null);
-  const [missionId, setMissionId] = useState("1a");
+  const [session, setSession] = useState<{
+    id: string;
+    name: string;
+    curso: string;
+  } | null>(null);
   const [password, setPassword] = useState("");
   const [phase, setPhase] = useState<Phase>("select");
   const [error, setError] = useState("");
-  const [ahora, setAhora] = useState(Date.now());
 
-  // Ticker para la animación
-  useEffect(() => {
-    const t = setInterval(() => setAhora(Date.now()), 100);
-    return () => clearInterval(t);
-  }, []);
-
-  // Leer sesión
   useEffect(() => {
     fetch("/api/session")
-      .then(r => r.json())
-      .then(async data => {
-        if (!data.loggedIn) { router.replace("/login"); return; }
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (!data.loggedIn) {
+          router.replace("/");
+          return;
+        }
 
         let nivelActual = data.user.nivelActual;
 
-        // Si el token viejo no tiene nivelActual, lo buscamos en CT
         if (!nivelActual) {
           const res = await fetch("/api/user/nivel");
           if (res.ok) {
@@ -41,16 +38,23 @@ export default function MissionsPage() {
         }
 
         setSession({
-          id: data.user.id,
+          id: String(data.user.id),
           name: data.user.name,
           curso: nivelActual,
         });
+      })
+      .catch(() => {
+        setError("No se pudo leer la sesión");
       });
-  }, []);
+  }, [router]);
 
   async function handleValidar() {
     if (!session) return;
-    if (password.length !== 4) { setError("El password es de 4 dígitos"); return; }
+
+    if (password.length !== 4) {
+      setError("El password es de 4 dígitos");
+      return;
+    }
 
     setPhase("loading");
     setError("");
@@ -59,87 +63,115 @@ export default function MissionsPage() {
       const res = await fetch("/api/missions/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password,
-          alumnoId: session.id,
-        }),
+        body: JSON.stringify({ password, alumnoId: session.id }),
       });
+
       const data = await res.json();
 
-      if (!data.ok) {
-        setError(data.error ?? "Password incorrecto");
+      if (!res.ok || !data.ok) {
+        setError(data.error ?? "No se pudo validar la misión");
         setPhase("select");
         return;
       }
 
-      // Guardar datos de la misión en sessionStorage para la página de misión
-      sessionStorage.setItem("missionSession", JSON.stringify({
+      const accessSession: MissionAccessSession = {
         missionId: data.missionId,
+        missionTitle: data.missionTitle,
         curso: data.curso,
-        blocks: data.blocks,
-        remainingSec: data.remainingSec,
-        rowIndex: data.rowIndex,
+        expiresAt: Number(data.expiresAt),
+        rowIndex: Number(data.rowIndex),
         alumnoId: session.id,
-      }));
+        variants: data.variants,
+      };
+
+      sessionStorage.setItem(
+        "missionAccessSession",
+        JSON.stringify(accessSession)
+      );
 
       router.push(`/missions/${data.curso}/${data.missionId}`);
-
     } catch {
       setError("Error de conexión");
       setPhase("select");
     }
   }
 
-  const misiones = session ? Object.keys(MISSION_MAP[session.curso] ?? {}) : [];
-
   if (phase === "loading") return <LoadingScreen />;
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0a0a0a",
-      color: "#e0e0e0",
-      fontFamily: "monospace",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "2rem",
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#0a0a0a",
+        color: "#e0e0e0",
+        fontFamily: "monospace",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "2rem",
+      }}
+    >
       <div style={{ width: "100%", maxWidth: "420px" }}>
-
-        <p style={{ color: "#1da854", fontSize: "10px", letterSpacing: "4px", marginBottom: "0.5rem" }}>
+        <p
+          style={{
+            color: "#1da854",
+            fontSize: "10px",
+            letterSpacing: "4px",
+            marginBottom: "0.5rem",
+          }}
+        >
           MISSIONENZENTRUM
         </p>
-        <h1 style={{ color: "#4dff91", fontSize: "22px", margin: "0 0 2rem", letterSpacing: "2px" }}>
+
+        <h1
+          style={{
+            color: "#4dff91",
+            fontSize: "22px",
+            margin: "0 0 0.5rem",
+            letterSpacing: "2px",
+          }}
+        >
           {session?.name ?? "..."}
         </h1>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <p
+          style={{
+            color: "#666",
+            fontSize: "12px",
+            margin: "0 0 2rem",
+            lineHeight: 1.5,
+          }}
+        >
+          Ingresa el password de la misión activa para ver sus variantes.
+        </p>
 
-          {/* Dropdown de misión */}
-          <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "11px", color: "#888", letterSpacing: "2px" }}>
-            MISIÓN
-            <select
-              value={missionId}
-              onChange={e => setMissionId(e.target.value)}
-              style={inputStyle}
-            >
-              {misiones.map(m => (
-                <option key={m} value={m}>{m.toUpperCase()}</option>
-              ))}
-            </select>
-          </label>
-
-          {/* Password */}
-          <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "11px", color: "#888", letterSpacing: "2px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+          }}
+        >
+          <label
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "6px",
+              fontSize: "11px",
+              color: "#888",
+              letterSpacing: "2px",
+            }}
+          >
             PASSWORD
             <input
               type="text"
               inputMode="numeric"
               maxLength={4}
               value={password}
-              onChange={e => setPassword(e.target.value.replace(/\D/g, "").slice(0, 4))}
-              onKeyDown={e => e.key === "Enter" && handleValidar()}
+              onChange={(e) =>
+                setPassword(e.target.value.replace(/\D/g, "").slice(0, 4))
+              }
+              onKeyDown={(e) => e.key === "Enter" && handleValidar()}
               placeholder="• • • •"
               style={{
                 ...inputStyle,
@@ -151,7 +183,14 @@ export default function MissionsPage() {
           </label>
 
           {error && (
-            <p style={{ color: "#ff4444", fontSize: "12px", margin: 0, textAlign: "center" }}>
+            <p
+              style={{
+                color: "#ff4444",
+                fontSize: "12px",
+                margin: 0,
+                textAlign: "center",
+              }}
+            >
               {error}
             </p>
           )}
@@ -172,9 +211,8 @@ export default function MissionsPage() {
               marginTop: "0.5rem",
             }}
           >
-            ▶ ACCEDER
+            ▶ VER VARIANTES
           </button>
-
         </div>
       </div>
     </div>
@@ -192,5 +230,5 @@ const inputStyle: React.CSSProperties = {
   outline: "none",
   width: "100%",
   boxSizing: "border-box",
-  height: "52px", 
+  height: "52px",
 };

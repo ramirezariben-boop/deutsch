@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import type { DayCode } from "@/lib/metrics/types";
 import { resolveStudentLevelForContext } from "@/lib/levels/resolveStudentLevelForContext";
 
 const INTERNAL_SECRET = process.env.INTERNAL_API_SECRET;
 const CLASSROOM_TRADING_URL =
   process.env.CLASSROOM_TRADING_URL || "https://classroom-trading.ariiben.com";
+
+type CtRosterStudent = {
+  id: number;
+  nivelActual?: string | null;
+  isCurrent?: boolean;
+  day?: "SAM" | "SON" | "PRIV" | null;
+  privCode?: string | null;
+  resolvedCourseId?: string | null;
+};
 
 function unauthorized() {
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -46,28 +54,70 @@ export async function POST(req: Request) {
       );
     }
 
-    const students = await prisma.user.findMany({
-      where: {
-        isCurrent: true,
-        resolvedCourseId: courseId,
-        day: { in: ["SAM", "SON", "PRIV"] },
-      },
-      select: {
-        id: true,
-        nivelActual: true,
-        resolvedCourseId: true,
-        isCurrent: true,
-        day: true,
-        privCode: true,
-      },
-      orderBy: { id: "asc" },
-    });
+    const rosterRes = await fetch(
+      `${CLASSROOM_TRADING_URL}/api/internal/roaster/current?onlyCurrent=true&includeResolvedCourseId=true&minimal=true`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${INTERNAL_SECRET}`,
+        },
+        cache: "no-store",
+      }
+    );
+
+    const rosterText = await rosterRes.text();
+    let rosterJson: any = null;
+
+    try {
+      rosterJson = rosterText ? JSON.parse(rosterText) : null;
+    } catch {
+      rosterJson = null;
+    }
+
+    if (!rosterRes.ok) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: `CT roster failed with status ${rosterRes.status}`,
+          details: rosterText.slice(0, 500),
+        },
+        { status: 502 }
+      );
+    }
+
+    if (!rosterJson?.ok || !Array.isArray(rosterJson?.roster)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Invalid CT roster response",
+          details: rosterJson ?? rosterText,
+        },
+        { status: 502 }
+      );
+    }
+
+    const students: CtRosterStudent[] = rosterJson.roster
+      .map((row: any) => ({
+        id: Number(row.id),
+        nivelActual: row.nivelActual ?? null,
+        isCurrent: row.isCurrent ?? false,
+        day: row.day ?? null,
+        privCode: row.privCode ?? null,
+        resolvedCourseId: row.resolvedCourseId ?? null,
+      }))
+      .filter(
+        (student: CtRosterStudent) =>
+          Number.isInteger(student.id) &&
+          student.id > 0 &&
+          String(student.resolvedCourseId || "") === courseId
+      );
 
     if (!students.length) {
       return NextResponse.json({
         ok: true,
-        pushed: 0,
-        message: "No matching students for this course",
+        students: 0,
+        rowsBuilt: 0,
+        message: `No current CT students matched resolvedCourseId=${courseId}`,
       });
     }
 
@@ -111,7 +161,7 @@ export async function POST(req: Request) {
         data?.counts?.lateMinutesLastN ??
         0;
 
-      if (typeof attendanceAvg === "number") {
+      if (typeof attendanceAvg === "number" && Number.isFinite(attendanceAvg)) {
         rows.push({
           studentId: student.id,
           factorKey: "attendance_pct_last_n",
@@ -132,7 +182,7 @@ export async function POST(req: Request) {
         });
       }
 
-      if (typeof lateAvg === "number") {
+      if (typeof lateAvg === "number" && Number.isFinite(lateAvg)) {
         rows.push({
           studentId: student.id,
           factorKey: "late_minutes_last_n",
@@ -157,32 +207,40 @@ export async function POST(req: Request) {
     if (!rows.length) {
       return NextResponse.json({
         ok: true,
-        pushed: 0,
-        message: "No attendance/punctuality rows to push",
+        students: students.length,
+        rowsBuilt: 0,
+        message: "No attendance/punctuality metrics were produced",
       });
     }
 
-    const ctRes = await fetch(
+    const ctPushRes = await fetch(
       `${CLASSROOM_TRADING_URL}/api/internal/student-metrics/upsert`,
       {
         method: "POST",
         headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${INTERNAL_SECRET}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${INTERNAL_SECRET}`,
         },
         body: JSON.stringify({ rows }),
         cache: "no-store",
       }
     );
 
-    const ctJson = await ctRes.json().catch(() => ({}));
+    const ctPushText = await ctPushRes.text();
+    let ctPushJson: any = null;
 
-    if (!ctRes.ok) {
+    try {
+      ctPushJson = ctPushText ? JSON.parse(ctPushText) : null;
+    } catch {
+      ctPushJson = null;
+    }
+
+    if (!ctPushRes.ok) {
       return NextResponse.json(
         {
           ok: false,
-          error: "CT push failed",
-          details: ctJson,
+          error: `CT metrics upsert failed with status ${ctPushRes.status}`,
+          details: ctPushJson ?? ctPushText,
         },
         { status: 502 }
       );
@@ -192,7 +250,7 @@ export async function POST(req: Request) {
       ok: true,
       students: students.length,
       rowsBuilt: rows.length,
-      ct: ctJson,
+      ct: ctPushJson ?? ctPushText,
     });
   } catch (error) {
     return NextResponse.json(

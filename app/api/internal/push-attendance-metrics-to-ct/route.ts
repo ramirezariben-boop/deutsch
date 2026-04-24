@@ -141,25 +141,17 @@ export async function POST(req: Request) {
         }
       );
 
-      const attendanceAvg =
-        data?.core?.attendancePctLastN?.avg ??
-        data?.averages?.attendancePctLastN ??
-        null;
-
+      const attendanceAvg = data?.attendance?.avgPctLastN ?? null;
       const attendanceCount =
-        data?.core?.attendancePctLastN?.count ??
-        data?.counts?.attendancePctLastN ??
-        0;
+        data?.attendance?.lastN?.filter(
+          (row) => typeof row.attendance_pct === "number"
+        ).length ?? 0;
 
-      const lateAvg =
-        data?.core?.lateMinutesLastN?.avg ??
-        data?.averages?.lateMinutesLastN ??
-        null;
-
+      const lateAvg = data?.punctuality?.avgLateLastN ?? null;
       const lateCount =
-        data?.core?.lateMinutesLastN?.count ??
-        data?.counts?.lateMinutesLastN ??
-        0;
+        data?.punctuality?.lastN?.filter(
+          (row) => typeof row.late_minutes === "number"
+        ).length ?? 0;
 
       if (typeof attendanceAvg === "number" && Number.isFinite(attendanceAvg)) {
         rows.push({

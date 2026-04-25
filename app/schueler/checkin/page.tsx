@@ -72,7 +72,7 @@ function CheckInForm() {
   return (
     <main className="min-h-screen bg-black px-4 py-8 max-w-lg mx-auto">
       <h1 className="text-lg font-semibold text-white/90 mb-1">
-        ¿Cómo te sentís hoy?
+        ¿Cómo te sientes hoy?
       </h1>
       <p className="text-sm text-white/45 mb-6">
         Tus respuestas son anónimas para el grupo.

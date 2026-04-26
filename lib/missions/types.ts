@@ -1,5 +1,12 @@
 // lib/missions/types.ts
 
+export type QuestionResult = {
+  question: string;
+  studentAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+};
+
 export type MissionBlockType = "text" | "grid" | "checkbox_grid";
 
 export type MissionBlock = {

@@ -127,3 +127,22 @@ model ConsentPublication {
 
   @@unique([studentId, workId])
 }
+
+model MissionFeedback {
+  id               Int      @id @default(autoincrement())
+  alumnoId         String
+  curso            String
+  missionId        String
+  variantId        String
+  submissionId     String
+  question         String
+  studentAnswer    String
+  correctAnswer    String
+  isCorrect        Boolean
+  score            Float
+  missionExpiresAt DateTime
+  submittedAt      DateTime @default(now())
+
+  @@index([alumnoId, missionId, curso])
+  @@index([submissionId])
+}

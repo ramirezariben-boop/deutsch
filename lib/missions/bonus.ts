@@ -3,6 +3,8 @@ import type { MissionVariant } from "@/lib/missions/types";
 const CLASSROOM_TRADING_URL = process.env.CLASSROOM_TRADING_URL;
 const INTERNAL_SECRET = process.env.INTERNAL_API_SECRET;
 
+const EXTRA_MISSION_BONUS_MXP = 4;
+
 type AwardMissionBonusParams = {
   alumnoId: string;
   curso: string;
@@ -67,8 +69,7 @@ export async function awardMissionBonusIfNeeded(
     ` | ${params.variant.title} | score=${pct}% | difficulty=${params.variant.difficulty}`;
 
   try {
-    const res = await fetch(
-      `${CLASSROOM_TRADING_URL}/api/internal/missions/process-bonus-mxp`,
+    const res = await fetch(`${CLASSROOM_TRADING_URL}/api/internal/missions/process-bonus-mxp`,
       {
         method: "POST",
         headers: {
@@ -119,5 +120,68 @@ export async function awardMissionBonusIfNeeded(
       externalRef,
       reason: "network_error",
     };
+  }
+}
+
+export async function awardExtraMissionBonus(params: {
+  alumnoId: string;
+  curso: string;
+  missionId: string;
+  variant: MissionVariant;
+}): Promise<{ awarded: boolean; bonusMxp: number }> {
+  if (!CLASSROOM_TRADING_URL || !INTERNAL_SECRET) {
+    console.warn("[missions extra bonus] faltan CLASSROOM_TRADING_URL o INTERNAL_API_SECRET");
+    return { awarded: false, bonusMxp: 0 };
+  }
+
+  const externalRef = [
+    "mission_bonus_extra",
+    "deutsch",
+    params.curso,
+    params.missionId,
+    params.variant.id,
+    params.alumnoId,
+    Date.now(),
+  ].join(":");
+
+  const traceNote =
+    `Extra mission bonus | ${params.curso}/${params.missionId}/${params.variant.id}` +
+    ` | ${params.variant.title}`;
+
+  try {
+    const res = await fetch(`${CLASSROOM_TRADING_URL}/api/internal/missions/process-bonus-mxp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-internal-secret": INTERNAL_SECRET,
+      },
+      body: JSON.stringify({
+        alumnoId: params.alumnoId,
+        curso: params.curso,
+        missionId: params.missionId,
+        variantId: params.variant.id,
+        variantTitle: params.variant.title,
+        difficulty: params.variant.difficulty,
+        score: 1,
+        bonusMxp: EXTRA_MISSION_BONUS_MXP,
+        externalRef,
+        traceNote,
+      }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok || !data.ok) {
+      console.error("[missions extra bonus] error CT:", data);
+      return { awarded: false, bonusMxp: 0 };
+    }
+
+    return {
+      awarded: !!data.created,
+      bonusMxp: data.created ? EXTRA_MISSION_BONUS_MXP : 0,
+    };
+  } catch (err) {
+    console.error("[missions extra bonus] error de red:", err);
+    return { awarded: false, bonusMxp: 0 };
   }
 }

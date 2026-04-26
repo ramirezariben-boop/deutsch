@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { findPassword, getActiveMission } from "@/lib/sheets/passwords";
-import { yaTieneCalificacionSheet } from "@/lib/sheets/calificaciones";
 import {
   getMissionDefinition,
   getMissionVariants,
@@ -32,19 +31,6 @@ export async function POST(req: Request) {
     if (elapsedMin > active.durationMin) {
       return NextResponse.json(
         { error: "El tiempo de esta misión ya terminó" },
-        { status: 403 }
-      );
-    }
-
-    const yaEntrego = await yaTieneCalificacionSheet({
-      curso: active.curso,
-      alumnoId: String(alumnoId),
-      practica: String(active.missionId).toUpperCase(),
-    });
-
-    if (yaEntrego) {
-      return NextResponse.json(
-        { error: "Ya entregaste esta misión" },
         { status: 403 }
       );
     }

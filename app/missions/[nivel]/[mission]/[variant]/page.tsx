@@ -26,6 +26,8 @@ export default function MissionVariantRunnerPage() {
     correctas: number;
     total: number;
     score: number;
+    isExtra: boolean;
+    bonusMxp: number;
   } | null>(null);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -162,15 +164,37 @@ export default function MissionVariantRunnerPage() {
 
     return (
       <FullScreen>
-        <p style={{ color: "#1da854", fontSize: "10px", letterSpacing: "4px", marginBottom: "1rem" }}>
-          MISIÓN COMPLETADA · MISSION ABGESCHLOSSEN
-        </p>
-        <p style={{ color: "#4dff91", fontSize: "48px", fontWeight: "bold", margin: "0 0 0.5rem" }}>
-          {pct}%
-        </p>
-        <p style={{ color: "#888", fontSize: "13px", margin: "0 0 2rem" }}>
-          {result.correctas} / {result.total} correctas
-        </p>
+        {result.isExtra ? (
+          <>
+            <p style={{ color: "#f59e0b", fontSize: "10px", letterSpacing: "4px", marginBottom: "1rem" }}>
+              MISIÓN EXTRA · EXTRA-MISSION
+            </p>
+            <p style={{ color: "#fbbf24", fontSize: "32px", fontWeight: "bold", margin: "0 0 0.5rem" }}>
+              +{result.bonusMxp} MXP
+            </p>
+            <p style={{ color: "#888", fontSize: "13px", margin: "0 0 0.25rem" }}>
+              {result.correctas} / {result.total} correctas · {pct}%
+            </p>
+            <p style={{ color: "#555", fontSize: "11px", margin: "0 0 2rem", maxWidth: "280px", lineHeight: 1.5 }}>
+              La retroalimentación estará disponible en la página de misiones una vez que expire el tiempo.
+            </p>
+          </>
+        ) : (
+          <>
+            <p style={{ color: "#1da854", fontSize: "10px", letterSpacing: "4px", marginBottom: "1rem" }}>
+              MISIÓN COMPLETADA · MISSION ABGESCHLOSSEN
+            </p>
+            <p style={{ color: "#4dff91", fontSize: "48px", fontWeight: "bold", margin: "0 0 0.5rem" }}>
+              {pct}%
+            </p>
+            <p style={{ color: "#888", fontSize: "13px", margin: "0 0 0.25rem" }}>
+              {result.correctas} / {result.total} correctas
+            </p>
+            <p style={{ color: "#555", fontSize: "11px", margin: "0 0 2rem", maxWidth: "280px", lineHeight: 1.5 }}>
+              La retroalimentación estará disponible en la página de misiones una vez que expire el tiempo.
+            </p>
+          </>
+        )}
         <button onClick={() => router.replace("/schueler")} style={btnStyle}>
           ← VOLVER AL PANEL
         </button>

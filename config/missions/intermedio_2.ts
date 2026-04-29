@@ -661,4 +661,557 @@ export const MISSIONS_INTERMEDIO_2 = {
     }
   }
 },
+
+  "2A": {
+    id: "2A",
+    title: "Misión 2A",
+    variants: {
+      default: {
+        title: "Mission 2A",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2a-default-0",
+            prompt: "4b. planen. Modalverb im Präteritum: Anna und Paula ___ ihren Urlaub planen.",
+            type: "text",
+            correct: "wollten",
+          },
+          {
+            id: "2a-default-1",
+            prompt: "4b. planen. Verb: Anna und Paula wollten ihren Urlaub ___.",
+            type: "text",
+            correct: "planen",
+          },
+          {
+            id: "2a-default-2",
+            prompt: "4b. finden. Modalverb im Präteritum: Anna und Paula ___ keine gemeinsame Lösung finden.",
+            type: "text",
+            correct: "konnten",
+          },
+          {
+            id: "2a-default-3",
+            prompt: "4b. finden. Verb: Anna und Paula konnten keine gemeinsame Lösung ___.",
+            type: "text",
+            correct: "finden",
+          },
+          {
+            id: "2a-default-4",
+            prompt: "4b. erholen. Modalverb im Präteritum: Paula ___ sich im Urlaub einfach nur erholen.",
+            type: "text",
+            correct: "wollte",
+          },
+          {
+            id: "2a-default-5",
+            prompt: "4b. erholen. Verb: Paula wollte sich im Urlaub einfach nur ___.",
+            type: "text",
+            correct: "erholen",
+          },
+          {
+            id: "2a-default-6",
+            prompt: "4b. unternehmen. Modalverb im Präteritum: Anna ___ lieber ganz viel unternehmen: Kultur, Ausgehen, Sport.",
+            type: "text",
+            correct: "wollte",
+          },
+          {
+            id: "2a-default-7",
+            prompt: "4b. unternehmen. Verb: Anna wollte lieber ganz viel ___: Kultur, Ausgehen, Sport.",
+            type: "text",
+            correct: "unternehmen",
+          },
+          {
+            id: "2a-default-8",
+            prompt: "4b. entscheiden. Modalverb im Präteritum: Aber sie ___ sich entscheiden, weil sie schon bald Urlaub hatten.",
+            type: "text",
+            correct: "mussten",
+          },
+          {
+            id: "2a-default-9",
+            prompt: "4b. entscheiden. Verb: Aber sie mussten sich ___, weil sie schon bald Urlaub hatten.",
+            type: "text",
+            correct: "entscheiden",
+          },
+          {
+            id: "2a-default-10",
+            prompt: "4b. helfen. Modalverb im Präteritum: Der Mann im Reisebüro ___ ihnen mit guten Tipps helfen.",
+            type: "text",
+            correct: "konnte",
+          },
+          {
+            id: "2a-default-11",
+            prompt: "4b. helfen. Verb: Der Mann im Reisebüro konnte ihnen mit guten Tipps ___.",
+            type: "text",
+            correct: "helfen",
+          },
+          {
+            id: "2a-default-12",
+            prompt: "4b. suchen. Modalverb im Präteritum: Aber er ___ lange nach einem passenden Angebot suchen.",
+            type: "text",
+            correct: "musste",
+          },
+          {
+            id: "2a-default-13",
+            prompt: "4b. suchen. Verb: Aber er musste lange nach einem passenden Angebot ___.",
+            type: "text",
+            correct: "suchen",
+          },
+        ],
+      },
+      modalverben: {
+        title: "Mission 2A – Modalverben",
+        shortDescription: "Foco en las formas de Präteritum y en los infinitivos del ejercicio.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2a-modal-0",
+            prompt: "Wählen Sie das passende Modalverb im Präteritum.",
+            type: "grid",
+            rows: [
+              "1. Anna und Paula ___ ihren Urlaub planen.",
+              "2. Anna und Paula ___ keine gemeinsame Lösung finden.",
+              "3. Paula ___ sich im Urlaub einfach nur erholen.",
+              "4. Anna ___ lieber ganz viel unternehmen.",
+              "5. Aber sie ___ sich entscheiden, weil sie schon bald Urlaub hatten.",
+              "6. Der Mann im Reisebüro ___ ihnen mit guten Tipps helfen.",
+              "7. Aber er ___ lange nach einem passenden Angebot suchen.",
+            ],
+            columns: ["wollte", "wollten", "konnte", "konnten", "musste", "mussten"],
+            correct: {
+              "1. Anna und Paula ___ ihren Urlaub planen.": "wollten",
+              "2. Anna und Paula ___ keine gemeinsame Lösung finden.": "konnten",
+              "3. Paula ___ sich im Urlaub einfach nur erholen.": "wollte",
+              "4. Anna ___ lieber ganz viel unternehmen.": "wollte",
+              "5. Aber sie ___ sich entscheiden, weil sie schon bald Urlaub hatten.": "mussten",
+              "6. Der Mann im Reisebüro ___ ihnen mit guten Tipps helfen.": "konnte",
+              "7. Aber er ___ lange nach einem passenden Angebot suchen.": "musste",
+            },
+          },
+          {
+            id: "2a-modal-1",
+            prompt: "Wählen Sie den passenden Infinitiv.",
+            type: "grid",
+            rows: [
+              "1. Anna und Paula wollten ihren Urlaub ___.",
+              "2. Anna und Paula konnten keine gemeinsame Lösung ___.",
+              "3. Paula wollte sich im Urlaub einfach nur ___.",
+              "4. Anna wollte lieber ganz viel ___.",
+              "5. Aber sie mussten sich ___.",
+              "6. Der Mann im Reisebüro konnte ihnen mit guten Tipps ___.",
+              "7. Aber er musste lange nach einem passenden Angebot ___.",
+            ],
+            columns: ["planen", "finden", "erholen", "unternehmen", "entscheiden", "helfen", "suchen"],
+            correct: {
+              "1. Anna und Paula wollten ihren Urlaub ___.": "planen",
+              "2. Anna und Paula konnten keine gemeinsame Lösung ___.": "finden",
+              "3. Paula wollte sich im Urlaub einfach nur ___.": "erholen",
+              "4. Anna wollte lieber ganz viel ___.": "unternehmen",
+              "5. Aber sie mussten sich ___.": "entscheiden",
+              "6. Der Mann im Reisebüro konnte ihnen mit guten Tipps ___.": "helfen",
+              "7. Aber er musste lange nach einem passenden Angebot ___.": "suchen",
+            },
+          },
+        ],
+      },
+      urlaubsrollen: {
+        title: "Mission 2A – Urlaubsrollen",
+        shortDescription: "Quién quiere qué y quién ayuda en la planificación del viaje.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2a-rollen-0",
+            prompt: "Wer passt? Wählen Sie die richtige Person oder Gruppe.",
+            type: "grid",
+            rows: [
+              "1. wollte den Urlaub planen.",
+              "2. wollte sich im Urlaub einfach nur erholen.",
+              "3. wollte lieber ganz viel unternehmen.",
+              "4. konnten keine gemeinsame Lösung finden.",
+              "5. mussten sich schnell entscheiden.",
+              "6. konnte mit guten Tipps helfen.",
+              "7. musste lange nach einem passenden Angebot suchen."
+            ],
+            columns: ["Anna", "Paula", "Anna und Paula", "Der Mann im Reisebüro"],
+            correct: {
+              "1. wollte den Urlaub planen.": "Anna und Paula",
+              "2. wollte sich im Urlaub einfach nur erholen.": "Paula",
+              "3. wollte lieber ganz viel unternehmen.": "Anna",
+              "4. konnten keine gemeinsame Lösung finden.": "Anna und Paula",
+              "5. mussten sich schnell entscheiden.": "Anna und Paula",
+              "6. konnte mit guten Tipps helfen.": "Der Mann im Reisebüro",
+              "7. musste lange nach einem passenden Angebot suchen.": "Der Mann im Reisebüro"
+            }
+          }
+        ]
+      },    
+    },
+  },
+
+  "2B": {
+    id: "2B",
+    title: "Misión 2B",
+    variants: {
+      default: {
+        title: "Mission 2B",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2b-default-0",
+            prompt: "4c. 1. a = Anna und Paula haben keine Lust, ... | b = Anna und Paula finden es schwer, ... ... einen gemeinsamen Urlaub zu planen.",
+            type: "text",
+            correct: "b",
+          },
+          {
+            id: "2b-default-1",
+            prompt: "4c. 2. a = Für Anna ist es wichtig, ... | b = Anna findet es total anstrengend, ... ... im Urlaub viel zu unternehmen.",
+            type: "text",
+            correct: "a",
+          },
+          {
+            id: "2b-default-2",
+            prompt: "4c. 3. a = Paula macht es keinen Spaß, ... | b = Paula hat vor allem vor, ... ... sich im Urlaub gut zu erholen.",
+            type: "text",
+            correct: "b",
+          },
+          {
+            id: "2b-default-3",
+            prompt: "4c. 4. a = Die beiden Freundinnen versuchen, ... | b = Für Anna und Paula ist es nicht wichtig, ... ... ein Angebot für beide zu finden.",
+            type: "text",
+            correct: "a",
+          },
+          {
+            id: "2b-default-4",
+            prompt: "4c. 5. a = Anna hat erst am nächsten Tag Zeit, ... | b = Anna hat vergessen, ... ... mit Paula ins Reisebüro zu gehen.",
+            type: "text",
+            correct: "a",
+          },
+          {
+            id: "2b-default-5",
+            prompt: "4d. (1) Ich ___, heute um 7 ins Fitness-Studio zu gehen. Kommst du mit?",
+            type: "text",
+            correct: "habe vor",
+          },
+          {
+            id: "2b-default-6",
+            prompt: "4d. (2) Super Idee. Ich ___, auch zu kommen. Geht halb 8 auch?",
+            type: "text",
+            correct: "versuche",
+          },
+          {
+            id: "2b-default-7",
+            prompt: "4d. (3) Was machen wir? Es ___, zu regnen. Fahren wir trotzdem an den See?",
+            type: "text",
+            correct: "fängt an",
+          },
+          {
+            id: "2b-default-8",
+            prompt: "4d. (4) Mist! Ich habe mich so ___, in der Sonne zu liegen und zu faulenzen.",
+            type: "text",
+            correct: "gefreut",
+          },
+          {
+            id: "2b-default-9",
+            prompt: "4d. (5) Nicht vergessen, morgen um 8 ist Training. Ich ___, dich zu sehen.",
+            type: "text",
+            correct: "hoffe",
+          },
+          {
+            id: "2b-default-10",
+            prompt: "4d. (6) Leider kann ich diese Woche nicht. Der Arzt hat mir ___, Sport zu machen.",
+            type: "text",
+            correct: "verboten",
+          },
+        ],
+      },
+      rollen: {
+        title: "Mission 2B – Anna oder Paula?",
+        shortDescription: "Comprensión del chat: distinguir con claridad qué quiere cada una.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2b-rollen-0",
+            prompt: "Wem passt die Aussage? Wählen Sie Anna oder Paula.",
+            type: "grid",
+            rows: [
+              "1. hat vergessen anzurufen.",
+              "2. findet Berlin zu stressig.",
+              "3. möchte im Urlaub viel Kultur, Ausgehen und Sport.",
+              "4. möchte sich am Strand erholen und faulenzen.",
+              "5. hat viele interessante Angebote für die Ostsee gefunden.",
+              "6. kann heute nicht ins Reisebüro gehen und hat morgen besser Zeit.",
+            ],
+            columns: ["Anna", "Paula"],
+            correct: {
+              "1. hat vergessen anzurufen.": "Anna",
+              "2. findet Berlin zu stressig.": "Paula",
+              "3. möchte im Urlaub viel Kultur, Ausgehen und Sport.": "Anna",
+              "4. möchte sich am Strand erholen und faulenzen.": "Paula",
+              "5. hat viele interessante Angebote für die Ostsee gefunden.": "Paula",
+              "6. kann heute nicht ins Reisebüro gehen und hat morgen besser Zeit.": "Anna",
+            },
+          },
+        ],
+      },
+      infinitivzu: {
+        title: "Mission 2B – Infinitiv mit zu",
+        shortDescription: "Foco en las construcciones con infinitivo del chat y del ejercicio.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2b-inf-0",
+            prompt: "Ordnen Sie die Satzanfänge den passenden Infinitivgruppen zu.",
+            type: "grid",
+            rows: [
+              "1. Anna und Paula finden es schwer,",
+              "2. Für Anna ist es wichtig,",
+              "3. Paula hat vor allem vor,",
+              "4. Die beiden Freundinnen versuchen,",
+              "5. Anna hat erst am nächsten Tag Zeit,"
+            ],
+            columns: [
+              "einen gemeinsamen Urlaub zu planen.",
+              "im Urlaub viel zu unternehmen.",
+              "sich im Urlaub gut zu erholen.",
+              "ein Angebot für beide zu finden.",
+              "mit Paula ins Reisebüro zu gehen."
+            ],
+            correct: {
+              "1. Anna und Paula finden es schwer,": "einen gemeinsamen Urlaub zu planen.",
+              "2. Für Anna ist es wichtig,": "im Urlaub viel zu unternehmen.",
+              "3. Paula hat vor allem vor,": "sich im Urlaub gut zu erholen.",
+              "4. Die beiden Freundinnen versuchen,": "ein Angebot für beide zu finden.",
+              "5. Anna hat erst am nächsten Tag Zeit,": "mit Paula ins Reisebüro zu gehen."
+            }
+          },
+          {
+            id: "2b-inf-1",
+            prompt: "Wählen Sie den passenden Ausdruck.",
+            type: "grid",
+            rows: [
+              "1. Ich ___, heute um 7 ins Fitness-Studio zu gehen.",
+              "2. Ich ___, auch zu kommen.",
+              "3. Es ___, zu regnen.",
+              "4. Ich habe mich so ___, in der Sonne zu liegen und zu faulenzen.",
+              "5. Ich ___, dich zu sehen.",
+              "6. Der Arzt hat mir ___, Sport zu machen."
+            ],
+            columns: ["habe vor", "versuche", "fängt an", "gefreut", "hoffe", "verboten"],
+            correct: {
+              "1. Ich ___, heute um 7 ins Fitness-Studio zu gehen.": "habe vor",
+              "2. Ich ___, auch zu kommen.": "versuche",
+              "3. Es ___, zu regnen.": "fängt an",
+              "4. Ich habe mich so ___, in der Sonne zu liegen und zu faulenzen.": "gefreut",
+              "5. Ich ___, dich zu sehen.": "hoffe",
+              "6. Der Arzt hat mir ___, Sport zu machen.": "verboten"
+            }
+          }
+        ]
+      },
+    },
+  },
+
+  "2C": {
+    id: "2C",
+    title: "Misión 2C",
+    variants: {
+      default: {
+        title: "Mission 2C",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2c-default-0",
+            prompt: "5a. (1) Nein, mit drei Kindern ist es zu ___, in den Urlaub zu fliegen. Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "teuer",
+          },
+          {
+            id: "2c-default-1",
+            prompt: "5a. (2) Für uns ist es völlig ___, an einem Tag über 1.000 km zu fahren. Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "normal",
+          },
+          {
+            id: "2c-default-2",
+            prompt: "5a. (3) Es ist einfach ___, am Urlaubsort das Auto zu haben. Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "gut",
+          },
+          {
+            id: "2c-default-3",
+            prompt: "5a. (4) Aber ist es nicht ___, so lange Auto zu fahren? Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "gefährlich",
+          },
+          {
+            id: "2c-default-4",
+            prompt: "5a. (5) ... deshalb ist es nicht ___, zu übernachten. Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "notwendig",
+          },
+          {
+            id: "2c-default-5",
+            prompt: "5a. (6) Es stimmt schon, für die Kinder ist es ___, so lange im Auto zu sitzen. Optionen: gefährlich / gut / langweilig / normal / notwendig / teuer",
+            type: "text",
+            correct: "langweilig",
+          },
+          {
+            id: "2c-default-6",
+            prompt: "5b. 1. Alexandra findet es normal, ___. (sehr früh / aufstehen)",
+            type: "text",
+            correct: "sehr früh aufzustehen",
+          },
+          {
+            id: "2c-default-7",
+            prompt: "5b. 2. Per hat heute keine Lust, ___. (lange / arbeiten)",
+            type: "text",
+            correct: "lange zu arbeiten",
+          },
+          {
+            id: "2c-default-8",
+            prompt: "5b. 3. Janine freut sich, ___. (am Abend / ausgehen)",
+            type: "text",
+            correct: "am Abend auszugehen",
+          },
+          {
+            id: "2c-default-9",
+            prompt: "5b. 4. Ivan darf nicht vergessen, ___. (Obst / einkaufen)",
+            type: "text",
+            correct: "Obst einzukaufen",
+          },
+          {
+            id: "2c-default-10",
+            prompt: "5b. 5. Nino hat vor, ___. (mehr Sport / machen)",
+            type: "text",
+            correct: "mehr Sport zu machen",
+          },
+        ],
+      },
+      adjektive: {
+        title: "Mission 2C – Adjektive",
+        shortDescription: "Foco en las valoraciones de la familia sobre viajar y conducir.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2c-adj-0",
+            prompt: "Wählen Sie das passende Adjektiv.",
+            type: "grid",
+            rows: [
+              "1. Mit drei Kindern ist es zu ___, in den Urlaub zu fliegen.",
+              "2. Für uns ist es völlig ___, an einem Tag über 1.000 km zu fahren.",
+              "3. Es ist einfach ___, am Urlaubsort das Auto zu haben.",
+              "4. Aber ist es nicht ___, so lange Auto zu fahren?",
+              "5. Deshalb ist es nicht ___, zu übernachten.",
+              "6. Für die Kinder ist es ___, so lange im Auto zu sitzen.",
+            ],
+            columns: ["teuer", "normal", "gut", "gefährlich", "notwendig", "langweilig"],
+            correct: {
+              "1. Mit drei Kindern ist es zu ___, in den Urlaub zu fliegen.": "teuer",
+              "2. Für uns ist es völlig ___, an einem Tag über 1.000 km zu fahren.": "normal",
+              "3. Es ist einfach ___, am Urlaubsort das Auto zu haben.": "gut",
+              "4. Aber ist es nicht ___, so lange Auto zu fahren?": "gefährlich",
+              "5. Deshalb ist es nicht ___, zu übernachten.": "notwendig",
+              "6. Für die Kinder ist es ___, so lange im Auto zu sitzen.": "langweilig",
+            },
+          },
+        ],
+      },
+      infinitivzu: {
+        title: "Mission 2C – Infinitiv mit zu",
+        shortDescription: "Foco en la construcción Infinitiv + zu con verbos y expresiones frecuentes.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2c-inf-0",
+            prompt: "Schreiben Sie die richtige Form mit Infinitiv + zu: Per hat heute keine Lust, ___. (lange / arbeiten)",
+            type: "text",
+            correct: "lange zu arbeiten",
+          },
+          {
+            id: "2c-inf-1",
+            prompt: "Schreiben Sie die richtige Form mit Infinitiv + zu: Janine freut sich, ___. (am Abend / ausgehen)",
+            type: "text",
+            correct: "am Abend auszugehen",
+          },
+          {
+            id: "2c-inf-2",
+            prompt: "Schreiben Sie die richtige Form mit Infinitiv + zu: Ivan darf nicht vergessen, ___. (Obst / einkaufen)",
+            type: "text",
+            correct: "Obst einzukaufen",
+          },
+          {
+            id: "2c-inf-3",
+            prompt: "Schreiben Sie die richtige Form mit Infinitiv + zu: Nino hat vor, ___. (mehr Sport / machen)",
+            type: "text",
+            correct: "mehr Sport zu machen",
+          },
+          {
+            id: "2c-inf-4",
+            prompt: "Schreiben Sie die richtige Form mit Infinitiv + zu: Alexandra findet es normal, ___. (sehr früh / aufstehen)",
+            type: "text",
+            correct: "sehr früh aufzustehen",
+          },
+        ],
+      },
+      reiseplaene: {
+        title: "Mission 2C – Reisepläne",
+        shortDescription: "Valoraciones sobre viajar y planes personales con Infinitiv + zu.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2c-reise-0",
+            prompt: "Welche Bewertung passt zur Aussage?",
+            type: "grid",
+            rows: [
+              "1. Mit drei Kindern kostet Fliegen zu viel Geld.",
+              "2. An einem Tag über 1.000 km zu fahren, finden sie ganz normal.",
+              "3. Am Urlaubsort ein Auto zu haben, finden sie praktisch.",
+              "4. Sehr lange Auto zu fahren, kann riskant sein.",
+              "5. Für sie ist eine Übernachtung nicht nötig.",
+              "6. Für Kinder ist es oft öde, so lange im Auto zu sitzen."
+            ],
+            columns: ["teuer", "normal", "gut", "gefährlich", "notwendig", "langweilig"],
+            correct: {
+              "1. Mit drei Kindern kostet Fliegen zu viel Geld.": "teuer",
+              "2. An einem Tag über 1.000 km zu fahren, finden sie ganz normal.": "normal",
+              "3. Am Urlaubsort ein Auto zu haben, finden sie praktisch.": "gut",
+              "4. Sehr lange Auto zu fahren, kann riskant sein.": "gefährlich",
+              "5. Für sie ist eine Übernachtung nicht nötig.": "notwendig",
+              "6. Für Kinder ist es oft öde, so lange im Auto zu sitzen.": "langweilig"
+            }
+          },
+          {
+            id: "2c-reise-1",
+            prompt: "Ordnen Sie die Personen den passenden Plänen oder Vorhaben zu.",
+            type: "grid",
+            rows: ["Alexandra", "Per", "Janine", "Ivan", "Nino"],
+            columns: [
+              "sehr früh aufzustehen",
+              "lange zu arbeiten",
+              "am Abend auszugehen",
+              "Obst einzukaufen",
+              "mehr Sport zu machen"
+            ],
+            correct: {
+              "Alexandra": "sehr früh aufzustehen",
+              "Per": "lange zu arbeiten",
+              "Janine": "am Abend auszugehen",
+              "Ivan": "Obst einzukaufen",
+              "Nino": "mehr Sport zu machen"
+            }
+          }
+        ]
+      },
+    },
+  },
 } as const;

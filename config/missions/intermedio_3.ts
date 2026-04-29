@@ -742,4 +742,665 @@ export const MISSIONS_INTERMEDIO_3 = {
     }
   }
 },
+
+  "2A": {
+    id: "2A",
+    title: "Misión 2A",
+    variants: {
+      default: {
+        title: "Mission 2A",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2a-default-0",
+            prompt: "2A-A. Lesen Sie den Text zu Sebastian Hilpert und ergänzen Sie die passenden Verben.",
+            type: "grid",
+            rows: [
+              "1. sich nicht mehr glücklich ___",
+              "2. andere berufliche Herausforderungen ___",
+              "3. einen Bericht über ein Projekt ___",
+              "4. das Leben aus einer anderen Perspektive ___",
+              "5. ein Studium ___, aber nicht abschließen",
+              "6. Erfahrungen mit Wildtieren ___",
+              "7. anderen Menschen Mut ___"
+            ],
+            columns: [
+              "fühlen",
+              "suchen",
+              "sehen",
+              "kennenlernen",
+              "ausprobieren",
+              "sammeln",
+              "machen"
+            ],
+            correct: {
+              "1. sich nicht mehr glücklich ___": "fühlen",
+              "2. andere berufliche Herausforderungen ___": "suchen",
+              "3. einen Bericht über ein Projekt ___": "sehen",
+              "4. das Leben aus einer anderen Perspektive ___": "kennenlernen",
+              "5. ein Studium ___, aber nicht abschließen": "ausprobieren",
+              "6. Erfahrungen mit Wildtieren ___": "sammeln",
+              "7. anderen Menschen Mut ___": "machen"
+            }
+          },
+          {
+            id: "2a-default-1",
+            prompt: "2A-B. Ein schrecklicher Unfall. Was ist richtig?",
+            type: "checkbox_grid",
+            rows: ["1. Kristina Vogel ..."],
+            columns: [
+              "war oft Erste bei großen Wettkämpfen.",
+              "hatte einen schweren Unfall mit dem Auto.",
+              "trainierte, als ein schwerer Unfall passierte."
+            ],
+            correct: {
+              "1. Kristina Vogel ...": [
+                "war oft Erste bei großen Wettkämpfen.",
+                "trainierte, als ein schwerer Unfall passierte."
+              ]
+            }
+          },
+          {
+            id: "2a-default-2",
+            prompt: "2A-B. Ein schrecklicher Unfall. Was ist richtig?",
+            type: "checkbox_grid",
+            rows: ["2. Seit ihrem Unfall ..."],
+            columns: [
+              "braucht sie einen Rollstuhl.",
+              "kann sie wieder viele Dinge allein machen.",
+              "arbeitet sie im Krankenhaus."
+            ],
+            correct: {
+              "2. Seit ihrem Unfall ...": [
+                "braucht sie einen Rollstuhl.",
+                "kann sie wieder viele Dinge allein machen."
+              ]
+            }
+          },
+          {
+            id: "2a-default-3",
+            prompt: "2A-B. Ein schrecklicher Unfall. Was ist richtig?",
+            type: "checkbox_grid",
+            rows: ["3. Schon ein Jahr später ..."],
+            columns: [
+              "hat sie mit ihrem Mann ein Kind bekommen.",
+              "war sie neben ihrem Beruf auch Politikerin.",
+              "arbeitete sie trotz ihres Unfalls in vielen Projekten mit."
+            ],
+            correct: {
+              "3. Schon ein Jahr später ...": [
+                "arbeitete sie trotz ihres Unfalls in vielen Projekten mit."
+              ]
+            }
+          }
+        ]
+      },
+      lebenswege: {
+        title: "Mission 2A – Lebenswege",
+        shortDescription: "Comprensión de las dos historias de cambio de vida.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2a-lebenswege-0",
+            prompt: "Wer passt? Wählen Sie die richtige Person.",
+            type: "grid",
+            rows: [
+              "1. war früher Berufssoldat.",
+              "2. war Olympiasiegerin und mehrfache Weltmeisterin.",
+              "3. lernte in Namibia das Leben aus einer anderen Perspektive kennen.",
+              "4. sitzt seit einem Unfall im Rollstuhl.",
+              "5. arbeitet heute auch als Fotograf und Buchautor.",
+              "6. kann mittlerweile wieder allein Auto fahren.",
+              "7. möchte anderen Menschen Mut machen.",
+              "8. ist politisch engagiert und im Stadtrat aktiv."
+            ],
+            columns: ["Sebastian Hilpert", "Kristina Vogel"],
+            correct: {
+              "1. war früher Berufssoldat.": "Sebastian Hilpert",
+              "2. war Olympiasiegerin und mehrfache Weltmeisterin.": "Kristina Vogel",
+              "3. lernte in Namibia das Leben aus einer anderen Perspektive kennen.": "Sebastian Hilpert",
+              "4. sitzt seit einem Unfall im Rollstuhl.": "Kristina Vogel",
+              "5. arbeitet heute auch als Fotograf und Buchautor.": "Sebastian Hilpert",
+              "6. kann mittlerweile wieder allein Auto fahren.": "Kristina Vogel",
+              "7. möchte anderen Menschen Mut machen.": "Sebastian Hilpert",
+              "8. ist politisch engagiert und im Stadtrat aktiv.": "Kristina Vogel"
+            }
+          }
+        ]
+      },
+      zeiten: {
+        title: "Mission 2A – Früher, danach, heute",
+        shortDescription: "Ubicar hechos importantes de ambas biografías en su momento correcto.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2a-zeiten-0",
+            prompt: "Wann passiert das in der Lebensgeschichte?",
+            type: "grid",
+            rows: [
+              "1. Sebastian war Berufssoldat.",
+              "2. Sebastian lernte in Namibia das Leben aus einer anderen Perspektive kennen.",
+              "3. Sebastian arbeitet heute auch als Fotograf und Buchautor.",
+              "4. Kristina war auf dem Höhepunkt ihrer Karriere.",
+              "5. Kristina war nach dem Unfall eine Zeit lang im Krankenhaus.",
+              "6. Kristina kann mittlerweile wieder allein Auto fahren.",
+              "7. Kristina ist im Stadtrat Erfurt aktiv.",
+              "8. Sebastian fährt regelmäßig nach Afrika."
+            ],
+            columns: ["früher", "danach", "heute"],
+            correct: {
+              "1. Sebastian war Berufssoldat.": "früher",
+              "2. Sebastian lernte in Namibia das Leben aus einer anderen Perspektive kennen.": "danach",
+              "3. Sebastian arbeitet heute auch als Fotograf und Buchautor.": "heute",
+              "4. Kristina war auf dem Höhepunkt ihrer Karriere.": "früher",
+              "5. Kristina war nach dem Unfall eine Zeit lang im Krankenhaus.": "danach",
+              "6. Kristina kann mittlerweile wieder allein Auto fahren.": "heute",
+              "7. Kristina ist im Stadtrat Erfurt aktiv.": "heute",
+              "8. Sebastian fährt regelmäßig nach Afrika.": "heute"
+            }
+          }
+        ]
+      },
+    }
+  },
+
+  "2B": {
+    id: "2B",
+    title: "Misión 2B",
+    variants: {
+      default: {
+        title: "Mission 2B",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2b-default-0",
+            prompt: "4a. (1) Entschuldige, dass ich so lange nicht ___.",
+            type: "text",
+            correct: "geschrieben habe"
+          },
+          {
+            id: "2b-default-1",
+            prompt: "4a. (2) In meinem Leben ___ so viel ___.",
+            type: "text",
+            correct: "ist passiert"
+          },
+          {
+            id: "2b-default-2",
+            prompt: "4a. (3) Ich ___ immer gern in Berlin ___.",
+            type: "text",
+            correct: "habe gelebt"
+          },
+          {
+            id: "2b-default-3",
+            prompt: "4a. (4) Ich ___ nie ___, dass ich einmal aus Berlin wegziehe.",
+            type: "text",
+            correct: "habe gedacht"
+          },
+          {
+            id: "2b-default-4",
+            prompt: "4a. (5) Da ___ ich tatsächlich ___.",
+            type: "text",
+            correct: "bin umgezogen"
+          },
+          {
+            id: "2b-default-5",
+            prompt: "4a. (6) Eine Tante hatte dort ein Haus, das ich nun von ihr ___ ___.",
+            type: "text",
+            correct: "bekommen habe"
+          },
+          {
+            id: "2b-default-6",
+            prompt: "4a. (7) Meine Eltern und ich ___ das Haus komplett ___.",
+            type: "text",
+            correct: "haben renoviert"
+          },
+          {
+            id: "2b-default-7",
+            prompt: "4a. (8) Mein Bruder ___ auch viel ___.",
+            type: "text",
+            correct: "hat geholfen"
+          },
+          {
+            id: "2b-default-8",
+            prompt: "4a. (9) Vor vier Wochen ___ ich in das Haus ___.",
+            type: "text",
+            correct: "bin eingezogen"
+          },
+          {
+            id: "2b-default-9",
+            prompt: "4a. (10) Meine Stelle in Berlin ___ ich ___.",
+            type: "text",
+            correct: "habe gekündigt"
+          },
+          {
+            id: "2b-default-10",
+            prompt: "4a. (11) Gestern ___ ich hier schon einen neuen Job ___.",
+            type: "text",
+            correct: "habe begonnen"
+          }
+        ]
+      },
+      perfektformen: {
+        title: "Mission 2B – Perfektformen",
+        shortDescription: "Foco en auxiliares y participios del correo de Anna.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2b-perfekt-0",
+            prompt: "Wählen Sie el auxiliar correcto.",
+            type: "grid",
+            rows: [
+              "1. ... dass ich so lange nicht ___ geschrieben.",
+              "2. In meinem Leben ___ so viel passiert.",
+              "3. Ich ___ immer gern in Berlin gelebt.",
+              "4. Ich ___ nie gedacht, dass ich einmal aus Berlin wegziehe.",
+              "5. Da ___ ich tatsächlich umgezogen.",
+              "6. ... das ich nun von ihr bekommen ___.",
+              "7. Meine Eltern und ich ___ das Haus komplett renoviert.",
+              "8. Mein Bruder ___ auch viel geholfen.",
+              "9. Vor vier Wochen ___ ich in das Haus eingezogen.",
+              "10. Meine Stelle in Berlin ___ ich gekündigt.",
+              "11. Gestern ___ ich hier schon einen neuen Job begonnen."
+            ],
+            columns: ["habe", "hat", "ist", "bin", "haben"],
+            correct: {
+              "1. ... dass ich so lange nicht ___ geschrieben.": "habe",
+              "2. In meinem Leben ___ so viel passiert.": "ist",
+              "3. Ich ___ immer gern in Berlin gelebt.": "habe",
+              "4. Ich ___ nie gedacht, dass ich einmal aus Berlin wegziehe.": "habe",
+              "5. Da ___ ich tatsächlich umgezogen.": "bin",
+              "6. ... das ich nun von ihr bekommen ___.": "habe",
+              "7. Meine Eltern und ich ___ das Haus komplett renoviert.": "haben",
+              "8. Mein Bruder ___ auch viel geholfen.": "hat",
+              "9. Vor vier Wochen ___ ich in das Haus eingezogen.": "bin",
+              "10. Meine Stelle in Berlin ___ ich gekündigt.": "habe",
+              "11. Gestern ___ ich hier schon einen neuen Job begonnen.": "habe"
+            }
+          },
+          {
+            id: "2b-perfekt-1",
+            prompt: "Wählen Sie el participio correcto.",
+            type: "grid",
+            rows: [
+              "1. ... dass ich so lange nicht ___ habe.",
+              "2. In meinem Leben ist so viel ___.",
+              "3. Ich habe immer gern in Berlin ___.",
+              "4. Ich habe nie ___, dass ich einmal aus Berlin wegziehe.",
+              "5. Da bin ich tatsächlich ___.",
+              "6. ... das ich nun von ihr ___ habe.",
+              "7. Meine Eltern und ich haben das Haus komplett ___.",
+              "8. Mein Bruder hat auch viel ___.",
+              "9. Vor vier Wochen bin ich in das Haus ___.",
+              "10. Meine Stelle in Berlin habe ich ___.",
+              "11. Gestern habe ich hier schon einen neuen Job ___."
+            ],
+            columns: [
+              "geschrieben",
+              "passiert",
+              "gelebt",
+              "gedacht",
+              "umgezogen",
+              "bekommen",
+              "renoviert",
+              "geholfen",
+              "eingezogen",
+              "gekündigt",
+              "begonnen"
+            ],
+            correct: {
+              "1. ... dass ich so lange nicht ___ habe.": "geschrieben",
+              "2. In meinem Leben ist so viel ___.": "passiert",
+              "3. Ich habe immer gern in Berlin ___.": "gelebt",
+              "4. Ich habe nie ___, dass ich einmal aus Berlin wegziehe.": "gedacht",
+              "5. Da bin ich tatsächlich ___.": "umgezogen",
+              "6. ... das ich nun von ihr ___ habe.": "bekommen",
+              "7. Meine Eltern und ich haben das Haus komplett ___.": "renoviert",
+              "8. Mein Bruder hat auch viel ___.": "geholfen",
+              "9. Vor vier Wochen bin ich in das Haus ___.": "eingezogen",
+              "10. Meine Stelle in Berlin habe ich ___.": "gekündigt",
+              "11. Gestern habe ich hier schon einen neuen Job ___.": "begonnen"
+            }
+          }
+        ]
+      },
+      verben: {
+        title: "Mission 2B – Umzug",
+        shortDescription: "Foco en los verbos base del correo sobre la mudanza y el nuevo comienzo.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2b-verben-0",
+            prompt: "Wählen Sie das passende Verb aus der Liste.",
+            type: "grid",
+            rows: [
+              "1. Entschuldige, dass ich so lange nicht ___.",
+              "2. In meinem Leben ist so viel ___.",
+              "3. Ich habe immer gern in Berlin ___.",
+              "4. Ich habe nie ___, dass ich einmal aus Berlin wegziehe.",
+              "5. Da bin ich tatsächlich ___.",
+              "6. Eine Tante hatte dort ein Haus, das ich nun von ihr ___ habe.",
+              "7. Meine Eltern und ich haben das Haus komplett ___.",
+              "8. Mein Bruder hat auch viel ___.",
+              "9. Vor vier Wochen bin ich in das Haus ___.",
+              "10. Meine Stelle in Berlin habe ich ___.",
+              "11. Gestern habe ich hier schon einen neuen Job ___."
+            ],
+            columns: [
+              "schreiben",
+              "passieren",
+              "leben",
+              "denken",
+              "umziehen",
+              "bekommen",
+              "renovieren",
+              "helfen",
+              "einziehen",
+              "kündigen",
+              "beginnen"
+            ],
+            correct: {
+              "1. Entschuldige, dass ich so lange nicht ___.": "schreiben",
+              "2. In meinem Leben ist so viel ___.": "passieren",
+              "3. Ich habe immer gern in Berlin ___.": "leben",
+              "4. Ich habe nie ___, dass ich einmal aus Berlin wegziehe.": "denken",
+              "5. Da bin ich tatsächlich ___.": "umziehen",
+              "6. Eine Tante hatte dort ein Haus, das ich nun von ihr ___ habe.": "bekommen",
+              "7. Meine Eltern und ich haben das Haus komplett ___.": "renovieren",
+              "8. Mein Bruder hat auch viel ___.": "helfen",
+              "9. Vor vier Wochen bin ich in das Haus ___.": "einziehen",
+              "10. Meine Stelle in Berlin habe ich ___.": "kündigen",
+              "11. Gestern habe ich hier schon einen neuen Job ___.": "beginnen"
+            }
+          }
+        ]      
+      },
+    }
+  },
+
+  "2C": {
+    id: "2C",
+    title: "Misión 2C",
+    variants: {
+      default: {
+        title: "Mission 2C",
+        shortDescription: "Versión del libro.",
+        difficulty: 1,
+        bonusMxp: 0,
+        blocks: [
+          {
+            id: "2c-default-0",
+            prompt: "4b. 1a. Bernd Huller ___ Sportler.",
+            type: "text",
+            correct: "war"
+          },
+          {
+            id: "2c-default-1",
+            prompt: "4b. 1b. Er ___ eine erfolgreiche Karriere.",
+            type: "text",
+            correct: "hatte"
+          },
+          {
+            id: "2c-default-2",
+            prompt: "4b. 2. Aber dann wurde er schwer krank und ___ lang im Krankenhaus. Opciones válidas: hatte / war",
+            type: "text",
+            correct: "war"
+          },
+          {
+            id: "2c-default-3",
+            prompt: "4b. 3. Nach seiner Krankheit ___ er vieles in seinem Leben anders machen. Opciones válidas: konnte / musste",
+            type: "text",
+            correct: "musste"
+          },
+          {
+            id: "2c-default-4",
+            prompt: "4b. 4. Herr Huller ___ schnell wieder so selbstständig wie möglich sein. Opciones válidas: durfte / wollte",
+            type: "text",
+            correct: "wollte"
+          },
+          {
+            id: "2c-default-5",
+            prompt: "4b. 5. Ein Jahr später ___ er schon wieder Auto fahren und in Projekten arbeiten. Opciones válidas: konnte / sollte",
+            type: "text",
+            correct: "konnte"
+          },
+          {
+            id: "2c-default-6",
+            prompt: "4b. 6. Er ___ sich auch in einem Verein engagieren und ist dort sehr aktiv. Opciones válidas: durfte / wollte",
+            type: "text",
+            correct: "wollte"
+          },
+          {
+            id: "2c-default-7",
+            prompt: "4c. Welche Präteritumsform passt zum Infinitiv?",
+            type: "grid",
+            rows: [
+              "anbieten",
+              "arbeiten",
+              "kündigen",
+              "beginnen",
+              "fahren",
+              "besuchen",
+              "treffen",
+              "bleiben",
+              "fliegen",
+              "buchen",
+              "sich entscheiden"
+            ],
+            columns: [
+              "fuhr",
+              "buchte",
+              "bot ... an",
+              "blieb",
+              "begann",
+              "traf",
+              "kündigte",
+              "flog",
+              "entschied sich",
+              "besuchte",
+              "arbeitete"
+            ],
+            correct: {
+              "anbieten": "bot ... an",
+              "arbeiten": "arbeitete",
+              "kündigen": "kündigte",
+              "beginnen": "begann",
+              "fahren": "fuhr",
+              "besuchen": "besuchte",
+              "treffen": "traf",
+              "bleiben": "blieb",
+              "fliegen": "flog",
+              "buchen": "buchte",
+              "sich entscheiden": "entschied sich"
+            }
+          },
+          {
+            id: "2c-default-8",
+            prompt: "4c. Ergänzen Sie dann die Präteritumsformen im Text.",
+            type: "grid",
+            rows: [
+              "1. Susanne Berger ___ an einem ganz normalen Tag im Herbst, ihr Leben zu ändern.",
+              "2. Sie ___, so viel Geld wie möglich zu sparen.",
+              "3. Damals ___ sie als Event-Managerin in einer großen Agentur.",
+              "4. Ein Jahr später ___ sie ihren stressigen Job",
+              "5. und ___ ein Ticket für eine lange Reise.",
+              "6. Sie ___ nach Australien,",
+              "7. wo sie zuerst für ein paar Wochen alte Schulfreunde ___.",
+              "8. Von dort ___ sie dann mit einem Auto quer durch das Land.",
+              "9. Sie ___ fast ein Jahr in Australien.",
+              "10. Zurück in Deutschland ___ sie zufällig einen alten Freund.",
+              "11. Er ___ ihr einen interessanten Job ___."
+            ],
+            columns: [
+              "entschied sich",
+              "begann",
+              "arbeitete",
+              "kündigte",
+              "buchte",
+              "flog",
+              "besuchte",
+              "fuhr",
+              "blieb",
+              "traf",
+              "bot ... an"
+            ],
+            correct: {
+              "1. Susanne Berger ___ an einem ganz normalen Tag im Herbst, ihr Leben zu ändern.": "entschied sich",
+              "2. Sie ___, so viel Geld wie möglich zu sparen.": "begann",
+              "3. Damals ___ sie als Event-Managerin in einer großen Agentur.": "arbeitete",
+              "4. Ein Jahr später ___ sie ihren stressigen Job": "kündigte",
+              "5. und ___ ein Ticket für eine lange Reise.": "buchte",
+              "6. Sie ___ nach Australien,": "flog",
+              "7. wo sie zuerst für ein paar Wochen alte Schulfreunde ___.": "besuchte",
+              "8. Von dort ___ sie dann mit einem Auto quer durch das Land.": "fuhr",
+              "9. Sie ___ fast ein Jahr in Australien.": "blieb",
+              "10. Zurück in Deutschland ___ sie zufällig einen alten Freund.": "traf",
+              "11. Er ___ ihr einen interessanten Job ___.": "bot ... an"
+            }
+          }
+        ]
+      },
+      lebenswege: {
+        title: "Mission 2C – Lebenswege",
+        shortDescription: "Comprensión de los cambios de vida de Bernd Huller y Susanne Berger.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2c-lebenswege-0",
+            prompt: "Wer passt? Wählen Sie die richtige Person.",
+            type: "grid",
+            rows: [
+              "1. war früher sehr erfolgreich im Sport.",
+              "2. wurde schwer krank und musste vieles in seinem Leben verändern.",
+              "3. entschied sich an einem Herbsttag, ihr Leben zu ändern.",
+              "4. kündigte ihren stressigen Job.",
+              "5. blieb fast ein Jahr in Australien.",
+              "6. wollte schnell wieder selbstständig sein.",
+              "7. konnte später wieder Auto fahren und in Projekten arbeiten.",
+              "8. engagiert sich auch in einem Verein.",
+              "9. traf in Deutschland zufällig einen alten Freund.",
+              "10. bekam durch einen alten Freund ein interessantes Jobangebot."
+            ],
+            columns: ["Bernd Huller", "Susanne Berger"],
+            correct: {
+              "1. war früher sehr erfolgreich im Sport.": "Bernd Huller",
+              "2. wurde schwer krank und musste vieles in seinem Leben verändern.": "Bernd Huller",
+              "3. entschied sich an einem Herbsttag, ihr Leben zu ändern.": "Susanne Berger",
+              "4. kündigte ihren stressigen Job.": "Susanne Berger",
+              "5. blieb fast ein Jahr in Australien.": "Susanne Berger",
+              "6. wollte schnell wieder selbstständig sein.": "Bernd Huller",
+              "7. konnte später wieder Auto fahren und in Projekten arbeiten.": "Bernd Huller",
+              "8. engagiert sich auch in einem Verein.": "Bernd Huller",
+              "9. traf in Deutschland zufällig einen alten Freund.": "Susanne Berger",
+              "10. bekam durch einen alten Freund ein interessantes Jobangebot.": "Susanne Berger"
+            }
+          }
+        ]
+      },
+      praeteritumformen: {
+        title: "Mission 2C – Präteritumformen",
+        shortDescription: "Foco en las formas de Präteritum y en su uso dentro del relato.",
+        difficulty: 2,
+        bonusMxp: 4,
+        blocks: [
+          {
+            id: "2c-praet-0",
+            prompt: "Ordnen Sie den Infinitiven die passende Präteritumsform zu.",
+            type: "grid",
+            rows: [
+              "anbieten",
+              "arbeiten",
+              "kündigen",
+              "beginnen",
+              "fahren",
+              "besuchen",
+              "treffen",
+              "bleiben",
+              "fliegen",
+              "buchen",
+              "sich entscheiden"
+            ],
+            columns: [
+              "fuhr",
+              "buchte",
+              "bot ... an",
+              "blieb",
+              "begann",
+              "traf",
+              "kündigte",
+              "flog",
+              "entschied sich",
+              "besuchte",
+              "arbeitete"
+            ],
+            correct: {
+              "anbieten": "bot ... an",
+              "arbeiten": "arbeitete",
+              "kündigen": "kündigte",
+              "beginnen": "begann",
+              "fahren": "fuhr",
+              "besuchen": "besuchte",
+              "treffen": "traf",
+              "bleiben": "blieb",
+              "fliegen": "flog",
+              "buchen": "buchte",
+              "sich entscheiden": "entschied sich"
+            }
+          },
+          {
+            id: "2c-praet-1",
+            prompt: "Wählen Sie die passende Präteritumsform für den Text.",
+            type: "grid",
+            rows: [
+              "1. Susanne Berger ___ an einem ganz normalen Tag im Herbst, ihr Leben zu ändern.",
+              "2. Sie ___, so viel Geld wie möglich zu sparen.",
+              "3. Damals ___ sie als Event-Managerin in einer großen Agentur.",
+              "4. Ein Jahr später ___ sie ihren stressigen Job.",
+              "5. Und sie ___ ein Ticket für eine lange Reise.",
+              "6. Sie ___ nach Australien.",
+              "7. Dort ___ sie zuerst für ein paar Wochen alte Schulfreunde.",
+              "8. Von dort ___ sie dann mit einem Auto quer durch das Land.",
+              "9. Sie ___ fast ein Jahr in Australien.",
+              "10. Zurück in Deutschland ___ sie zufällig einen alten Freund.",
+              "11. Er ___ ihr einen interessanten Job ___."
+            ],
+            columns: [
+              "entschied sich",
+              "begann",
+              "arbeitete",
+              "kündigte",
+              "buchte",
+              "flog",
+              "besuchte",
+              "fuhr",
+              "blieb",
+              "traf",
+              "bot ... an"
+            ],
+            correct: {
+              "1. Susanne Berger ___ an einem ganz normalen Tag im Herbst, ihr Leben zu ändern.": "entschied sich",
+              "2. Sie ___, so viel Geld wie möglich zu sparen.": "begann",
+              "3. Damals ___ sie als Event-Managerin in einer großen Agentur.": "arbeitete",
+              "4. Ein Jahr später ___ sie ihren stressigen Job.": "kündigte",
+              "5. Und sie ___ ein Ticket für eine lange Reise.": "buchte",
+              "6. Sie ___ nach Australien.": "flog",
+              "7. Dort ___ sie zuerst für ein paar Wochen alte Schulfreunde.": "besuchte",
+              "8. Von dort ___ sie dann mit einem Auto quer durch das Land.": "fuhr",
+              "9. Sie ___ fast ein Jahr in Australien.": "blieb",
+              "10. Zurück in Deutschland ___ sie zufällig einen alten Freund.": "traf",
+              "11. Er ___ ihr einen interessanten Job ___.": "bot ... an"
+            }
+          }
+        ]
+      },
+    }
+  },
 } as const;

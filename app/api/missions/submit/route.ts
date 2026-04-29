@@ -56,6 +56,23 @@ export async function POST(req: Request) {
     }
 
     const variant = getMissionVariant(curso, normalizedMissionId, variantId);
+
+    const yaEntregoVariante = await prisma.missionFeedback.findFirst({
+      where: {
+        alumnoId: String(alumnoId),
+        missionId: normalizedMissionId,
+        variantId: variant.id,
+      },
+      select: { id: true },
+    });
+
+    if (yaEntregoVariante) {
+      return NextResponse.json(
+        { error: "Ya entregaste esta variante. Elige una diferente." },
+        { status: 409 }
+      );
+    }
+
     const { total, correctas, score, feedback } = gradeMissionVariant(variant, respuestas);
 
     const missionExpiresAt = new Date(
@@ -93,6 +110,7 @@ export async function POST(req: Request) {
         curso,
         missionId: normalizedMissionId,
         variant,
+        score,
       });
 
       console.log(

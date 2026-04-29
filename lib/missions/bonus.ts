@@ -5,6 +5,13 @@ const INTERNAL_SECRET = process.env.INTERNAL_API_SECRET;
 
 const EXTRA_MISSION_BONUS_MXP = 4;
 
+function calculateExtraBonus(score: number): number {
+  if (score >= 0.95) return EXTRA_MISSION_BONUS_MXP;
+  if (score >= 0.85) return Math.max(1, Math.round(EXTRA_MISSION_BONUS_MXP * 0.7));
+  if (score >= 0.75) return Math.max(1, Math.round(EXTRA_MISSION_BONUS_MXP * 0.4));
+  return 0;
+}
+
 type AwardMissionBonusParams = {
   alumnoId: string;
   curso: string;
@@ -128,7 +135,12 @@ export async function awardExtraMissionBonus(params: {
   curso: string;
   missionId: string;
   variant: MissionVariant;
+  score: number;
 }): Promise<{ awarded: boolean; bonusMxp: number }> {
+  const bonusMxp = calculateExtraBonus(params.score);
+
+  if (bonusMxp <= 0) return { awarded: false, bonusMxp: 0 };
+
   if (!CLASSROOM_TRADING_URL || !INTERNAL_SECRET) {
     console.warn("[missions extra bonus] faltan CLASSROOM_TRADING_URL o INTERNAL_API_SECRET");
     return { awarded: false, bonusMxp: 0 };
@@ -146,7 +158,7 @@ export async function awardExtraMissionBonus(params: {
 
   const traceNote =
     `Extra mission bonus | ${params.curso}/${params.missionId}/${params.variant.id}` +
-    ` | ${params.variant.title}`;
+    ` | ${params.variant.title} | score=${Math.round(params.score * 100)}%`;
 
   try {
     const res = await fetch(`${CLASSROOM_TRADING_URL}/api/internal/missions/process-bonus-mxp`, {
@@ -162,8 +174,8 @@ export async function awardExtraMissionBonus(params: {
         variantId: params.variant.id,
         variantTitle: params.variant.title,
         difficulty: params.variant.difficulty,
-        score: 1,
-        bonusMxp: EXTRA_MISSION_BONUS_MXP,
+        score: params.score,
+        bonusMxp,
         externalRef,
         traceNote,
       }),
@@ -178,7 +190,7 @@ export async function awardExtraMissionBonus(params: {
 
     return {
       awarded: !!data.created,
-      bonusMxp: data.created ? EXTRA_MISSION_BONUS_MXP : 0,
+      bonusMxp: data.created ? bonusMxp : 0,
     };
   } catch (err) {
     console.error("[missions extra bonus] error de red:", err);

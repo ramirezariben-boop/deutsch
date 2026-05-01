@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verben mit Präfixen – B2</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: rgba(255,255,255,0.8);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── top nav ── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 36px;
+      transition: color .2s;
+    }
+    .back:hover { color: rgba(255,255,255,0.8); }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: .05em;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 36px;
+    }
+
+    /* ── controls ── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+      max-width: 960px;
+    }
+
+    .search-wrap {
+      flex: 1 1 220px;
+      position: relative;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.3);
+      pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      background: #171717;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      padding: 10px 14px 10px 36px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    #search:focus { border-color: #444; }
+    #search::placeholder { color: rgba(255,255,255,0.25); }
+
+    .filter-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .pill {
+      background: #171717;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      padding: 5px 13px;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .pill:hover  { border-color: #555; color: rgba(255,255,255,0.8); }
+    .pill.active { color: #0a0a0a; border-color: transparent; }
+
+    /* pill accent colors per prefix */
+    .pill[data-p="be-"].active     { background: #00b4d8; }
+    .pill[data-p="ver-"].active    { background: #ff6a00; }
+    .pill[data-p="er-"].active     { background: #7ae582; }
+    .pill[data-p="ent-"].active    { background: #c7f000; }
+    .pill[data-p="ab-"].active     { background: #ff3b3b; }
+    .pill[data-p="an-"].active     { background: #ffd60a; }
+    .pill[data-p="auf-"].active    { background: #9d4edd; }
+    .pill[data-p="aus-"].active    { background: #2ec4b6; }
+    .pill[data-p="mit-"].active    { background: #0077b6; }
+    .pill[data-p="nach-"].active   { background: #ff9f1c; }
+    .pill[data-p="vor-"].active    { background: #5a4fcf; }
+    .pill[data-p="zurück-"].active { background: #c77dff; }
+    .pill[data-p="zusammen-"].active{ background: #e0aaff; color: #1a0030; }
+    .pill[data-p="weiter-"].active { background: #7b5cff; }
+    .pill[data-p="hin-/her-"].active{ background: #ff3b3b; }
+    .pill[data-p="um-"].active     { background: #00b4d8; }
+    .pill[data-p="ein-"].active    { background: #2ec4b6; }
+    .pill[data-p="durch-"].active  { background: #ff6a00; }
+    .pill[data-p="los-"].active    { background: #7ae582; }
+    .pill[data-p="zu-"].active     { background: #ffd60a; }
+    .pill[data-p="weg-"].active    { background: #9d4edd; }
+    .pill[data-p="statt-"].active  { background: #c7f000; }
+    .pill[data-p="Alle"].active    { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); border-color: transparent; }
+
+    /* ── counter ── */
+    .counter {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+    }
+
+    /* ── table ── */
+    .table-wrap {
+      max-width: 960px;
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid #1f1f1f;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead tr {
+      background: #141414;
+    }
+    th {
+      text-align: left;
+      padding: 13px 18px;
+      color: rgba(255,255,255,0.35);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #1f1f1f;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #161616;
+      transition: background .15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #141414; }
+
+    td { padding: 12px 18px; vertical-align: middle; }
+
+    /* verb cell */
+    .verb {
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      white-space: nowrap;
+    }
+
+    /* prefix badge */
+    .badge {
+      display: inline-block;
+      border-radius: 20px;
+      font-size: 11px;
+      padding: 2px 9px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* bedeutung */
+    .bed { color: rgba(255,255,255,0.55); }
+
+    /* example */
+    .ex {
+      color: rgba(255,255,255,0.35);
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* highlight on search */
+    mark {
+      background: rgba(255,214,10,.25);
+      color: inherit;
+      border-radius: 2px;
+    }
+
+    /* empty state */
+    .empty {
+      padding: 48px 18px;
+      text-align: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 14px;
+    }
+
+    /* prefix section heading inside table */
+    .section-row td {
+      padding: 20px 18px 8px;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      font-weight: 600;
+      background: #0a0a0a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .pdf-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+    .pdf-bar a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .pdf-bar a:hover { color: rgba(255,255,255,0.85); }
+    .sep { color: rgba(255,255,255,0.15); }
+      </style>
+    </head>
+    <body>
+
+      <a href="/" class="back">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Deutsche Grammatik
+  </a>
+
+  <h1>Verben mit Präfixen</h1>
+  <p class="subtitle">Nivel B2 · Todos los prefijos</p>
+
+  <!-- ── PDF link ── -->
+  <div class="pdf-bar">
+    <svg width="16" height="16" fill="none"   stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    <a href="/deutsch/verben-praefixe-b2.pdf" target="_blank">
+      Ver PDF original
+    </a>
+    <span class="sep">·</span>
+    <a href="/deutsch/verben-praefixe-b2.pdf" download>
+      Descargar
+    </a>
+  </div>
+
+    <div class="controls">
+      <div class="search-wrap">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="search" type="search" placeholder="Buscar verbo, significado o ejemplo…" autocomplete="off" />
+      </div>
+      <div class="filter-wrap" id="pills"></div>
+    </div>
+
+  <p class="counter" id="counter"></p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Verbo</th>
+          <th>Prefijo</th>
+          <th>Significado</th>
+          <th>Ejemplo</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">No se encontraron verbos.</div>
+  </div>
+
+<script>
+// ── DATA (transcribed from PDF) ────────────────────────────────────────────
+const PREFIX_COLORS = {
+  "be-":       "#00b4d8",
+  "ver-":      "#ff6a00",
+  "er-":       "#7ae582",
+  "ent-":      "#c7f000",
+  "ab-":       "#ff3b3b",
+  "an-":       "#ffd60a",
+  "auf-":      "#9d4edd",
+  "aus-":      "#2ec4b6",
+  "mit-":      "#0077b6",
+  "nach-":     "#ff9f1c",
+  "vor-":      "#5a4fcf",
+  "zurück-":   "#c77dff",
+  "zusammen-": "#e0aaff",
+  "weiter-":   "#7b5cff",
+  "hin-/her-": "#ff3b3b",
+  "um-":       "#00b4d8",
+  "ein-":      "#2ec4b6",
+  "durch-":    "#ff6a00",
+  "los-":      "#7ae582",
+  "zu-":       "#ffd60a",
+  "weg-":      "#9d4edd",
+  "statt-":    "#c7f000",
+};
+
+const DATA = [
+  // ── be- ──────────────────────────────────────────────────────────────────
+  ["beachten",        "be-", "tener en cuenta",            "Du musst die Regeln beachten."],
+  ["bedeuten",        "be-", "significar",                 "Was bedeutet dieses Wort?"],
+  ["beeinflussen",    "be-", "influir",                    "Die Medien beeinflussen die Meinung."],
+  ["beenden",         "be-", "terminar",                   "Er beendet das Gespräch."],
+  ["befinden sich",   "be-", "encontrarse",                "Das Hotel befindet sich im Zentrum."],
+  ["begegnen",        "be-", "encontrarse con",            "Ich bin ihm gestern begegnet."],
+  ["begeistern",      "be-", "entusiasmar",                "Das Konzert hat mich begeistert."],
+  ["behaupten",       "be-", "afirmar",                    "Er behauptet, recht zu haben."],
+  ["beherrschen",     "be-", "dominar",                    "Sie beherrscht drei Sprachen."],
+  ["behalten",        "be-", "conservar",                  "Behalte diese Information."],
+  ["beitragen",       "be-", "contribuir",                 "Jeder kann zur Lösung beitragen."],
+  ["bekämpfen",       "be-", "combatir",                   "Die Regierung bekämpft die Krise."],
+  ["bekommen",        "be-", "recibir",                    "Ich bekomme viele E-Mails."],
+  ["belasten",        "be-", "cargar / afectar",           "Stress belastet den Körper."],
+  ["beleuchten",      "be-", "analizar",                   "Der Artikel beleuchtet das Thema."],
+  ["benötigen",       "be-", "necesitar",                  "Wir benötigen mehr Zeit."],
+  ["beobachten",      "be-", "observar",                   "Forscher beobachten die Tiere."],
+  ["berechnen",       "be-", "calcular",                   "Man kann die Kosten berechnen."],
+  ["bereiten",        "be-", "preparar",                   "Das bereitet mir Sorgen."],
+  ["berichten",       "be-", "informar",                   "Die Medien berichten darüber."],
+  ["berücksichtigen", "be-", "considerar",                 "Bitte berücksichtigen Sie alle Faktoren."],
+  ["beschaffen",      "be-", "conseguir",                  "Er beschafft die Materialien."],
+  ["beschleunigen",   "be-", "acelerar",                   "Technologie beschleunigt Prozesse."],
+  ["beschreiben",     "be-", "describir",                  "Beschreiben Sie das Problem."],
+  ["beschließen",     "be-", "decidir",                    "Der Vorstand beschließt Reformen."],
+  ["beschränken",     "be-", "limitar",                    "Man muss die Kosten beschränken."],
+  ["besitzen",        "be-", "poseer",                     "Sie besitzt ein Haus."],
+  ["besprechen",      "be-", "discutir",                   "Wir besprechen das morgen."],
+  ["bestätigen",      "be-", "confirmar",                  "Bitte bestätigen Sie Ihre Reservierung."],
+  ["bestehen",        "be-", "consistir",                  "Das Problem besteht weiterhin."],
+  ["besuchen",        "be-", "visitar",                    "Ich besuche meine Familie."],
+  ["beteiligen",      "be-", "participar",                 "Viele Studenten beteiligen sich."],
+  ["betonen",         "be-", "enfatizar",                  "Der Lehrer betont die Regel."],
+  ["betrachten",      "be-", "considerar",                 "Man betrachtet das als Fortschritt."],
+  ["betreffen",       "be-", "afectar",                    "Das betrifft uns alle."],
+  ["beweisen",        "be-", "demostrar",                  "Die Studie beweist das Gegenteil."],
+  ["bewerten",        "be-", "evaluar",                    "Experten bewerten die Situation."],
+  ["bewirken",        "be-", "provocar",                   "Kleine Änderungen bewirken viel."],
+  ["bezahlen",        "be-", "pagar",                      "Ich bezahle die Rechnung."],
+  ["bezeichnen",      "be-", "denominar",                  "Man bezeichnet das als Erfolg."],
+  ["bezweifeln",      "be-", "dudar",                      "Ich bezweifle seine Aussage."],
+  ["behandeln",       "be-", "tratar / abordar",           "Der Arzt behandelt den Patienten."],
+  ["beantworten",     "be-", "responder / contestar",      "Bitte beantworten Sie die Frage."],
+  ["bewundern",       "be-", "admirar",                    "Viele Menschen bewundern seine Arbeit."],
+  ["belohnen",        "be-", "recompensar",                "Gute Leistungen werden belohnt."],
+  ["bemühen (sich)",  "be-", "esforzarse",                 "Er bemüht sich um bessere Ergebnisse."],
+  // ── ver- ─────────────────────────────────────────────────────────────────
+  ["verarbeiten",     "ver-", "procesar",                  "Sie verarbeitet die Informationen."],
+  ["verändern",       "ver-", "cambiar",                   "Technologie verändert die Welt."],
+  ["verbessern",      "ver-", "mejorar",                   "Übung verbessert die Aussprache."],
+  ["verbinden",       "ver-", "conectar",                  "Internet verbindet Menschen."],
+  ["verbreiten",      "ver-", "difundir",                  "Gerüchte verbreiten sich schnell."],
+  ["verdienen",       "ver-", "ganar dinero",              "Er verdient viel Geld."],
+  ["vereinbaren",     "ver-", "acordar",                   "Wir vereinbaren einen Termin."],
+  ["vereinfachen",    "ver-", "simplificar",               "Die Reform vereinfacht Prozesse."],
+  ["verfügen über",   "ver-", "disponer de",               "Das Land verfügt über Ressourcen."],
+  ["vergleichen",     "ver-", "comparar",                  "Vergleichen Sie die Optionen."],
+  ["vergrößern",      "ver-", "ampliar",                   "Sie vergrößern das Büro."],
+  ["verhindern",      "ver-", "impedir",                   "Das Gesetz verhindert Missbrauch."],
+  ["verkleinern",     "ver-", "reducir",                   "Man verkleinert die Kosten."],
+  ["verlieren",       "ver-", "perder",                    "Er verliert oft Schlüssel."],
+  ["vermeiden",       "ver-", "evitar",                    "Man sollte Fehler vermeiden."],
+  ["vermuten",        "ver-", "suponer",                   "Ich vermute ein Problem."],
+  ["veröffentlichen", "ver-", "publicar",                  "Der Verlag veröffentlicht das Buch."],
+  ["verringern",      "ver-", "reducir",                   "Pausen verringern Stress."],
+  ["verschieben",     "ver-", "posponer",                  "Wir verschieben den Termin."],
+  ["verschweigen",    "ver-", "ocultar",                   "Er verschweigt die Wahrheit."],
+  ["verschwinden",    "ver-", "desaparecer",               "Das Problem verschwindet."],
+  ["versprechen",     "ver-", "prometer",                  "Er verspricht Hilfe."],
+  ["verstehen",       "ver-", "entender",                  "Ich verstehe dich."],
+  ["verstärken",      "ver-", "reforzar",                  "Man verstärkt die Kontrolle."],
+  ["versuchen",       "ver-", "intentar",                  "Sie versucht zu lernen."],
+  ["verteilen",       "ver-", "distribuir",                "Die Aufgaben werden verteilt."],
+  ["vertreten",       "ver-", "representar",               "Der Anwalt vertritt den Kunden."],
+  ["verurteilen",     "ver-", "condenar",                  "Das Gericht verurteilt ihn."],
+  ["verursachen",     "ver-", "causar",                    "Stress verursacht Probleme."],
+  ["verwalten",       "ver-", "administrar",               "Sie verwaltet das Projekt."],
+  ["verwenden",       "ver-", "usar",                      "Wir verwenden neue Methoden."],
+  ["verwirklichen",   "ver-", "realizar",                  "Sie verwirklicht ihre Idee."],
+  ["verzichten auf",  "ver-", "renunciar a",               "Er verzichtet auf Fleisch."],
+  ["verkaufen",       "ver-", "vender",                    "Die Firma verkauft ihre Produkte weltweit."],
+  ["verlernen",       "ver-", "olvidar por falta de práctica", "Ohne Übung verlernt man eine Sprache."],
+  ["verlieben",       "ver-", "enamorarse",                "Sie hat sich in ihn verliebt."],
+  ["vermissen",       "ver-", "echar de menos",            "Ich vermisse meine Familie."],
+  ["verhandeln",      "ver-", "negociar",                  "Die Parteien verhandeln über den Vertrag."],
+  ["verlegen",        "ver-", "trasladar / mover",         "Die Konferenz wird nach Berlin verlegt."],
+  // ── er- ──────────────────────────────────────────────────────────────────
+  ["erarbeiten",      "er-", "elaborar",                   "Das Team erarbeitet Lösungen."],
+  ["erfahren",        "er-", "experimentar",               "Er erfährt Unterstützung."],
+  ["erfinden",        "er-", "inventar",                   "Sie erfindet ein Gerät."],
+  ["erforschen",      "er-", "investigar",                 "Wissenschaftler erforschen das Problem."],
+  ["erfordern",       "er-", "requerir",                   "Die Aufgabe erfordert Geduld."],
+  ["ergeben",         "er-", "resultar",                   "Das ergibt Sinn."],
+  ["erhalten",        "er-", "recibir",                    "Er erhält eine Antwort."],
+  ["erinnern sich",   "er-", "recordar",                   "Ich erinnere mich."],
+  ["erkennen",        "er-", "reconocer",                  "Man erkennt ihn sofort."],
+  ["erklären",        "er-", "explicar",                   "Kannst du das erklären?"],
+  ["erlauben",        "er-", "permitir",                   "Das Gesetz erlaubt es."],
+  ["ermöglichen",     "er-", "hacer posible",              "Technologie ermöglicht Fortschritt."],
+  ["erreichen",       "er-", "alcanzar",                   "Sie erreicht das Ziel."],
+  ["erscheinen",      "er-", "aparecer",                   "Das Buch erscheint bald."],
+  ["ersetzen",        "er-", "sustituir",                  "Man ersetzt Plastik."],
+  ["erwarten",        "er-", "esperar",                    "Ich erwarte Besuch."],
+  ["erzeugen",        "er-", "generar",                    "Wind erzeugt Energie."],
+  ["erzählen",        "er-", "contar",                     "Er erzählt eine Geschichte."],
+  ["erholen (sich)",  "er-", "recuperarse / descansar",    "Nach dem Urlaub hat er sich gut erholt."],
+  ["erinnern",        "er-", "recordar",                   "Dieses Lied erinnert mich an meine Kindheit."],
+  ["erledigen",       "er-", "resolver / encargarse de",   "Ich erledige meine Aufgaben heute."],
+  ["erweitern",       "er-", "ampliar / expandir",         "Die Firma erweitert ihre Produktion."],
+  // ── ent- ─────────────────────────────────────────────────────────────────
+  ["entdecken",       "ent-", "descubrir",                 "Sie entdeckt Talent."],
+  ["entfernen",       "ent-", "eliminar",                  "Man entfernt Daten."],
+  ["entgehen",        "ent-", "escaparse",                 "Der Fehler entgeht ihm."],
+  ["enthalten",       "ent-", "contener",                  "Der Text enthält Fehler."],
+  ["entlassen",       "ent-", "despedir",                  "Die Firma entlässt Mitarbeiter."],
+  ["entnehmen",       "ent-", "extraer",                   "Man entnimmt Proben."],
+  ["entscheiden",     "ent-", "decidir",                   "Wir entscheiden heute."],
+  ["entspannen",      "ent-", "relajar",                   "Musik entspannt mich."],
+  ["entstehen",       "ent-", "surgir",                    "Konflikte entstehen."],
+  ["entwickeln",      "ent-", "desarrollar",               "Sie entwickeln Software."],
+  ["entmutigen",      "ent-", "desanimar",                 "Die schlechten Ergebnisse entmutigen ihn."],
+  ["entlasten",       "ent-", "aliviar / descargar",       "Neue Technologien entlasten die Mitarbeiter."],
+  ["entwerfen",       "ent-", "diseñar / redactar",        "Der Architekt entwirft ein neues Gebäude."],
+  // ── ab- ──────────────────────────────────────────────────────────────────
+  ["abfahren",        "ab-", "salir",                      "Der Zug fährt ab."],
+  ["abgeben",         "ab-", "entregar",                   "Bitte geben Sie das Formular ab."],
+  ["ablehnen",        "ab-", "rechazar",                   "Er lehnt das Angebot ab."],
+  ["abnehmen",        "ab-", "disminuir",                  "Der Druck nimmt ab."],
+  ["abschließen",     "ab-", "terminar",                   "Sie schließen das Projekt ab."],
+  ["abschreiben",     "ab-", "copiar",                     "Er schreibt die Aufgabe ab."],
+  // ── an- ──────────────────────────────────────────────────────────────────
+  ["anbieten",        "an-", "ofrecer",                    "Sie bietet Hilfe an."],
+  ["anbauen",         "an-", "cultivar",                   "Sie baut Gemüse an."],
+  ["anmelden",        "an-", "registrarse",                "Man meldet sich an."],
+  ["annehmen",        "an-", "aceptar",                    "Er nimmt die Einladung an."],
+  ["anpassen",        "an-", "adaptar",                    "Wir passen den Plan an."],
+  ["ansehen",         "an-", "mirar",                      "Ich sehe mir den Film an."],
+  // ── auf- ─────────────────────────────────────────────────────────────────
+  ["aufbauen",        "auf-", "construir",                 "Sie bauen ein Netzwerk auf."],
+  ["aufgeben",        "auf-", "rendirse",                  "Er gibt nicht auf."],
+  ["aufnehmen",       "auf-", "grabar",                    "Sie nimmt das Gespräch auf."],
+  ["aufschreiben",    "auf-", "anotar",                    "Schreib das auf."],
+  ["aufsteigen",      "auf-", "ascender",                  "Er steigt auf."],
+  ["aufstehen",       "auf-", "levantarse",                "Ich stehe früh auf."],
+  // ── aus- ─────────────────────────────────────────────────────────────────
+  ["ausgehen",        "aus-", "salir",                     "Wir gehen heute aus."],
+  ["ausnutzen",       "aus-", "aprovechar",                "Er nutzt die Chance aus."],
+  ["aussteigen",      "aus-", "bajarse",                   "Sie steigt aus."],
+  ["austauschen",     "aus-", "intercambiar",              "Wir tauschen Ideen aus."],
+  ["auswählen",       "aus-", "elegir",                    "Wählen Sie eine Option aus."],
+  // ── mit- ─────────────────────────────────────────────────────────────────
+  ["mitarbeiten",     "mit-", "colaborar",                 "Er arbeitet mit."],
+  ["mitbringen",      "mit-", "traer",                     "Bring das Buch mit."],
+  ["mitnehmen",       "mit-", "llevar",                    "Ich nehme das mit."],
+  ["mitteilen",       "mit-", "comunicar",                 "Er teilt es mit."],
+  // ── nach- ────────────────────────────────────────────────────────────────
+  ["nachdenken",      "nach-", "reflexionar",              "Ich denke nach."],
+  ["nachfragen",      "nach-", "preguntar",                "Frag bitte nach."],
+  ["nachlassen",      "nach-", "disminuir",                "Die Energie lässt nach."],
+  ["nachschlagen",    "nach-", "consultar",                "Schlag das im Wörterbuch nach."],
+  // ── vor- ─────────────────────────────────────────────────────────────────
+  ["vorbereiten",     "vor-", "preparar",                  "Ich bereite mich vor."],
+  ["vorhaben",        "vor-", "planear",                   "Was hast du vor?"],
+  ["vorstellen",      "vor-", "imaginar",                  "Stell dir das vor."],
+  ["vortragen",       "vor-", "presentar",                 "Er trägt das Thema vor."],
+  // ── zurück- ──────────────────────────────────────────────────────────────
+  ["zurückgehen",     "zurück-", "disminuir",              "Die Zahl geht zurück."],
+  ["zurückkommen",    "zurück-", "regresar",               "Er kommt zurück."],
+  ["zurückziehen",    "zurück-", "retirar",                "Die Firma zieht sich zurück."],
+  // ── zusammen- ────────────────────────────────────────────────────────────
+  ["zusammenarbeiten","zusammen-", "colaborar",            "Sie arbeiten zusammen."],
+  ["zusammenfassen",  "zusammen-", "resumir",              "Fassen Sie zusammen."],
+  ["zusammenleben",   "zusammen-", "convivir",             "Viele Generationen leben zusammen."],
+  ["zusammenstellen", "zusammen-", "compilar",             "Er stellt Daten zusammen."],
+  // ── weiter- ──────────────────────────────────────────────────────────────
+  ["weiterarbeiten",  "weiter-", "seguir trabajando",      "Sie arbeitet weiter."],
+  ["weiterkommen",    "weiter-", "progresar",              "Wir kommen weiter."],
+  ["weitermachen",    "weiter-", "continuar",              "Mach bitte weiter."],
+  ["weitergeben",     "weiter-", "transmitir",             "Gib die Info weiter."],
+  // ── hin-/her- ────────────────────────────────────────────────────────────
+  ["herausfinden",    "hin-/her-", "averiguar",            "Wir finden es heraus."],
+  ["hineingehen",     "hin-/her-", "entrar",               "Er geht hinein."],
+  ["hinzufügen",      "hin-/her-", "añadir",               "Man fügt Daten hinzu."],
+  // ── um- ──────────────────────────────────────────────────────────────────
+  ["umbauen",         "um-", "reformar",                   "Sie bauen das Haus um."],
+  ["umziehen",        "um-", "mudarse",                    "Sie zieht um."],
+  ["umstellen",       "um-", "cambiar",                    "Wir stellen den Plan um."],
+  // ── ein- ─────────────────────────────────────────────────────────────────
+  ["einführen",       "ein-", "introducir",                "Die Firma führt Regeln ein."],
+  ["einstellen",      "ein-", "contratar",                 "Die Firma stellt Leute ein."],
+  ["einsetzen",       "ein-", "utilizar",                  "Man setzt Software ein."],
+  ["einziehen",       "ein-", "mudarse",                   "Er zieht ein."],
+  // ── durch- ───────────────────────────────────────────────────────────────
+  ["durchführen",     "durch-", "realizar",                "Die Studie wird durchgeführt."],
+  ["durchsetzen",     "durch-", "imponer",                 "Er setzt seine Idee durch."],
+  // ── los- ─────────────────────────────────────────────────────────────────
+  ["losgehen",        "los-", "empezar",                   "Die Reise geht los."],
+  ["loslassen",       "los-", "dejar ir",                  "Lass das Problem los."],
+  // ── zu- ──────────────────────────────────────────────────────────────────
+  ["zuhören",         "zu-", "escuchar",                   "Bitte hören Sie zu."],
+  ["zustimmen",       "zu-", "estar de acuerdo",           "Ich stimme zu."],
+  ["zunehmen",        "zu-", "aumentar",                   "Der Druck nimmt zu."],
+  // ── weg- ─────────────────────────────────────────────────────────────────
+  ["weggehen",        "weg-", "irse",                      "Er geht weg."],
+  ["wegwerfen",       "weg-", "tirar",                     "Wir werfen das weg."],
+  // ── statt- ───────────────────────────────────────────────────────────────
+  ["stattfinden",     "statt-", "tener lugar",             "Die Konferenz findet statt."],
+];
+
+// ── Prefix order (same as PDF) ─────────────────────────────────────────────
+const PREFIX_ORDER = [
+  "be-","ver-","er-","ent-","ab-","an-","auf-","aus-","mit-",
+  "nach-","vor-","zurück-","zusammen-","weiter-","hin-/her-",
+  "um-","ein-","durch-","los-","zu-","weg-","statt-"
+];
+
+// ── State ──────────────────────────────────────────────────────────────────
+let activePrefix = "Alle";
+let searchQuery  = "";
+
+// ── Build pills ────────────────────────────────────────────────────────────
+const pillsEl = document.getElementById("pills");
+["Alle", ...PREFIX_ORDER].forEach(p => {
+  const el = document.createElement("button");
+  el.className = "pill" + (p === "Alle" ? " active" : "");
+  el.dataset.p = p;
+  el.textContent = p;
+  el.addEventListener("click", () => {
+    activePrefix = p;
+    document.querySelectorAll(".pill").forEach(x => x.classList.remove("active"));
+    el.classList.add("active");
+    render();
+  });
+  pillsEl.appendChild(el);
+});
+
+// ── Search ─────────────────────────────────────────────────────────────────
+document.getElementById("search").addEventListener("input", e => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  render();
+});
+
+// ── Highlight helper ───────────────────────────────────────────────────────
+function hl(text, q) {
+  if (!q) return escHtml(text);
+  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, "gi");
+  return escHtml(text).replace(re, "<mark>$1</mark>");
+}
+function escHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render() {
+  const tbody  = document.getElementById("tbody");
+  const emptyEl= document.getElementById("empty");
+  const counterEl = document.getElementById("counter");
+
+  const filtered = DATA.filter(([verb, prefix, bed, ex]) => {
+    const matchPrefix = activePrefix === "Alle" || prefix === activePrefix;
+    const q = searchQuery;
+    const matchSearch = !q ||
+      verb.toLowerCase().includes(q)   ||
+      prefix.toLowerCase().includes(q) ||
+      bed.toLowerCase().includes(q)    ||
+      ex.toLowerCase().includes(q);
+    return matchPrefix && matchSearch;
+  });
+
+  counterEl.textContent = `${filtered.length} verbo${filtered.length !== 1 ? "s" : ""}`;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = "";
+    emptyEl.style.display = "block";
+    return;
+  }
+  emptyEl.style.display = "none";
+
+  // Group by prefix (keeping PDF order)
+  const groups = {};
+  filtered.forEach(row => {
+    const p = row[1];
+    if (!groups[p]) groups[p] = [];
+    groups[p].push(row);
+  });
+
+  const orderedPrefixes = PREFIX_ORDER.filter(p => groups[p]);
+
+  let html = "";
+  orderedPrefixes.forEach(prefix => {
+    // Only show section header when showing all prefixes
+    if (activePrefix === "Alle") {
+      const color = PREFIX_COLORS[prefix] || "#888";
+      html += `<tr class="section-row"><td colspan="4" style="color:${color}">Prefijo ${prefix}</td></tr>`;
+    }
+    groups[prefix].forEach(([verb, pref, bed, ex]) => {
+      const color  = PREFIX_COLORS[pref] || "#888";
+      const bg     = color + "22";
+      html += `
+        <tr>
+          <td class="verb">${hl(verb, searchQuery)}</td>
+          <td>
+            <span class="badge" style="background:${bg};color:${color}">
+              ${hl(pref, searchQuery)}
+            </span>
+          </td>
+          <td class="bed">${hl(bed, searchQuery)}</td>
+          <td class="ex">${hl(ex, searchQuery)}</td>
+        </tr>`;
+    });
+  });
+
+  tbody.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>

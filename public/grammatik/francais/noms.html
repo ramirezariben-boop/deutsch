@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustantivos en francés</title>
+<style>
+:root{
+--bg:#0f172a;
+--panel:#1e293b;
+--panel2:#334155;
+--text:#f1f5f9;
+--accent:#38bdf8;
+--accent2:#22c55e;
+--muted:#94a3b8;
+--border:rgba(255,255,255,0.08);
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui,Segoe UI,Roboto,sans-serif;
+background:linear-gradient(160deg,#020617,#0f172a);
+color:var(--text);
+}
+
+.layout{
+display:grid;
+grid-template-columns:260px 1fr;
+min-height:100vh;
+}
+
+aside{
+background:var(--panel);
+padding:22px;
+border-right:1px solid var(--border);
+}
+
+h1{
+font-size:1.1rem;
+margin-top:0;
+}
+
+nav a{
+display:block;
+padding:10px 12px;
+margin:6px 0;
+text-decoration:none;
+color:var(--text);
+border-radius:8px;
+transition:0.2s;
+}
+
+nav a:hover{background:var(--panel2)}
+nav a.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#001}
+
+main{padding:30px}
+
+.page{display:none;max-width:1000px;margin:auto}
+.page.active{display:block}
+
+.card{
+background:rgba(255,255,255,0.03);
+border:1px solid var(--border);
+padding:22px;
+border-radius:14px;
+margin-bottom:18px;
+}
+
+h2{margin-top:0}
+
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:12px;
+}
+
+.table th,.table td{
+padding:10px;
+border-bottom:1px solid var(--border);
+text-align:left;
+}
+
+.table th{background:rgba(255,255,255,0.05)}
+
+.exercise{
+background:rgba(0,0,0,0.25);
+padding:20px;
+border-radius:12px;
+margin-top:18px;
+}
+
+.question{margin:12px 0}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid var(--border);
+background:#020617;
+color:white;
+margin-top:6px;
+}
+
+button{
+padding:10px 14px;
+border:none;
+border-radius:8px;
+margin-top:12px;
+margin-right:6px;
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+font-weight:bold;
+cursor:pointer;
+}
+
+.feedback{
+margin-top:10px;
+color:#22c55e;
+}
+
+@media(max-width:900px){
+.layout{grid-template-columns:1fr}
+aside{border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<aside>
+<h1>Sustantivos en francés</h1>
+<nav>
+<a href="#intro" class="nav active">1. Introducción</a>
+<a href="#genero" class="nav">2. Género</a>
+<a href="#plural" class="nav">3. Plural</a>
+<a href="#articulos" class="nav">4. Artículos</a>
+<a href="#ejercicios" class="nav">5. Ejercicios</a>
+</nav>
+</aside>
+
+<main>
+
+<section id="intro" class="page active">
+<div class="card">
+<h2>Los sustantivos en francés</h2>
+<p>
+Los sustantivos franceses tienen varias características importantes:
+</p>
+<ul>
+<li>Tienen <b>género</b> (masculino o femenino).</li>
+<li>Tienen <b>plural</b>.</li>
+<li>Normalmente aparecen con un <b>artículo</b>.</li>
+</ul>
+
+<p>
+Ejemplos:
+</p>
+
+<table class="table">
+<tr>
+<th>Francés</th>
+<th>Español</th>
+<th>Género</th>
+</tr>
+
+<tr>
+<td>le livre</td>
+<td>el libro</td>
+<td>masculino</td>
+</tr>
+
+<tr>
+<td>la maison</td>
+<td>la casa</td>
+<td>femenino</td>
+</tr>
+
+<tr>
+<td>les enfants</td>
+<td>los niños</td>
+<td>plural</td>
+</tr>
+
+</table>
+</div>
+</section>
+
+<section id="genero" class="page">
+<div class="card">
+<h2>Género de los sustantivos</h2>
+
+<p>
+En francés todos los sustantivos tienen género.
+</p>
+
+<p>
+Algunas terminaciones comunes:
+</p>
+
+<table class="table">
+<tr><th>Terminación</th><th>Género frecuente</th><th>Ejemplo</th></tr>
+<tr><td>-tion</td><td>femenino</td><td>la nation</td></tr>
+<tr><td>-age</td><td>masculino</td><td>le fromage</td></tr>
+<tr><td>-eur</td><td>masculino</td><td>le professeur</td></tr>
+<tr><td>-ette</td><td>femenino</td><td>la baguette</td></tr>
+</table>
+
+</div>
+</section>
+
+<section id="plural" class="page">
+<div class="card">
+<h2>Plural</h2>
+
+<p>
+La forma plural suele añadirse con <b>-s</b>.
+</p>
+
+<table class="table">
+<tr><th>Singular</th><th>Plural</th></tr>
+<tr><td>le livre</td><td>les livres</td></tr>
+<tr><td>la table</td><td>les tables</td></tr>
+</table>
+
+<p>
+Pero hay excepciones:
+</p>
+
+<table class="table">
+<tr><th>Tipo</th><th>Ejemplo</th></tr>
+<tr><td>-al → -aux</td><td>animal → animaux</td></tr>
+<tr><td>-eau → -x</td><td>bateau → bateaux</td></tr>
+</table>
+
+</div>
+</section>
+
+<section id="articulos" class="page">
+<div class="card">
+<h2>Artículos</h2>
+
+<table class="table">
+<tr><th>Tipo</th><th>Masculino</th><th>Femenino</th><th>Plural</th></tr>
+<tr><td>Definido</td><td>le</td><td>la</td><td>les</td></tr>
+<tr><td>Indefinido</td><td>un</td><td>une</td><td>des</td></tr>
+</table>
+
+<p>
+Ejemplos:
+</p>
+
+<ul>
+<li>un livre</li>
+<li>une table</li>
+<li>des étudiants</li>
+</ul>
+
+</div>
+</section>
+
+<section id="ejercicios" class="page">
+
+<div class="exercise">
+<h2>Ejercicio 1</h2>
+<div class="question">
+¿Qué artículo corresponde a "maison"?
+<select data-answer="la">
+<option value="">Selecciona</option>
+<option>le</option>
+<option>la</option>
+<option>les</option>
+</select>
+</div>
+
+<div class="question">
+Plural de "animal":
+<input type="text" data-answer="animaux">
+</div>
+
+<button onclick="check(this.parentElement)">Revisar</button>
+
+<div class="feedback"></div>
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<script>
+
+const links=document.querySelectorAll('.nav')
+const pages=document.querySelectorAll('.page')
+
+links.forEach(link=>{
+link.addEventListener('click',e=>{
+e.preventDefault()
+
+links.forEach(l=>l.classList.remove('active'))
+link.classList.add('active')
+
+const id=link.getAttribute('href').replace('#','')
+
+pages.forEach(p=>{
+p.classList.remove('active')
+if(p.id===id)p.classList.add('active')
+})
+
+})
+})
+
+function check(ex){
+let correct=0
+let total=0
+
+ex.querySelectorAll('input,select').forEach(el=>{
+if(el.dataset.answer){
+ total++
+ if(el.value.toLowerCase()==el.dataset.answer)correct++
+}
+})
+
+ex.querySelector('.feedback').textContent=`Resultado: ${correct} / ${total}`
+}
+
+</script>
+
+</body>
+</html>

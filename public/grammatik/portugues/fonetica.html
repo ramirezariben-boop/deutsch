@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronunciación y Fonética — Portugués</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F0E8;
+    --bg2: #EDE8DF;
+    --bg3: #E0D9CE;
+    --ink: #1C1A16;
+    --ink2: #4A4640;
+    --ink3: #7A746C;
+    --accent: #C84B2F;
+    --accent2: #E8A020;
+    --green: #2D7A4F;
+    --blue: #1E5FA0;
+    --card: #FDFAF5;
+    --border: rgba(28,26,22,0.12);
+    --shadow: 0 2px 16px rgba(28,26,22,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* ── NAV ── */
+  nav {
+    width: 260px;
+    min-height: 100vh;
+    background: var(--ink);
+    color: #EDE8DF;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .nav-brand {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-brand .flag { font-size: 22px; margin-bottom: 6px; }
+  .nav-brand h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 1.3;
+    color: #F5F0E8;
+  }
+  .nav-brand span {
+    font-size: 11px;
+    color: rgba(237,232,223,0.45);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(237,232,223,0.35);
+    padding: 18px 24px 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all .18s;
+    font-size: 13.5px;
+    color: rgba(237,232,223,0.65);
+    font-weight: 400;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.05); color: #F5F0E8; }
+  .nav-item.active {
+    background: rgba(200,75,47,0.15);
+    border-left-color: var(--accent);
+    color: #F5F0E8;
+    font-weight: 500;
+  }
+  .nav-item .num {
+    font-size: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-family: 'Fraunces', serif;
+    color: rgba(237,232,223,0.5);
+    flex-shrink: 0;
+  }
+  .nav-item.active .num { background: rgba(200,75,47,0.3); color: #F5F0E8; }
+
+  .nav-progress {
+    margin-top: auto;
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .progress-label { font-size: 11px; color: rgba(237,232,223,0.4); margin-bottom: 8px; }
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s; }
+  .progress-count { font-size: 11px; color: rgba(237,232,223,0.4); margin-top: 6px; text-align: right; }
+
+  /* ── MAIN ── */
+  main {
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 860px;
+    overflow-x: hidden;
+  }
+
+  .page { display: none; animation: fadeIn .3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Page header */
+  .page-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-number {
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .page-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 38px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-desc { font-size: 15px; color: var(--ink3); line-height: 1.65; max-width: 580px; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .tag-theory { background: #EDE8DF; color: var(--ink2); }
+  .tag-example { background: #FEF0E0; color: #7A3800; }
+  .tag-tip { background: #E0F0E8; color: #1A5030; }
+  .tag-exercise { background: #FFE8E4; color: #7A1A0A; }
+
+  /* Alphabet grid */
+  .alpha-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .alpha-cell {
+    background: var(--bg2);
+    border-radius: 8px;
+    padding: 10px 6px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all .15s;
+    cursor: pointer;
+  }
+  .alpha-cell:hover { background: var(--ink); color: #F5F0E8; transform: translateY(-2px); }
+  .alpha-cell .letter { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; display: block; }
+  .alpha-cell .name { font-size: 10px; color: var(--ink3); margin-top: 2px; }
+  .alpha-cell:hover .name { color: rgba(237,232,223,0.6); }
+
+  /* Example rows */
+  .ex-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--bg);
+    margin-bottom: 8px;
+    border: 1px solid transparent;
+    transition: border-color .15s;
+  }
+  .ex-row:hover { border-color: var(--border); }
+  .ex-word { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--accent); min-width: 100px; }
+  .ex-ipa { font-size: 13px; color: var(--ink3); min-width: 90px; font-style: italic; }
+  .ex-meaning { font-size: 13.5px; color: var(--ink2); }
+  .ex-play {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11.5px;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: all .15s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .ex-play:hover { background: var(--ink); color: #F5F0E8; border-color: var(--ink); }
+
+  /* Comparison table */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--bg2);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink3);
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--ink2); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg); }
+  .td-pt { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+  .td-es { color: var(--ink3); }
+  .highlight { color: var(--accent); font-weight: 500; }
+
+  /* Nasal vowels display */
+  .vowel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .vowel-card {
+    background: var(--bg2);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all .2s;
+    cursor: pointer;
+  }
+  .vowel-card:hover { border-color: var(--accent); background: var(--card); }
+  .vowel-big { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600; color: var(--accent); }
+  .vowel-sub { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+  .vowel-ex { font-size: 13px; font-style: italic; color: var(--ink2); margin-top: 6px; }
+
+  /* Digraphs */
+  .digraph-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+  .digraph-pill {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: all .15s;
+    cursor: pointer;
+  }
+  .digraph-pill:hover { background: var(--accent); color: white; border-color: var(--accent); }
+  .digraph-pill:hover .dp-desc { color: rgba(255,255,255,0.8); }
+  .dp-letters { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; }
+  .dp-desc { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+  /* Exercises */
+  .exercise-block {
+    background: #FFF8F5;
+    border: 1px solid #F0C8BC;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .exercise-title { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; }
+  .quiz-item { margin-bottom: 14px; }
+  .quiz-q { font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+  .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quiz-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--ink);
+  }
+  .quiz-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .quiz-btn.correct { background: #E0F0E8; border-color: var(--green); color: var(--green); }
+  .quiz-btn.wrong { background: #FFE8E4; border-color: var(--accent); color: var(--accent); }
+  .quiz-feedback {
+    font-size: 13px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: #E0F0E8; color: var(--green); }
+  .quiz-feedback.fail { background: #FFE8E4; color: #A03020; }
+
+  /* Stress rules */
+  .stress-box {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--accent2);
+  }
+  .stress-num {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent2);
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .stress-text { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+  .stress-text strong { color: var(--ink); }
+
+  /* BR vs PT comparison */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-card {
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+  }
+  .compare-card.br { background: #FFF8E8; border-color: #F0D090; }
+  .compare-card.pt { background: #E8F0FF; border-color: #90B0E8; }
+  .compare-flag { font-size: 20px; margin-bottom: 6px; }
+  .compare-label { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+  .compare-card.br .compare-label { color: #7A5000; }
+  .compare-card.pt .compare-label { color: #1A3A7A; }
+  .compare-item { font-size: 14px; color: var(--ink2); margin-bottom: 7px; display: flex; gap: 8px; }
+  .compare-word { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+
+  /* Nav buttons */
+  .page-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--ink2);
+  }
+  .nav-btn:hover { background: var(--ink); color: #F5F0E8; border-color: var(--ink); }
+  .nav-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  .nav-btn.primary:hover { background: #A83820; }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav-btn:disabled:hover { background: var(--card); color: var(--ink2); border-color: var(--border); }
+
+  /* Info boxes */
+  .info-box {
+    display: flex;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 14px 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .info-box.tip { background: #E0F0E8; color: #1A4A30; border-left: 3px solid var(--green); }
+  .info-box.warn { background: #FEF0E0; color: #5A3200; border-left: 3px solid var(--accent2); }
+  .info-box .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Syllable exercise */
+  .syllable-word {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin: 16px 0 8px;
+    color: var(--ink);
+  }
+  .syllable-answer {
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink3);
+    min-height: 24px;
+    transition: all .3s;
+  }
+  .reveal-btn {
+    display: block;
+    margin: 10px auto 0;
+    padding: 8px 24px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--ink2);
+  }
+  .reveal-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+  @media (max-width: 700px) {
+    nav { width: 220px; }
+    main { padding: 24px 20px; }
+    .vowel-grid { grid-template-columns: repeat(2,1fr); }
+    .compare-grid { grid-template-columns: 1fr; }
+    .alpha-grid { grid-template-columns: repeat(auto-fill, minmax(44px,1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="flag">🇧🇷 🇵🇹</div>
+    <h1>Pronunciación<br>y Fonética</h1>
+    <span>Portugués — Módulo 1</span>
+  </div>
+
+  <div class="nav-section-label">Lecciones</div>
+  <div class="nav-item active" onclick="goTo(0)"><span class="num">01</span> El alfabeto</div>
+  <div class="nav-item" onclick="goTo(1)"><span class="num">02</span> Vocales orales</div>
+  <div class="nav-item" onclick="goTo(2)"><span class="num">03</span> Vocales nasales</div>
+  <div class="nav-item" onclick="goTo(3)"><span class="num">04</span> Dígrafos</div>
+  <div class="nav-item" onclick="goTo(4)"><span class="num">05</span> Acento tónico</div>
+  <div class="nav-item" onclick="goTo(5)"><span class="num">06</span> Brasil vs Portugal</div>
+
+  <div class="nav-section-label">Práctica</div>
+  <div class="nav-item" onclick="goTo(6)"><span class="num">07</span> Ejercicios generales</div>
+
+  <div class="nav-progress">
+    <div class="progress-label">Progreso</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:14%"></div></div>
+    <div class="progress-count" id="progressCount">1 / 7</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+<!-- PAGE 0: Alfabeto -->
+<div class="page active" id="page-0">
+  <div class="page-header">
+    <div class="page-number">Lección 01</div>
+    <h2 class="page-title">El <em>alfabeto</em></h2>
+    <p class="page-desc">El alfabeto portugués tiene 26 letras, igual que el español. Pero los nombres de algunas letras y su pronunciación difieren notablemente.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Las 26 letras <span class="tag tag-theory">Teoría</span></div>
+    <p style="font-size:14px;color:var(--ink3);margin-bottom:14px;">Haz clic en cada letra para ver su nombre en portugués.</p>
+    <div class="alpha-grid" id="alphaGrid"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Letras con pronunciación diferente al español <span class="tag tag-example">Ejemplo</span></div>
+    <div class="ex-row">
+      <span class="ex-word">C</span>
+      <span class="ex-ipa">[se]</span>
+      <span class="ex-meaning">Ante <strong>e / i</strong>: suena como la <strong>s</strong> (nunca "th") — <em>cedo</em> = "sedu"</span>
+    </div>
+    <div class="ex-row">
+      <span class="ex-word">J</span>
+      <span class="ex-ipa">[ʒota]</span>
+      <span class="ex-meaning">Sonido <strong>zh</strong> (como la "j" francesa) — <em>janela</em> = ventana</span>
+    </div>
+    <div class="ex-row">
+      <span class="ex-word">X</span>
+      <span class="ex-ipa">[ʃiʃ]</span>
+      <span class="ex-meaning">Puede sonar como <strong>sh, s, z o ks</strong> según la palabra</span>
+    </div>
+    <div class="ex-row">
+      <span class="ex-word">Z</span>
+      <span class="ex-ipa">[ze]</span>
+      <span class="ex-meaning">Al final de sílaba en Portugal suena como <strong>sh</strong></span>
+    </div>
+  </div>
+
+  <div class="info-box tip">
+    <span class="icon">💡</span>
+    <span>Las letras <strong>K, W, Y</strong> existen en el portugués moderno, pero se usan principalmente en palabras de origen extranjero y en nombres propios.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">¿Cómo se pronuncian? <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">Relaciona la letra con su nombre</div>
+      <div class="quiz-item" id="q-alpha-1">
+        <div class="quiz-q">¿Cómo se llama la letra <strong style="font-size:20px;font-family:'Fraunces',serif;color:var(--accent)">H</strong> en portugués?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-1',false)">hache</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-1',true)">agá</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-1',false)">ache</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-1',false)">há</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-alpha-1"></div>
+      </div>
+      <div class="quiz-item" id="q-alpha-2">
+        <div class="quiz-q">¿Cómo se llama la letra <strong style="font-size:20px;font-family:'Fraunces',serif;color:var(--accent)">R</strong> en portugués?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-2',false)">erre</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-2',false)">er</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-2',true)">erre (éRRe)</button>
+          <button class="quiz-btn" onclick="answer(this,'q-alpha-2',false)">ara</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-alpha-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" disabled>← Anterior</button>
+    <button class="nav-btn primary" onclick="goTo(1)">Vocales orales →</button>
+  </div>
+</div>
+
+<!-- PAGE 1: Vocales orales -->
+<div class="page" id="page-1">
+  <div class="page-header">
+    <div class="page-number">Lección 02</div>
+    <h2 class="page-title">Vocales <em>orales</em></h2>
+    <p class="page-desc">El portugués tiene 7 vocales orales (el español tiene 5). Las dos extras son la <strong>e</strong> y la <strong>o</strong> en sus formas abiertas y cerradas.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Las 7 vocales orales <span class="tag tag-theory">Teoría</span></div>
+    <table>
+      <thead><tr><th>Vocal</th><th>Símbolo AFI</th><th>Tipo</th><th>Ejemplo</th><th>Significado</th></tr></thead>
+      <tbody>
+        <tr><td class="td-pt">a</td><td>/a/</td><td>Igual que en español</td><td class="highlight">casa</td><td>casa</td></tr>
+        <tr><td class="td-pt">e</td><td>/e/</td><td>E cerrada (como en "mesa")</td><td class="highlight">medo</td><td>miedo</td></tr>
+        <tr><td class="td-pt">é</td><td>/ɛ/</td><td>E abierta (boca más abierta)</td><td class="highlight">péssimo</td><td>pésimo</td></tr>
+        <tr><td class="td-pt">i</td><td>/i/</td><td>Igual que en español</td><td class="highlight">figo</td><td>higo</td></tr>
+        <tr><td class="td-pt">o</td><td>/o/</td><td>O cerrada</td><td class="highlight">bolo</td><td>pastel</td></tr>
+        <tr><td class="td-pt">ó</td><td>/ɔ/</td><td>O abierta (boca más abierta)</td><td class="highlight">pó</td><td>polvo</td></tr>
+        <tr><td class="td-pt">u</td><td>/u/</td><td>Igual que en español</td><td class="highlight">uva</td><td>uva</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">La vocal <em>"e"</em> átona en Brasil <span class="tag tag-tip">Consejo</span></div>
+    <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:12px;">En el portugués brasileño, cuando la <strong>e</strong> no lleva acento y está en posición átona, se pronuncia como una <strong>i</strong> breve o incluso desaparece.</p>
+    <div class="ex-row"><span class="ex-word">leite</span><span class="ex-ipa">[ˈlejt͡ʃi]</span><span class="ex-meaning">leche → suena "léichi"</span></div>
+    <div class="ex-row"><span class="ex-word">noite</span><span class="ex-ipa">[ˈnojtʃi]</span><span class="ex-meaning">noche → suena "nóichi"</span></div>
+    <div class="ex-row"><span class="ex-word">verde</span><span class="ex-ipa">[ˈveʁd͡ʒi]</span><span class="ex-meaning">verde → suena "vérdi"</span></div>
+  </div>
+
+  <div class="info-box warn">
+    <span class="icon">⚠️</span>
+    <span>En Portugal la vocal <strong>e</strong> átona tiende a <strong>desaparecer</strong> del todo, mientras que en Brasil se convierte en una <strong>i</strong> suave. Esto explica muchas diferencias de pronunciación entre ambas variedades.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Identifica la vocal <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">¿Esta "o" es abierta o cerrada?</div>
+      <div class="quiz-item" id="q-v1">
+        <div class="quiz-q">La palabra <strong style="font-size:20px;color:var(--accent);font-family:'Fraunces',serif">avó</strong> (abuela) — ¿cómo suena la O?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-v1',true)">O abierta /ɔ/ como en "sol"</button>
+          <button class="quiz-btn" onclick="answer(this,'q-v1',false)">O cerrada /o/ como en "bolo"</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-v1"></div>
+      </div>
+      <div class="quiz-item" id="q-v2">
+        <div class="quiz-q">La palabra <strong style="font-size:20px;color:var(--accent);font-family:'Fraunces',serif">avô</strong> (abuelo) — ¿cómo suena la O?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-v2',false)">O abierta /ɔ/</button>
+          <button class="quiz-btn" onclick="answer(this,'q-v2',true)">O cerrada /o/ (circunflejo = cerrada)</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-v2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(0)">← El alfabeto</button>
+    <button class="nav-btn primary" onclick="goTo(2)">Vocales nasales →</button>
+  </div>
+</div>
+
+<!-- PAGE 2: Vocales nasales -->
+<div class="page" id="page-2">
+  <div class="page-header">
+    <div class="page-number">Lección 03</div>
+    <h2 class="page-title">Vocales <em>nasales</em></h2>
+    <p class="page-desc">Una de las características más distintivas del portugués. Las vocales nasales se producen dejando pasar el aire por la nariz al mismo tiempo que por la boca.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Las 5 vocales nasales <span class="tag tag-theory">Teoría</span></div>
+    <div class="vowel-grid">
+      <div class="vowel-card"><div class="vowel-big">ã</div><div class="vowel-sub">/ɐ̃/</div><div class="vowel-ex">manhã<br><small>mañana</small></div></div>
+      <div class="vowel-card"><div class="vowel-big">ẽ</div><div class="vowel-sub">/ẽ/</div><div class="vowel-ex">também<br><small>también</small></div></div>
+      <div class="vowel-card"><div class="vowel-big">ĩ</div><div class="vowel-sub">/ĩ/</div><div class="vowel-ex">sim<br><small>sí</small></div></div>
+      <div class="vowel-card"><div class="vowel-big">õ</div><div class="vowel-sub">/õ/</div><div class="vowel-ex">põe<br><small>pone</small></div></div>
+      <div class="vowel-card"><div class="vowel-big">ũ</div><div class="vowel-sub">/ũ/</div><div class="vowel-ex">um<br><small>un</small></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Cómo se escriben las nasales <span class="tag tag-example">Ejemplo</span></div>
+    <p style="font-size:14px;color:var(--ink2);margin-bottom:14px;">La nasalización se indica de tres formas:</p>
+    <div class="ex-row"><span class="ex-word" style="font-size:16px;min-width:120px">Tilde (~)</span><span class="ex-ipa"></span><span class="ex-meaning"><strong>ã, õ</strong> — <em>manhã, põe, razão</em></span></div>
+    <div class="ex-row"><span class="ex-word" style="font-size:16px;min-width:120px">+ m final</span><span class="ex-ipa"></span><span class="ex-meaning">Vocal antes de <strong>m</strong> al final de sílaba — <em>sim, bom, também</em></span></div>
+    <div class="ex-row"><span class="ex-word" style="font-size:16px;min-width:120px">+ n</span><span class="ex-ipa"></span><span class="ex-meaning">Vocal antes de <strong>n</strong> seguida de consonante — <em>canto, lindo, mundo</em></span></div>
+
+    <div class="info-box tip" style="margin-top:14px">
+      <span class="icon">💡</span>
+      <span>El truco: si una vocal va seguida de <strong>m</strong> o <strong>n</strong> que NO empieza una nueva sílaba, esa vocal es nasal. Ejemplo: <strong>ca-ma</strong> (nasal no, la <em>m</em> abre sílaba) vs <strong>cam-po</strong> (nasal sí, la <em>m</em> cierra sílaba).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">El difícil sonido <strong style="color:var(--accent)">-ão</strong> <span class="tag tag-example">Ejemplo</span></div>
+    <p style="font-size:14px;color:var(--ink2);margin-bottom:14px;">Es un diptongo nasal /ɐ̃w̃/ — no existe en español. Hay que practicarlo con cuidado.</p>
+    <div class="ex-row"><span class="ex-word">pão</span><span class="ex-ipa">[pɐ̃w̃]</span><span class="ex-meaning">pan</span></div>
+    <div class="ex-row"><span class="ex-word">mão</span><span class="ex-ipa">[mɐ̃w̃]</span><span class="ex-meaning">mano</span></div>
+    <div class="ex-row"><span class="ex-word">razão</span><span class="ex-ipa">[ʁaˈzɐ̃w̃]</span><span class="ex-meaning">razón</span></div>
+    <div class="ex-row"><span class="ex-word">coração</span><span class="ex-ipa">[koɾaˈsɐ̃w̃]</span><span class="ex-meaning">corazón</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">¿Nasal o no? <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">Identifica cuál vocal es nasal</div>
+      <div class="quiz-item" id="q-n1">
+        <div class="quiz-q">En la palabra <strong style="font-size:20px;color:var(--accent);font-family:'Fraunces',serif">canto</strong>, ¿la "a" es nasal?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-n1',true)">Sí, porque la "n" cierra la sílaba (can-to)</button>
+          <button class="quiz-btn" onclick="answer(this,'q-n1',false)">No, la "n" abre la sílaba siguiente</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-n1"></div>
+      </div>
+      <div class="quiz-item" id="q-n2">
+        <div class="quiz-q">En la palabra <strong style="font-size:20px;color:var(--accent);font-family:'Fraunces',serif">cama</strong>, ¿la "a" es nasal?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-n2',false)">Sí, la "m" nasaliza la vocal anterior</button>
+          <button class="quiz-btn" onclick="answer(this,'q-n2',true)">No, porque la "m" abre la sílaba siguiente (ca-ma)</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-n2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(1)">← Vocales orales</button>
+    <button class="nav-btn primary" onclick="goTo(3)">Dígrafos →</button>
+  </div>
+</div>
+
+<!-- PAGE 3: Dígrafos -->
+<div class="page" id="page-3">
+  <div class="page-header">
+    <div class="page-number">Lección 04</div>
+    <h2 class="page-title"><em>Dígrafos</em></h2>
+    <p class="page-desc">Combinaciones de dos letras que producen un único sonido. Son fundamentales para leer y pronunciar correctamente el portugués.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Dígrafos consonánticos <span class="tag tag-theory">Teoría</span></div>
+    <table>
+      <thead><tr><th>Dígrafo</th><th>Sonido</th><th>Ejemplo</th><th>Significado</th></tr></thead>
+      <tbody>
+        <tr><td class="td-pt">lh</td><td>/ʎ/ — como la "ll" española antigua</td><td class="highlight">filho</td><td>hijo</td></tr>
+        <tr><td class="td-pt">nh</td><td>/ɲ/ — como la "ñ" española</td><td class="highlight">manhã</td><td>mañana</td></tr>
+        <tr><td class="td-pt">ch</td><td>/ʃ/ — como "sh" en inglés</td><td class="highlight">chave</td><td>llave</td></tr>
+        <tr><td class="td-pt">rr</td><td>/ʁ/ — vibrante múltiple fuerte</td><td class="highlight">carro</td><td>carro</td></tr>
+        <tr><td class="td-pt">ss</td><td>/s/ — siempre sorda (nunca "z")</td><td class="highlight">passo</td><td>paso</td></tr>
+        <tr><td class="td-pt">qu</td><td>/k/ — ante e/i (la u no suena)</td><td class="highlight">que, quilo</td><td>que, kilo</td></tr>
+        <tr><td class="td-pt">gu</td><td>/g/ — ante e/i (la u no suena)</td><td class="highlight">guerra</td><td>guerra</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">El sonido <em>lh</em> — el más difícil <span class="tag tag-tip">Consejo</span></div>
+    <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:12px;">En muchas variedades del español <strong>ya no existe</strong> el sonido /ʎ/ (yeísmo). En portugués es obligatorio y nunca se reemplaza por la "y".</p>
+    <div class="ex-row"><span class="ex-word">trabalho</span><span class="ex-ipa">[tɾaˈbaʎu]</span><span class="ex-meaning">trabajo — suena "trabályu"</span></div>
+    <div class="ex-row"><span class="ex-word">molho</span><span class="ex-ipa">[ˈmoʎu]</span><span class="ex-meaning">salsa — suena "mólyu"</span></div>
+    <div class="ex-row"><span class="ex-word">velho</span><span class="ex-ipa">[ˈveʎu]</span><span class="ex-meaning">viejo — suena "vélyu"</span></div>
+    <div class="info-box tip" style="margin-top:10px">
+      <span class="icon">💡</span>
+      <span>Para practicar /ʎ/: di "mi-llo-nes" muy despacio — esa "ll" es el sonido. Luego practica <em>filho, ilha, velho</em>.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">La letra X — la más impredecible <span class="tag tag-example">Ejemplo</span></div>
+    <p style="font-size:14px;color:var(--ink2);margin-bottom:12px;">La <strong>X</strong> en portugués puede tener 4 pronunciaciones distintas. Hay que aprenderlas por palabra:</p>
+    <div class="ex-row"><span class="ex-word">xarope</span><span class="ex-ipa">[ʃaˈɾopɨ]</span><span class="ex-meaning">X = /ʃ/ (sh) — jarabe</span></div>
+    <div class="ex-row"><span class="ex-word">exacto</span><span class="ex-ipa">[ɨˈzatu]</span><span class="ex-meaning">X = /z/ — exacto</span></div>
+    <div class="ex-row"><span class="ex-word">táxi</span><span class="ex-ipa">[ˈtaksi]</span><span class="ex-meaning">X = /ks/ — taxi</span></div>
+    <div class="ex-row"><span class="ex-word">próximo</span><span class="ex-ipa">[ˈpɾɔsimu]</span><span class="ex-meaning">X = /s/ — próximo</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">¿Qué sonido tiene? <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">Identifica el dígrafo correcto</div>
+      <div class="quiz-item" id="q-d1">
+        <div class="quiz-q">¿Cómo se escribe "hija" en portugués? (sonido /ˈfiʎa/)</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-d1',false)">fila</button>
+          <button class="quiz-btn" onclick="answer(this,'q-d1',true)">filha</button>
+          <button class="quiz-btn" onclick="answer(this,'q-d1',false)">fiña</button>
+          <button class="quiz-btn" onclick="answer(this,'q-d1',false)">filya</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-d1"></div>
+      </div>
+      <div class="quiz-item" id="q-d2">
+        <div class="quiz-q">La palabra <strong style="font-size:20px;color:var(--accent);font-family:'Fraunces',serif">chá</strong> (té) — ¿cómo suena el "ch"?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-d2',false)">Como el "ch" español de "churro"</button>
+          <button class="quiz-btn" onclick="answer(this,'q-d2',true)">Como el "sh" inglés de "shower"</button>
+          <button class="quiz-btn" onclick="answer(this,'q-d2',false)">Como la "k" de "casa"</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-d2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(2)">← Vocales nasales</button>
+    <button class="nav-btn primary" onclick="goTo(4)">Acento tónico →</button>
+  </div>
+</div>
+
+<!-- PAGE 4: Acento tónico -->
+<div class="page" id="page-4">
+  <div class="page-header">
+    <div class="page-number">Lección 05</div>
+    <h2 class="page-title">Acento <em>tónico</em></h2>
+    <p class="page-desc">El acento en portugués sigue reglas predecibles. La mayoría de las veces no necesitarás el acento gráfico para saber dónde cargar la voz.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Reglas de acentuación <span class="tag tag-theory">Teoría</span></div>
+    <div class="stress-box">
+      <span class="stress-num">1</span>
+      <div class="stress-text"><strong>Palabras sin acento gráfico terminadas en -a, -e, -o, -am, -em, -ens:</strong> el acento cae en la penúltima sílaba. <br><em>ca-SA, co-MER, fA-lam</em></div>
+    </div>
+    <div class="stress-box">
+      <span class="stress-num">2</span>
+      <div class="stress-text"><strong>Palabras terminadas en consonante (excepto s/m/ns):</strong> se acentúan en la última sílaba. <br><em>a-MOR, ca-PIM, ra-PaZ</em></div>
+    </div>
+    <div class="stress-box">
+      <span class="stress-num">3</span>
+      <div class="stress-text"><strong>Acento gráfico (´ o ^):</strong> indica siempre el lugar de la sílaba tónica y el timbre de la vocal (abierta o cerrada). <br><em>cá-fé, avó, avô, tâm-BÉM</em></div>
+    </div>
+    <div class="stress-box">
+      <span class="stress-num">4</span>
+      <div class="stress-text"><strong>Acento circunflejo (^):</strong> indica vocal cerrada. <strong>Acento agudo (´):</strong> indica vocal abierta. <br><em>avô /o/ cerrada vs avó /ɔ/ abierta</em></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ejemplos por regla <span class="tag tag-example">Ejemplo</span></div>
+    <table>
+      <thead><tr><th>Palabra</th><th>División</th><th>Sílaba tónica</th><th>Regla</th></tr></thead>
+      <tbody>
+        <tr><td class="td-pt">falo</td><td>fa-lo</td><td class="highlight">FA-lo</td><td>Termina en -o → penúltima</td></tr>
+        <tr><td class="td-pt">falou</td><td>fa-lou</td><td class="highlight">fa-LOU</td><td>Termina en diptongo → última</td></tr>
+        <tr><td class="td-pt">irmão</td><td>ir-mão</td><td class="highlight">ir-MÃO</td><td>Diptongo nasal → última</td></tr>
+        <tr><td class="td-pt">médico</td><td>mé-di-co</td><td class="highlight">MÉ-di-co</td><td>Acento marca esdrújula</td></tr>
+        <tr><td class="td-pt">você</td><td>vo-cê</td><td class="highlight">vo-CÊ</td><td>Acento en última</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Practica la sílaba tónica <span class="tag tag-exercise">Ejercicio</span></div>
+    <div id="syllable-exercise">
+      <div class="syllable-word" id="syl-word"></div>
+      <div class="syllable-answer" id="syl-answer"></div>
+      <button class="reveal-btn" id="syl-reveal" onclick="revealSyllable()">Revelar respuesta</button>
+      <div style="text-align:center;margin-top:12px">
+        <button class="reveal-btn" onclick="nextSyllable()" style="background:var(--accent);color:white;border-color:var(--accent)">Siguiente palabra →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(3)">← Dígrafos</button>
+    <button class="nav-btn primary" onclick="goTo(5)">Brasil vs Portugal →</button>
+  </div>
+</div>
+
+<!-- PAGE 5: BR vs PT -->
+<div class="page" id="page-5">
+  <div class="page-header">
+    <div class="page-number">Lección 06</div>
+    <h2 class="page-title">Brasil <em>vs</em> Portugal</h2>
+    <p class="page-desc">Las dos variedades principales del portugués tienen diferencias fonéticas notables. Aquí están las más importantes para un hispanohablante.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Diferencias clave de pronunciación <span class="tag tag-theory">Teoría</span></div>
+    <div class="compare-grid">
+      <div class="compare-card br">
+        <div class="compare-flag">🇧🇷</div>
+        <div class="compare-label">Portugués Brasileiro</div>
+        <div class="compare-item"><span class="compare-word">Vogais átonas</span></div>
+        <div class="compare-item" style="font-size:13px">Las vocales átonas se <strong>pronuncian claramente</strong>. La <em>e</em> átona suena como <em>i</em>.</div>
+        <div class="compare-item" style="margin-top:10px"><span class="compare-word">t / d antes de i</span></div>
+        <div class="compare-item" style="font-size:13px"><strong>tia</strong> suena "tchia" y <strong>dia</strong> suena "dja" — africación característica.</div>
+        <div class="compare-item" style="margin-top:10px"><span class="compare-word">R inicial / rr</span></div>
+        <div class="compare-item" style="font-size:13px">Suena como una <strong>h aspirada</strong> suave — <em>rato</em> = "hatu"</div>
+      </div>
+      <div class="compare-card pt">
+        <div class="compare-flag">🇵🇹</div>
+        <div class="compare-label">Português Europeu</div>
+        <div class="compare-item"><span class="compare-word">Vogais átonas</span></div>
+        <div class="compare-item" style="font-size:13px">Las vocales átonas se <strong>reducen o desaparecen</strong>. <em>Pessoas</em> suena casi "p'ssoas".</div>
+        <div class="compare-item" style="margin-top:10px"><span class="compare-word">t / d antes de i</span></div>
+        <div class="compare-item" style="font-size:13px"><strong>tia</strong> suena "tia" y <strong>dia</strong> suena "dia" — sin africación.</div>
+        <div class="compare-item" style="margin-top:10px"><span class="compare-word">R inicial / rr</span></div>
+        <div class="compare-item" style="font-size:13px">Suena más <strong>uvular</strong>, similar a la R francesa — más raspada.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Las mismas palabras, pronunciaciones distintas <span class="tag tag-example">Ejemplo</span></div>
+    <table>
+      <thead><tr><th>Palabra</th><th>🇧🇷 Brasil</th><th>🇵🇹 Portugal</th></tr></thead>
+      <tbody>
+        <tr><td class="td-pt">te</td><td>[t͡ʃi] "tchi"</td><td>[tɨ] "te" normal</td></tr>
+        <tr><td class="td-pt">dia</td><td>[ˈd͡ʒia] "djia"</td><td>[ˈdiɐ] "dia"</td></tr>
+        <tr><td class="td-pt">caro</td><td>[ˈkaɾu] "caru"</td><td>[ˈkaɾu] (igual)</td></tr>
+        <tr><td class="td-pt">rua</td><td>[ˈhuɐ] "hua"</td><td>[ˈʁuɐ] "rrua"</td></tr>
+        <tr><td class="td-pt">leite</td><td>[ˈlejt͡ʃi] "leichi"</td><td>[ˈlɐjtɨ] "leite"</td></tr>
+        <tr><td class="td-pt">pessoas</td><td>[peˈsoɐs] vocal clara</td><td>[pɨˈsoɐʃ] "p'ssoas"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box tip">
+    <span class="icon">💡</span>
+    <span>Para hispanohablantes, el <strong>portugués brasileño</strong> es generalmente más fácil de entender al principio, porque las vocales son más abiertas y claras, similar al español. El portugués europeo puede sonar muy diferente al principio.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">¿Sabes cuál es cuál? <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">Identifica la variedad</div>
+      <div class="quiz-item" id="q-br1">
+        <div class="quiz-q">Si escuchas <em>"tchia"</em> para la palabra <strong>tia</strong> (tía), ¿qué variedad es?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-br1',true)">Portugués Brasileño 🇧🇷</button>
+          <button class="quiz-btn" onclick="answer(this,'q-br1',false)">Portugués Europeo 🇵🇹</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-br1"></div>
+      </div>
+      <div class="quiz-item" id="q-br2">
+        <div class="quiz-q">Si las vocales átonas casi desaparecen — "p'ssoas" por "pessoas" — ¿qué variedad es?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-br2',false)">Portugués Brasileño 🇧🇷</button>
+          <button class="quiz-btn" onclick="answer(this,'q-br2',true)">Portugués Europeo 🇵🇹</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-br2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(4)">← Acento tónico</button>
+    <button class="nav-btn primary" onclick="goTo(6)">Ejercicios →</button>
+  </div>
+</div>
+
+<!-- PAGE 6: Ejercicios generales -->
+<div class="page" id="page-6">
+  <div class="page-header">
+    <div class="page-number">Práctica 07</div>
+    <h2 class="page-title"><em>Ejercicios</em> generales</h2>
+    <p class="page-desc">Pon a prueba todo lo que has aprendido sobre pronunciación y fonética del portugués.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Test de pronunciación <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">Preguntas mezcladas</div>
+
+      <div class="quiz-item" id="q-g1">
+        <div class="quiz-q">¿Cuántas vocales orales tiene el portugués?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g1',false)">5</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g1',true)">7</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g1',false)">9</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g1',false)">6</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g1"></div>
+      </div>
+
+      <div class="quiz-item" id="q-g2">
+        <div class="quiz-q">El dígrafo <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">nh</strong> suena como...</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g2',false)">La "n" española normal</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g2',true)">La "ñ" española</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g2',false)">La "h" inglesa</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g2"></div>
+      </div>
+
+      <div class="quiz-item" id="q-g3">
+        <div class="quiz-q">La palabra <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">bolo</strong> (pastel) se acentúa en...</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g3',true)">La primera sílaba: BO-lo</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g3',false)">La segunda sílaba: bo-LO</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g3"></div>
+      </div>
+
+      <div class="quiz-item" id="q-g4">
+        <div class="quiz-q">¿Qué sonido produce el <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">lh</strong> en "filho"?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g4',false)">Como la "l" normal</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g4',true)">Como la "ll" antigua española / "gl" italiana</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g4',false)">Como la "h" aspirada</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g4',false)">Como la "y" española</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g4"></div>
+      </div>
+
+      <div class="quiz-item" id="q-g5">
+        <div class="quiz-q">¿Cómo nasaliza la vocal la letra <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">m</strong> en "campo"?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g5',false)">No la nasaliza, la "m" es normal</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g5',true)">La nasaliza porque cierra la sílaba (cam-po)</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g5',false)">Siempre nasaliza la vocal anterior</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g5"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Transcripción fonética <span class="tag tag-exercise">Ejercicio</span></div>
+    <div class="exercise-block">
+      <div class="exercise-title">¿Cuál es la pronunciación correcta?</div>
+      <div class="quiz-item" id="q-g6">
+        <div class="quiz-q">La palabra <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">trabalho</strong> en portugués brasileño suena como:</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g6',false)">tra-BA-lo</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g6',true)">tra-BA-lyu</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g6',false)">tra-BA-cho</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g6',false)">TRA-ba-lho</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g6"></div>
+      </div>
+
+      <div class="quiz-item" id="q-g7">
+        <div class="quiz-q">¿Cuántas pronunciaciones distintas puede tener la letra <strong style="font-family:'Fraunces',serif;font-size:18px;color:var(--accent)">X</strong> en portugués?</div>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="answer(this,'q-g7',false)">1</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g7',false)">2</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g7',false)">3</button>
+          <button class="quiz-btn" onclick="answer(this,'q-g7',true)">4</button>
+        </div>
+        <div class="quiz-feedback" id="fb-q-g7"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="score-panel" style="display:none">
+    <div class="card" style="text-align:center;padding:32px">
+      <div style="font-family:'Fraunces',serif;font-size:48px;color:var(--accent);font-weight:600" id="score-num"></div>
+      <div style="font-size:15px;color:var(--ink3);margin-top:8px" id="score-msg"></div>
+      <button onclick="resetAll()" style="margin-top:20px;padding:10px 28px;border-radius:20px;background:var(--ink);color:#F5F0E8;border:none;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;">Reintentar todo</button>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="nav-btn" onclick="goTo(5)">← Brasil vs Portugal</button>
+    <button class="nav-btn primary" onclick="calculateScore()">Ver mi puntuación ✓</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Alphabet data
+const alphabet = [
+  ['A','á'],['B','bê'],['C','cê'],['D','dê'],['E','ê'],['F','éfe'],
+  ['G','gê'],['H','agá'],['I','i'],['J','jota'],['K','cá'],['L','éle'],
+  ['M','ême'],['N','êne'],['O','ó'],['P','pê'],['Q','quê'],['R','erre'],
+  ['S','esse'],['T','tê'],['U','u'],['V','vê'],['W','dáblio'],['X','xis'],
+  ['Y','ípsilon'],['Z','zê']
+];
+
+const grid = document.getElementById('alphaGrid');
+alphabet.forEach(([l, n]) => {
+  const c = document.createElement('div');
+  c.className = 'alpha-cell';
+  c.innerHTML = `<span class="letter">${l}</span><span class="name" id="an-${l}" style="display:none">${n}</span>`;
+  c.addEventListener('click', () => {
+    const name = c.querySelector('.name');
+    name.style.display = name.style.display === 'none' ? 'block' : 'none';
+    c.querySelector('.letter').style.fontSize = name.style.display === 'none' ? '20px' : '14px';
+  });
+  grid.appendChild(c);
+});
+
+// Navigation
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+let currentPage = 0;
+
+function goTo(n) {
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  currentPage = n;
+  pages[n].classList.add('active');
+  navItems[n].classList.add('active');
+  window.scrollTo(0, 0);
+  const fill = Math.round(((n + 1) / 7) * 100);
+  document.getElementById('progressFill').style.width = fill + '%';
+  document.getElementById('progressCount').textContent = (n + 1) + ' / 7';
+  if (n === 4) initSyllable();
+}
+
+// Quiz system
+const answeredQ = {};
+function answer(btn, qId, correct) {
+  if (answeredQ[qId]) return;
+  answeredQ[qId] = true;
+  const fb = document.getElementById('fb-' + qId);
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  fb.classList.add('show', correct ? 'ok' : 'fail');
+  if (correct) {
+    fb.textContent = '✓ ¡Correcto!';
+  } else {
+    fb.textContent = '✗ No exactamente. Intenta leer la sección de nuevo.';
+    // Disable all buttons in this question so no re-answering
+  }
+  const btns = btn.closest('.quiz-options').querySelectorAll('.quiz-btn');
+  btns.forEach(b => b.style.pointerEvents = 'none');
+}
+
+// Syllable exercise
+const sylWords = [
+  { word: 'falamos', answer: 'fa-LA-mos (penúltima, termina en -os)', hint: 'Termina en vocal → penúltima' },
+  { word: 'café', answer: 'ca-FÉ (última, acento gráfico)', hint: 'Acento gráfico indica última sílaba' },
+  { word: 'árvore', answer: 'ÁR-vo-re (antepenúltima, acento gráfico)', hint: 'Acento indica esdrújula' },
+  { word: 'amor', answer: 'a-MOR (última, termina en -r)', hint: 'Consonante final → última sílaba' },
+  { word: 'cidade', answer: 'ci-DA-de (penúltima, termina en -e)', hint: 'Termina en vocal → penúltima' },
+  { word: 'música', answer: 'MÚ-si-ca (antepenúltima, acento gráfico)', hint: 'Acento gráfico esdrújulo' },
+];
+let sylIdx = 0;
+
+function initSyllable() {
+  sylIdx = 0;
+  showSyllable();
+}
+
+function showSyllable() {
+  document.getElementById('syl-word').textContent = sylWords[sylIdx].word;
+  document.getElementById('syl-answer').textContent = '';
+  document.getElementById('syl-reveal').style.display = 'block';
+}
+
+function revealSyllable() {
+  document.getElementById('syl-answer').textContent = '→ ' + sylWords[sylIdx].answer;
+  document.getElementById('syl-reveal').style.display = 'none';
+}
+
+function nextSyllable() {
+  sylIdx = (sylIdx + 1) % sylWords.length;
+  showSyllable();
+}
+
+// Score
+function calculateScore() {
+  const allQ = ['q-alpha-1','q-alpha-2','q-v1','q-v2','q-n1','q-n2','q-d1','q-d2','q-br1','q-br2','q-g1','q-g2','q-g3','q-g4','q-g5','q-g6','q-g7'];
+  let correct = 0;
+  allQ.forEach(q => {
+    const btns = document.querySelectorAll(`#${q} .quiz-btn.correct`);
+    if (btns.length > 0) correct++;
+  });
+  const total = allQ.length;
+  const panel = document.getElementById('score-panel');
+  panel.style.display = 'block';
+  document.getElementById('score-num').textContent = correct + ' / ' + total;
+  const pct = Math.round(correct / total * 100);
+  let msg = '';
+  if (pct >= 85) msg = '¡Excelente! Tienes muy buena base de pronunciación.';
+  else if (pct >= 60) msg = '¡Bien! Repasa las secciones donde fallaste.';
+  else msg = 'Sigue practicando. Vuelve a revisar las lecciones.';
+  document.getElementById('score-msg').textContent = msg;
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  location.reload();
+}
+</script>
+</body>
+</html>

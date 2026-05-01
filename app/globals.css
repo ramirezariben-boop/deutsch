@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* ── Grammatik: glow animado en tarjetas ── */
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 14px var(--glow); }
+  50%  { box-shadow: 0 0 32px var(--glow); }
+  100% { box-shadow: 0 0 14px var(--glow); }
+}
+
+.glow-card {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
 /* ANIMACIÓN PERSONALIZADA */
 @keyframes alertPulse {
   0% {

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbos Modales Alemanes: beim Arzt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d5a3d;
+            --secondary: #8b4513;
+            --accent: #d4af37;
+            --bg-light: #f9f6f0;
+            --bg-card: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-med: #4a4a4a;
+            --border: #d4c5b0;
+            --success: #4a7c59;
+            --error: #a84432;
+            --warning: #c77d4f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #f9f6f0 0%, #ede5d8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(45, 90, 61, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+        }
+
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .verb-section {
+            background: linear-gradient(135deg, #f5f0e8 0%, #ffffff 100%);
+            border-left: 4px solid var(--primary);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .verb-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .meaning {
+            color: var(--secondary);
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .example {
+            background: white;
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .german {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .spanish {
+            color: var(--text-med);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff8e7 0%, #ffefd5 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(199, 125, 79, 0.15);
+        }
+
+        .warning-box h3 {
+            color: var(--warning);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box h3::before {
+            content: '⚠️';
+            font-size: 1.5rem;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+        }
+
+        .comparison-item.correct {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+        }
+
+        .comparison-item.incorrect {
+            border-color: var(--error);
+            background: linear-gradient(135deg, #ffebee 0%, #ffffff 100%);
+        }
+
+        .comparison-label {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-item.correct .comparison-label {
+            color: var(--success);
+        }
+
+        .comparison-item.incorrect .comparison-label {
+            color: var(--error);
+        }
+
+        .exercise {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.1);
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            padding: 12px 18px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: #f5f9f6;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .check-button, .next-button, .reset-button {
+            background: linear-gradient(135deg, var(--primary) 0%, #3d6a4d 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(45, 90, 61, 0.3);
+        }
+
+        .check-button:hover, .next-button:hover, .reset-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 90, 61, 0.4);
+        }
+
+        .reset-button {
+            background: linear-gradient(135deg, var(--secondary) 0%, #a0593d 100%);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            color: var(--success);
+            border: 2px solid var(--success);
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: var(--error);
+            border: 2px solid var(--error);
+            display: block;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .page-indicator {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-med);
+            font-weight: 500;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, var(--accent) 0%, #e6c44d 100%);
+            color: var(--text-dark);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .content-card {
+                padding: 25px;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Verbos Modales Alemanes</h1>
+            <p class="subtitle">beim Arzt - En el consultorio médico</p>
+        </header>
+
+        <!-- Página 1: Introducción -->
+        <div class="page active" id="page1">
+            <div class="content-card">
+                <h2>Introducción a los Verbos Modales</h2>
+                <p>En alemán, los verbos modales expresan permiso, prohibición y obligación. En el contexto médico, es fundamental entender sus matices:</p>
+                
+                <div class="verb-section">
+                    <div class="verb-title">dürfen</div>
+                    <div class="meaning">→ tener permiso para / poder</div>
+                    <div class="example">
+                        <div class="german">Sie dürfen nach Hause gehen.</div>
+                        <div class="spanish">Usted puede irse a casa.</div>
+                    </div>
+                    <div class="example">
+                        <div class="german">Darf ich aufstehen?</div>
+                        <div class="spanish">¿Puedo levantarme?</div>
+                    </div>
+                </div>
+
+                <div class="verb-section">
+                    <div class="verb-title">nicht dürfen</div>
+                    <div class="meaning">→ no tener permiso / no poder / estar prohibido</div>
+                    <div class="example">
+                        <div class="german">Sie dürfen nicht rauchen.</div>
+                        <div class="spanish">No puede fumar. / Tiene prohibido fumar.</div>
+                    </div>
+                    <div class="example">
+                        <div class="german">Sie dürfen keinen Alkohol trinken.</div>
+                        <div class="spanish">No puede beber alcohol.</div>
+                    </div>
+                </div>
+
+                <div class="verb-section">
+                    <div class="verb-title">müssen</div>
+                    <div class="meaning">→ tener que / deber (obligación)</div>
+                    <div class="example">
+                        <div class="german">Sie müssen diese Tabletten nehmen.</div>
+                        <div class="spanish">Tiene que tomar estas pastillas.</div>
+                    </div>
+                    <div class="example">
+                        <div class="german">Sie müssen im Bett bleiben.</div>
+                        <div class="spanish">Tiene que quedarse en cama.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 2: La trampa del nicht müssen -->
+        <div class="page" id="page2">
+            <div class="content-card">
+                <h2>⚠️ ¡Cuidado con "nicht müssen"!</h2>
+                
+                <div class="warning-box">
+                    <h3>Diferencia Crucial: nicht müssen ≠ no deber</h3>
+                    <p><strong>En alemán:</strong> "nicht müssen" significa <em>"no tener la obligación"</em> o <em>"no ser necesario"</em></p>
+                    <p><strong>En español:</strong> "no deber" puede significar <em>"no conviene hacer"</em> o <em>"no tener permiso"</em></p>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item correct">
+                        <div class="comparison-label">✓ Alemán: nicht müssen</div>
+                        <div class="german">Sie müssen nicht nüchtern sein.</div>
+                        <div class="spanish">No tiene que estar en ayunas.<br>(= No es necesario)</div>
+                    </div>
+                    <div class="comparison-item incorrect">
+                        <div class="comparison-label">✗ NO significa</div>
+                        <div class="spanish">No debe estar en ayunas.<br>(= Está prohibido / No conviene)</div>
+                    </div>
+                </div>
+
+                <h3>Más ejemplos de "nicht müssen"</h3>
+                
+                <div class="example">
+                    <div class="german">Sie müssen nicht im Krankenhaus bleiben.</div>
+                    <div class="spanish">No tiene que quedarse en el hospital. (= Puede irse si quiere)</div>
+                </div>
+
+                <div class="example">
+                    <div class="german">Sie müssen die Medikamente nicht jeden Tag nehmen.</div>
+                    <div class="spanish">No tiene que tomar los medicamentos cada día. (= No es necesario tomarlos diariamente)</div>
+                </div>
+
+                <div class="example">
+                    <div class="german">Sie müssen nicht operiert werden.</div>
+                    <div class="spanish">No tiene que operarse. (= La operación no es necesaria)</div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>Resumen de las diferencias</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>nicht müssen</strong> = no es obligatorio / no es necesario</li>
+                        <li><strong>nicht dürfen</strong> = está prohibido / no tiene permiso</li>
+                        <li>El español "no deber" suele corresponder a <strong>nicht dürfen</strong>, ¡no a nicht müssen!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 3: Tabla comparativa -->
+        <div class="page" id="page3">
+            <div class="content-card">
+                <h2>Tabla Comparativa Completa</h2>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                        <thead>
+                            <tr style="background: var(--primary); color: white;">
+                                <th style="padding: 15px; text-align: left; border: 1px solid var(--border);">Alemán</th>
+                                <th style="padding: 15px; text-align: left; border: 1px solid var(--border);">Significado</th>
+                                <th style="padding: 15px; text-align: left; border: 1px solid var(--border);">Ejemplo médico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #f5f9f6;">
+                                <td style="padding: 15px; border: 1px solid var(--border); font-weight: 600;">dürfen</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">tener permiso / poder</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">Sie dürfen duschen.<br><em>Puede ducharse.</em></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; border: 1px solid var(--border); font-weight: 600;">nicht dürfen</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">estar prohibido / no poder</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">Sie dürfen nicht schwimmen.<br><em>No puede nadar. (prohibido)</em></td>
+                            </tr>
+                            <tr style="background: #f5f9f6;">
+                                <td style="padding: 15px; border: 1px solid var(--border); font-weight: 600;">müssen</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">tener que / deber (obligación)</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">Sie müssen Antibiotika nehmen.<br><em>Tiene que tomar antibióticos.</em></td>
+                            </tr>
+                            <tr style="background: #fff8e7; border: 2px solid var(--warning);">
+                                <td style="padding: 15px; border: 1px solid var(--border); font-weight: 600;">nicht müssen</td>
+                                <td style="padding: 15px; border: 1px solid var(--border);"><strong>NO es necesario / NO tiene que</strong></td>
+                                <td style="padding: 15px; border: 1px solid var(--border);">Sie müssen nicht fasten.<br><em>No tiene que ayunar. (no es necesario)</em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Ejemplos contrastivos</h3>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="german">Sie müssen nicht Sport treiben.</div>
+                        <div class="spanish">No tiene que hacer deporte.<br>(= No es obligatorio, pero puede hacerlo)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="german">Sie dürfen nicht Sport treiben.</div>
+                        <div class="spanish">No puede hacer deporte.<br>(= Está prohibido por razones médicas)</div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="german">Sie müssen nicht ins Krankenhaus kommen.</div>
+                        <div class="spanish">No tiene que venir al hospital.<br>(= No es necesario venir)</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="german">Sie dürfen nicht ins Krankenhaus kommen.</div>
+                        <div class="spanish">No puede venir al hospital.<br>(= Tiene prohibido venir, p.ej. por cuarentena)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 4: Ejercicio 1 -->
+        <div class="page" id="page4">
+            <div class="content-card">
+                <h2>Ejercicio 1: Elige el verbo correcto</h2>
+                
+                <div class="exercise">
+                    <div class="question" data-answer="dürfen">
+                        <div class="question-text">1. Der Patient _____ jetzt nach Hause gehen. (El paciente puede irse a casa ahora - tiene permiso)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q1" value="dürfen" id="q1a">
+                                <label for="q1a">darf</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" value="müssen" id="q1b">
+                                <label for="q1b">muss</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" value="nicht_dürfen" id="q1c">
+                                <label for="q1c">darf nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback1"></div>
+                    </div>
+
+                    <div class="question" data-answer="nicht_dürfen">
+                        <div class="question-text">2. Sie _____ Alkohol trinken während der Behandlung. (No puede beber alcohol - prohibido)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q2" value="dürfen" id="q2a">
+                                <label for="q2a">dürfen</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" value="müssen" id="q2b">
+                                <label for="q2b">müssen</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" value="nicht_dürfen" id="q2c">
+                                <label for="q2c">dürfen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback2"></div>
+                    </div>
+
+                    <div class="question" data-answer="müssen">
+                        <div class="question-text">3. Der Arzt sagt: Sie _____ diese Tabletten dreimal täglich nehmen. (Tiene que tomar - obligación)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q3" value="dürfen" id="q3a">
+                                <label for="q3a">dürfen</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" value="müssen" id="q3b">
+                                <label for="q3b">müssen</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" value="nicht_müssen" id="q3c">
+                                <label for="q3c">müssen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback3"></div>
+                    </div>
+
+                    <button class="check-button" onclick="checkExercise1()">Comprobar Respuestas</button>
+                    <button class="reset-button" onclick="resetExercise1()">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 5: Ejercicio 2 (nicht müssen vs nicht dürfen) -->
+        <div class="page" id="page5">
+            <div class="content-card">
+                <h2>Ejercicio 2: nicht müssen vs nicht dürfen</h2>
+                
+                <div class="exercise">
+                    <div class="question" data-answer="nicht_müssen">
+                        <div class="question-text">1. Sie _____ nüchtern zur Untersuchung kommen. (No es necesario venir en ayunas)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q4" value="nicht_müssen" id="q4a">
+                                <label for="q4a">müssen nicht</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" value="nicht_dürfen" id="q4b">
+                                <label for="q4b">dürfen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback4"></div>
+                    </div>
+
+                    <div class="question" data-answer="nicht_dürfen">
+                        <div class="question-text">2. Mit dieser Verletzung _____ Sie Auto fahren. (Con esta lesión no puede conducir - prohibido)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q5" value="nicht_müssen" id="q5a">
+                                <label for="q5a">müssen nicht</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" value="nicht_dürfen" id="q5b">
+                                <label for="q5b">dürfen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback5"></div>
+                    </div>
+
+                    <div class="question" data-answer="nicht_müssen">
+                        <div class="question-text">3. Die Operation ist optional - Sie _____ sich operieren lassen. (La operación no es obligatoria)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q6" value="nicht_müssen" id="q6a">
+                                <label for="q6a">müssen nicht</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q6" value="nicht_dürfen" id="q6b">
+                                <label for="q6b">dürfen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback6"></div>
+                    </div>
+
+                    <div class="question" data-answer="nicht_dürfen">
+                        <div class="question-text">4. Während der Schwangerschaft _____ Sie rauchen. (Durante el embarazo no puede fumar - prohibido)</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q7" value="nicht_müssen" id="q7a">
+                                <label for="q7a">müssen nicht</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q7" value="nicht_dürfen" id="q7b">
+                                <label for="q7b">dürfen nicht</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback7"></div>
+                    </div>
+
+                    <button class="check-button" onclick="checkExercise2()">Comprobar Respuestas</button>
+                    <button class="reset-button" onclick="resetExercise2()">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 6: Ejercicio 3 (Traducción) -->
+        <div class="page" id="page6">
+            <div class="content-card">
+                <h2>Ejercicio 3: Interpretación correcta</h2>
+                <p>Lee cada frase en alemán y selecciona la interpretación correcta en español.</p>
+                
+                <div class="exercise">
+                    <div class="question" data-answer="b">
+                        <div class="question-text">1. "Sie müssen nicht im Bett bleiben."</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q8" value="a" id="q8a">
+                                <label for="q8a">a) No debe quedarse en cama (está prohibido quedarse en cama)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q8" value="b" id="q8b">
+                                <label for="q8b">b) No tiene que quedarse en cama (no es necesario, puede levantarse si quiere)</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback8"></div>
+                    </div>
+
+                    <div class="question" data-answer="a">
+                        <div class="question-text">2. "Sie dürfen nicht schwer heben."</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q9" value="a" id="q9a">
+                                <label for="q9a">a) No puede levantar cosas pesadas (prohibido por razones médicas)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q9" value="b" id="q9b">
+                                <label for="q9b">b) No tiene que levantar cosas pesadas (no es necesario)</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback9"></div>
+                    </div>
+
+                    <div class="question" data-answer="b">
+                        <div class="question-text">3. "Sie müssen nicht jeden Tag kommen."</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q10" value="a" id="q10a">
+                                <label for="q10a">a) No debe venir cada día (está prohibido venir diariamente)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q10" value="b" id="q10b">
+                                <label for="q10b">b) No tiene que venir cada día (no es necesario venir diariamente)</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback10"></div>
+                    </div>
+
+                    <div class="question" data-answer="a">
+                        <div class="question-text">4. "Sie dürfen Sport treiben."</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q11" value="a" id="q11a">
+                                <label for="q11a">a) Puede hacer deporte (tiene permiso)</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q11" value="b" id="q11b">
+                                <label for="q11b">b) Tiene que hacer deporte (es obligatorio)</label>
+                            </div>
+                        </div>
+                        <div class="feedback" id="feedback11"></div>
+                    </div>
+
+                    <button class="check-button" onclick="checkExercise3()">Comprobar Respuestas</button>
+                    <button class="reset-button" onclick="resetExercise3()">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 7: Resumen final -->
+        <div class="page" id="page7">
+            <div class="content-card">
+                <h2>🎯 Resumen Final</h2>
+                
+                <div class="verb-section">
+                    <h3>Reglas de Oro</h3>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><strong>dürfen</strong> = permiso → Puede hacerlo</li>
+                        <li><strong>nicht dürfen</strong> = prohibición → No puede hacerlo / Está prohibido</li>
+                        <li><strong>müssen</strong> = obligación → Tiene que hacerlo</li>
+                        <li><strong>nicht müssen</strong> = no obligación → No tiene que hacerlo / No es necesario</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h3>La trampa más común</h3>
+                    <p><strong>Cuando en español decimos "no deber"</strong>, generalmente queremos expresar una prohibición o algo que no conviene hacer.</p>
+                    <p><strong>En alemán esto se expresa con "nicht dürfen"</strong>, NO con "nicht müssen".</p>
+                    <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                        <div style="color: var(--error); font-weight: 600;">❌ Sie müssen nicht rauchen.</div>
+                        <div style="color: var(--text-med); margin: 5px 0;">→ "No tiene que fumar" (no es obligatorio, pero puede si quiere)</div>
+                        <div style="color: var(--success); font-weight: 600; margin-top: 15px;">✓ Sie dürfen nicht rauchen.</div>
+                        <div style="color: var(--text-med); margin: 5px 0;">→ "No puede fumar" (prohibido)</div>
+                    </div>
+                </div>
+
+                <h3>Consejos para recordar</h3>
+                <div class="example">
+                    <div class="german">Piensa en "nicht müssen" como "no need to" en inglés</div>
+                    <div class="spanish">You don't have to = No tienes que (no es necesario)</div>
+                </div>
+
+                <div class="example">
+                    <div class="german">Piensa en "nicht dürfen" como "must not" en inglés</div>
+                    <div class="spanish">You must not / You're not allowed to = No puedes (prohibido)</div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, var(--primary) 0%, #3d6a4d 100%); color: white; border-radius: 12px;">
+                    <h3 style="color: white; margin-bottom: 15px;">¡Felicitaciones!</h3>
+                    <p style="font-size: 1.1rem;">Has completado el curso sobre verbos modales alemanes en contexto médico.</p>
+                    <p style="margin-top: 10px;">Sigue practicando para dominar estas diferencias importantes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changePage(-1)">← Anterior</button>
+            <button class="nav-button" id="nextBtn" onclick="changePage(1)">Siguiente →</button>
+        </div>
+        <div class="page-indicator" id="pageIndicator">Página 1 de 7</div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 7;
+
+        function showPage(pageNum) {
+            // Ocultar todas las páginas
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Mostrar la página actual
+            document.getElementById('page' + pageNum).classList.add('active');
+            
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').disabled = pageNum === 1;
+            document.getElementById('nextBtn').disabled = pageNum === totalPages;
+            
+            // Actualizar indicador de página
+            document.getElementById('pageIndicator').textContent = `Página ${pageNum} de ${totalPages}`;
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            showPage(currentPage);
+        }
+
+        // Ejercicio 1
+        function checkExercise1() {
+            const questions = [
+                { num: 1, answer: 'dürfen', explanation: 'Correcto: "darf" expresa permiso.' },
+                { num: 2, answer: 'nicht_dürfen', explanation: 'Correcto: "dürfen nicht" expresa prohibición.' },
+                { num: 3, answer: 'müssen', explanation: 'Correcto: "müssen" expresa obligación.' }
+            ];
+
+            let allCorrect = true;
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.num}"]:checked`);
+                const feedback = document.getElementById(`feedback${q.num}`);
+                
+                if (!selected) {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = 'Por favor, selecciona una respuesta.';
+                    allCorrect = false;
+                } else if (selected.value === q.answer) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ ' + q.explanation;
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✗ Incorrecto. ' + q.explanation;
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                alert('¡Excelente! Todas las respuestas son correctas. 🎉');
+            }
+        }
+
+        function resetExercise1() {
+            for (let i = 1; i <= 3; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                radios.forEach(radio => radio.checked = false);
+                document.getElementById(`feedback${i}`).className = 'feedback';
+                document.getElementById(`feedback${i}`).textContent = '';
+            }
+        }
+
+        // Ejercicio 2
+        function checkExercise2() {
+            const questions = [
+                { num: 4, answer: 'nicht_müssen', explanation: 'Correcto: "müssen nicht" = no es necesario.' },
+                { num: 5, answer: 'nicht_dürfen', explanation: 'Correcto: "dürfen nicht" = está prohibido.' },
+                { num: 6, answer: 'nicht_müssen', explanation: 'Correcto: "müssen nicht" = no es obligatorio.' },
+                { num: 7, answer: 'nicht_dürfen', explanation: 'Correcto: "dürfen nicht" = está prohibido.' }
+            ];
+
+            let allCorrect = true;
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.num}"]:checked`);
+                const feedback = document.getElementById(`feedback${q.num}`);
+                
+                if (!selected) {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = 'Por favor, selecciona una respuesta.';
+                    allCorrect = false;
+                } else if (selected.value === q.answer) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ ' + q.explanation;
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✗ Incorrecto. ' + q.explanation;
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                alert('¡Perfecto! Has dominado la diferencia entre nicht müssen y nicht dürfen. 🎉');
+            }
+        }
+
+        function resetExercise2() {
+            for (let i = 4; i <= 7; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                radios.forEach(radio => radio.checked = false);
+                document.getElementById(`feedback${i}`).className = 'feedback';
+                document.getElementById(`feedback${i}`).textContent = '';
+            }
+        }
+
+        // Ejercicio 3
+        function checkExercise3() {
+            const questions = [
+                { num: 8, answer: 'b', explanation: 'Correcto: "müssen nicht" significa que no es necesario, no que está prohibido.' },
+                { num: 9, answer: 'a', explanation: 'Correcto: "dürfen nicht" expresa prohibición médica.' },
+                { num: 10, answer: 'b', explanation: 'Correcto: "müssen nicht" = no es necesario venir cada día.' },
+                { num: 11, answer: 'a', explanation: 'Correcto: "dürfen" expresa permiso, no obligación.' }
+            ];
+
+            let allCorrect = true;
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.num}"]:checked`);
+                const feedback = document.getElementById(`feedback${q.num}`);
+                
+                if (!selected) {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = 'Por favor, selecciona una respuesta.';
+                    allCorrect = false;
+                } else if (selected.value === q.answer) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ ' + q.explanation;
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✗ Incorrecto. ' + q.explanation;
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                alert('¡Excelente trabajo! Has completado todos los ejercicios correctamente. 🎉');
+            }
+        }
+
+        function resetExercise3() {
+            for (let i = 8; i <= 11; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                radios.forEach(radio => radio.checked = false);
+                document.getElementById(`feedback${i}`).className = 'feedback';
+                document.getElementById(`feedback${i}`).textContent = '';
+            }
+        }
+
+        // Inicializar
+        showPage(1);
+    </script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Verbo Modal SOLLEN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+        
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide {
+            width: 90%;
+            max-width: 1000px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .slide h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .example {
+            background: #f0f4ff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .example p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        
+        .german {
+            color: #764ba2;
+            font-weight: bold;
+        }
+        
+        .conjugation {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .conjugation-item {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .exercise {
+            background: #fff4e6;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .exercise input {
+            width: 200px;
+            padding: 8px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 0 5px;
+        }
+        
+        .exercise button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        
+        .exercise button:hover {
+            background: #764ba2;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-number {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        ul {
+            margin-left: 30px;
+            line-height: 2;
+            font-size: 1.1em;
+        }
+        
+        .highlight {
+            background: #fff176;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Título -->
+        <div class="slide active">
+            <h1>EL VERBO MODAL<br/>SOLLEN</h1>
+            <div class="content" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <p style="font-size: 1.5em; color: #666; text-align: center; margin-top: 40px;">
+                    Aprende a usar uno de los verbos modales más importantes del alemán
+                </p>
+                <p style="font-size: 1.2em; color: #888; margin-top: 30px;">
+                    📚 Conjugación • 💬 Usos • ✏️ Ejercicios
+                </p>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" disabled>← Anterior</button>
+                <div class="slide-number">1 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 2: Conjugación -->
+        <div class="slide">
+            <h2>Conjugación de SOLLEN</h2>
+            <div class="content">
+                <h3>Presente (Präsens)</h3>
+                <div class="conjugation">
+                    <div class="conjugation-item"><strong>ich</strong> soll</div>
+                    <div class="conjugation-item"><strong>wir</strong> sollen</div>
+                    <div class="conjugation-item"><strong>du</strong> sollst</div>
+                    <div class="conjugation-item"><strong>ihr</strong> sollt</div>
+                    <div class="conjugation-item"><strong>er/sie/es</strong> soll</div>
+                    <div class="conjugation-item"><strong>sie/Sie</strong> sollen</div>
+                </div>
+                
+                <h3>Pretérito (Präteritum)</h3>
+                <div class="conjugation">
+                    <div class="conjugation-item"><strong>ich</strong> sollte</div>
+                    <div class="conjugation-item"><strong>wir</strong> sollten</div>
+                    <div class="conjugation-item"><strong>du</strong> solltest</div>
+                    <div class="conjugation-item"><strong>ihr</strong> solltet</div>
+                    <div class="conjugation-item"><strong>er/sie/es</strong> sollte</div>
+                    <div class="conjugation-item"><strong>sie/Sie</strong> sollten</div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">2 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 3: Uso 1 -->
+        <div class="slide">
+            <h2>Uso 1: Consejo o Recomendación</h2>
+            <div class="content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    Se usa para dar consejos o sugerencias (equivalente a "debería" en español)
+                </p>
+                
+                <div class="example">
+                    <p><span class="german">Du sollst mehr Wasser trinken.</span></p>
+                    <p>→ Deberías beber más agua.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Wir sollten früher anfangen.</span></p>
+                    <p>→ Deberíamos empezar más temprano.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Sie sollten zum Arzt gehen.</span></p>
+                    <p>→ Usted debería ir al médico.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Man soll nicht lügen.</span></p>
+                    <p>→ No se debe mentir.</p>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">3 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 4: Uso 2 -->
+        <div class="slide">
+            <h2>Uso 2: Obligación Moral o Mandato</h2>
+            <div class="content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    Expresa lo que alguien debe hacer según normas, reglas o mandatos de otros
+                </p>
+                
+                <div class="example">
+                    <p><span class="german">Du sollst deine Hausaufgaben machen.</span></p>
+                    <p>→ Debes hacer tus deberes (tu madre/profesor lo dice).</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Ich soll meinem Chef anrufen.</span></p>
+                    <p>→ Debo llamar a mi jefe (él me lo pidió).</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Die Studenten sollen das Buch lesen.</span></p>
+                    <p>→ Los estudiantes deben leer el libro.</p>
+                </div>
+                
+                <p style="margin-top: 30px; padding: 15px; background: #ffe0b2; border-radius: 8px;">
+                    <strong>📌 Nota:</strong> Los Diez Mandamientos en alemán usan "sollen":<br/>
+                    <span class="german">Du sollst nicht töten.</span> (No matarás)
+                </p>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">4 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 5: Uso 3 -->
+        <div class="slide">
+            <h2>Uso 3: Información Indirecta (Rumor)</h2>
+            <div class="content">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    Se usa para reportar información que escuchaste de otros (equivalente a "dicen que" o "se supone que")
+                </p>
+                
+                <div class="example">
+                    <p><span class="german">Er soll sehr reich sein.</span></p>
+                    <p>→ Se dice que es muy rico. / Dicen que es muy rico.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Das Essen soll hier gut sein.</span></p>
+                    <p>→ Dicen que la comida aquí es buena.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Der Film soll interessant sein.</span></p>
+                    <p>→ Se supone que la película es interesante.</p>
+                </div>
+                
+                <div class="example">
+                    <p><span class="german">Sie soll in Paris wohnen.</span></p>
+                    <p>→ Dicen que ella vive en París.</p>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">5 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 6: Ejercicio 1 -->
+        <div class="slide">
+            <h2>Ejercicio 1: Completa con la forma correcta</h2>
+            <div class="content">
+                <div class="exercise">
+                    <p><strong>1.</strong> Ich _____ mehr Sport machen. (Consejo - yo)</p>
+                    <input type="text" id="ex1" placeholder="Tu respuesta">
+                    <button onclick="checkAnswer('ex1', 'soll', 'feedback1')">Verificar</button>
+                    <div id="feedback1" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise">
+                    <p><strong>2.</strong> Du _____ deine Eltern anrufen. (Obligación - tú)</p>
+                    <input type="text" id="ex2" placeholder="Tu respuesta">
+                    <button onclick="checkAnswer('ex2', 'sollst', 'feedback2')">Verificar</button>
+                    <div id="feedback2" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise">
+                    <p><strong>3.</strong> Er _____ ein guter Lehrer sein. (Rumor - él)</p>
+                    <input type="text" id="ex3" placeholder="Tu respuesta">
+                    <button onclick="checkAnswer('ex3', 'soll', 'feedback3')">Verificar</button>
+                    <div id="feedback3" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise">
+                    <p><strong>4.</strong> Wir _____ pünktlich kommen. (Consejo - nosotros)</p>
+                    <input type="text" id="ex4" placeholder="Tu respuesta">
+                    <button onclick="checkAnswer('ex4', 'sollen', 'feedback4')">Verificar</button>
+                    <div id="feedback4" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">6 / 7</div>
+                <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Slide 7: Ejercicio 2 -->
+        <div class="slide">
+            <h2>Ejercicio 2: Traduce al alemán</h2>
+            <div class="content">
+                <div class="exercise">
+                    <p><strong>1.</strong> Deberías descansar más.</p>
+                    <p style="font-size: 0.9em; color: #666;">(tú - descansar = sich ausruhen)</p>
+                    <input type="text" id="ex5" placeholder="Tu respuesta" style="width: 350px;">
+                    <button onclick="checkAnswer('ex5', 'Du sollst dich mehr ausruhen', 'feedback5')">Verificar</button>
+                    <div id="feedback5" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise">
+                    <p><strong>2.</strong> Se dice que ella es muy inteligente.</p>
+                    <p style="font-size: 0.9em; color: #666;">(ella - inteligente = intelligent)</p>
+                    <input type="text" id="ex6" placeholder="Tu respuesta" style="width: 350px;">
+                    <button onclick="checkAnswer('ex6', 'Sie soll sehr intelligent sein', 'feedback6')">Verificar</button>
+                    <div id="feedback6" class="feedback" style="display: none;"></div>
+                </div>
+                
+                <div class="exercise">
+                    <p><strong>3.</strong> Debemos estudiar para el examen.</p>
+                    <p style="font-size: 0.9em; color: #666;">(nosotros - estudiar = lernen - examen = die Prüfung)</p>
+                    <input type="text" id="ex7" placeholder="Tu respuesta" style="width: 350px;">
+                    <button onclick="checkAnswer('ex7', 'Wir sollen für die Prüfung lernen', 'feedback7')">Verificar</button>
+                    <div id="feedback7" class="feedback" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+                <div class="slide-number">7 / 7</div>
+                <button class="nav-btn" disabled>Siguiente →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            updateNavigation();
+        }
+        
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+        
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        function updateNavigation() {
+            const prevBtns = document.querySelectorAll('.nav-btn:first-child');
+            const nextBtns = document.querySelectorAll('.nav-btn:last-child');
+            
+            prevBtns.forEach(btn => {
+                btn.disabled = currentSlide === 0;
+            });
+            
+            nextBtns.forEach(btn => {
+                btn.disabled = currentSlide === slides.length - 1;
+            });
+        }
+        
+        function checkAnswer(inputId, correctAnswer, feedbackId) {
+            const input = document.getElementById(inputId);
+            const feedback = document.getElementById(feedbackId);
+            const userAnswer = input.value.trim();
+            
+            const normalize = str => str.toLowerCase().replace(/\s+/g, ' ').trim();
+            
+            if (normalize(userAnswer) === normalize(correctAnswer)) {
+                feedback.textContent = '✓ ¡Correcto! Muy bien.';
+                feedback.className = 'feedback correct';
+                input.style.borderColor = '#28a745';
+            } else {
+                feedback.textContent = '✗ Incorrecto. La respuesta correcta es: ' + correctAnswer;
+                feedback.className = 'feedback incorrect';
+                input.style.borderColor = '#dc3545';
+            }
+            
+            feedback.style.display = 'block';
+        }
+        
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pronunciación y Fonética del Francés</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a31;
+      --panel-2: #182342;
+      --text: #edf2ff;
+      --muted: #b7c3e0;
+      --accent: #79a8ff;
+      --accent-2: #9d7bff;
+      --ok: #7ee0a2;
+      --warn: #ffd479;
+      --border: rgba(255,255,255,0.1);
+      --shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #08101c 0%, #0d1428 100%);
+      color: var(--text);
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 20px;
+      background: rgba(10, 15, 30, 0.96);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+    }
+
+    .brand {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(121,168,255,0.18), rgba(157,123,255,0.12));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .brand h1 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-group {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .nav-group h2 {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      color: #cfe0ff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-group a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-group a:hover,
+    .nav-group a.active {
+      background: linear-gradient(135deg, rgba(121,168,255,0.22), rgba(157,123,255,0.18));
+      color: white;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .page {
+      display: none;
+      animation: fade 0.28s ease;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero,
+    .card,
+    .exercise,
+    .example,
+    .tip,
+    .summary {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, rgba(121,168,255,0.16), rgba(157,123,255,0.12));
+    }
+
+    .hero h2 {
+      margin: 0 0 12px;
+      font-size: 2rem;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 850px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .card h3, .exercise h3, .example h3, .summary h3 {
+      margin-top: 0;
+      font-size: 1.15rem;
+    }
+
+    .card p, .exercise p, .example p, .summary p, li {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .box-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .example, .exercise, .summary, .tip {
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .phoneme {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(121,168,255,0.18);
+      border: 1px solid rgba(121,168,255,0.2);
+      color: #dbe7ff;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(121,168,255,0.1);
+      color: #deebff;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 8px;
+      border-radius: 8px;
+      color: #fff;
+    }
+
+    .question {
+      margin: 14px 0;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .question strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(8, 14, 28, 0.8);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea { min-height: 100px; resize: vertical; }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.16s ease, opacity 0.16s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+    .secondary {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.ok { background: rgba(126, 224, 162, 0.15); border: 1px solid rgba(126, 224, 162, 0.28); color: #d9ffe7; }
+    .feedback.warn { background: rgba(255, 212, 121, 0.14); border: 1px solid rgba(255, 212, 121, 0.24); color: #fff0c4; }
+
+    .footer-note {
+      margin-top: 24px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      opacity: 0.92;
+    }
+
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; }
+      aside {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .grid { grid-template-columns: 1fr; }
+      main { padding: 18px; }
+      .hero h2 { font-size: 1.65rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <h1>Fonética y pronunciación del francés</h1>
+        <p>Guía navegable con teoría, ejemplos y ejercicios para estudiar por secciones.</p>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <h2>Contenido</h2>
+          <a href="#inicio" class="nav-link active">1. Inicio</a>
+          <a href="#vocales" class="nav-link">2. Vocales orales</a>
+          <a href="#nasales" class="nav-link">3. Vocales nasales</a>
+          <a href="#consonantes" class="nav-link">4. Consonantes y particularidades</a>
+          <a href="#enlace" class="nav-link">5. Liaison, enchaînement y ritmo</a>
+          <a href="#lectura" class="nav-link">6. Lectura guiada y ejercicios</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="inicio" class="page active">
+        <div class="hero">
+          <h2>Panorama general de la pronunciación del francés</h2>
+          <p>
+            El francés presenta varios rasgos que suelen llamar la atención: muchas letras finales no se pronuncian,
+            las vocales cambian mucho según el contexto, existen vocales nasales y el idioma tiene un ritmo muy ligado
+            a grupos fónicos más que a palabras aisladas. Esta guía está pensada para estudiar poco a poco y no como una sola página larga.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>¿Qué conviene aprender primero?</h3>
+            <p>Un buen orden es este:</p>
+            <ol>
+              <li>Reconocer los sonidos vocálicos más frecuentes.</li>
+              <li>Distinguir las vocales nasales.</li>
+              <li>Dominar la <code>r</code> francesa y las consonantes silenciosas finales.</li>
+              <li>Practicar la unión entre palabras: <em>liaison</em> y <em>enchaînement</em>.</li>
+              <li>Leer en voz alta frases cortas antes de pasar a textos completos.</li>
+            </ol>
+          </div>
+          <div class="card">
+            <h3>Ideas clave</h3>
+            <p>
+              En francés, la ortografía y la pronunciación no siempre coinciden de forma transparente. Por eso, conviene pensar en patrones y no solo en letras sueltas.
+            </p>
+            <div>
+              <span class="phoneme">e / ə</span>
+              <span class="phoneme">u / y</span>
+              <span class="phoneme">ou / u</span>
+              <span class="phoneme">on / ɔ̃</span>
+              <span class="phoneme">an / ɑ̃</span>
+              <span class="phoneme">r / ʁ</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example">
+          <h3>Ejemplos iniciales</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Palabra</th>
+                <th>Pronunciación aproximada</th>
+                <th>Observación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>bonjour</strong></td>
+                <td>/bɔ̃.ʒuʁ/</td>
+                <td>Contiene vocal nasal <code>on</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>tu</strong></td>
+                <td>/ty/</td>
+                <td>La <code>u</code> francesa no suena como la <code>u</code> española.</td>
+              </tr>
+              <tr>
+                <td><strong>parler</strong></td>
+                <td>/paʁ.le/</td>
+                <td>La <code>r</code> es uvular; la terminación <code>-er</code> suele sonar /e/.</td>
+              </tr>
+              <tr>
+                <td><strong>petit</strong></td>
+                <td>/pə.ti/ o /p(ə).ti/</td>
+                <td>La <code>e</code> muda puede debilitarse o desaparecer en ciertos contextos.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="summary">
+          <h3>Consejo didáctico</h3>
+          <p>
+            Al enseñar o aprender francés, funciona muy bien contrastar pares mínimos y repetir grupos cortos de sonido: <code>tu / tout</code>, <code>beau / bon</code>, <code>peu / peur</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="vocales" class="page">
+        <div class="hero">
+          <h2>Vocales orales del francés</h2>
+          <p>
+            Las vocales francesas son uno de los puntos más importantes. Algunas se parecen al español, pero otras requieren colocar la lengua y los labios de manera distinta.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Vocales frecuentes</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Grafía</th>
+                <th>Sonido</th>
+                <th>Explicación</th>
+                <th>Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>a</td>
+                <td>/a/</td>
+                <td>Similar a la <code>a</code> española.</td>
+                <td><strong>ami</strong> /a.mi/</td>
+              </tr>
+              <tr>
+                <td>i</td>
+                <td>/i/</td>
+                <td>Muy cerrada, similar a la española.</td>
+                <td><strong>vite</strong> /vit/</td>
+              </tr>
+              <tr>
+                <td>ou</td>
+                <td>/u/</td>
+                <td>Equivale aproximadamente a la <code>u</code> española.</td>
+                <td><strong>tout</strong> /tu/</td>
+              </tr>
+              <tr>
+                <td>u</td>
+                <td>/y/</td>
+                <td>Como decir <code>i</code> con labios redondeados.</td>
+                <td><strong>tu</strong> /ty/</td>
+              </tr>
+              <tr>
+                <td>é, er, ez</td>
+                <td>/e/</td>
+                <td>Vocal cerrada media.</td>
+                <td><strong>parler</strong> /paʁ.le/</td>
+              </tr>
+              <tr>
+                <td>è, ai, ei</td>
+                <td>/ɛ/</td>
+                <td>Más abierta que /e/.</td>
+                <td><strong>mère</strong> /mɛʁ/</td>
+              </tr>
+              <tr>
+                <td>eu, œu</td>
+                <td>/ø/ o /œ/</td>
+                <td>Vocales redondeadas medias, sin equivalente exacto en español.</td>
+                <td><strong>deux</strong> /dø/, <strong>heure</strong> /œʁ/</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example">
+          <h3>Pares útiles para contrastar</h3>
+          <ul>
+            <li><strong>tu</strong> /ty/ vs. <strong>tout</strong> /tu/</li>
+            <li><strong>peu</strong> /pø/ vs. <strong>peur</strong> /pœʁ/</li>
+            <li><strong>fée</strong> /fe/ vs. <strong>fait</strong> /fɛ/</li>
+          </ul>
+        </div>
+
+        <div class="exercise">
+          <h3>Ejercicio 1: clasificación</h3>
+          <p>Escribe el sonido principal de la vocal destacada.</p>
+          <div class="question">
+            <strong>1. <em>tu</em> → ¿qué sonido tiene la vocal?</strong>
+            <input type="text" data-answer="/y/" placeholder="Escribe aquí, por ejemplo: /y/" />
+          </div>
+          <div class="question">
+            <strong>2. <em>tout</em> → ¿qué sonido tiene la grafía <code>ou</code>?</strong>
+            <input type="text" data-answer="/u/" placeholder="Escribe aquí" />
+          </div>
+          <div class="question">
+            <strong>3. <em>mère</em> → ¿qué sonido representa <code>è</code>?</strong>
+            <input type="text" data-answer="/ɛ/" placeholder="Escribe aquí" />
+          </div>
+          <div class="btn-row">
+            <button class="primary" onclick="checkInputs(this.closest('.exercise'))">Revisar</button>
+            <button class="secondary" onclick="resetInputs(this.closest('.exercise'))">Limpiar</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section id="nasales" class="page">
+        <div class="hero">
+          <h2>Vocales nasales</h2>
+          <p>
+            Las vocales nasales son uno de los rasgos más característicos del francés. El aire sale en parte por la nariz y no se pronuncia una consonante nasal plena al final del grupo.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Patrones principales</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Grafía frecuente</th>
+                <th>Sonido</th>
+                <th>Ejemplo</th>
+                <th>Comentario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>an, en, am, em</td>
+                <td>/ɑ̃/</td>
+                <td><strong>sans</strong>, <strong>temps</strong></td>
+                <td>Muy frecuente; no se pronuncia una <code>n</code> final plena.</td>
+              </tr>
+              <tr>
+                <td>on, om</td>
+                <td>/ɔ̃/</td>
+                <td><strong>nom</strong>, <strong>bon</strong></td>
+                <td>Más redondeada.</td>
+              </tr>
+              <tr>
+                <td>in, im, ain, ein, yn</td>
+                <td>/ɛ̃/</td>
+                <td><strong>vin</strong>, <strong>pain</strong></td>
+                <td>Muy común en vocabulario básico.</td>
+              </tr>
+              <tr>
+                <td>un, um</td>
+                <td>/œ̃/</td>
+                <td><strong>un</strong>, <strong>parfum</strong></td>
+                <td>En algunas variedades puede acercarse a /ɛ̃/.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tip">
+          <h3>Atención</h3>
+          <p>
+            Si después de <code>n</code> o <code>m</code> viene otra vocal, muchas veces ya no hay nasalización completa, porque la consonante se vuelve audible: <strong>ami</strong> no es nasal, pero <strong>sans</strong> sí.
+          </p>
+        </div>
+
+        <div class="example">
+          <h3>Contrastes útiles</h3>
+          <ul>
+            <li><strong>beau</strong> /bo/ vs. <strong>bon</strong> /bɔ̃/</li>
+            <li><strong>ami</strong> /a.mi/ vs. <strong>un ami</strong> /œ̃.na.mi/</li>
+            <li><strong>paix</strong> /pɛ/ vs. <strong>pain</strong> /pɛ̃/</li>
+          </ul>
+        </div>
+
+        <div class="exercise">
+          <h3>Ejercicio 2: identifica la vocal nasal</h3>
+          <div class="question">
+            <strong>1. <em>bon</em></strong>
+            <select data-answer="/ɔ̃/">
+              <option value="">Selecciona una opción</option>
+              <option>/ɑ̃/</option>
+              <option>/ɔ̃/</option>
+              <option>/ɛ̃/</option>
+              <option>/œ̃/</option>
+            </select>
+          </div>
+          <div class="question">
+            <strong>2. <em>pain</em></strong>
+            <select data-answer="/ɛ̃/">
+              <option value="">Selecciona una opción</option>
+              <option>/ɑ̃/</option>
+              <option>/ɔ̃/</option>
+              <option>/ɛ̃/</option>
+              <option>/œ̃/</option>
+            </select>
+          </div>
+          <div class="question">
+            <strong>3. <em>sans</em></strong>
+            <select data-answer="/ɑ̃/">
+              <option value="">Selecciona una opción</option>
+              <option>/ɑ̃/</option>
+              <option>/ɔ̃/</option>
+              <option>/ɛ̃/</option>
+              <option>/œ̃/</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button class="primary" onclick="checkInputs(this.closest('.exercise'))">Revisar</button>
+            <button class="secondary" onclick="resetInputs(this.closest('.exercise'))">Limpiar</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section id="consonantes" class="page">
+        <div class="hero">
+          <h2>Consonantes y particularidades del francés</h2>
+          <p>
+            No todas las consonantes francesas se comportan como en español. Algunas letras finales suelen ser silenciosas, la <code>r</code> se articula atrás y ciertas combinaciones tienen pronunciaciones muy estables.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>La <em>r</em> francesa</h3>
+            <p>
+              La <code>r</code> suele pronunciarse como un sonido uvular /ʁ/, más atrás que la <code>r</code> española. No es necesario exagerarla; basta con producir una fricción suave en la parte posterior de la boca.
+            </p>
+            <p><strong>Ejemplos:</strong> <em>rue</em>, <em>Paris</em>, <em>professeur</em>.</p>
+          </div>
+          <div class="card">
+            <h3>Finales silenciosas</h3>
+            <p>
+              En muchas palabras, consonantes finales como <code>t</code>, <code>s</code>, <code>d</code>, <code>x</code> no se pronuncian en aislamiento: <em>petit</em>, <em>nez</em>, <em>grand</em>, <em>deux</em>. Sin embargo, pueden reaparecer en <em>liaison</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="example">
+          <h3>Combinaciones frecuentes</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Grafía</th>
+                <th>Pronunciación</th>
+                <th>Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ch</td>
+                <td>/ʃ/</td>
+                <td><strong>chat</strong></td>
+              </tr>
+              <tr>
+                <td>j, ge</td>
+                <td>/ʒ/</td>
+                <td><strong>je</strong>, <strong>orange</strong></td>
+              </tr>
+              <tr>
+                <td>gn</td>
+                <td>/ɲ/</td>
+                <td><strong>montagne</strong></td>
+              </tr>
+              <tr>
+                <td>ill</td>
+                <td>/j/ o valor similar</td>
+                <td><strong>fille</strong></td>
+              </tr>
+              <tr>
+                <td>h</td>
+                <td>Generalmente muda</td>
+                <td><strong>homme</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="exercise">
+          <h3>Ejercicio 3: respuesta breve</h3>
+          <div class="question">
+            <strong>1. ¿Cómo suele pronunciarse la <code>r</code> francesa?</strong>
+            <textarea data-keywords="uvular,/ʁ/,atrás,posterior"></textarea>
+          </div>
+          <div class="question">
+            <strong>2. En aislamiento, ¿qué suele pasar con muchas consonantes finales?</strong>
+            <textarea data-keywords="no se pronuncian,silenciosas,mudas"></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="primary" onclick="checkOpenAnswers(this.closest('.exercise'))">Revisar ideas clave</button>
+            <button class="secondary" onclick="resetInputs(this.closest('.exercise'))">Limpiar</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section id="enlace" class="page">
+        <div class="hero">
+          <h2>Liaison, enchaînement y ritmo</h2>
+          <p>
+            El francés se oye muy unido. A veces una consonante final silenciosa reaparece delante de una palabra que empieza con vocal; eso se llama <em>liaison</em>. Otras veces simplemente una consonante pronunciada se enlaza naturalmente con la vocal siguiente; eso es <em>enchaînement</em>.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Liaison</h3>
+            <p>
+              Se produce cuando una consonante final normalmente silenciosa se pronuncia por ir seguida de vocal o <code>h</code> muda.
+            </p>
+            <p><strong>Ejemplos:</strong> <em>les amis</em> → /lez‿ami/, <em>un grand homme</em>.</p>
+          </div>
+          <div class="card">
+            <h3>Enchaînement</h3>
+            <p>
+              Aquí la consonante ya se pronunciaba de por sí, pero pasa a oírse enlazada con la sílaba siguiente: <em>avec elle</em>, <em>il arrive</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="example">
+          <h3>Ritmo y acento</h3>
+          <p>
+            El francés no acentúa las palabras exactamente como el español. El relieve prosódico suele sentirse al final del grupo fónico: <em>je vais à la maison</em>, <em>nous arrivons demain matin</em>.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <h3>Ejercicio 4: opción múltiple</h3>
+          <div class="question">
+            <strong>1. En <em>les amis</em>, la <code>s</code> final se oye por:</strong>
+            <select data-answer="liaison">
+              <option value="">Selecciona una opción</option>
+              <option value="liaison">liaison</option>
+              <option value="enchaînement">enchaînement</option>
+              <option value="azar">azar</option>
+            </select>
+          </div>
+          <div class="question">
+            <strong>2. Si una consonante ya se pronunciaba y se enlaza con la vocal siguiente, hablamos de:</strong>
+            <select data-answer="enchaînement">
+              <option value="">Selecciona una opción</option>
+              <option value="liaison">liaison</option>
+              <option value="enchaînement">enchaînement</option>
+              <option value="nasalización">nasalización</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button class="primary" onclick="checkInputs(this.closest('.exercise'))">Revisar</button>
+            <button class="secondary" onclick="resetInputs(this.closest('.exercise'))">Limpiar</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </section>
+
+      <section id="lectura" class="page">
+        <div class="hero">
+          <h2>Lectura guiada y ejercicios integradores</h2>
+          <p>
+            Aquí puedes practicar varios elementos al mismo tiempo: vocales, nasales, consonantes finales y enlace entre palabras.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Texto breve</h3>
+          <p>
+            <strong>Bonjour, je m’appelle Luc. J’habite dans un petit appartement à Lyon. Le matin, je prends un café et un pain au chocolat. Ensuite, je vais au travail en bus.</strong>
+          </p>
+          <p>
+            Rasgos presentes: <code>on</code> nasal en <em>bonjour</em>, <code>j</code> como /ʒ/, <code>petit</code> con consonante final no pronunciada, <code>un</code> nasal, y grupos rítmicos fluidos.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <h3>Ejercicio 5: análisis guiado</h3>
+          <div class="question">
+            <strong>1. Escribe dos palabras del texto que tengan vocal nasal.</strong>
+            <textarea data-keywords="bonjour,un,dans,pain"></textarea>
+          </div>
+          <div class="question">
+            <strong>2. Escribe una palabra donde una consonante final escrita no se pronuncie claramente en aislamiento.</strong>
+            <textarea data-keywords="petit,bus"></textarea>
+          </div>
+          <div class="question">
+            <strong>3. ¿Qué frase del texto te parece útil para practicar ritmo?</strong>
+            <textarea data-keywords="je prends un café,je vais au travail,le matin"></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="primary" onclick="checkOpenAnswers(this.closest('.exercise'))">Revisar ideas clave</button>
+            <button class="secondary" onclick="resetInputs(this.closest('.exercise'))">Limpiar</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="summary">
+          <h3>Propuesta de práctica adicional</h3>
+          <p>
+            Lee el texto tres veces: primero lento y por palabras, luego por grupos fónicos, y finalmente con ritmo continuo. Después, grábate y compara si distingues claramente <code>u</code> /y/, <code>ou</code> /u/ y al menos dos vocales nasales.
+          </p>
+          <p class="footer-note">
+            Puedes expandir este material agregando audio, botones de reproducción, páginas extra por tema o una sección especial de transcripción fonética internacional.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const links = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
+
+    function showPage(hash) {
+      const target = hash || '#inicio';
+      pages.forEach(page => page.classList.toggle('active', '#' + page.id === target));
+      links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === target));
+      history.replaceState(null, '', target);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(link.getAttribute('href'));
+      });
+    });
+
+    function normalize(value) {
+      return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function checkInputs(exercise) {
+      const fields = exercise.querySelectorAll('input, select');
+      let correct = 0;
+      let total = 0;
+
+      fields.forEach(field => {
+        total++;
+        const expected = normalize(field.dataset.answer);
+        const received = normalize(field.value);
+        if (received === expected) correct++;
+      });
+
+      const feedback = exercise.querySelector('.feedback');
+      feedback.className = 'feedback show ' + (correct === total ? 'ok' : 'warn');
+      feedback.innerHTML = correct === total
+        ? `¡Muy bien! Respondiste correctamente ${correct} de ${total}.`
+        : `Obtuviste ${correct} de ${total}. Revisa los contrastes y vuelve a intentarlo.`;
+    }
+
+    function checkOpenAnswers(exercise) {
+      const fields = exercise.querySelectorAll('textarea');
+      let covered = 0;
+      let total = 0;
+
+      fields.forEach(field => {
+        total++;
+        const text = normalize(field.value);
+        const keywords = (field.dataset.keywords || '').split(',').map(k => normalize(k)).filter(Boolean);
+        const ok = keywords.some(k => text.includes(k));
+        if (ok) covered++;
+      });
+
+      const feedback = exercise.querySelector('.feedback');
+      feedback.className = 'feedback show ' + (covered === total ? 'ok' : 'warn');
+      feedback.innerHTML = covered === total
+        ? `Tus respuestas contienen las ideas clave principales (${covered}/${total}).`
+        : `Detecté ${covered} de ${total} respuestas con ideas clave. No hace falta copiar literalmente: basta con incluir los puntos esenciales.`;
+    }
+
+    function resetInputs(exercise) {
+      exercise.querySelectorAll('input, textarea').forEach(el => el.value = '');
+      exercise.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+      const feedback = exercise.querySelector('.feedback');
+      if (feedback) {
+        feedback.className = 'feedback';
+        feedback.innerHTML = '';
+      }
+    }
+
+    showPage(window.location.hash || '#inicio');
+  </script>
+</body>
+</html>

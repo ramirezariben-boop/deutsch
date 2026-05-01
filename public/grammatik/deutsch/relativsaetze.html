@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relativsätze – Deutsch lernen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #f5f0e8;
+    --cream: #ede8d8;
+    --amber: #c8860a;
+    --amber-light: #f0b432;
+    --amber-pale: #fdf3dc;
+    --red: #9b2626;
+    --teal: #1a6b6b;
+    --teal-light: #e8f4f4;
+    --border: #c8b89a;
+    --shadow: rgba(26,18,8,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    border-bottom: 3px solid var(--amber);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+  header h1 span { color: var(--amber-light); }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .progress-bar-bg {
+    width: clamp(100px, 18vw, 200px);
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--amber-light);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .page-counter {
+    font-size: 0.78rem;
+    color: var(--amber-light);
+    white-space: nowrap;
+  }
+
+  /* ── SECTION TABS ── */
+  .tabs-row {
+    background: var(--cream);
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: none;
+  }
+  .tabs-row::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    padding: 10px 18px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #7a6a52;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .tab-btn:hover { color: var(--amber); }
+  .tab-btn.active {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+    background: rgba(200,134,10,0.06);
+  }
+
+  /* ── MAIN CONTENT AREA ── */
+  .content-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px 24px 100px;
+    scroll-behavior: smooth;
+  }
+
+  /* ── SECTIONS ── */
+  .section { display: none; animation: fadeUp 0.35s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  h2 .section-num {
+    color: var(--amber);
+    font-size: 0.7em;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: var(--teal);
+    margin: 22px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  p { line-height: 1.75; margin-bottom: 14px; font-size: clamp(0.88rem, 2.2vw, 1rem); }
+
+  .subtitle {
+    font-style: italic;
+    color: #7a6a52;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .card-amber { border-left: 4px solid var(--amber); }
+  .card-teal  { border-left: 4px solid var(--teal); }
+  .card-red   { border-left: 4px solid var(--red); }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin: 14px 0 20px; border-radius: 8px; border: 1px solid var(--border); }
+
+  table { width: 100%; border-collapse: collapse; font-size: clamp(0.8rem, 2vw, 0.93rem); }
+
+  thead tr { background: var(--ink); color: var(--paper); }
+  thead th {
+    padding: 10px 14px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.3px;
+  }
+
+  tbody tr:nth-child(even) { background: var(--amber-pale); }
+  tbody tr:nth-child(odd)  { background: white; }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid #e4ddd0; }
+
+  .kasus { font-weight: 700; color: var(--amber); font-size: 0.82rem; }
+  .pron  { font-weight: 700; color: var(--teal); font-family: 'Playfair Display', serif; }
+
+  /* ── EXAMPLE BOXES ── */
+  .example {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: clamp(0.85rem, 2.2vw, 0.97rem);
+  }
+
+  .example .de { font-style: italic; color: var(--teal); font-size: 1.05em; margin-bottom: 4px; }
+  .example .es { color: #5a5248; font-size: 0.9em; }
+  .example .highlight { background: rgba(200,134,10,0.2); border-radius: 3px; padding: 1px 4px; font-weight: 600; color: var(--ink); }
+
+  /* ── EXERCISES ── */
+  .exercise-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+
+  .exercise-num {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .ex-instruction { font-size: 0.85rem; color: #7a6a52; margin-bottom: 14px; font-style: italic; }
+
+  .ex-item { margin-bottom: 12px; }
+  .ex-item label { display: block; margin-bottom: 4px; font-size: clamp(0.83rem, 2vw, 0.95rem); line-height: 1.5; }
+
+  input[type="text"] {
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    width: min(220px, 90%);
+    background: var(--amber-pale);
+    color: var(--ink);
+    transition: border 0.2s;
+    outline: none;
+  }
+
+  input[type="text"]:focus { border-color: var(--amber); }
+  input[type="text"].correct { border-color: var(--teal); background: #e0f4e0; }
+  input[type="text"].incorrect { border-color: var(--red); background: #fde8e8; }
+
+  select {
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    background: var(--amber-pale);
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    transition: border 0.2s;
+  }
+  select:focus { border-color: var(--amber); }
+
+  .check-btn {
+    margin-top: 16px;
+    background: var(--amber);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 22px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+  }
+
+  .check-btn:hover { background: #a86e08; }
+  .check-btn:active { transform: scale(0.97); }
+
+  .result-msg {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    display: none;
+    font-weight: 600;
+  }
+
+  .result-msg.show { display: block; }
+  .result-msg.ok  { background: #e0f4e0; color: #1a6b3a; border: 1px solid #8fd8a0; }
+  .result-msg.err { background: #fde8e8; color: var(--red); border: 1px solid #f5a0a0; }
+
+  /* ── RULE BOX ── */
+  .rule-box {
+    background: var(--amber-pale);
+    border: 1.5px dashed var(--amber);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: clamp(0.86rem, 2.1vw, 0.97rem);
+  }
+
+  .rule-box strong { color: var(--amber); }
+
+  /* ── NAV FOOTER ── */
+  .nav-footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--ink);
+    border-top: 3px solid var(--amber);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+    z-index: 100;
+  }
+
+  .nav-btn {
+    background: var(--amber);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 20px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { background: #a86e08; }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-btn:disabled { background: #555; cursor: default; opacity: 0.5; }
+
+  .nav-title {
+    color: var(--paper);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    text-align: center;
+    flex: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
+
+  @media (max-width: 480px) {
+    .content-area { padding: 18px 14px 100px; }
+    .nav-title { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Deutsch · <span>Relativsätze</span></h1>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill" style="width:10%"></div></div>
+    <span class="page-counter" id="pageCounter">1 / 10</span>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-row" id="tabsRow"></div>
+
+<!-- SCROLLABLE CONTENT -->
+<div class="content-area" id="contentArea">
+
+  <!-- ══ SECTION 1: Einführung ══ -->
+  <section class="section active" data-label="Einführung">
+    <h2><span class="section-num">§1</span>Was ist ein Relativsatz?</h2>
+    <p class="subtitle">Definition und grundlegende Struktur</p>
+
+    <div class="card card-amber">
+      <p>Ein <strong>Relativsatz</strong> ist ein Nebensatz, der ein Substantiv (Nomen) näher beschreibt. Er wird durch ein <strong>Relativpronomen</strong> eingeleitet und steht meistens direkt nach dem Wort, das er beschreibt (dem <em>Bezugswort</em>).</p>
+    </div>
+
+    <div class="rule-box">
+      <strong>Grundstruktur:</strong><br>
+      [Hauptsatz + Bezugswort] + <strong>, [Relativpronomen + … + Verb]</strong>
+    </div>
+
+    <div class="example">
+      <div class="de">Das ist der Mann, <span class="highlight">der dort steht</span>.</div>
+      <div class="es">→ Ese es el hombre que está parado allí.</div>
+    </div>
+    <div class="example">
+      <div class="de">Ich habe ein Buch gelesen, <span class="highlight">das sehr interessant war</span>.</div>
+      <div class="es">→ Leí un libro que era muy interesante.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Frau, <span class="highlight">die neben mir sitzt</span>, ist meine Kollegin.</div>
+      <div class="es">→ La mujer que está sentada junto a mí es mi colega.</div>
+    </div>
+
+    <h3>Wichtige Merkmale</h3>
+    <div class="card card-teal">
+      <ul style="padding-left:18px;line-height:2">
+        <li>Komma <strong>vor</strong> dem Relativsatz (obligatorisch!)</li>
+        <li>Das konjugierte Verb steht am <strong>Ende</strong> des Relativsatzes</li>
+        <li>Das Relativpronomen richtet sich nach <strong>Genus</strong> und <strong>Numerus</strong> des Bezugsworts</li>
+        <li>Der <strong>Kasus</strong> des Relativpronomens wird durch die Funktion im Relativsatz bestimmt</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 1 — Erkenne den Relativsatz</span>
+      <p class="ex-instruction">Schreib das Relativpronomen und das Bezugswort aus jedem Satz.</p>
+
+      <div class="ex-item">
+        <label>1. Der Schüler, der fleißig lernt, besteht die Prüfung. → Relativpronomen:</label>
+        <input type="text" data-answer="der" id="e1_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Die Stadt, in der ich wohne, ist sehr schön. → Relativpronomen:</label>
+        <input type="text" data-answer="der" id="e1_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Das Auto, das er kauft, ist rot. → Relativpronomen:</label>
+        <input type="text" data-answer="das" id="e1_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Bücher, die auf dem Tisch liegen, gehören mir. → Relativpronomen:</label>
+        <input type="text" data-answer="die" id="e1_4">
+      </div>
+      <button class="check-btn" onclick="checkSection(1)">Antworten prüfen</button>
+      <div class="result-msg" id="res1"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 2: Relativpronomen Tabelle ══ -->
+  <section class="section" data-label="Pronomen-Tabelle">
+    <h2><span class="section-num">§2</span>Relativpronomen – Übersicht</h2>
+    <p class="subtitle">Alle Kasus im Überblick</p>
+
+    <p>Die Relativpronomen ähneln den bestimmten Artikeln, haben aber in einigen Formen andere Endungen.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Kasus</th>
+            <th>Maskulinum</th>
+            <th>Femininum</th>
+            <th>Neutrum</th>
+            <th>Plural</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kasus">Nominativ</td>
+            <td class="pron">der</td>
+            <td class="pron">die</td>
+            <td class="pron">das</td>
+            <td class="pron">die</td>
+          </tr>
+          <tr>
+            <td class="kasus">Akkusativ</td>
+            <td class="pron">den</td>
+            <td class="pron">die</td>
+            <td class="pron">das</td>
+            <td class="pron">die</td>
+          </tr>
+          <tr>
+            <td class="kasus">Dativ</td>
+            <td class="pron">dem</td>
+            <td class="pron">der</td>
+            <td class="pron">dem</td>
+            <td class="pron">denen</td>
+          </tr>
+          <tr>
+            <td class="kasus">Genitiv</td>
+            <td class="pron">dessen</td>
+            <td class="pron">deren</td>
+            <td class="pron">dessen</td>
+            <td class="pron">deren</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rule-box">
+      <strong>Trick:</strong> Wie bestimmte Artikel (<em>der / die / das / die</em>), aber:<br>
+      • Dativ Plural → <strong>denen</strong> (nicht „denen" → merke: -en!)<br>
+      • Genitiv → <strong>dessen / deren</strong> (zeigt Besitz)
+    </div>
+
+    <h3>Besonderheiten</h3>
+    <div class="card card-amber">
+      <p><strong>Genitiv</strong> ersetzt ein Possessivpronomen (sein/ihr/sein/ihre):</p>
+      <div class="example">
+        <div class="de">Der Mann, <span class="highlight">dessen Auto</span> rot ist, wohnt hier.</div>
+        <div class="es">→ El hombre cuyo auto es rojo vive aquí.</div>
+      </div>
+      <div class="example">
+        <div class="de">Die Frau, <span class="highlight">deren Tochter</span> ich kenne, kommt morgen.</div>
+        <div class="es">→ La mujer cuya hija conozco viene mañana.</div>
+      </div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 2 — Richtige Form wählen</span>
+      <p class="ex-instruction">Wähle das richtige Relativpronomen.</p>
+
+      <div class="ex-item">
+        <label>1. Der Lehrer, ___ uns heute unterrichtet, kommt aus Berlin. (Nom. Mask.)</label>
+        <select data-answer="der" id="e2_1">
+          <option value="">— wählen —</option>
+          <option>der</option><option>die</option><option>das</option><option>dem</option>
+        </select>
+      </div>
+      <div class="ex-item">
+        <label>2. Die Frau, ___ ich gestern gesehen habe, ist meine Nachbarin. (Akk. Fem.)</label>
+        <select data-answer="die" id="e2_2">
+          <option value="">— wählen —</option>
+          <option>der</option><option>die</option><option>das</option><option>den</option>
+        </select>
+      </div>
+      <div class="ex-item">
+        <label>3. Das Kind, ___ Mutter Ärztin ist, spielt draußen. (Gen. Neutr.)</label>
+        <select data-answer="dessen" id="e2_3">
+          <option value="">— wählen —</option>
+          <option>dessen</option><option>deren</option><option>dem</option><option>das</option>
+        </select>
+      </div>
+      <div class="ex-item">
+        <label>4. Die Studenten, ___ ich geholfen habe, waren sehr dankbar. (Dat. Plur.)</label>
+        <select data-answer="denen" id="e2_4">
+          <option value="">— wählen —</option>
+          <option>die</option><option>denen</option><option>der</option><option>den</option>
+        </select>
+      </div>
+      <button class="check-btn" onclick="checkSection(2)">Antworten prüfen</button>
+      <div class="result-msg" id="res2"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 3: Nominativ ══ -->
+  <section class="section" data-label="Nominativ">
+    <h2><span class="section-num">§3</span>Relativsatz im Nominativ</h2>
+    <p class="subtitle">Das Bezugswort ist das Subjekt im Relativsatz</p>
+
+    <div class="rule-box">
+      <strong>Wann Nominativ?</strong> Wenn das Relativpronomen die Funktion des <strong>Subjekts</strong> im Relativsatz hat (es führt die Handlung aus).
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Genus</th><th>Pronomen</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>Mask.</td><td class="pron">der</td><td>Der Mann, <em>der lacht</em>, ist mein Freund.</td></tr>
+          <tr><td>Fem.</td><td class="pron">die</td><td>Die Frau, <em>die singt</em>, ist Sängerin.</td></tr>
+          <tr><td>Neutr.</td><td class="pron">das</td><td>Das Kind, <em>das spielt</em>, ist fünf Jahre alt.</td></tr>
+          <tr><td>Plur.</td><td class="pron">die</td><td>Die Leute, <em>die kommen</em>, sind meine Gäste.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Verschiedene Zeitformen</h3>
+
+    <p><strong>Präsens:</strong></p>
+    <div class="example">
+      <div class="de">Der Zug, <span class="highlight">der um 8 Uhr abfährt</span>, ist schon voll.</div>
+      <div class="es">→ El tren que sale a las 8 ya está lleno.</div>
+    </div>
+
+    <p><strong>Perfekt:</strong></p>
+    <div class="example">
+      <div class="de">Die Schülerin, <span class="highlight">die den Preis gewonnen hat</span>, heißt Emma.</div>
+      <div class="es">→ La alumna que ganó el premio se llama Emma.</div>
+    </div>
+
+    <p><strong>Präteritum:</strong></p>
+    <div class="example">
+      <div class="de">Der Hund, <span class="highlight">der bellte</span>, lief weg.</div>
+      <div class="es">→ El perro que ladraba se fue corriendo.</div>
+    </div>
+
+    <p><strong>Futur:</strong></p>
+    <div class="example">
+      <div class="de">Das Team, <span class="highlight">das gewinnen wird</span>, bekommt einen Pokal.</div>
+      <div class="es">→ El equipo que ganará recibirá un trofeo.</div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 3 — Nominativ</span>
+      <p class="ex-instruction">Ergänze das Relativpronomen im Nominativ.</p>
+
+      <div class="ex-item">
+        <label>1. Der Arzt, ___ mich behandelt, ist sehr kompetent.</label>
+        <input type="text" data-answer="der" id="e3_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Das Restaurant, ___ neu eröffnet hat, ist immer voll.</label>
+        <input type="text" data-answer="das" id="e3_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Die Kinder, ___ auf dem Spielplatz spielen, lachen laut.</label>
+        <input type="text" data-answer="die" id="e3_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Lehrerin, ___ diesen Kurs unterrichtet, spricht Spanisch.</label>
+        <input type="text" data-answer="die" id="e3_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Das Flugzeug, ___ in zehn Minuten landet, kommt aus Paris.</label>
+        <input type="text" data-answer="das" id="e3_5">
+      </div>
+      <button class="check-btn" onclick="checkSection(3)">Antworten prüfen</button>
+      <div class="result-msg" id="res3"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 4: Akkusativ ══ -->
+  <section class="section" data-label="Akkusativ">
+    <h2><span class="section-num">§4</span>Relativsatz im Akkusativ</h2>
+    <p class="subtitle">Das Bezugswort ist das direkte Objekt im Relativsatz</p>
+
+    <div class="rule-box">
+      <strong>Wann Akkusativ?</strong> Wenn das Relativpronomen die Funktion des <strong>direkten Objekts</strong> im Relativsatz hat.
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Genus</th><th>Pronomen</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>Mask.</td><td class="pron">den</td><td>Der Mann, <em>den ich sehe</em>, ist mein Chef.</td></tr>
+          <tr><td>Fem.</td><td class="pron">die</td><td>Die Frau, <em>die ich kenne</em>, wohnt hier.</td></tr>
+          <tr><td>Neutr.</td><td class="pron">das</td><td>Das Buch, <em>das er liest</em>, ist lang.</td></tr>
+          <tr><td>Plur.</td><td class="pron">die</td><td>Die Filme, <em>die sie mag</em>, sind komisch.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Merkhilfe: Nur Maskulinum ändert sich!</h3>
+    <div class="card card-amber">
+      <p>Im Akkusativ ändert sich gegenüber dem Nominativ nur das <strong>Maskulinum</strong>: <em>der → den</em>. Femininum, Neutrum und Plural bleiben gleich: <em>die / das / die</em>.</p>
+    </div>
+
+    <h3>Beispiele mit verschiedenen Zeiten</h3>
+
+    <p><strong>Präsens:</strong></p>
+    <div class="example">
+      <div class="de">Der Kuchen, <span class="highlight">den sie backt</span>, riecht wunderbar.</div>
+      <div class="es">→ El pastel que ella hornea huele maravillosamente.</div>
+    </div>
+
+    <p><strong>Perfekt:</strong></p>
+    <div class="example">
+      <div class="de">Das Lied, <span class="highlight">das wir gehört haben</span>, war sehr schön.</div>
+      <div class="es">→ La canción que escuchamos era muy bonita.</div>
+    </div>
+
+    <p><strong>Präteritum:</strong></p>
+    <div class="example">
+      <div class="de">Die Stadt, <span class="highlight">die er besuchte</span>, liegt in Bayern.</div>
+      <div class="es">→ La ciudad que visitó está en Baviera.</div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 4 — Akkusativ</span>
+      <p class="ex-instruction">Ergänze das richtige Relativpronomen im Akkusativ.</p>
+
+      <div class="ex-item">
+        <label>1. Das Auto, ___ er kaufen möchte, ist sehr teuer. (Neutr.)</label>
+        <input type="text" data-answer="das" id="e4_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Der Kollege, ___ ich jeden Tag sehe, ist sehr nett. (Mask.)</label>
+        <input type="text" data-answer="den" id="e4_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Die Musik, ___ du hörst, kommt aus Österreich. (Fem.)</label>
+        <input type="text" data-answer="die" id="e4_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Wörter, ___ ich gelernt habe, vergesse ich nie. (Plur.)</label>
+        <input type="text" data-answer="die" id="e4_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Der Brief, ___ sie geschrieben hat, war sehr lang. (Mask.)</label>
+        <input type="text" data-answer="den" id="e4_5">
+      </div>
+      <button class="check-btn" onclick="checkSection(4)">Antworten prüfen</button>
+      <div class="result-msg" id="res4"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 5: Dativ ══ -->
+  <section class="section" data-label="Dativ">
+    <h2><span class="section-num">§5</span>Relativsatz im Dativ</h2>
+    <p class="subtitle">Das Bezugswort ist das indirekte Objekt im Relativsatz</p>
+
+    <div class="rule-box">
+      <strong>Wann Dativ?</strong> Wenn das Relativpronomen das <strong>indirekte Objekt</strong> ist oder von einer Dativpräposition oder einem Dativverb gefordert wird.
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Genus</th><th>Pronomen</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>Mask.</td><td class="pron">dem</td><td>Der Mann, <em>dem ich helfe</em>, ist krank.</td></tr>
+          <tr><td>Fem.</td><td class="pron">der</td><td>Die Frau, <em>der ich schreibe</em>, lebt in Wien.</td></tr>
+          <tr><td>Neutr.</td><td class="pron">dem</td><td>Das Kind, <em>dem sie hilft</em>, ist jung.</td></tr>
+          <tr><td>Plur.</td><td class="pron">denen</td><td>Die Leute, <em>denen ich danke</em>, sind nett.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Dativ mit Präpositionen</h3>
+    <p>Wenn eine Dativpräposition im Relativsatz vorkommt, steht sie <strong>vor</strong> dem Relativpronomen:</p>
+
+    <div class="example">
+      <div class="de">Die Stadt, <span class="highlight">in der</span> ich aufgewachsen bin, heißt Köln.</div>
+      <div class="es">→ La ciudad en la que crecí se llama Colonia.</div>
+    </div>
+    <div class="example">
+      <div class="de">Der Freund, <span class="highlight">mit dem</span> ich reise, kommt aus Mexiko.</div>
+      <div class="es">→ El amigo con quien viajo es de México.</div>
+    </div>
+    <div class="example">
+      <div class="de">Das Hotel, <span class="highlight">in dem</span> wir übernachtet haben, war luxuriös.</div>
+      <div class="es">→ El hotel en el que nos alojamos era lujoso.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Gruppe, <span class="highlight">bei der</span> er arbeitet, ist international.</div>
+      <div class="es">→ El grupo en el que trabaja es internacional.</div>
+    </div>
+
+    <h3>Häufige Dativverben in Relativsätzen</h3>
+    <div class="card card-teal">
+      <p><em>helfen, danken, folgen, gehören, gefallen, antworten, glauben, zuhören…</em></p>
+      <div class="example">
+        <div class="de">Der Professor, <span class="highlight">dem alle zuhören</span>, ist berühmt.</div>
+        <div class="es">→ El profesor al que todos escuchan es famoso.</div>
+      </div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 5 — Dativ</span>
+      <p class="ex-instruction">Ergänze das Relativpronomen im Dativ.</p>
+
+      <div class="ex-item">
+        <label>1. Der Patient, ___ der Arzt hilft, wird bald gesund. (Mask.)</label>
+        <input type="text" data-answer="dem" id="e5_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Die Nachbarin, ___ ich jeden Morgen begegne, ist sehr freundlich. (Fem.)</label>
+        <input type="text" data-answer="der" id="e5_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Das Mädchen, ___ sie zuhört, erzählt eine lustige Geschichte. (Neutr.)</label>
+        <input type="text" data-answer="dem" id="e5_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Studenten, ___ ich das Buch gegeben habe, waren sehr dankbar. (Plur.)</label>
+        <input type="text" data-answer="denen" id="e5_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Die Stadt, in ___ er wohnt, liegt am Meer. (Fem.)</label>
+        <input type="text" data-answer="der" id="e5_5">
+      </div>
+      <div class="ex-item">
+        <label>6. Der Verein, bei ___ sie singt, ist sehr bekannt. (Mask.)</label>
+        <input type="text" data-answer="dem" id="e5_6">
+      </div>
+      <button class="check-btn" onclick="checkSection(5)">Antworten prüfen</button>
+      <div class="result-msg" id="res5"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 6: Genitiv ══ -->
+  <section class="section" data-label="Genitiv">
+    <h2><span class="section-num">§6</span>Relativsatz im Genitiv</h2>
+    <p class="subtitle">Besitz und Zugehörigkeit ausdrücken</p>
+
+    <div class="rule-box">
+      <strong>Wann Genitiv?</strong> Wenn das Relativpronomen ein Besitzverhältnis ausdrückt. Es ersetzt ein Possessivpronomen (<em>sein, ihr, sein, ihr</em>).<br><br>
+      <strong>Struktur:</strong> [Bezugswort], <strong>dessen/deren + Nomen</strong> + Rest des Satzes
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Genus des Bezugsworts</th><th>Pronomen</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>Maskulinum</td><td class="pron">dessen</td><td>Der Mann, <em>dessen Frau</em> Lehrerin ist…</td></tr>
+          <tr><td>Femininum</td><td class="pron">deren</td><td>Die Frau, <em>deren Sohn</em> studiert…</td></tr>
+          <tr><td>Neutrum</td><td class="pron">dessen</td><td>Das Kind, <em>dessen Eltern</em> reisen…</td></tr>
+          <tr><td>Plural</td><td class="pron">deren</td><td>Die Schüler, <em>deren Noten</em> gut sind…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Vollständige Beispielsätze</h3>
+
+    <div class="example">
+      <div class="de">Das ist der Autor, <span class="highlight">dessen Roman</span> ich gelesen habe.</div>
+      <div class="es">→ Ese es el autor cuya novela leí.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Professorin, <span class="highlight">deren Kurs</span> sehr beliebt ist, unterrichtet Linguistik.</div>
+      <div class="es">→ La profesora cuyo curso es muy popular da clases de lingüística.</div>
+    </div>
+    <div class="example">
+      <div class="de">Das Unternehmen, <span class="highlight">dessen Produkte</span> weltweit bekannt sind, ist in München.</div>
+      <div class="es">→ La empresa cuyos productos son conocidos mundialmente está en Múnich.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Länder, <span class="highlight">deren Sprachen</span> ich lerne, faszinieren mich.</div>
+      <div class="es">→ Los países cuyas lenguas aprendo me fascinan.</div>
+    </div>
+
+    <div class="card card-red">
+      <p><strong>Achtung:</strong> Nach <em>dessen/deren</em> folgt ein Nomen <strong>ohne Artikel</strong>:</p>
+      <p>✗ <s>der Mann, dessen <u>der</u> Bruder…</s><br>✓ der Mann, dessen Bruder…</p>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 6 — Genitiv</span>
+      <p class="ex-instruction">Ergänze <em>dessen</em> oder <em>deren</em>.</p>
+
+      <div class="ex-item">
+        <label>1. Der Politiker, ___ Reden immer lang sind, ist Minister.</label>
+        <input type="text" data-answer="dessen" id="e6_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Die Sängerin, ___ Album ich höre, kommt aus Berlin.</label>
+        <input type="text" data-answer="deren" id="e6_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Das Dorf, ___ Einwohner alle jung sind, ist sehr modern.</label>
+        <input type="text" data-answer="dessen" id="e6_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Freunde, ___ Hilfe ich brauche, wohnen weit weg.</label>
+        <input type="text" data-answer="deren" id="e6_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Das Kind, ___ Mutter Ärztin ist, möchte auch Arzt werden.</label>
+        <input type="text" data-answer="dessen" id="e6_5">
+      </div>
+      <button class="check-btn" onclick="checkSection(6)">Antworten prüfen</button>
+      <div class="result-msg" id="res6"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 7: Präpositionen ══ -->
+  <section class="section" data-label="Präpositionen">
+    <h2><span class="section-num">§7</span>Relativsätze mit Präpositionen</h2>
+    <p class="subtitle">Präposition + Relativpronomen</p>
+
+    <div class="rule-box">
+      <strong>Struktur:</strong> Die Präposition steht <strong>direkt vor</strong> dem Relativpronomen.<br>
+      Der Kasus des Relativpronomens richtet sich nach der Präposition.
+    </div>
+
+    <h3>Präpositionen + Dativ</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Präposition</th><th>Mask.</th><th>Fem.</th><th>Neutr.</th><th>Plur.</th></tr></thead>
+        <tbody>
+          <tr><td>mit</td><td>mit dem</td><td>mit der</td><td>mit dem</td><td>mit denen</td></tr>
+          <tr><td>in</td><td>in dem</td><td>in der</td><td>in dem</td><td>in denen</td></tr>
+          <tr><td>auf</td><td>auf dem</td><td>auf der</td><td>auf dem</td><td>auf denen</td></tr>
+          <tr><td>bei</td><td>bei dem</td><td>bei der</td><td>bei dem</td><td>bei denen</td></tr>
+          <tr><td>von</td><td>von dem</td><td>von der</td><td>von dem</td><td>von denen</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Präpositionen + Akkusativ</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Präposition</th><th>Mask.</th><th>Fem.</th><th>Neutr.</th><th>Plur.</th></tr></thead>
+        <tbody>
+          <tr><td>für</td><td>für den</td><td>für die</td><td>für das</td><td>für die</td></tr>
+          <tr><td>durch</td><td>durch den</td><td>durch die</td><td>durch das</td><td>durch die</td></tr>
+          <tr><td>ohne</td><td>ohne den</td><td>ohne die</td><td>ohne das</td><td>ohne die</td></tr>
+          <tr><td>über</td><td>über den</td><td>über die</td><td>über das</td><td>über die</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Vollständige Beispiele</h3>
+    <div class="example">
+      <div class="de">Das Thema, <span class="highlight">über das</span> wir sprechen, ist komplex.</div>
+      <div class="es">→ El tema del que hablamos es complejo.</div>
+    </div>
+    <div class="example">
+      <div class="de">Der Freund, <span class="highlight">mit dem</span> ich zur Schule gefahren bin, heißt Max.</div>
+      <div class="es">→ El amigo con quien fui al colegio se llama Max.</div>
+    </div>
+    <div class="example">
+      <div class="de">Das Haus, <span class="highlight">in dem</span> wir wohnen, wurde 1920 gebaut.</div>
+      <div class="es">→ La casa en la que vivimos fue construida en 1920.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Prüfung, <span class="highlight">für die</span> ich gelernt habe, war schwer.</div>
+      <div class="es">→ El examen para el que estudié era difícil.</div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 7 — Präpositionen</span>
+      <p class="ex-instruction">Ergänze Präposition + Relativpronomen.</p>
+
+      <div class="ex-item">
+        <label>1. Das Buch, ___ ___ ich schreibe, ist ein Roman. (über + Neutr.)</label>
+        <input type="text" data-answer="über das" id="e7_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Der Stuhl, ___ ___ ich sitze, ist unbequem. (auf + Mask.)</label>
+        <input type="text" data-answer="auf dem" id="e7_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Die Freunde, ___ ___ er reist, kommen aus Spanien. (mit + Plur.)</label>
+        <input type="text" data-answer="mit denen" id="e7_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Das Projekt, ___ ___ sie arbeitet, ist sehr wichtig. (an + Neutr. → Dativ)</label>
+        <input type="text" data-answer="an dem" id="e7_4">
+      </div>
+      <button class="check-btn" onclick="checkSection(7)">Antworten prüfen</button>
+      <div class="result-msg" id="res7"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 8: wo / was / wer ══ -->
+  <section class="section" data-label="wo / was / wer">
+    <h2><span class="section-num">§8</span>Relativpronomen: <em>wo, was, wer</em></h2>
+    <p class="subtitle">Sonderfälle der Relativsätze</p>
+
+    <h3>„wo" – Ort ohne Präposition</h3>
+    <p>Statt <em>in dem / in der</em> kann man bei Ortsangaben oft <strong>wo</strong> verwenden:</p>
+    <div class="example">
+      <div class="de">Die Stadt, <span class="highlight">wo</span> ich geboren bin, liegt in Österreich.</div>
+      <div class="es">→ La ciudad donde nací está en Austria. (= in der ich geboren bin)</div>
+    </div>
+
+    <h3>„was" – nach Indefinitpronomen und Superlativen</h3>
+    <div class="card card-amber">
+      <p>Nach <strong>alles, nichts, etwas, vieles, das Beste, das Schönste</strong> usw. → <strong>was</strong></p>
+      <div class="example">
+        <div class="de">Das ist alles, <span class="highlight">was</span> ich weiß.</div>
+        <div class="es">→ Eso es todo lo que sé.</div>
+      </div>
+      <div class="example">
+        <div class="de">Es gibt nichts, <span class="highlight">was</span> mich überrascht.</div>
+        <div class="es">→ No hay nada que me sorprenda.</div>
+      </div>
+      <div class="example">
+        <div class="de">Das Beste, <span class="highlight">was</span> ich je gegessen habe, war dieser Kuchen.</div>
+        <div class="es">→ Lo mejor que he comido fue ese pastel.</div>
+      </div>
+    </div>
+
+    <h3>„was" – nach einem ganzen Satz</h3>
+    <div class="example">
+      <div class="de">Er hat die Prüfung bestanden, <span class="highlight">was</span> uns alle überrascht hat.</div>
+      <div class="es">→ Aprobó el examen, lo cual nos sorprendió a todos.</div>
+    </div>
+
+    <h3>„wer / wen / wem" – ohne Bezugswort</h3>
+    <div class="card card-teal">
+      <p>Wenn kein Bezugswort vorhanden ist → <strong>wer</strong> (Person, unbestimmt)</p>
+      <div class="example">
+        <div class="de"><span class="highlight">Wer</span> lernt, besteht die Prüfung.</div>
+        <div class="es">→ Quien estudia, aprueba el examen.</div>
+      </div>
+      <div class="example">
+        <div class="de"><span class="highlight">Wer</span> rastet, der rostet.</div>
+        <div class="es">→ Quien descansa, se oxida. (Sprichwort)</div>
+      </div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 8 — wo / was / wer</span>
+      <p class="ex-instruction">Ergänze <em>wo, was</em> oder <em>wer</em>.</p>
+
+      <div class="ex-item">
+        <label>1. Das ist das einzige, ___ mir wichtig ist.</label>
+        <input type="text" data-answer="was" id="e8_1">
+      </div>
+      <div class="ex-item">
+        <label>2. ___ Deutsch lernt, kann in Europa reisen.</label>
+        <input type="text" data-answer="Wer" id="e8_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Das Land, ___ ich Urlaub machen möchte, ist Japan.</label>
+        <input type="text" data-answer="wo" id="e8_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Er hat alles vergessen, ___ er gelernt hatte.</label>
+        <input type="text" data-answer="was" id="e8_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Sie hat uns geholfen, ___ wirklich nett war.</label>
+        <input type="text" data-answer="was" id="e8_5">
+      </div>
+      <button class="check-btn" onclick="checkSection(8)">Antworten prüfen</button>
+      <div class="result-msg" id="res8"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 9: Konjunktiv & Passiv ══ -->
+  <section class="section" data-label="Zeitformen">
+    <h2><span class="section-num">§9</span>Relativsätze mit verschiedenen Zeitformen</h2>
+    <p class="subtitle">Konjunktiv II und Passiv in Relativsätzen</p>
+
+    <h3>Konjunktiv II im Relativsatz</h3>
+    <div class="rule-box">
+      Konjunktiv II drückt Irrealität, Wunsch oder Hypothese aus.
+    </div>
+    <div class="example">
+      <div class="de">Das ist das Haus, <span class="highlight">das ich kaufen würde</span>.</div>
+      <div class="es">→ Esa es la casa que yo compraría.</div>
+    </div>
+    <div class="example">
+      <div class="de">Der Job, <span class="highlight">den ich am liebsten hätte</span>, ist Pilot.</div>
+      <div class="es">→ El trabajo que más me gustaría tener es el de piloto.</div>
+    </div>
+    <div class="example">
+      <div class="de">Die Sprache, <span class="highlight">die ich am besten sprechen könnte</span>, wäre Japanisch.</div>
+      <div class="es">→ El idioma que mejor podría hablar sería el japonés.</div>
+    </div>
+
+    <h3>Passiv im Relativsatz</h3>
+    <div class="card card-teal">
+      <p><strong>Vorgangspassiv:</strong> werden + Partizip II</p>
+      <div class="example">
+        <div class="de">Das Buch, <span class="highlight">das von Goethe geschrieben wurde</span>, ist ein Klassiker.</div>
+        <div class="es">→ El libro que fue escrito por Goethe es un clásico.</div>
+      </div>
+      <div class="example">
+        <div class="de">Die Brücke, <span class="highlight">die gerade gebaut wird</span>, verbindet zwei Stadtteile.</div>
+        <div class="es">→ El puente que está siendo construido conecta dos barrios.</div>
+      </div>
+    </div>
+
+    <div class="card card-amber">
+      <p><strong>Zustandspassiv:</strong> sein + Partizip II</p>
+      <div class="example">
+        <div class="de">Das Fenster, <span class="highlight">das geöffnet ist</span>, lässt frische Luft herein.</div>
+        <div class="es">→ La ventana que está abierta deja entrar aire fresco.</div>
+      </div>
+    </div>
+
+    <h3>Plusquamperfekt im Relativsatz</h3>
+    <div class="example">
+      <div class="de">Der Mann, <span class="highlight">den sie kennengelernt hatte</span>, rief nie wieder an.</div>
+      <div class="es">→ El hombre que ella había conocido no volvió a llamar.</div>
+    </div>
+    <div class="example">
+      <div class="de">Das Projekt, <span class="highlight">das wir begonnen hatten</span>, wurde abgebrochen.</div>
+      <div class="es">→ El proyecto que habíamos iniciado fue cancelado.</div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 9 — Verschiedene Zeitformen</span>
+      <p class="ex-instruction">Vervollständige den Relativsatz mit der richtigen Form.</p>
+
+      <div class="ex-item">
+        <label>1. Das Haus, das er ___ ___ (kaufen – Konjunktiv II), liegt am See.</label>
+        <input type="text" data-answer="kaufen würde" id="e9_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Der Artikel, der gestern ___ ___ (veröffentlichen – Passiv Prät.), war sehr interessant.</label>
+        <input type="text" data-answer="veröffentlicht wurde" id="e9_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Die Aufgabe, die wir ___ ___ (lösen – Plusquamperfekt), war die schwerste.</label>
+        <input type="text" data-answer="gelöst hatten" id="e9_3">
+      </div>
+      <button class="check-btn" onclick="checkSection(9)">Antworten prüfen</button>
+      <div class="result-msg" id="res9"></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 10: Gemischte Übungen ══ -->
+  <section class="section" data-label="Große Übung">
+    <h2><span class="section-num">§10</span>Große gemischte Übungen</h2>
+    <p class="subtitle">Alle Kasus und Zeitformen kombiniert</p>
+
+    <div class="card card-amber" style="margin-bottom:20px">
+      <p>Hier findest du Übungen, die alle bisher gelernten Strukturen kombinieren. Denk an Kasus, Genus, Numerus und Zeitform!</p>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 10A — Relativpronomen einsetzen</span>
+      <p class="ex-instruction">Ergänze das richtige Relativpronomen (alle Kasus möglich).</p>
+
+      <div class="ex-item">
+        <label>1. Der Student, ___ jeden Tag lernt, wird Erfolg haben. (Nom. Mask.)</label>
+        <input type="text" data-answer="der" id="e10_1">
+      </div>
+      <div class="ex-item">
+        <label>2. Die App, ___ ich täglich benutze, ist kostenlos. (Akk. Fem.)</label>
+        <input type="text" data-answer="die" id="e10_2">
+      </div>
+      <div class="ex-item">
+        <label>3. Das Museum, in ___ wir waren, hat viele Kunstwerke. (Dat. Neutr.)</label>
+        <input type="text" data-answer="dem" id="e10_3">
+      </div>
+      <div class="ex-item">
+        <label>4. Die Kinder, ___ Eltern arbeiten, bleiben in der Schule. (Gen. Plur.)</label>
+        <input type="text" data-answer="deren" id="e10_4">
+      </div>
+      <div class="ex-item">
+        <label>5. Der Sänger, ___ Stimme so schön ist, heißt Jonas. (Gen. Mask.)</label>
+        <input type="text" data-answer="dessen" id="e10_5">
+      </div>
+      <div class="ex-item">
+        <label>6. Die Ärztin, ___ mein Vater vertraut, ist Spezialistin. (Dat. Fem.)</label>
+        <input type="text" data-answer="der" id="e10_6">
+      </div>
+      <div class="ex-item">
+        <label>7. Das Café, ___ immer voll ist, öffnet um 7 Uhr. (Nom. Neutr.)</label>
+        <input type="text" data-answer="das" id="e10_7">
+      </div>
+      <div class="ex-item">
+        <label>8. Die Bücher, ___ du empfohlen hast, waren fantastisch. (Akk. Plur.)</label>
+        <input type="text" data-answer="die" id="e10_8">
+      </div>
+      <button class="check-btn" onclick="checkSection(10)">Antworten prüfen</button>
+      <div class="result-msg" id="res10"></div>
+    </div>
+
+    <div class="exercise-box">
+      <span class="exercise-num">ÜBUNG 10B — Sätze verbinden</span>
+      <p class="ex-instruction">Verbinde die zwei Sätze mit einem Relativsatz. Schreib das Relativpronomen.</p>
+
+      <div class="ex-item">
+        <label>Das ist die Frau. + Die Frau spricht Arabisch.<br>→ Das ist die Frau, ___ Arabisch spricht.</label>
+        <input type="text" data-answer="die" id="e10b_1">
+      </div>
+      <div class="ex-item">
+        <label>Ich kenne den Mann. + Er hat das Buch geschrieben.<br>→ Ich kenne den Mann, ___ das Buch geschrieben hat.</label>
+        <input type="text" data-answer="der" id="e10b_2">
+      </div>
+      <div class="ex-item">
+        <label>Das Kind spielt. + Das Kind gehört mir das Fahrrad.<br>→ Das Kind, ___ das Fahrrad gehört, spielt draußen.</label>
+        <input type="text" data-answer="dem" id="e10b_3">
+      </div>
+      <div class="ex-item">
+        <label>Die Studenten lernen viel. + Ich habe ihnen geholfen.<br>→ Die Studenten, ___ ich geholfen habe, lernen viel.</label>
+        <input type="text" data-answer="denen" id="e10b_4">
+      </div>
+      <button class="check-btn" onclick="checkSection('10b')">Antworten prüfen</button>
+      <div class="result-msg" id="res10b"></div>
+    </div>
+
+    <div class="card card-teal" style="margin-top:20px">
+      <h3 style="margin-top:0;border:none">🎉 Zusammenfassung – Schnellübersicht</h3>
+      <div class="tbl-wrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Kasus</th><th>Mask.</th><th>Fem.</th><th>Neutr.</th><th>Plur.</th><th>Verwendung</th></tr></thead>
+          <tbody>
+            <tr><td class="kasus">Nom.</td><td class="pron">der</td><td class="pron">die</td><td class="pron">das</td><td class="pron">die</td><td>Subjekt</td></tr>
+            <tr><td class="kasus">Akk.</td><td class="pron">den</td><td class="pron">die</td><td class="pron">das</td><td class="pron">die</td><td>direktes Objekt</td></tr>
+            <tr><td class="kasus">Dat.</td><td class="pron">dem</td><td class="pron">der</td><td class="pron">dem</td><td class="pron">denen</td><td>indir. Objekt / Dativverb / Dativpräp.</td></tr>
+            <tr><td class="kasus">Gen.</td><td class="pron">dessen</td><td class="pron">deren</td><td class="pron">dessen</td><td class="pron">deren</td><td>Besitz (→ cuyo/a)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end content-area -->
+
+<!-- NAV FOOTER -->
+<div class="nav-footer">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>← Zurück</button>
+  <div class="nav-title" id="navTitle">§1 Einführung</div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Weiter →</button>
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const tabsRow = document.getElementById('tabsRow');
+  const progressFill = document.getElementById('progressFill');
+  const pageCounter = document.getElementById('pageCounter');
+  const navTitle = document.getElementById('navTitle');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const contentArea = document.getElementById('contentArea');
+
+  let current = 0;
+  const total = sections.length;
+
+  const labels = Array.from(sections).map(s => s.dataset.label);
+  const headings = Array.from(sections).map((s,i) => `§${i+1} ${labels[i]}`);
+
+  // Build tabs
+  labels.forEach((label, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = label;
+    btn.onclick = () => goTo(i);
+    tabsRow.appendChild(btn);
+  });
+
+  function goTo(idx) {
+    sections[current].classList.remove('active');
+    tabsRow.children[current].classList.remove('active');
+    current = idx;
+    sections[current].classList.add('active');
+    tabsRow.children[current].classList.add('active');
+    contentArea.scrollTop = 0;
+    updateUI();
+    // Scroll tab into view
+    tabsRow.children[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  function navigate(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= total) return;
+    goTo(next);
+  }
+
+  function updateUI() {
+    progressFill.style.width = ((current + 1) / total * 100) + '%';
+    pageCounter.textContent = `${current + 1} / ${total}`;
+    navTitle.textContent = headings[current];
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  // ── CHECK FUNCTIONS ──
+  function checkSection(num) {
+    const prefix = num === '10b' ? 'e10b_' : `e${num}_`;
+    const inputs = document.querySelectorAll(`[id^="${prefix}"]`);
+    let correct = 0, total = inputs.length;
+    inputs.forEach(el => {
+      const answer = el.tagName === 'SELECT' ? el.value.trim().toLowerCase() : el.value.trim().toLowerCase();
+      const expected = el.dataset.answer.trim().toLowerCase();
+      if (answer === expected) {
+        el.classList.add('correct'); el.classList.remove('incorrect'); correct++;
+      } else {
+        el.classList.add('incorrect'); el.classList.remove('correct');
+      }
+    });
+    const resId = num === '10b' ? 'res10b' : `res${num}`;
+    const msg = document.getElementById(resId);
+    if (correct === total) {
+      msg.className = 'result-msg show ok';
+      msg.textContent = `✓ Ausgezeichnet! Alle ${total} Antworten sind richtig!`;
+    } else {
+      msg.className = 'result-msg show err';
+      msg.textContent = `${correct} von ${total} richtig. Die roten Felder noch einmal prüfen.`;
+    }
+  }
+
+  updateUI();
+</script>
+</body>
+</html>

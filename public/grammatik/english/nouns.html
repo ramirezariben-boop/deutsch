@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustantivos en Inglés — English Nouns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --ink3: #7a7570;
+    --paper: #faf8f3;
+    --cream: #f2ede2;
+    --gold: #c8963e;
+    --gold-light: #f0d8a8;
+    --gold-pale: #fdf6e8;
+    --blue: #2a4a7f;
+    --blue-light: #dce8f8;
+    --green: #2d6a4f;
+    --green-light: #d8f0e4;
+    --red: #9b2335;
+    --red-light: #fce8eb;
+    --border: #e0d8c8;
+    --shadow: rgba(26,24,20,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+  .topbar-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; letter-spacing: 0.01em; }
+  .topbar-title span { color: var(--gold); }
+  .topbar-unit { font-size: 0.75rem; color: var(--ink3); font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-wrap { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; gap: 0; overflow-x: auto; }
+  .prog-item {
+    padding: 13px 18px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--ink3);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+  .prog-item:hover { color: var(--ink); background: rgba(200,150,62,0.06); }
+  .prog-item.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 500; }
+  .prog-item .num { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 500; flex-shrink: 0; }
+  .prog-item.active .num { background: var(--gold); border-color: var(--gold); color: white; }
+  .prog-item.done .num { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+  /* ─── LAYOUT ─── */
+  .layout { display: flex; flex: 1; min-height: 0; }
+
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--cream);
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+    position: sticky;
+    top: 109px;
+    height: calc(100vh - 109px);
+    overflow-y: auto;
+  }
+  .sidebar-label { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink3); padding: 0 20px 10px; }
+  .sidebar-item {
+    padding: 9px 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--ink2);
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sidebar-item:hover { background: var(--border); color: var(--ink); }
+  .sidebar-item.active { border-left-color: var(--gold); background: var(--gold-pale); color: var(--gold); font-weight: 500; }
+
+  /* ─── MAIN CONTENT ─── */
+  .main { flex: 1; padding: 48px 56px; max-width: 820px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 40px; }
+  .page-eyebrow { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 10px; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: 2.6rem; line-height: 1.15; color: var(--ink); margin-bottom: 14px; }
+  .page-title em { color: var(--gold); font-style: normal; }
+  .page-desc { font-size: 1rem; color: var(--ink2); line-height: 1.7; font-weight: 300; max-width: 600px; border-left: 3px solid var(--gold-light); padding-left: 16px; }
+
+  /* SECTION */
+  .section { margin-bottom: 44px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--ink);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* PROSE */
+  p { font-size: 0.95rem; line-height: 1.8; color: var(--ink2); margin-bottom: 14px; font-weight: 300; }
+  p strong { color: var(--ink); font-weight: 500; }
+
+  /* DEFINITION BOX */
+  .def-box {
+    background: var(--gold-pale);
+    border: 1px solid var(--gold-light);
+    border-left: 4px solid var(--gold);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--ink2);
+  }
+  .def-box strong { color: var(--ink); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; color: var(--gold); }
+
+  /* EXAMPLE CARDS */
+  .examples { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 20px 0; }
+  .ex-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: box-shadow 0.2s;
+  }
+  .ex-card:hover { box-shadow: 0 4px 16px var(--shadow); }
+  .ex-en { font-family: 'DM Mono', monospace; font-size: 0.92rem; color: var(--blue); font-weight: 500; margin-bottom: 4px; }
+  .ex-es { font-size: 0.8rem; color: var(--ink3); }
+
+  /* COMPARISON TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88rem; }
+  .compare-table thead { background: var(--ink); color: var(--paper); }
+  .compare-table thead th { padding: 12px 16px; text-align: left; font-weight: 400; letter-spacing: 0.04em; }
+  .compare-table tbody tr:nth-child(even) { background: var(--cream); }
+  .compare-table tbody tr:hover { background: var(--gold-pale); }
+  .compare-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); }
+  .compare-table td:first-child { font-family: 'DM Mono', monospace; color: var(--blue); }
+  .compare-table td:nth-child(2) { font-family: 'DM Mono', monospace; color: var(--green); }
+
+  /* RULE CARD */
+  .rule-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 12px 0;
+    position: relative;
+  }
+  .rule-card .rule-num { position: absolute; top: -12px; left: 20px; background: var(--gold); color: white; font-size: 0.72rem; font-weight: 500; padding: 2px 10px; border-radius: 10px; letter-spacing: 0.04em; }
+  .rule-card .rule-head { font-weight: 500; font-size: 0.93rem; margin-bottom: 6px; color: var(--ink); }
+  .rule-card .rule-body { font-size: 0.88rem; color: var(--ink2); line-height: 1.7; font-weight: 300; }
+  .rule-card .rule-ex { font-family: 'DM Mono', monospace; font-size: 0.84rem; color: var(--blue); margin-top: 8px; background: var(--blue-light); padding: 6px 12px; border-radius: 4px; display: inline-block; }
+
+  /* BADGE */
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 500; padding: 2px 9px; border-radius: 12px; margin: 2px; }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-gold { background: var(--gold-pale); color: var(--gold); border: 1px solid var(--gold-light); }
+
+  /* EXERCISE */
+  .exercise-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+  .exercise-box .ex-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 6px; color: var(--gold); }
+  .exercise-box .ex-inst { font-size: 0.82rem; color: #a09890; margin-bottom: 20px; font-weight: 300; }
+  .q-item { margin-bottom: 16px; }
+  .q-text { font-size: 0.9rem; margin-bottom: 8px; font-weight: 300; line-height: 1.6; }
+  .q-text strong { font-weight: 500; font-family: 'DM Mono', monospace; color: var(--gold-light); }
+  .q-input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 8px 14px;
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    width: 180px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .q-input:focus { border-color: var(--gold); }
+  .q-input.correct { border-color: #4caf89; background: rgba(76,175,137,0.15); }
+  .q-input.wrong { border-color: #e07070; background: rgba(224,112,112,0.15); }
+  .check-btn {
+    margin-top: 20px;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .check-btn:hover { opacity: 0.85; }
+  .result-msg { margin-top: 14px; font-size: 0.85rem; min-height: 22px; }
+  .result-msg.good { color: #4caf89; }
+  .result-msg.bad { color: #e07070; }
+
+  /* COLUMNS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* HIGHLIGHT */
+  .hl-en { color: var(--blue); font-family: 'DM Mono', monospace; font-weight: 500; }
+  .hl-note { color: var(--red); font-size: 0.82rem; }
+  .hl-good { color: var(--green); font-family: 'DM Mono', monospace; }
+  .hl-bad { color: var(--red); font-family: 'DM Mono', monospace; text-decoration: line-through; }
+
+  /* NAV FOOTER */
+  .nav-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.86rem;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 400;
+  }
+  .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .nav-btn.primary { background: var(--gold); border-color: var(--gold); color: white; font-weight: 500; }
+  .nav-btn.primary:hover { opacity: 0.88; }
+  .nav-progress { font-size: 0.78rem; color: var(--ink3); text-align: center; }
+
+  /* HIDDEN */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* CATEGORY PILL GRID */
+  .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .pill { padding: 6px 14px; border-radius: 20px; font-size: 0.84rem; border: 1px solid var(--border); background: white; color: var(--ink2); }
+
+  /* IRREGULAR TABLE COLUMNS */
+  .irr-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 16px 0; }
+  .irr-table th { background: var(--ink2); color: var(--paper); padding: 10px 14px; text-align: left; font-weight: 400; letter-spacing: 0.04em; }
+  .irr-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  .irr-table tr:nth-child(even) td { background: var(--cream); }
+  .irr-table td:first-child { font-family: 'DM Mono', monospace; color: var(--blue); }
+  .irr-table td:nth-child(2) { font-family: 'DM Mono', monospace; color: var(--green); }
+  .irr-table td:nth-child(3) { color: var(--ink3); font-size: 0.82rem; }
+
+  /* CALLOUT */
+  .callout { display: flex; gap: 12px; padding: 14px 18px; border-radius: 8px; margin: 16px 0; align-items: flex-start; font-size: 0.88rem; line-height: 1.7; }
+  .callout-warn { background: #fff8e6; border: 1px solid #f0d070; }
+  .callout-info { background: var(--blue-light); border: 1px solid #b0c8e8; }
+  .callout-tip  { background: var(--green-light); border: 1px solid #80c8a0; }
+  .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout div { color: var(--ink2); }
+  .callout strong { color: var(--ink); font-weight: 500; display: block; margin-bottom: 3px; }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* MATCH EXERCISE */
+  .match-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .match-label { font-family: 'DM Mono', monospace; color: var(--blue); font-size: 0.88rem; min-width: 130px; }
+  .match-select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 7px 12px;
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .match-select option { background: #2a2820; color: var(--paper); }
+  .match-select.correct { border-color: #4caf89; }
+  .match-select.wrong { border-color: #e07070; }
+
+  .answer-reveal { margin-top: 10px; display: none; font-size: 0.82rem; color: #a09890; }
+  .answer-reveal span { color: var(--gold-light); font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div>
+    <div class="topbar-title">English Grammar <span>·</span> Unidad 1</div>
+    <div class="topbar-unit">Sustantivos — Nouns</div>
+  </div>
+  <div style="font-size:0.8rem;color:#6a6660;">7 secciones</div>
+</div>
+
+<!-- PROGRESS NAV -->
+<div class="progress-wrap" id="progressBar">
+  <div class="prog-item active" onclick="goTo(0)" id="prog-0"><span class="num">1</span> Introducción</div>
+  <div class="prog-item" onclick="goTo(1)" id="prog-1"><span class="num">2</span> Tipos</div>
+  <div class="prog-item" onclick="goTo(2)" id="prog-2"><span class="num">3</span> Plural regular</div>
+  <div class="prog-item" onclick="goTo(3)" id="prog-3"><span class="num">4</span> Plural irregular</div>
+  <div class="prog-item" onclick="goTo(4)" id="prog-4"><span class="num">5</span> Caso posesivo</div>
+  <div class="prog-item" onclick="goTo(5)" id="prog-5"><span class="num">6</span> Compuestos</div>
+  <div class="prog-item" onclick="goTo(6)" id="prog-6"><span class="num">7</span> Repaso</div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-label">En esta sección</div>
+    <!-- filled by JS -->
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="mainContent">
+
+    <!-- ═══════════════════════════════════ PAGE 0: INTRO ═══════════════════════════════════ -->
+    <div class="page active" id="page-0" data-sections="¿Qué es un noun?,Los nouns en contexto,¿Por qué importan?">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 1 de 7</div>
+        <h1 class="page-title">¿Qué es un <em>noun</em>?</h1>
+        <p class="page-desc">Los sustantivos son la columna vertebral del inglés. Sin ellos, no hay nada de qué hablar. Esta unidad te da una base sólida y completa.</p>
+      </div>
+
+      <div class="section" id="s0-0">
+        <h2 class="section-title">¿Qué es un noun?</h2>
+        <p>Un <strong>noun</strong> (sustantivo) es una palabra que nombra a una <strong>persona</strong>, un <strong>lugar</strong>, una <strong>cosa</strong>, un <strong>animal</strong> o una <strong>idea abstracta</strong>. Es la categoría gramatical más numerosa del inglés.</p>
+        <div class="def-box">
+          <strong>Definición</strong>
+          A noun is a word that identifies a person, place, thing, animal, or idea. It is the subject or object of a sentence.
+        </div>
+        <p>Los sustantivos pueden aparecer como sujeto de una oración (el que hace la acción), como objeto (el que recibe la acción), o después de preposiciones.</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">The <u>dog</u> barked.</div><div class="ex-es">sujeto — quien ladra</div></div>
+          <div class="ex-card"><div class="ex-en">She loves <u>music</u>.</div><div class="ex-es">objeto — lo que ama</div></div>
+          <div class="ex-card"><div class="ex-en">I live in <u>Mexico</u>.</div><div class="ex-es">después de preposición</div></div>
+          <div class="ex-card"><div class="ex-en"><u>Happiness</u> is rare.</div><div class="ex-es">idea abstracta como sujeto</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="s0-1">
+        <h2 class="section-title">Los nouns en contexto</h2>
+        <p>Para identificar un sustantivo en inglés, puedes aplicar estas pruebas rápidas:</p>
+
+        <div class="rule-card">
+          <div class="rule-num">Prueba 1</div>
+          <div class="rule-head">¿Puedes ponerle "the", "a" o "an" delante?</div>
+          <div class="rule-body">Si la palabra acepta artículo, casi siempre es un sustantivo.</div>
+          <div class="rule-ex">the <strong>table</strong> · a <strong>dream</strong> · an <strong>idea</strong> ✓</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">Prueba 2</div>
+          <div class="rule-head">¿Puede ir en plural o llevar -'s?</div>
+          <div class="rule-body">Los sustantivos aceptan marcas de plural y posesión.</div>
+          <div class="rule-ex"><strong>dogs</strong>, <strong>cities</strong>, <strong>John's</strong> book ✓</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">Prueba 3</div>
+          <div class="rule-head">¿Puede ser reemplazado por un pronombre?</div>
+          <div class="rule-body">Todo sustantivo puede sustituirse por he, she, it, they, etc.</div>
+          <div class="rule-ex"><strong>The car</strong> → <strong>It</strong> is fast. ✓</div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">💡</div>
+          <div><strong>¿Sabías que...?</strong>En inglés, los sustantivos NO llevan género gramatical (masculino/femenino) como en español. Salvo en personas o animales, todos los sustantivos son neutros: <span class="hl-en">the table</span>, <span class="hl-en">the book</span>, <span class="hl-en">the idea</span> — siempre <em>it</em>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s0-2">
+        <h2 class="section-title">¿Por qué importan?</h2>
+        <p>Entender cómo funcionan los sustantivos te permite:</p>
+        <div class="pill-grid">
+          <div class="pill">Construir oraciones correctamente</div>
+          <div class="pill">Usar artículos (a/an/the) sin error</div>
+          <div class="pill">Formar el plural</div>
+          <div class="pill">Expresar posesión</div>
+          <div class="pill">Elegir el pronombre correcto</div>
+          <div class="pill">Entender sustantivos contables e incontables</div>
+        </div>
+        <p>En las siguientes secciones cubriremos todo esto paso a paso, con ejemplos y ejercicios.</p>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" disabled>← Anterior</button>
+        <div class="nav-progress">Sección 1 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(1)">Tipos de Nouns →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 1: TIPOS ═══════════════════════════════════ -->
+    <div class="page" id="page-1" data-sections="Propios vs. comunes,Contables vs. incontables,Concretos vs. abstractos,Colectivos,Ejercicio">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 2 de 7</div>
+        <h1 class="page-title">Tipos de <em>nouns</em></h1>
+        <p class="page-desc">Los sustantivos se clasifican de varias maneras. Conocer estas categorías es clave para usarlos bien con artículos, verbos y otros elementos.</p>
+      </div>
+
+      <div class="section" id="s1-0">
+        <h2 class="section-title">Propios vs. comunes</h2>
+        <p>Un <strong>proper noun</strong> (nombre propio) nombra una entidad <em>específica y única</em>. Siempre se escribe con mayúscula. Un <strong>common noun</strong> (nombre común) es una categoría general.</p>
+        <table class="compare-table">
+          <thead><tr><th>Common noun</th><th>Proper noun</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>city</td><td>Mexico City</td><td>ciudad / Ciudad de México</td></tr>
+            <tr><td>language</td><td>English, Spanish</td><td>idioma / Inglés, Español</td></tr>
+            <tr><td>company</td><td>Apple, Google</td><td>empresa</td></tr>
+            <tr><td>month</td><td>January, March</td><td>mes / enero, marzo</td></tr>
+            <tr><td>person</td><td>María, Carlos</td><td>persona / nombre propio</td></tr>
+            <tr><td>country</td><td>France, Mexico</td><td>país / Francia, México</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div><strong>Diferencia con el español</strong>En inglés, los días de la semana, meses, idiomas y gentilicios se escriben <em>siempre con mayúscula</em>: <span class="hl-en">Monday</span>, <span class="hl-en">August</span>, <span class="hl-en">French</span>, <span class="hl-en">Mexican</span>. En español no es así.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s1-1">
+        <h2 class="section-title">Contables vs. incontables</h2>
+        <p>Esta distinción es <strong>fundamental</strong> en inglés porque determina qué artículo y qué cuantificadores puedes usar.</p>
+        <div class="two-col">
+          <div class="rule-card">
+            <div class="rule-num">Countable</div>
+            <div class="rule-head">Se pueden contar</div>
+            <div class="rule-body">Tienen plural. Aceptan <em>a/an</em>, números y <em>many/few</em>.</div>
+            <div class="rule-ex">one apple → two apples<br>a book → many books</div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-num">Uncountable</div>
+            <div class="rule-head">No se pueden contar</div>
+            <div class="rule-body">No tienen plural. NO aceptan <em>a/an</em>. Se usan con <em>much/little/some</em>.</div>
+            <div class="rule-ex">water (not "a water")<br>some milk · much sugar</div>
+          </div>
+        </div>
+        <p>Ejemplos de <strong>uncountable nouns</strong> frecuentes:</p>
+        <div class="pill-grid">
+          <div class="pill">water 💧</div><div class="pill">money 💵</div><div class="pill">information ℹ️</div>
+          <div class="pill">advice</div><div class="pill">furniture</div><div class="pill">rice 🍚</div>
+          <div class="pill">music 🎵</div><div class="pill">knowledge</div><div class="pill">weather 🌤️</div>
+        </div>
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div><strong>Errores comunes</strong>
+          <span class="hl-bad">an advice</span> → <span class="hl-good">some advice</span> / <span class="hl-good">a piece of advice</span><br>
+          <span class="hl-bad">informations</span> → <span class="hl-good">information</span> (no tiene plural)<br>
+          <span class="hl-bad">furnitures</span> → <span class="hl-good">furniture</span> (no tiene plural)</div>
+        </div>
+        <div class="callout callout-tip">
+          <div class="callout-icon">✅</div>
+          <div><strong>Truco: "a piece of..."</strong>Para volver contable un uncountable noun, usa: <span class="hl-en">a piece of advice</span>, <span class="hl-en">a glass of water</span>, <span class="hl-en">a bag of rice</span>, <span class="hl-en">a piece of furniture</span>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s1-2">
+        <h2 class="section-title">Concretos vs. abstractos</h2>
+        <p>Los <strong>concrete nouns</strong> son cosas que puedes percibir con los sentidos. Los <strong>abstract nouns</strong> son ideas, emociones o conceptos intangibles.</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">dog, table, rain</div><div class="ex-es">concrete — los puedes ver/tocar</div></div>
+          <div class="ex-card"><div class="ex-en">love, freedom, justice</div><div class="ex-es">abstract — no tienen forma física</div></div>
+          <div class="ex-card"><div class="ex-en">happiness, fear, truth</div><div class="ex-es">abstract — emociones e ideas</div></div>
+          <div class="ex-card"><div class="ex-en">music, thunder, perfume</div><div class="ex-es">concrete — los percibes con los sentidos</div></div>
+        </div>
+        <p>Muchos abstract nouns se forman añadiendo sufijos a adjetivos o verbos: <span class="badge badge-blue">-ness</span> <span class="badge badge-blue">-tion</span> <span class="badge badge-blue">-ity</span> <span class="badge badge-blue">-ment</span> <span class="badge badge-blue">-ance</span></p>
+        <table class="compare-table" style="margin-top:10px">
+          <thead><tr><th>Base word</th><th>Abstract noun</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>happy (adj.)</td><td>happiness</td><td>felicidad</td></tr>
+            <tr><td>educate (v.)</td><td>education</td><td>educación</td></tr>
+            <tr><td>free (adj.)</td><td>freedom / liberty</td><td>libertad</td></tr>
+            <tr><td>achieve (v.)</td><td>achievement</td><td>logro</td></tr>
+            <tr><td>important (adj.)</td><td>importance</td><td>importancia</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section" id="s1-3">
+        <h2 class="section-title">Colectivos</h2>
+        <p>Los <strong>collective nouns</strong> nombran un <em>grupo de personas, animales o cosas</em> como una unidad. En inglés americano generalmente llevan verbo en singular; en inglés británico a veces en plural.</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">a <strong>team</strong> of players</div><div class="ex-es">un equipo</div></div>
+          <div class="ex-card"><div class="ex-en">a <strong>flock</strong> of birds</div><div class="ex-es">una bandada de pájaros</div></div>
+          <div class="ex-card"><div class="ex-en">a <strong>pack</strong> of wolves</div><div class="ex-es">una manada de lobos</div></div>
+          <div class="ex-card"><div class="ex-en">a <strong>herd</strong> of cattle</div><div class="ex-es">una manada de ganado</div></div>
+          <div class="ex-card"><div class="ex-en">a <strong>swarm</strong> of bees</div><div class="ex-es">un enjambre de abejas</div></div>
+          <div class="ex-card"><div class="ex-en">a <strong>bunch</strong> of grapes</div><div class="ex-es">un racimo de uvas</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="s1-4">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio — Clasifica los nouns</div>
+          <div class="ex-inst">Elige el tipo correcto para cada sustantivo. Luego haz clic en "Verificar".</div>
+
+          <div class="q-item">
+            <div class="q-text"><strong>1. "freedom"</strong> — ¿Qué tipo de noun es?</div>
+            <select class="match-select" id="t1q1">
+              <option value="">— elige —</option>
+              <option value="abstract">Abstract</option>
+              <option value="concrete">Concrete</option>
+              <option value="proper">Proper</option>
+              <option value="collective">Collective</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>2. "London"</strong> — ¿Qué tipo de noun es?</div>
+            <select class="match-select" id="t1q2">
+              <option value="">— elige —</option>
+              <option value="abstract">Abstract</option>
+              <option value="concrete">Concrete</option>
+              <option value="proper">Proper</option>
+              <option value="collective">Collective</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>3. "a flock of birds"</strong> — El noun "flock" es…</div>
+            <select class="match-select" id="t1q3">
+              <option value="">— elige —</option>
+              <option value="abstract">Abstract</option>
+              <option value="concrete">Concrete</option>
+              <option value="proper">Proper</option>
+              <option value="collective">Collective</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>4. "music"</strong> — ¿Contable o incontable?</div>
+            <select class="match-select" id="t1q4">
+              <option value="">— elige —</option>
+              <option value="countable">Countable</option>
+              <option value="uncountable">Uncountable</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>5. "book"</strong> — ¿Contable o incontable?</div>
+            <select class="match-select" id="t1q5">
+              <option value="">— elige —</option>
+              <option value="countable">Countable</option>
+              <option value="uncountable">Uncountable</option>
+            </select>
+          </div>
+
+          <button class="check-btn" onclick="checkTypes()">Verificar respuestas</button>
+          <div class="result-msg" id="types-result"></div>
+          <div class="answer-reveal" id="types-answers">
+            Respuestas: <span>1-abstract, 2-proper, 3-collective, 4-uncountable, 5-countable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(0)">← Introducción</button>
+        <div class="nav-progress">Sección 2 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(2)">Plural regular →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 2: PLURAL REGULAR ═══════════════════════════════════ -->
+    <div class="page" id="page-2" data-sections="Regla general (-s),Reglas especiales (-es,-ies),Más casos,Ejercicio">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 3 de 7</div>
+        <h1 class="page-title">Plural <em>regular</em></h1>
+        <p class="page-desc">Formar el plural en inglés tiene reglas claras que cubren la gran mayoría de los sustantivos. Aquí las verás todas con ejemplos.</p>
+      </div>
+
+      <div class="section" id="s2-0">
+        <h2 class="section-title">Regla general (-s)</h2>
+        <p>La forma más común de crear el plural es simplemente añadir <strong>-s</strong> al sustantivo. Es el caso de la mayoría de las palabras.</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">cat → cat<strong>s</strong></div><div class="ex-es">gato → gatos</div></div>
+          <div class="ex-card"><div class="ex-en">book → book<strong>s</strong></div><div class="ex-es">libro → libros</div></div>
+          <div class="ex-card"><div class="ex-en">house → house<strong>s</strong></div><div class="ex-es">casa → casas</div></div>
+          <div class="ex-card"><div class="ex-en">car → car<strong>s</strong></div><div class="ex-es">coche → coches</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="s2-1">
+        <h2 class="section-title">Reglas especiales (-es, -ies)</h2>
+
+        <div class="rule-card" style="margin-bottom:14px">
+          <div class="rule-num">Regla A</div>
+          <div class="rule-head">Termina en -s, -ss, -sh, -ch, -x, -z → añade <strong>-es</strong></div>
+          <div class="rule-body">Se añade -es porque si solo añadieras -s sería difícil de pronunciar.</div>
+          <div class="rule-ex">bus → buses · dress → dresses · brush → brushes · watch → watches · box → boxes</div>
+        </div>
+
+        <div class="rule-card" style="margin-bottom:14px">
+          <div class="rule-num">Regla B</div>
+          <div class="rule-head">Termina en consonante + -y → cambia <strong>-y</strong> por <strong>-ies</strong></div>
+          <div class="rule-body">Si la -y está precedida de vocal, solo se añade -s normalmente.</div>
+          <div class="rule-ex">city → cities · baby → babies · story → stories<br><span style="opacity:0.7">pero: boy → boys · day → days (vocal + y)</span></div>
+        </div>
+
+        <div class="rule-card" style="margin-bottom:14px">
+          <div class="rule-num">Regla C</div>
+          <div class="rule-head">Termina en -o → generalmente <strong>-oes</strong> (pero hay excepciones)</div>
+          <div class="rule-body">Algunos sustantivos terminados en -o añaden -es; otros solo -s. Hay que memorizar los más comunes.</div>
+          <div class="rule-ex">tomato → tomatoes · hero → heroes · potato → potatoes<br><span style="opacity:0.7">pero: photo → photos · piano → pianos · video → videos</span></div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div><strong>Truco para -o</strong>Las palabras de origen extranjero (especialmente italiano y griego) casi siempre solo toman -s: <span class="hl-en">piano → pianos</span>, <span class="hl-en">studio → studios</span>, <span class="hl-en">memo → memos</span>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s2-2">
+        <h2 class="section-title">Más casos</h2>
+
+        <div class="rule-card" style="margin-bottom:14px">
+          <div class="rule-num">Regla D</div>
+          <div class="rule-head">Termina en -f o -fe → cambia a <strong>-ves</strong></div>
+          <div class="rule-body">Muchos (no todos) los sustantivos terminados en -f/-fe cambian la f por v y añaden -es.</div>
+          <div class="rule-ex">leaf → leaves · knife → knives · wolf → wolves · half → halves · wife → wives<br><span style="opacity:0.7">pero: roof → roofs · belief → beliefs · chef → chefs</span></div>
+        </div>
+
+        <table class="compare-table">
+          <thead><tr><th>Singular</th><th>Plural</th><th>Regla aplicada</th></tr></thead>
+          <tbody>
+            <tr><td>church</td><td>churches</td><td>termina en -ch → -es</td></tr>
+            <tr><td>country</td><td>countries</td><td>consonante + y → -ies</td></tr>
+            <tr><td>shelf</td><td>shelves</td><td>-f → -ves</td></tr>
+            <tr><td>volcano</td><td>volcanoes</td><td>-o → -oes</td></tr>
+            <tr><td>quiz</td><td>quizzes</td><td>-z dobla + -es</td></tr>
+            <tr><td>valley</td><td>valleys</td><td>vocal + y → -s</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section" id="s2-3">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio — Escribe el plural correcto</div>
+          <div class="ex-inst">Escribe el plural de cada sustantivo y haz clic en "Verificar".</div>
+
+          <div class="q-item">
+            <div class="q-text"><strong>1.</strong> dish → <input type="text" class="q-input" id="p1" placeholder="plural..."></div>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>2.</strong> family → <input type="text" class="q-input" id="p2" placeholder="plural..."></div>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>3.</strong> roof → <input type="text" class="q-input" id="p3" placeholder="plural..."></div>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>4.</strong> bus → <input type="text" class="q-input" id="p4" placeholder="plural..."></div>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>5.</strong> half → <input type="text" class="q-input" id="p5" placeholder="plural..."></div>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>6.</strong> photo → <input type="text" class="q-input" id="p6" placeholder="plural..."></div>
+          </div>
+
+          <button class="check-btn" onclick="checkPlural()">Verificar respuestas</button>
+          <div class="result-msg" id="plural-result"></div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(1)">← Tipos</button>
+        <div class="nav-progress">Sección 3 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(3)">Plural irregular →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 3: PLURAL IRREGULAR ═══════════════════════════════════ -->
+    <div class="page" id="page-3" data-sections="Cambio de vocal,Forma única,Solo plural,Nouns de origen latino/griego,Ejercicio">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 4 de 7</div>
+        <h1 class="page-title">Plural <em>irregular</em></h1>
+        <p class="page-desc">Algunos de los sustantivos más comunes del inglés tienen plurales completamente irregulares que hay que memorizar.</p>
+      </div>
+
+      <div class="section" id="s3-0">
+        <h2 class="section-title">Cambio de vocal (mutación)</h2>
+        <p>Estos plurales vienen del inglés antiguo (Old English). El cambio de vocal es heredado y no sigue ninguna regla predecible:</p>
+        <table class="irr-table">
+          <thead><tr><th>Singular</th><th>Plural</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>man</td><td>men</td><td>hombre → hombres</td></tr>
+            <tr><td>woman</td><td>women</td><td>mujer → mujeres</td></tr>
+            <tr><td>child</td><td>children</td><td>niño → niños</td></tr>
+            <tr><td>foot</td><td>feet</td><td>pie → pies</td></tr>
+            <tr><td>tooth</td><td>teeth</td><td>diente → dientes</td></tr>
+            <tr><td>goose</td><td>geese</td><td>ganso → gansos</td></tr>
+            <tr><td>mouse</td><td>mice</td><td>ratón → ratones</td></tr>
+            <tr><td>louse</td><td>lice</td><td>piojo → piojos</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div><strong>Cuidado con "woman/women"</strong>La pronunciación cambia: <em>woman</em> = /ˈwʊmən/, <em>women</em> = /ˈwɪmɪn/. ¡También cambia la vocal en la pronunciación, no solo en la escritura!</div>
+        </div>
+      </div>
+
+      <div class="section" id="s3-1">
+        <h2 class="section-title">Singular = Plural (forma única)</h2>
+        <p>Estos sustantivos son iguales en singular y plural. El contexto (verbo, artículo) indica si son uno o varios:</p>
+        <table class="irr-table">
+          <thead><tr><th>Singular</th><th>Plural</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>sheep</td><td>sheep</td><td>oveja / ovejas</td></tr>
+            <tr><td>fish</td><td>fish</td><td>pez / peces (misma especie)</td></tr>
+            <tr><td>deer</td><td>deer</td><td>ciervo / ciervos</td></tr>
+            <tr><td>species</td><td>species</td><td>especie / especies</td></tr>
+            <tr><td>aircraft</td><td>aircraft</td><td>aeronave / aeronaves</td></tr>
+            <tr><td>series</td><td>series</td><td>serie / series</td></tr>
+          </tbody>
+        </table>
+        <div class="examples" style="margin-top:14px">
+          <div class="ex-card"><div class="ex-en">I saw <strong>one sheep</strong>.</div><div class="ex-es">Vi una oveja.</div></div>
+          <div class="ex-card"><div class="ex-en">I saw <strong>three sheep</strong>.</div><div class="ex-es">Vi tres ovejas.</div></div>
+        </div>
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div><strong>"Fish" vs. "fishes"</strong><span class="hl-en">fish → fish</span> cuando hablamos de varios peces de la misma especie. <span class="hl-en">fish → fishes</span> cuando hablamos de distintas especies: <em>the fishes of the Amazon river</em>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s3-2">
+        <h2 class="section-title">Solo en plural (pluralia tantum)</h2>
+        <p>Estos sustantivos <em>solo existen en plural</em> y siempre van con verbo en plural. Para expresar "uno", se usan frases como <em>a pair of</em>:</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">scissors ✂️</div><div class="ex-es">tijeras (siempre plural)</div></div>
+          <div class="ex-card"><div class="ex-en">trousers / pants 👖</div><div class="ex-es">pantalones</div></div>
+          <div class="ex-card"><div class="ex-en">glasses / spectacles 👓</div><div class="ex-es">lentes / gafas</div></div>
+          <div class="ex-card"><div class="ex-en">pliers</div><div class="ex-es">alicates</div></div>
+          <div class="ex-card"><div class="ex-en">tweezers</div><div class="ex-es">pinzas</div></div>
+          <div class="ex-card"><div class="ex-en">headphones 🎧</div><div class="ex-es">audífonos</div></div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">Uso correcto</div>
+          <div class="rule-head">Usa "a pair of" para referirte a uno</div>
+          <div class="rule-body"></div>
+          <div class="rule-ex">
+            <span class="hl-bad">a scissor</span> → <span class="hl-good">a pair of scissors</span><br>
+            <span class="hl-bad">a pant</span> → <span class="hl-good">a pair of pants</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="s3-3">
+        <h2 class="section-title">Nouns de origen latino y griego</h2>
+        <p>Muchos términos científicos, médicos y académicos conservan el plural de su idioma original:</p>
+        <table class="irr-table">
+          <thead><tr><th>Singular</th><th>Plural</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>analysis</td><td>analyses</td><td>análisis</td></tr>
+            <tr><td>criterion</td><td>criteria</td><td>criterio / criterios</td></tr>
+            <tr><td>phenomenon</td><td>phenomena</td><td>fenómeno / fenómenos</td></tr>
+            <tr><td>datum</td><td>data</td><td>dato / datos</td></tr>
+            <tr><td>cactus</td><td>cacti / cactuses</td><td>cactus</td></tr>
+            <tr><td>fungus</td><td>fungi / funguses</td><td>hongo / hongos</td></tr>
+            <tr><td>curriculum</td><td>curricula / curriculums</td><td>currículo</td></tr>
+            <tr><td>thesis</td><td>theses</td><td>tesis</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div><strong>"Data" es plural</strong>Técnicamente, <span class="hl-en">data</span> es el plural de <span class="hl-en">datum</span>. Sin embargo, en inglés moderno e informal se usa frecuentemente como uncountable singular: <em>"the data is ready"</em>. En contextos académicos o formales, usa <em>"the data are…"</em>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s3-4">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio — Plural irregular</div>
+          <div class="ex-inst">Escribe el plural correcto para cada sustantivo.</div>
+          <div class="q-item"><div class="q-text"><strong>1.</strong> tooth → <input type="text" class="q-input" id="ir1" placeholder="plural..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>2.</strong> child → <input type="text" class="q-input" id="ir2" placeholder="plural..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>3.</strong> deer → <input type="text" class="q-input" id="ir3" placeholder="plural..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>4.</strong> phenomenon → <input type="text" class="q-input" id="ir4" placeholder="plural..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>5.</strong> criterion → <input type="text" class="q-input" id="ir5" placeholder="plural..."></div></div>
+          <button class="check-btn" onclick="checkIrregular()">Verificar respuestas</button>
+          <div class="result-msg" id="irr-result"></div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(2)">← Plural regular</button>
+        <div class="nav-progress">Sección 4 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(4)">Caso posesivo →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 4: POSESIVO ═══════════════════════════════════ -->
+    <div class="page" id="page-4" data-sections="El genitivo sajón ('s),Casos especiales,Of vs. 's,Ejercicio">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 5 de 7</div>
+        <h1 class="page-title">Caso <em>posesivo</em></h1>
+        <p class="page-desc">El inglés tiene dos formas principales de expresar posesión con sustantivos: el genitivo sajón ('s) y la preposición "of". Saber cuándo usar cada uno es esencial.</p>
+      </div>
+
+      <div class="section" id="s4-0">
+        <h2 class="section-title">El genitivo sajón ('s)</h2>
+        <p>Para expresar que algo pertenece a alguien, se añade <strong>'s</strong> al poseedor (que va <em>primero</em>). Es lo opuesto al español, donde el poseedor va después.</p>
+        <div class="def-box">
+          <strong>Estructura</strong>
+          Poseedor + 's + cosa poseída
+        </div>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">Mary's book</div><div class="ex-es">el libro de Mary</div></div>
+          <div class="ex-card"><div class="ex-en">the dog's tail</div><div class="ex-es">la cola del perro</div></div>
+          <div class="ex-card"><div class="ex-en">my father's car</div><div class="ex-es">el coche de mi padre</div></div>
+          <div class="ex-card"><div class="ex-en">the company's logo</div><div class="ex-es">el logo de la compañía</div></div>
+        </div>
+        <p>Cuando el sustantivo ya termina en <strong>-s</strong> (plurales regulares), solo se añade el apóstrofo <strong>'</strong> sin la -s:</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">the students<strong>'</strong> books</div><div class="ex-es">los libros de los estudiantes</div></div>
+          <div class="ex-card"><div class="ex-en">the girls<strong>'</strong> room</div><div class="ex-es">el cuarto de las chicas</div></div>
+        </div>
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div><strong>Plurales irregulares</strong>Con plurales irregulares que NO terminan en -s, se añade 's normalmente: <span class="hl-en">the children's toys</span>, <span class="hl-en">the men's room</span>, <span class="hl-en">the women's team</span>.</div>
+        </div>
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div><strong>Nombres propios terminados en -s</strong>Con nombres como "James" o "Charles" se aceptan las dos formas: <span class="hl-en">James's car</span> o <span class="hl-en">James' car</span>. En estilo formal se prefiere la primera.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s4-1">
+        <h2 class="section-title">Casos especiales del 's</h2>
+        <div class="rule-card" style="margin-bottom:12px">
+          <div class="rule-num">Posesión conjunta</div>
+          <div class="rule-head">Dos poseedores comparten algo: solo el último lleva 's</div>
+          <div class="rule-body"></div>
+          <div class="rule-ex">John and Mary's house (comparten una casa)<br><span style="opacity:0.7">vs. John's and Mary's houses (cada uno tiene su casa)</span></div>
+        </div>
+        <div class="rule-card" style="margin-bottom:12px">
+          <div class="rule-num">Posesivo sin el sustantivo</div>
+          <div class="rule-head">Cuando la cosa poseída es obvia o ya se mencionó, se omite</div>
+          <div class="rule-body"></div>
+          <div class="rule-ex">"Whose pen is this?" — "It's <strong>Anna's</strong>." (se sobrentiende "pen")</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">Lugares establecidos</div>
+          <div class="rule-head">Tiendas, restaurantes y lugares conocidos</div>
+          <div class="rule-body">Con nombres de tiendas o lugares famosos se puede omitir el sustantivo poseído.</div>
+          <div class="rule-ex">at the doctor's (= the doctor's office)<br>at McDonald's · at Sasha's (place)</div>
+        </div>
+      </div>
+
+      <div class="section" id="s4-2">
+        <h2 class="section-title">Of vs. 's</h2>
+        <p>Ambas formas expresan posesión, pero se usan en contextos distintos:</p>
+        <table class="compare-table">
+          <thead><tr><th>'s</th><th>of</th></tr></thead>
+          <tbody>
+            <tr><td>personas y animales</td><td>cosas, objetos, ideas</td></tr>
+            <tr><td>Mary's idea</td><td>the end of the film</td></tr>
+            <tr><td>the cat's paw</td><td>the capital of France</td></tr>
+            <tr><td>companies / organizations</td><td>partes de una cosa</td></tr>
+            <tr><td>Apple's products</td><td>the top of the building</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-tip">
+          <div class="callout-icon">✅</div>
+          <div><strong>Regla práctica</strong>Si el poseedor es una <em>persona o animal</em> → usa <strong>'s</strong>.<br>Si el poseedor es una <em>cosa o idea</em> → usa <strong>of</strong>. Aunque ambas formas son a veces intercambiables.</div>
+        </div>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">the woman's <strong>bag</strong></div><div class="ex-es">✅ persona → 's</div></div>
+          <div class="ex-card"><div class="ex-en">the leg <strong>of</strong> the table</div><div class="ex-es">✅ cosa → of</div></div>
+          <div class="ex-card"><div class="ex-en">the table's leg</div><div class="ex-es">⚠️ posible pero poco frecuente</div></div>
+          <div class="ex-card"><div class="ex-en">the end <strong>of</strong> the road</div><div class="ex-es">✅ parte de cosa → of</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="s4-3">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio — Posesivo</div>
+          <div class="ex-inst">Completa con la forma posesiva correcta usando 's / s' / of.</div>
+          <div class="q-item"><div class="q-text"><strong>1.</strong> El coche de Carlos → Carlos <input type="text" class="q-input" id="pos1" placeholder="'s / car" style="width:220px"> car</div></div>
+          <div class="q-item"><div class="q-text"><strong>2.</strong> La capital de México → the capital <input type="text" class="q-input" id="pos2" placeholder="of / 's" style="width:120px"> Mexico</div></div>
+          <div class="q-item"><div class="q-text"><strong>3.</strong> Los juguetes de los niños → the <input type="text" class="q-input" id="pos3" placeholder="children's..." style="width:200px"> toys</div></div>
+          <div class="q-item"><div class="q-text"><strong>4.</strong> El final de la película → the end <input type="text" class="q-input" id="pos4" placeholder="of / 's" style="width:120px"> the film</div></div>
+          <button class="check-btn" onclick="checkPossessive()">Verificar</button>
+          <div class="result-msg" id="poss-result"></div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(3)">← Plural irregular</button>
+        <div class="nav-progress">Sección 5 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(5)">Nouns compuestos →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 5: COMPUESTOS ═══════════════════════════════════ -->
+    <div class="page" id="page-5" data-sections="¿Qué son?,Formas de escritura,Patrones de formación,Ejercicio">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 6 de 7</div>
+        <h1 class="page-title">Sustantivos <em>compuestos</em></h1>
+        <p class="page-desc">El inglés es muy productivo creando palabras nuevas al combinar dos o más palabras. Estos sustantivos compuestos son extremadamente comunes.</p>
+      </div>
+
+      <div class="section" id="s5-0">
+        <h2 class="section-title">¿Qué son?</h2>
+        <p>Un <strong>compound noun</strong> es un sustantivo formado por <em>dos o más palabras</em> que juntas expresan un concepto único. La primera palabra generalmente <em>modifica o describe</em> a la segunda.</p>
+        <div class="examples">
+          <div class="ex-card"><div class="ex-en">tooth + brush = <strong>toothbrush</strong></div><div class="ex-es">cepillo de dientes</div></div>
+          <div class="ex-card"><div class="ex-en">rain + coat = <strong>raincoat</strong></div><div class="ex-es">impermeable</div></div>
+          <div class="ex-card"><div class="ex-en">sun + flower = <strong>sunflower</strong></div><div class="ex-es">girasol</div></div>
+          <div class="ex-card"><div class="ex-en">fire + place = <strong>fireplace</strong></div><div class="ex-es">chimenea</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="s5-1">
+        <h2 class="section-title">Tres formas de escritura</h2>
+        <p>Los compound nouns pueden escribirse de tres maneras. Lamentablemente, no hay una regla clara: hay que consultar un diccionario para los casos dudosos.</p>
+        <div class="two-col">
+          <div class="rule-card">
+            <div class="rule-num">Forma 1: Juntas</div>
+            <div class="rule-head">Una sola palabra (closed)</div>
+            <div class="rule-ex">toothbrush · bedroom · football · notebook · sunlight · keyboard</div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-num">Forma 2: Con guion</div>
+            <div class="rule-head">Hyphenated</div>
+            <div class="rule-ex">mother-in-law · editor-in-chief · check-in · six-year-old · T-shirt</div>
+          </div>
+        </div>
+        <div class="rule-card" style="margin-top:12px">
+          <div class="rule-num">Forma 3: Separadas</div>
+          <div class="rule-head">Dos palabras separadas (open)</div>
+          <div class="rule-ex">ice cream · post office · living room · swimming pool · bus stop · credit card</div>
+        </div>
+        <div class="callout callout-info">
+          <div class="callout-icon">ℹ️</div>
+          <div><strong>Tendencia en inglés moderno</strong>Con el tiempo, muchos compound nouns pasan de estar separados → con guion → juntos. Por ejemplo: <em>web site</em> → <em>web-site</em> → <em>website</em> (ya predomina la forma junta).</div>
+        </div>
+      </div>
+
+      <div class="section" id="s5-2">
+        <h2 class="section-title">Patrones de formación</h2>
+        <p>Los compound nouns se forman combinando distintas categorías gramaticales:</p>
+        <table class="compare-table">
+          <thead><tr><th>Patrón</th><th>Ejemplo</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><td>noun + noun</td><td>bus stop, bookshelf</td><td>parada de autobús, estante</td></tr>
+            <tr><td>verb + noun</td><td>swimming pool, driving license</td><td>alberca, licencia de manejo</td></tr>
+            <tr><td>adjective + noun</td><td>greenhouse, blackboard</td><td>invernadero, pizarrón</td></tr>
+            <tr><td>noun + verb</td><td>haircut, handmade</td><td>corte de cabello</td></tr>
+            <tr><td>preposition + noun</td><td>overcoat, underground</td><td>abrigo, metro/subterráneo</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div><strong>El plural de los compound nouns</strong>El plural se añade al <em>sustantivo principal</em> (normalmente el último): <span class="hl-en">toothbrushes</span>, <span class="hl-en">swimming pools</span>. <br>Excepción: cuando el sustantivo principal es el primero: <span class="hl-en">mothers-in-law</span>, <span class="hl-en">editors-in-chief</span>, <span class="hl-en">passers-by</span>.</div>
+        </div>
+      </div>
+
+      <div class="section" id="s5-3">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio — Compound nouns</div>
+          <div class="ex-inst">Combina las dos palabras para formar el compound noun correcto (consulta la sección si lo necesitas).</div>
+          <div class="q-item"><div class="q-text"><strong>1.</strong> book + case = <input type="text" class="q-input" id="cn1" placeholder="compound noun..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>2.</strong> sun + glasses = <input type="text" class="q-input" id="cn2" placeholder="compound noun..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>3.</strong> post + office = <input type="text" class="q-input" id="cn3" placeholder="compound noun..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>4.</strong> hand + bag = <input type="text" class="q-input" id="cn4" placeholder="compound noun..."></div></div>
+          <div class="q-item"><div class="q-text"><strong>5.</strong> ¿Cómo es el plural de "mother-in-law"? <input type="text" class="q-input" id="cn5" placeholder="plural..." style="width:200px"></div></div>
+          <button class="check-btn" onclick="checkCompound()">Verificar</button>
+          <div class="result-msg" id="compound-result"></div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(4)">← Caso posesivo</button>
+        <div class="nav-progress">Sección 6 de 7</div>
+        <button class="nav-btn primary" onclick="goTo(6)">Repaso final →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ PAGE 6: REPASO ═══════════════════════════════════ -->
+    <div class="page" id="page-6" data-sections="Resumen de reglas,Ejercicio final mixto,¿Qué sigue?">
+
+      <div class="page-header">
+        <div class="page-eyebrow">Unidad 1 · Sección 7 de 7</div>
+        <h1 class="page-title">Repaso <em>final</em></h1>
+        <p class="page-desc">Revisamos todos los conceptos de la unidad y ponemos a prueba tu comprensión con un ejercicio mixto.</p>
+      </div>
+
+      <div class="section" id="s6-0">
+        <h2 class="section-title">Resumen de reglas</h2>
+        <div class="rule-card" style="margin-bottom:11px"><div class="rule-num">1</div><div class="rule-head">Tipos de nouns</div><div class="rule-body">Propios (mayúscula siempre) / comunes. Contables / incontables (afectan al artículo y cuantificador). Concretos / abstractos. Colectivos.</div></div>
+        <div class="rule-card" style="margin-bottom:11px"><div class="rule-num">2</div><div class="rule-head">Plural regular</div><div class="rule-body">+s (default) · +es (-s/ss/sh/ch/x/z) · -y→-ies (consonante+y) · -f→-ves (muchos) · -o→-oes (varios) / -os (origen extranjero)</div></div>
+        <div class="rule-card" style="margin-bottom:11px"><div class="rule-num">3</div><div class="rule-head">Plural irregular</div><div class="rule-body">Cambio de vocal (man→men), forma única (sheep, deer), solo plural (scissors), origen latino/griego (phenomenon→phenomena).</div></div>
+        <div class="rule-card" style="margin-bottom:11px"><div class="rule-num">4</div><div class="rule-head">Caso posesivo</div><div class="rule-body">Persona/animal → 's · Plural en -s → solo ' · Cosa/idea → of. Posesión conjunta → 's solo al último.</div></div>
+        <div class="rule-card"><div class="rule-num">5</div><div class="rule-head">Compuestos</div><div class="rule-body">3 formas: junta / con guion / separada. Plural normalmente al final. Excepción: mothers-in-law.</div></div>
+      </div>
+
+      <div class="section" id="s6-1">
+        <div class="exercise-box">
+          <div class="ex-title">✏️ Ejercicio final mixto</div>
+          <div class="ex-inst">Elige la opción correcta en cada caso.</div>
+
+          <div class="q-item">
+            <div class="q-text"><strong>1.</strong> She gave me <strong>___</strong> advice. (uno)</div>
+            <select class="match-select" id="fin1">
+              <option value="">—</option><option value="an">an</option><option value="a piece of">a piece of</option><option value="some advices">some advices</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>2.</strong> The plural de "wolf" es:</div>
+            <select class="match-select" id="fin2">
+              <option value="">—</option><option value="wolfs">wolfs</option><option value="wolves">wolves</option><option value="wolfes">wolfes</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>3.</strong> El coche de los estudiantes → the <strong>___</strong> car</div>
+            <select class="match-select" id="fin3">
+              <option value="">—</option><option value="student's">student's</option><option value="students'">students'</option><option value="of the students">of the students</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>4.</strong> "London" es un noun…</div>
+            <select class="match-select" id="fin4">
+              <option value="">—</option><option value="common">common</option><option value="proper">proper</option><option value="abstract">abstract</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>5.</strong> ¿Cuál está bien escrito?</div>
+            <select class="match-select" id="fin5">
+              <option value="">—</option><option value="a">a tooth — two tooths</option><option value="b">a tooth — two teeth</option><option value="c">a teeth — two tooth</option>
+            </select>
+          </div>
+          <div class="q-item">
+            <div class="q-text"><strong>6.</strong> The plural de "mother-in-law" es:</div>
+            <select class="match-select" id="fin6">
+              <option value="">—</option><option value="mother-in-laws">mother-in-laws</option><option value="mothers-in-law">mothers-in-law</option><option value="mothers-in-laws">mothers-in-laws</option>
+            </select>
+          </div>
+
+          <button class="check-btn" onclick="checkFinal()">Verificar respuestas</button>
+          <div class="result-msg" id="final-result"></div>
+        </div>
+      </div>
+
+      <div class="section" id="s6-2">
+        <h2 class="section-title">¿Qué sigue?</h2>
+        <p>Has completado la <strong>Unidad 1: Sustantivos</strong>. En la próxima unidad exploraremos los <strong>artículos y determinantes</strong> (a, an, the, some, any, much, many…) — que dependen directamente de lo que aprendiste aquí sobre contables e incontables.</p>
+        <div class="callout callout-tip">
+          <div class="callout-icon">🎓</div>
+          <div><strong>Consejo de estudio</strong>Escribe 10 oraciones hoy usando nouns de distintas categorías: al menos 3 en plural, uno con posesivo y uno compuesto. La producción activa consolida el aprendizaje mucho más que solo leer.</div>
+        </div>
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(5)">← Compuestos</button>
+        <div class="nav-progress">Sección 7 de 7 — ¡Completado! 🎉</div>
+        <button class="nav-btn primary" disabled>Unidad 2 (próximamente)</button>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+let current = 0;
+const TOTAL = 7;
+
+function goTo(n) {
+  document.getElementById('page-' + current).classList.remove('active');
+  document.getElementById('prog-' + current).classList.remove('active');
+  if (n > current) document.getElementById('prog-' + current).classList.add('done');
+  current = n;
+  document.getElementById('page-' + current).classList.add('active');
+  document.getElementById('prog-' + current).classList.remove('done');
+  document.getElementById('prog-' + current).classList.add('active');
+  buildSidebar(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildSidebar(n) {
+  const page = document.getElementById('page-' + n);
+  const sections = (page.dataset.sections || '').split(',');
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = '<div class="sidebar-label">En esta sección</div>';
+  sections.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'sidebar-item' + (i === 0 ? ' active' : '');
+    el.textContent = s.trim();
+    const target = document.getElementById('s' + n + '-' + i);
+    el.onclick = () => {
+      document.querySelectorAll('.sidebar-item').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    sb.appendChild(el);
+  });
+}
+
+// Observe sections for sidebar highlight
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id; // s{page}-{i}
+      const match = id.match(/s(\d+)-(\d+)/);
+      if (!match) return;
+      const pn = parseInt(match[1]), sn = parseInt(match[2]);
+      if (pn !== current) return;
+      const items = document.querySelectorAll('.sidebar-item');
+      items.forEach((x, i) => x.classList.toggle('active', i === sn));
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+buildSidebar(0);
+
+// ─── EXERCISES ───
+
+function checkTypes() {
+  const answers = { t1q1: 'abstract', t1q2: 'proper', t1q3: 'collective', t1q4: 'uncountable', t1q5: 'countable' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    if (el.value === ans) { el.className = 'match-select correct'; correct++; }
+    else { el.className = 'match-select wrong'; }
+  });
+  const msg = document.getElementById('types-result');
+  msg.textContent = correct === 5 ? '🎉 ¡Perfecto! 5/5 correctas.' : `${correct}/5 correctas. Revisa las marcadas en rojo.`;
+  msg.className = 'result-msg ' + (correct === 5 ? 'good' : 'bad');
+  if (correct < 5) {
+    document.getElementById('types-answers').style.display = 'block';
+  }
+}
+
+function checkPlural() {
+  const answers = { p1: 'dishes', p2: 'families', p3: 'roofs', p4: 'buses', p5: 'halves', p6: 'photos' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    if (el.value.trim().toLowerCase() === ans) { el.className = 'q-input correct'; correct++; }
+    else { el.className = 'q-input wrong'; }
+  });
+  const msg = document.getElementById('plural-result');
+  msg.textContent = correct === 6 ? '🎉 ¡Perfecto! 6/6 correctas.' : `${correct}/6 — Incorrectas: ${getWrong(answers).join(', ')}`;
+  msg.className = 'result-msg ' + (correct === 6 ? 'good' : 'bad');
+}
+
+function checkIrregular() {
+  const answers = { ir1: 'teeth', ir2: 'children', ir3: 'deer', ir4: 'phenomena', ir5: 'criteria' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    if (el.value.trim().toLowerCase() === ans) { el.className = 'q-input correct'; correct++; }
+    else { el.className = 'q-input wrong'; }
+  });
+  const msg = document.getElementById('irr-result');
+  msg.textContent = correct === 5 ? '🎉 ¡Perfecto! 5/5.' : `${correct}/5 — Respuestas: teeth, children, deer, phenomena, criteria`;
+  msg.className = 'result-msg ' + (correct === 5 ? 'good' : 'bad');
+}
+
+function checkPossessive() {
+  const checks = [
+    { id: 'pos1', ans: ["'s"], hint: "'s" },
+    { id: 'pos2', ans: ['of'], hint: 'of' },
+    { id: 'pos3', ans: ["children's"], hint: "children's" },
+    { id: 'pos4', ans: ['of'], hint: 'of' },
+  ];
+  let correct = 0;
+  checks.forEach(c => {
+    const el = document.getElementById(c.id);
+    const val = el.value.trim().toLowerCase();
+    const ok = c.ans.includes(val);
+    el.className = 'q-input ' + (ok ? 'correct' : 'wrong');
+    if (ok) correct++;
+  });
+  const msg = document.getElementById('poss-result');
+  msg.textContent = correct === 4 ? '🎉 ¡Excelente! 4/4.' : `${correct}/4 — Respuestas: 's, of, children's, of`;
+  msg.className = 'result-msg ' + (correct === 4 ? 'good' : 'bad');
+}
+
+function checkCompound() {
+  const answers = { cn1: 'bookcase', cn2: 'sunglasses', cn3: 'post office', cn4: 'handbag', cn5: 'mothers-in-law' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    if (el.value.trim().toLowerCase() === ans) { el.className = 'q-input correct'; correct++; }
+    else { el.className = 'q-input wrong'; }
+  });
+  const msg = document.getElementById('compound-result');
+  msg.textContent = correct === 5 ? '🎉 ¡Perfecto!' : `${correct}/5 — Respuestas: bookcase, sunglasses, post office, handbag, mothers-in-law`;
+  msg.className = 'result-msg ' + (correct === 5 ? 'good' : 'bad');
+}
+
+function checkFinal() {
+  const answers = { fin1: 'a piece of', fin2: 'wolves', fin3: "students'", fin4: 'proper', fin5: 'b', fin6: 'mothers-in-law' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    if (el.value === ans) { el.className = 'match-select correct'; correct++; }
+    else { el.className = 'match-select wrong'; }
+  });
+  const msg = document.getElementById('final-result');
+  if (correct === 6) msg.textContent = '🎉 ¡Perfecto! 6/6. ¡Dominas los sustantivos en inglés!';
+  else if (correct >= 4) msg.textContent = `✅ ${correct}/6. ¡Muy bien! Repasa los conceptos de las respuestas incorrectas.`;
+  else msg.textContent = `${correct}/6. Te recomendamos repasar las secciones anteriores.`;
+  msg.className = 'result-msg ' + (correct >= 5 ? 'good' : 'bad');
+}
+
+function getWrong(answers) {
+  return Object.entries(answers)
+    .filter(([id, ans]) => document.getElementById(id).value.trim().toLowerCase() !== ans)
+    .map(([id, ans]) => ans);
+}
+</script>
+</body>
+</html>

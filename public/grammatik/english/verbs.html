@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verbos en Inglés — English Verbs</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0d0f14;
+  --bg2:      #13161e;
+  --bg3:      #1a1e2a;
+  --bg4:      #21263380;
+  --panel:    #181c26;
+  --border:   #2a2f3d;
+  --border2:  #363d52;
+
+  --cyan:     #38d9c0;
+  --cyan-dim: #1e6e62;
+  --cyan-glow:#38d9c033;
+  --blue:     #5b9cf6;
+  --blue-dim: #1e3a6e;
+  --green:    #57c98a;
+  --green-dim:#1a4a30;
+  --amber:    #f0b93a;
+  --amber-dim:#4a3510;
+  --red:      #f07070;
+  --red-dim:  #4a1e1e;
+  --purple:   #a78bfa;
+  --purple-dim:#2e1f6a;
+
+  --text:     #e2e6f0;
+  --text2:    #8892aa;
+  --text3:    #50586e;
+
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'Epilogue', sans-serif;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ── SCANLINE TEXTURE ── */
+body::before {
+  content:'';
+  position: fixed;
+  inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.012) 2px,
+    rgba(255,255,255,0.012) 4px
+  );
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: sticky;
+  top:0;
+  z-index:200;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: stretch;
+  gap:0;
+  height: 52px;
+}
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 24px;
+  border-right: 1px solid var(--border);
+  margin-right: 8px;
+}
+.brand-dot {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  display: flex; align-items:center; justify-content:center;
+  font-family: var(--mono); font-size: 0.7rem; font-weight:700; color:#0d0f14;
+}
+.brand-text { font-family: var(--display); font-size:0.88rem; font-weight:700; letter-spacing:0.04em; color:var(--text); }
+.brand-text span { color: var(--cyan); }
+
+.topbar-tabs {
+  display: flex;
+  align-items: stretch;
+  gap:0;
+  overflow-x:auto;
+  flex:1;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 18px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  transition: all 0.15s;
+  user-select: none;
+  flex-shrink:0;
+}
+.tab:hover { color: var(--text2); background: var(--bg3); }
+.tab.active { color: var(--cyan); border-bottom-color: var(--cyan); background: var(--bg3); }
+.tab .tab-n {
+  width:16px; height:16px; border-radius:4px;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.6rem; font-weight:700;
+  flex-shrink:0;
+}
+.tab.active .tab-n { background: var(--cyan-glow); border-color: var(--cyan-dim); color: var(--cyan); }
+.tab.done .tab-n { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+/* ── LAYOUT ── */
+.layout { display:flex; flex:1; position:relative; z-index:1; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 220px;
+  flex-shrink:0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y:auto;
+}
+.sb-section { margin-bottom: 6px; }
+.sb-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color: var(--text3);
+  padding: 8px 18px 5px;
+}
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.12s;
+  border-left: 2px solid transparent;
+}
+.sb-item:hover { background: var(--bg3); color: var(--text); }
+.sb-item.active { border-left-color: var(--cyan); color: var(--cyan); background: #38d9c010; }
+.sb-item::before { content:'›'; opacity:0.4; font-size:0.9rem; }
+.sb-item.active::before { opacity:1; }
+
+/* ── MAIN ── */
+.main {
+  flex:1;
+  padding: 48px 52px;
+  max-width: 860px;
+  min-width:0;
+}
+
+/* ── PAGE ── */
+.page { display:none; }
+.page.active { display:block; }
+
+/* ── PAGE HEADER ── */
+.page-header { margin-bottom: 44px; }
+.page-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.page-eyebrow::before {
+  content:'//';
+  opacity:0.5;
+}
+.page-title {
+  font-family: var(--display);
+  font-size: 2.8rem;
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-0.02em;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+.page-title em {
+  font-style:normal;
+  color: transparent;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.page-desc {
+  font-size: 0.95rem;
+  color: var(--text2);
+  line-height: 1.75;
+  font-weight:300;
+  max-width:580px;
+  border-left: 2px solid var(--cyan-dim);
+  padding-left: 16px;
+}
+
+/* ── SECTION ── */
+.section { margin-bottom: 48px; scroll-margin-top: 80px; }
+.section-title {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight:700;
+  color: var(--text);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .s-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--cyan);
+  background: var(--cyan-glow);
+  border: 1px solid var(--cyan-dim);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.section-title::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* ── PROSE ── */
+p {
+  font-size: 0.93rem;
+  line-height: 1.8;
+  color: var(--text2);
+  margin-bottom: 16px;
+  font-weight:300;
+}
+p strong { color: var(--text); font-weight:500; }
+.hl { font-family: var(--mono); color: var(--cyan); font-size:0.88em; }
+.hl-g { font-family: var(--mono); color: var(--green); }
+.hl-b { font-family: var(--mono); color: var(--blue); }
+.hl-a { font-family: var(--mono); color: var(--amber); }
+.hl-r { font-family: var(--mono); color: var(--red); }
+.hl-p { font-family: var(--mono); color: var(--purple); }
+.strike { text-decoration:line-through; opacity:0.5; }
+
+/* ── DEF BOX ── */
+.def-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-size:0.88rem;
+  line-height:1.7;
+  color: var(--text2);
+}
+.def-box .def-label {
+  font-family: var(--mono);
+  font-size:0.6rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color: var(--cyan);
+  margin-bottom:7px;
+}
+
+/* ── CODE BLOCK ── */
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size:0.82rem;
+  line-height:1.8;
+  margin: 16px 0;
+  color: var(--text2);
+  position:relative;
+  overflow-x:auto;
+}
+.code-block .cb-label {
+  position:absolute; top:8px; right:12px;
+  font-size:0.58rem; text-transform:uppercase; letter-spacing:0.1em;
+  color: var(--text3); font-weight:700;
+}
+.cb-key   { color: var(--blue); }
+.cb-val   { color: var(--green); }
+.cb-str   { color: var(--amber); }
+.cb-com   { color: var(--text3); font-style:italic; }
+.cb-cyan  { color: var(--cyan); }
+.cb-red   { color: var(--red); }
+.cb-line  { display:block; padding:1px 0; }
+
+/* ── GRID CARDS ── */
+.card-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap:12px; margin:18px 0; }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.card .card-tag {
+  font-family: var(--mono);
+  font-size:0.6rem;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin-bottom:8px;
+  padding: 2px 7px;
+  border-radius:3px;
+  display:inline-block;
+}
+.card .card-en { font-family: var(--mono); font-size:0.92rem; color: var(--cyan); margin-bottom:4px; font-weight:500; }
+.card .card-es { font-size:0.78rem; color: var(--text3); }
+
+.tag-cyan   { background: var(--cyan-glow); color: var(--cyan); border:1px solid var(--cyan-dim); }
+.tag-green  { background: var(--green-dim); color: var(--green); border:1px solid #2a6a40; }
+.tag-blue   { background: var(--blue-dim);  color: var(--blue);  border:1px solid #2a4a8a; }
+.tag-amber  { background: var(--amber-dim); color: var(--amber); border:1px solid #6a4a10; }
+.tag-red    { background: var(--red-dim);   color: var(--red);   border:1px solid #6a2a2a; }
+.tag-purple { background: var(--purple-dim);color: var(--purple);border:1px solid #4a2a9a; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x:auto; margin: 18px 0; border-radius: var(--radius); border: 1px solid var(--border); }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+thead tr { background: var(--bg3); }
+thead th {
+  padding: 11px 16px; text-align:left;
+  font-family: var(--mono); font-size:0.7rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.08em;
+  color: var(--text3); border-bottom:1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:last-child { border-bottom:none; }
+tbody tr:hover { background: var(--bg3); }
+tbody td { padding: 10px 16px; color: var(--text2); line-height:1.5; }
+tbody td:first-child { font-family: var(--mono); color: var(--cyan); font-size:0.82rem; }
+tbody td:nth-child(2) { font-family: var(--mono); color: var(--green); font-size:0.82rem; }
+
+/* ── RULE CARD ── */
+.rule {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin: 14px 0;
+  position:relative;
+}
+.rule .rule-tag {
+  position:absolute; top:-10px; left:18px;
+  font-family: var(--mono); font-size:0.62rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.1em;
+  padding: 2px 9px; border-radius: 4px;
+}
+.rule .rule-head { font-size:0.93rem; font-weight:500; color:var(--text); margin-bottom:6px; }
+.rule .rule-body { font-size:0.86rem; color:var(--text2); line-height:1.7; font-weight:300; }
+.rule .rule-ex {
+  font-family: var(--mono); font-size:0.8rem;
+  background: var(--bg); border:1px solid var(--border);
+  padding:8px 14px; border-radius:5px;
+  margin-top:10px; color:var(--text2); line-height:1.7;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  display:flex; gap:12px; padding:14px 18px;
+  border-radius: var(--radius); margin:16px 0;
+  align-items:flex-start; font-size:0.86rem; line-height:1.7;
+}
+.callout-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+.callout div { color: var(--text2); }
+.callout strong { font-weight:500; display:block; margin-bottom:3px; }
+.callout-warn { background:#3a2a0a; border:1px solid #6a4a10; }
+.callout-warn strong { color: var(--amber); }
+.callout-info { background:#0d1e3a; border:1px solid #1e3a6e; }
+.callout-info strong { color: var(--blue); }
+.callout-tip  { background:#0a2a1e; border:1px solid #1a4a30; }
+.callout-tip strong  { color: var(--green); }
+
+/* ── TENSE TIMELINE ── */
+.timeline {
+  display: flex;
+  align-items: center;
+  gap:0;
+  margin: 24px 0;
+  overflow-x:auto;
+  padding-bottom: 8px;
+}
+.tl-item {
+  flex:1; min-width:90px;
+  text-align:center; position:relative;
+}
+.tl-item::before {
+  content:''; position:absolute;
+  top:50%; left:0; right:0;
+  height:2px; background: var(--border);
+  z-index:0;
+}
+.tl-item:first-child::before { left:50%; }
+.tl-item:last-child::before  { right:50%; }
+.tl-dot {
+  width:32px; height:32px;
+  border-radius:50%;
+  border:2px solid var(--border2);
+  background: var(--panel);
+  margin: 0 auto 8px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.62rem; font-weight:700;
+  color: var(--text3); position:relative; z-index:1;
+  transition: all 0.2s;
+}
+.tl-item.past .tl-dot  { border-color: var(--blue);   color: var(--blue);   background: var(--blue-dim); }
+.tl-item.now  .tl-dot  { border-color: var(--cyan);   color: var(--cyan);   background: var(--cyan-glow); box-shadow:0 0 12px var(--cyan-glow); }
+.tl-item.fut  .tl-dot  { border-color: var(--purple); color: var(--purple); background: var(--purple-dim); }
+.tl-label { font-family:var(--mono); font-size:0.65rem; color:var(--text3); }
+.tl-item.past .tl-label { color:var(--blue); }
+.tl-item.now  .tl-label { color:var(--cyan); }
+.tl-item.fut  .tl-label { color:var(--purple); }
+
+/* ── VERB CONJUGATION CARD ── */
+.conj-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background: var(--border); border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; margin:16px 0; }
+.conj-cell { background: var(--panel); padding:10px 16px; }
+.conj-cell:hover { background: var(--bg3); }
+.conj-pro  { font-family:var(--mono); font-size:0.72rem; color:var(--text3); margin-bottom:3px; text-transform:lowercase; }
+.conj-form { font-family:var(--mono); font-size:0.9rem; color:var(--cyan); font-weight:500; }
+.conj-form.irr { color: var(--amber); }
+.conj-es   { font-size:0.75rem; color:var(--text3); margin-top:2px; }
+
+/* ── BADGE STRIP ── */
+.badge-strip { display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
+.badge {
+  font-family:var(--mono); font-size:0.72rem;
+  padding: 4px 11px; border-radius:4px;
+  border:1px solid; display:inline-block;
+}
+
+/* ── EXERCISE ── */
+.exercise {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 30px;
+  margin: 32px 0;
+}
+.exercise .ex-header {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom: 6px;
+}
+.ex-title { font-family:var(--display); font-size:1rem; font-weight:700; color:var(--text); }
+.ex-tag {
+  font-family:var(--mono); font-size:0.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.1em;
+  background: var(--cyan-glow); color: var(--cyan); border:1px solid var(--cyan-dim);
+  padding:2px 7px; border-radius:4px;
+}
+.ex-inst { font-size:0.82rem; color:var(--text3); margin-bottom:22px; font-weight:300; line-height:1.6; }
+.q-item { margin-bottom:14px; }
+.q-text { font-size:0.88rem; color:var(--text2); margin-bottom:7px; line-height:1.6; font-weight:300; }
+.q-text strong { font-family:var(--mono); color:var(--cyan); font-weight:500; }
+.q-input {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 7px 13px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  width: 170px;
+  outline:none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.q-input:focus { border-color: var(--cyan); box-shadow:0 0 0 2px var(--cyan-glow); }
+.q-input.correct { border-color: var(--green); background: var(--green-dim); }
+.q-input.wrong   { border-color: var(--red);   background: var(--red-dim); }
+.q-select {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius:5px;
+  padding: 7px 12px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size:0.82rem;
+  outline:none;
+  cursor:pointer;
+  transition: border-color 0.2s;
+}
+.q-select:focus { border-color: var(--cyan); }
+.q-select option { background: var(--bg2); color: var(--text); }
+.q-select.correct { border-color: var(--green); }
+.q-select.wrong   { border-color: var(--red); }
+.check-btn {
+  margin-top:18px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  color: #0d0f14;
+  border:none; border-radius:6px;
+  padding: 10px 26px;
+  font-family: var(--mono);
+  font-size:0.82rem; font-weight:700;
+  cursor:pointer; letter-spacing:0.05em;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.check-btn:hover { opacity:0.85; transform:translateY(-1px); }
+.check-btn:active { transform:translateY(0); }
+.result-msg { margin-top:12px; font-family:var(--mono); font-size:0.82rem; min-height:20px; }
+.result-msg.good { color: var(--green); }
+.result-msg.bad  { color: var(--red); }
+
+/* ── TENSE BIG TABLE ── */
+.tense-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 200px;
+  gap:1px;
+  background: var(--border);
+  margin-bottom:1px;
+}
+.tense-row:first-child { border-radius: var(--radius) var(--radius) 0 0; overflow:hidden; }
+.tense-row.tense-head { background: var(--bg3); }
+.tense-cell {
+  background: var(--panel);
+  padding: 11px 16px;
+  font-size:0.82rem; line-height:1.5;
+}
+.tense-cell:hover { background: var(--bg3); }
+.tense-cell .tc-name { font-family:var(--mono); color:var(--cyan); font-size:0.8rem; font-weight:500; }
+.tense-cell .tc-form { font-family:var(--mono); color:var(--text3); font-size:0.72rem; margin-top:2px; }
+.tense-cell .tc-use  { color:var(--text2); font-size:0.82rem; }
+.tense-cell .tc-ex   { font-family:var(--mono); color:var(--amber); font-size:0.78rem; margin-top:4px; }
+.tense-head-cell { background:var(--bg3)!important; font-family:var(--mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text3)!important; }
+.tense-wrap { border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:18px 0; }
+.group-header {
+  background:var(--bg3); padding: 8px 16px;
+  font-family:var(--mono); font-size:0.7rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.12em;
+  border-bottom:1px solid var(--border);
+}
+
+/* ── TWO COL ── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0; }
+@media (max-width:640px) { .two-col { grid-template-columns:1fr; } }
+
+/* ── MODAL VERB GRID ── */
+.modal-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:10px; margin:16px 0; }
+.modal-card {
+  background: var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 16px;
+}
+.modal-card .mc-verb { font-family:var(--mono); font-size:1rem; color:var(--cyan); font-weight:700; margin-bottom:4px; }
+.modal-card .mc-sp   { font-family:var(--mono); font-size:0.72rem; color:var(--purple); margin-bottom:6px; }
+.modal-card .mc-use  { font-size:0.78rem; color:var(--text2); line-height:1.5; font-weight:300; }
+.modal-card .mc-ex   { font-family:var(--mono); font-size:0.72rem; color:var(--amber); margin-top:7px; line-height:1.5; }
+
+/* ── NAV FOOTER ── */
+.nav-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 28px 0; border-top:1px solid var(--border); margin-top:44px;
+}
+.nav-btn {
+  display:flex; align-items:center; gap:8px;
+  padding: 11px 22px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  background: var(--panel);
+  font-family: var(--mono); font-size:0.78rem;
+  color: var(--text2); cursor:pointer;
+  transition: all 0.15s; font-weight:400;
+  letter-spacing:0.02em;
+}
+.nav-btn:hover:not(:disabled) { border-color:var(--cyan); color:var(--cyan); }
+.nav-btn:disabled { opacity:0.3; cursor:default; }
+.nav-btn.primary {
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  border-color: transparent; color: #0d0f14; font-weight:700;
+}
+.nav-btn.primary:hover { opacity:0.85; }
+.nav-prog { font-family:var(--mono); font-size:0.7rem; color:var(--text3); text-align:center; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius:3px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.page.active { animation: fadeIn 0.25s ease; }
+
+/* ── IRREGULAR VERB COLUMNS ── */
+.irr-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:16px 0; }
+.irr-head { background:var(--bg3); padding:8px 14px; font-family:var(--mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text3); }
+.irr-cell { background:var(--panel); padding:9px 14px; font-family:var(--mono); font-size:0.82rem; }
+.irr-cell:hover { background:var(--bg3); }
+.irr-cell.c1 { color:var(--cyan); }
+.irr-cell.c2 { color:var(--amber); }
+.irr-cell.c3 { color:var(--green); }
+
+/* ── COMPARISON ── */
+.vs-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch; margin:16px 0; }
+.vs-col { background:var(--panel); border:1px solid var(--border); padding:18px; border-radius:var(--radius) 0 0 var(--radius); }
+.vs-col:last-child { border-radius:0 var(--radius) var(--radius) 0; border-left:none; }
+.vs-div { background:var(--bg3); border-top:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:center; padding:0 14px; font-family:var(--mono); font-size:0.72rem; color:var(--text3); writing-mode:vertical-lr; }
+.vs-head { font-family:var(--mono); font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.vs-col:first-child .vs-head { color:var(--blue); }
+.vs-col:last-child  .vs-head { color:var(--green); }
+.vs-item { font-family:var(--mono); font-size:0.8rem; color:var(--text2); margin-bottom:6px; line-height:1.5; }
+.vs-item span { color:var(--text3); font-size:0.72rem; display:block; }
+
+/* ── PHRASAL VERB CARDS ── */
+.pv-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; margin:16px 0; }
+.pv-card { background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+.pv-card:hover { border-color:var(--border2); }
+.pv-verb { font-family:var(--mono); font-size:0.95rem; font-weight:700; margin-bottom:5px; }
+.pv-verb .pv-base { color:var(--cyan); }
+.pv-verb .pv-part { color:var(--purple); }
+.pv-meaning { font-size:0.8rem; color:var(--text2); margin-bottom:6px; font-weight:300; }
+.pv-ex { font-family:var(--mono); font-size:0.75rem; color:var(--amber); line-height:1.5; }
+
+/* progress bar fill */
+.prog-fill {
+  height:2px; background:linear-gradient(90deg,var(--cyan),var(--blue));
+  position:fixed; top:52px; left:0; z-index:300;
+  transition: width 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="prog-fill" id="progFill" style="width:0%"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-dot">EG</div>
+    <div>
+      <div class="brand-text">English <span>Grammar</span></div>
+    </div>
+  </div>
+  <div class="topbar-tabs" id="tabBar">
+    <div class="tab active" onclick="goTo(0)" id="tab-0"><span class="tab-n">1</span> Intro</div>
+    <div class="tab" onclick="goTo(1)" id="tab-1"><span class="tab-n">2</span> Tipos</div>
+    <div class="tab" onclick="goTo(2)" id="tab-2"><span class="tab-n">3</span> Irregulares</div>
+    <div class="tab" onclick="goTo(3)" id="tab-3"><span class="tab-n">4</span> Tiempos</div>
+    <div class="tab" onclick="goTo(4)" id="tab-4"><span class="tab-n">5</span> Modales</div>
+    <div class="tab" onclick="goTo(5)" id="tab-5"><span class="tab-n">6</span> Phrasal</div>
+    <div class="tab" onclick="goTo(6)" id="tab-6"><span class="tab-n">7</span> Voz pasiva</div>
+    <div class="tab" onclick="goTo(7)" id="tab-7"><span class="tab-n">8</span> Repaso</div>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar"></div>
+
+<!-- MAIN -->
+<div class="main" id="mainContent">
+
+<!-- ═══════════ PAGE 0: INTRO ═══════════ -->
+<div class="page active" id="page-0" data-sections="¿Qué es un verb?,Identificar verbos,Partes del verbo,¿Qué aprenderás?">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — verbs.en</div>
+    <h1 class="page-title">¿Qué es un <em>verb</em>?</h1>
+    <p class="page-desc">Los verbos son el motor de toda oración. Sin un verbo, no hay acción, estado ni existencia. Esta unidad cubre desde los fundamentos hasta los tiempos verbales completos.</p>
+  </div>
+
+  <div class="section" id="s0-0">
+    <h2 class="section-title"><span class="s-num">01</span> ¿Qué es un verb?</h2>
+    <p>Un <strong>verb</strong> es una palabra que expresa una <strong>acción</strong>, un <strong>estado</strong> o un <strong>proceso</strong>. Es el núcleo del predicado de toda oración en inglés; sin verbo, no hay oración gramaticalmente completa.</p>
+    <div class="def-box">
+      <div class="def-label">// definición</div>
+      A verb is a word that describes an action, a state, or an occurrence. Every English sentence must contain at least one verb.
+    </div>
+    <div class="code-block">
+      <div class="cb-label">ejemplos</div>
+      <span class="cb-line"><span class="cb-com">// acción física</span></span>
+      <span class="cb-line"><span class="cb-cyan">She</span> <span class="cb-key">runs</span> every morning.</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// estado mental</span></span>
+      <span class="cb-line"><span class="cb-cyan">He</span> <span class="cb-key">knows</span> the answer.</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// existencia / estado</span></span>
+      <span class="cb-line"><span class="cb-cyan">They</span> <span class="cb-key">are</span> students.</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// ocurrencia / proceso</span></span>
+      <span class="cb-line"><span class="cb-cyan">The sun</span> <span class="cb-key">rises</span> at 6am.</span>
+    </div>
+  </div>
+
+  <div class="section" id="s0-1">
+    <h2 class="section-title"><span class="s-num">02</span> Identificar verbos</h2>
+    <p>Para identificar si una palabra es un verbo, puedes usar estas pruebas:</p>
+    <div class="rule" style="margin-bottom:12px">
+      <div class="rule-tag tag-cyan">Prueba 1</div>
+      <div class="rule-head">¿Puede cambiar de tiempo verbal?</div>
+      <div class="rule-body">Los verbos se conjugan: presente, pasado, futuro.</div>
+      <div class="rule-ex"><span class="hl">run</span> → runs / ran / will run ✓<br><span class="hl-r">fast</span> → no cambia de tiempo ✗</div>
+    </div>
+    <div class="rule" style="margin-bottom:12px">
+      <div class="rule-tag tag-blue">Prueba 2</div>
+      <div class="rule-head">¿Puede ir después de un sujeto?</div>
+      <div class="rule-body">En la estructura básica Subject + Verb, el verbo sigue al sujeto.</div>
+      <div class="rule-ex">She <span class="hl">loves</span> music. · The dog <span class="hl">barked</span>. ✓</div>
+    </div>
+    <div class="rule">
+      <div class="rule-tag tag-green">Prueba 3</div>
+      <div class="rule-head">¿Acepta -ing o -ed?</div>
+      <div class="rule-body">La mayoría de los verbos pueden tomar estos sufijos para formar tiempos compuestos.</div>
+      <div class="rule-ex">work → work<span class="hl-g">ing</span> / work<span class="hl-g">ed</span> ✓</div>
+    </div>
+    <div class="callout callout-info" style="margin-top:18px">
+      <div class="callout-icon">ℹ️</div>
+      <div><strong>Conversión noun ↔ verb</strong>En inglés muchas palabras funcionan como sustantivo Y como verbo según el contexto: <span class="hl-b">a drive</span> (sustantivo) vs. <span class="hl">to drive</span> (verbo). <span class="hl-b">a water</span> → <span class="hl">to water</span> the plants.</div>
+    </div>
+  </div>
+
+  <div class="section" id="s0-2">
+    <h2 class="section-title"><span class="s-num">03</span> Partes del verbo</h2>
+    <p>Cada verbo en inglés tiene cinco formas base:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Forma</th><th>Nombre</th><th>Ejemplo (to eat)</th><th>Uso principal</th></tr></thead>
+        <tbody>
+          <tr><td>eat</td><td>Base / infinitivo</td><td>eat</td><td>presente simple, imperativo</td></tr>
+          <tr><td>eats</td><td>3ª persona singular</td><td>eats</td><td>he/she/it + presente</td></tr>
+          <tr><td>ate</td><td>Pasado simple</td><td>ate</td><td>acciones terminadas en el pasado</td></tr>
+          <tr><td>eaten</td><td>Participio pasado</td><td>eaten</td><td>perfect tenses, voz pasiva</td></tr>
+          <tr><td>eating</td><td>Participio presente (-ing)</td><td>eating</td><td>tiempos continuos, gerundio</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="s0-3">
+    <h2 class="section-title"><span class="s-num">04</span> ¿Qué aprenderás?</h2>
+    <p>Esta unidad cubre los siguientes temas. Cada sección tiene teoría, ejemplos y ejercicios interactivos:</p>
+    <div class="badge-strip">
+      <span class="badge tag-cyan">Tipos de verbos</span>
+      <span class="badge tag-blue">Verbos irregulares</span>
+      <span class="badge tag-amber">Todos los tiempos verbales</span>
+      <span class="badge tag-purple">Verbos modales</span>
+      <span class="badge tag-green">Phrasal verbs</span>
+      <span class="badge tag-red">Voz pasiva</span>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" disabled>← anterior</button>
+    <div class="nav-prog">01 / 08 — intro</div>
+    <button class="nav-btn primary" onclick="goTo(1)">tipos de verbo →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 1: TIPOS ═══════════ -->
+<div class="page" id="page-1" data-sections="Acción vs. estado,Transitivos e intransitivos,Auxiliares,Copulativos,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — types.en</div>
+    <h1 class="page-title">Tipos de <em>verbos</em></h1>
+    <p class="page-desc">Los verbos ingleses se clasifican de múltiples formas. Entender estas categorías te ayuda a usarlos correctamente con tiempos y estructuras.</p>
+  </div>
+
+  <div class="section" id="s1-0">
+    <h2 class="section-title"><span class="s-num">01</span> Acción vs. estado</h2>
+    <p>Esta es la distinción más importante para el uso de los tiempos continuos.</p>
+    <div class="vs-grid">
+      <div class="vs-col">
+        <div class="vs-head">⚡ action verbs</div>
+        <div class="vs-item">run <span>correr — acción física</span></div>
+        <div class="vs-item">write <span>escribir</span></div>
+        <div class="vs-item">build <span>construir</span></div>
+        <div class="vs-item">eat <span>comer</span></div>
+        <div class="vs-item">sleep <span>dormir</span></div>
+      </div>
+      <div class="vs-div">vs</div>
+      <div class="vs-col">
+        <div class="vs-head">◉ stative verbs</div>
+        <div class="vs-item">know <span>saber — estado mental</span></div>
+        <div class="vs-item">love <span>amar — emoción</span></div>
+        <div class="vs-item">belong <span>pertenecer</span></div>
+        <div class="vs-item">contain <span>contener</span></div>
+        <div class="vs-item">seem <span>parecer</span></div>
+      </div>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Regla crítica: stative verbs NO van en continuous</strong>
+      <span class="hl-r strike">I am knowing the answer.</span> → <span class="hl-g">I know the answer.</span><br>
+      <span class="hl-r strike">She is loving chocolate.</span> → <span class="hl-g">She loves chocolate.</span>
+      </div>
+    </div>
+    <div class="callout callout-info">
+      <div class="callout-icon">ℹ️</div>
+      <div><strong>Verbos mixtos</strong>Algunos verbos son estáticos O de acción según el contexto: <span class="hl-b">I think he's right</span> (creer = estado) vs. <span class="hl-b">I'm thinking about it</span> (pensar = proceso activo).</div>
+    </div>
+  </div>
+
+  <div class="section" id="s1-1">
+    <h2 class="section-title"><span class="s-num">02</span> Transitivos e intransitivos</h2>
+    <p>Un verbo <strong>transitivo</strong> requiere un objeto directo para completar su significado. Un verbo <strong>intransitivo</strong> tiene sentido completo solo.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-tag tag-blue">transitive</span>
+        <div class="card-en">She <strong>wrote</strong> a letter.</div>
+        <div class="card-es">"a letter" es el objeto directo</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-green">intransitive</span>
+        <div class="card-en">The baby <strong>cried</strong>.</div>
+        <div class="card-es">sentido completo sin objeto</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-amber">both</span>
+        <div class="card-en">She <strong>runs</strong> fast. / She <strong>runs</strong> a company.</div>
+        <div class="card-es">el mismo verbo, uso distinto</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-blue">transitive</span>
+        <div class="card-en">They <strong>built</strong> a house.</div>
+        <div class="card-es">"a house" = objeto directo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s1-2">
+    <h2 class="section-title"><span class="s-num">03</span> Verbos auxiliares</h2>
+    <p>Los <strong>auxiliary verbs</strong> (verbos auxiliares) se usan junto con el verbo principal para formar tiempos compuestos, negaciones, preguntas y expresar modalidad.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Auxiliar</th><th>Función principal</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>be (am/is/are/was/were)</td><td>tiempos continuos, voz pasiva</td><td>She <span class="hl">is</span> working. / It <span class="hl">was</span> built.</td></tr>
+          <tr><td>have (has/had)</td><td>tiempos perfectos</td><td>I <span class="hl">have</span> seen it. / She <span class="hl">had</span> left.</td></tr>
+          <tr><td>do (does/did)</td><td>negaciones, preguntas, énfasis</td><td><span class="hl">Do</span> you know? / I <span class="hl">did</span> try.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-tip">
+      <div class="callout-icon">✅</div>
+      <div><strong>Do/Does/Did para preguntas y negaciones</strong>
+      <span class="hl-g">Do</span> you like coffee? / I <span class="hl-g">don't</span> like tea.<br>
+      <span class="hl-g">Does</span> she work here? / He <span class="hl-g">doesn't</span> know.<br>
+      <span class="hl-g">Did</span> they arrive? / We <span class="hl-g">didn't</span> go.</div>
+    </div>
+  </div>
+
+  <div class="section" id="s1-3">
+    <h2 class="section-title"><span class="s-num">04</span> Verbos copulativos (linking verbs)</h2>
+    <p>Los <strong>linking verbs</strong> no expresan acción sino que conectan el sujeto con una descripción (adjetivo o sustantivo). El más importante es <span class="hl">be</span>.</p>
+    <div class="badge-strip">
+      <span class="badge tag-cyan">be</span><span class="badge tag-cyan">seem</span><span class="badge tag-cyan">appear</span><span class="badge tag-cyan">become</span><span class="badge tag-cyan">feel</span><span class="badge tag-cyan">look</span><span class="badge tag-cyan">sound</span><span class="badge tag-cyan">smell</span><span class="badge tag-cyan">taste</span><span class="badge tag-cyan">remain</span>
+    </div>
+    <div class="code-block">
+      <span class="cb-line"><span class="cb-com">// linking: sujeto + linking verb + adjetivo/sustantivo</span></span>
+      <span class="cb-line">She <span class="cb-key">is</span> <span class="cb-val">a teacher</span>.       <span class="cb-com">// be + sustantivo</span></span>
+      <span class="cb-line">He <span class="cb-key">seems</span> <span class="cb-val">tired</span>.        <span class="cb-com">// seem + adjetivo</span></span>
+      <span class="cb-line">It <span class="cb-key">smells</span> <span class="cb-val">delicious</span>.   <span class="cb-com">// smell + adjetivo (no adverbio!)</span></span>
+      <span class="cb-line">She <span class="cb-key">became</span> <span class="cb-val">famous</span>.     <span class="cb-com">// become + adjetivo</span></span>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Adjetivo, NO adverbio después de linking verbs</strong>
+      <span class="hl-r strike">It smells badly.</span> → <span class="hl-g">It smells bad.</span><br>
+      <span class="hl-r strike">She looks nicely.</span> → <span class="hl-g">She looks nice.</span></div>
+    </div>
+  </div>
+
+  <div class="section" id="s1-4">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Tipos de verbos</div><div class="ex-tag">EX_01</div></div>
+      <div class="ex-inst">Clasifica cada verbo según el tipo indicado.</div>
+      <div class="q-item"><div class="q-text"><strong>"know"</strong> — ¿action o stative?</div>
+        <select class="q-select" id="t1q1"><option value="">—</option><option value="action">action</option><option value="stative">stative</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>"build"</strong> — ¿transitivo o intransitivo?</div>
+        <select class="q-select" id="t1q2"><option value="">—</option><option value="transitive">transitive</option><option value="intransitive">intransitive</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>"seem"</strong> — ¿linking verb o action verb?</div>
+        <select class="q-select" id="t1q3"><option value="">—</option><option value="linking">linking</option><option value="action">action</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>"have"</strong> (en "I have eaten") — ¿verbo principal o auxiliar?</div>
+        <select class="q-select" id="t1q4"><option value="">—</option><option value="main">verbo principal</option><option value="aux">auxiliar</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>¿Cuál está mal?</strong></div>
+        <select class="q-select" id="t1q5"><option value="">—</option><option value="a">She looks happy.</option><option value="b">It smells badly.</option><option value="c">He became famous.</option></select></div>
+      <button class="check-btn" onclick="check('t1',['stative','transitive','linking','aux','b'])">verificar →</button>
+      <div class="result-msg" id="res-t1"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(0)">← intro</button>
+    <div class="nav-prog">02 / 08 — tipos</div>
+    <button class="nav-btn primary" onclick="goTo(2)">irregulares →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 2: IRREGULARES ═══════════ -->
+<div class="page" id="page-2" data-sections="Regulares vs. irregulares,Lista esencial,Patrones comunes,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — irregular_verbs.en</div>
+    <h1 class="page-title">Verbos <em>irregulares</em></h1>
+    <p class="page-desc">Los verbos irregulares son los más usados del inglés. No siguen la regla de añadir -ed para el pasado — hay que memorizarlos.</p>
+  </div>
+
+  <div class="section" id="s2-0">
+    <h2 class="section-title"><span class="s-num">01</span> Regulares vs. irregulares</h2>
+    <div class="two-col">
+      <div class="rule">
+        <div class="rule-tag tag-green">Regular</div>
+        <div class="rule-head">Base + -ed (para pasado y participio)</div>
+        <div class="rule-ex">work → work<span class="hl-g">ed</span> → work<span class="hl-g">ed</span><br>play → play<span class="hl-g">ed</span> → play<span class="hl-g">ed</span><br>walk → walk<span class="hl-g">ed</span> → walk<span class="hl-g">ed</span></div>
+      </div>
+      <div class="rule">
+        <div class="rule-tag tag-amber">Irregular</div>
+        <div class="rule-head">Forma propia — sin regla fija</div>
+        <div class="rule-ex">go → <span class="hl-a">went</span> → <span class="hl-a">gone</span><br>eat → <span class="hl-a">ate</span> → <span class="hl-a">eaten</span><br>be → <span class="hl-a">was/were</span> → <span class="hl-a">been</span></div>
+      </div>
+    </div>
+    <p>Los verbos irregulares tienen <strong>tres formas</strong> clave: base (infinitivo), pasado simple, y participio pasado. Algunas son iguales entre sí; otras son completamente distintas.</p>
+  </div>
+
+  <div class="section" id="s2-1">
+    <h2 class="section-title"><span class="s-num">02</span> Lista esencial (60 verbos)</h2>
+    <div class="irr-grid">
+      <div class="irr-head">base</div><div class="irr-head">past simple</div><div class="irr-head">past participle</div>
+      <div class="irr-cell c1">be</div><div class="irr-cell c2">was / were</div><div class="irr-cell c3">been</div>
+      <div class="irr-cell c1">begin</div><div class="irr-cell c2">began</div><div class="irr-cell c3">begun</div>
+      <div class="irr-cell c1">break</div><div class="irr-cell c2">broke</div><div class="irr-cell c3">broken</div>
+      <div class="irr-cell c1">bring</div><div class="irr-cell c2">brought</div><div class="irr-cell c3">brought</div>
+      <div class="irr-cell c1">build</div><div class="irr-cell c2">built</div><div class="irr-cell c3">built</div>
+      <div class="irr-cell c1">buy</div><div class="irr-cell c2">bought</div><div class="irr-cell c3">bought</div>
+      <div class="irr-cell c1">catch</div><div class="irr-cell c2">caught</div><div class="irr-cell c3">caught</div>
+      <div class="irr-cell c1">choose</div><div class="irr-cell c2">chose</div><div class="irr-cell c3">chosen</div>
+      <div class="irr-cell c1">come</div><div class="irr-cell c2">came</div><div class="irr-cell c3">come</div>
+      <div class="irr-cell c1">cut</div><div class="irr-cell c2">cut</div><div class="irr-cell c3">cut</div>
+      <div class="irr-cell c1">do</div><div class="irr-cell c2">did</div><div class="irr-cell c3">done</div>
+      <div class="irr-cell c1">draw</div><div class="irr-cell c2">drew</div><div class="irr-cell c3">drawn</div>
+      <div class="irr-cell c1">drink</div><div class="irr-cell c2">drank</div><div class="irr-cell c3">drunk</div>
+      <div class="irr-cell c1">drive</div><div class="irr-cell c2">drove</div><div class="irr-cell c3">driven</div>
+      <div class="irr-cell c1">eat</div><div class="irr-cell c2">ate</div><div class="irr-cell c3">eaten</div>
+      <div class="irr-cell c1">fall</div><div class="irr-cell c2">fell</div><div class="irr-cell c3">fallen</div>
+      <div class="irr-cell c1">feel</div><div class="irr-cell c2">felt</div><div class="irr-cell c3">felt</div>
+      <div class="irr-cell c1">find</div><div class="irr-cell c2">found</div><div class="irr-cell c3">found</div>
+      <div class="irr-cell c1">fly</div><div class="irr-cell c2">flew</div><div class="irr-cell c3">flown</div>
+      <div class="irr-cell c1">forget</div><div class="irr-cell c2">forgot</div><div class="irr-cell c3">forgotten</div>
+      <div class="irr-cell c1">get</div><div class="irr-cell c2">got</div><div class="irr-cell c3">got / gotten</div>
+      <div class="irr-cell c1">give</div><div class="irr-cell c2">gave</div><div class="irr-cell c3">given</div>
+      <div class="irr-cell c1">go</div><div class="irr-cell c2">went</div><div class="irr-cell c3">gone</div>
+      <div class="irr-cell c1">grow</div><div class="irr-cell c2">grew</div><div class="irr-cell c3">grown</div>
+      <div class="irr-cell c1">have</div><div class="irr-cell c2">had</div><div class="irr-cell c3">had</div>
+      <div class="irr-cell c1">hear</div><div class="irr-cell c2">heard</div><div class="irr-cell c3">heard</div>
+      <div class="irr-cell c1">hold</div><div class="irr-cell c2">held</div><div class="irr-cell c3">held</div>
+      <div class="irr-cell c1">keep</div><div class="irr-cell c2">kept</div><div class="irr-cell c3">kept</div>
+      <div class="irr-cell c1">know</div><div class="irr-cell c2">knew</div><div class="irr-cell c3">known</div>
+      <div class="irr-cell c1">lead</div><div class="irr-cell c2">led</div><div class="irr-cell c3">led</div>
+      <div class="irr-cell c1">leave</div><div class="irr-cell c2">left</div><div class="irr-cell c3">left</div>
+      <div class="irr-cell c1">lose</div><div class="irr-cell c2">lost</div><div class="irr-cell c3">lost</div>
+      <div class="irr-cell c1">make</div><div class="irr-cell c2">made</div><div class="irr-cell c3">made</div>
+      <div class="irr-cell c1">meet</div><div class="irr-cell c2">met</div><div class="irr-cell c3">met</div>
+      <div class="irr-cell c1">put</div><div class="irr-cell c2">put</div><div class="irr-cell c3">put</div>
+      <div class="irr-cell c1">read</div><div class="irr-cell c2">read</div><div class="irr-cell c3">read</div>
+      <div class="irr-cell c1">run</div><div class="irr-cell c2">ran</div><div class="irr-cell c3">run</div>
+      <div class="irr-cell c1">say</div><div class="irr-cell c2">said</div><div class="irr-cell c3">said</div>
+      <div class="irr-cell c1">see</div><div class="irr-cell c2">saw</div><div class="irr-cell c3">seen</div>
+      <div class="irr-cell c1">sell</div><div class="irr-cell c2">sold</div><div class="irr-cell c3">sold</div>
+      <div class="irr-cell c1">send</div><div class="irr-cell c2">sent</div><div class="irr-cell c3">sent</div>
+      <div class="irr-cell c1">sing</div><div class="irr-cell c2">sang</div><div class="irr-cell c3">sung</div>
+      <div class="irr-cell c1">sit</div><div class="irr-cell c2">sat</div><div class="irr-cell c3">sat</div>
+      <div class="irr-cell c1">sleep</div><div class="irr-cell c2">slept</div><div class="irr-cell c3">slept</div>
+      <div class="irr-cell c1">speak</div><div class="irr-cell c2">spoke</div><div class="irr-cell c3">spoken</div>
+      <div class="irr-cell c1">stand</div><div class="irr-cell c2">stood</div><div class="irr-cell c3">stood</div>
+      <div class="irr-cell c1">steal</div><div class="irr-cell c2">stole</div><div class="irr-cell c3">stolen</div>
+      <div class="irr-cell c1">swim</div><div class="irr-cell c2">swam</div><div class="irr-cell c3">swum</div>
+      <div class="irr-cell c1">take</div><div class="irr-cell c2">took</div><div class="irr-cell c3">taken</div>
+      <div class="irr-cell c1">teach</div><div class="irr-cell c2">taught</div><div class="irr-cell c3">taught</div>
+      <div class="irr-cell c1">tell</div><div class="irr-cell c2">told</div><div class="irr-cell c3">told</div>
+      <div class="irr-cell c1">think</div><div class="irr-cell c2">thought</div><div class="irr-cell c3">thought</div>
+      <div class="irr-cell c1">throw</div><div class="irr-cell c2">threw</div><div class="irr-cell c3">thrown</div>
+      <div class="irr-cell c1">understand</div><div class="irr-cell c2">understood</div><div class="irr-cell c3">understood</div>
+      <div class="irr-cell c1">wake</div><div class="irr-cell c2">woke</div><div class="irr-cell c3">woken</div>
+      <div class="irr-cell c1">wear</div><div class="irr-cell c2">wore</div><div class="irr-cell c3">worn</div>
+      <div class="irr-cell c1">win</div><div class="irr-cell c2">won</div><div class="irr-cell c3">won</div>
+      <div class="irr-cell c1">write</div><div class="irr-cell c2">wrote</div><div class="irr-cell c3">written</div>
+    </div>
+  </div>
+
+  <div class="section" id="s2-2">
+    <h2 class="section-title"><span class="s-num">03</span> Patrones comunes</h2>
+    <p>Aunque los irregulares no siguen una regla única, sí existen grupos con patrones similares:</p>
+    <div class="card-grid">
+      <div class="card"><span class="card-tag tag-blue">A–A–A (sin cambio)</span><div class="card-en">cut–cut–cut<br>put–put–put<br>read–read–read</div><div class="card-es">base = pasado = participio</div></div>
+      <div class="card"><span class="card-tag tag-purple">A–B–B</span><div class="card-en">feel–felt–felt<br>keep–kept–kept<br>teach–taught–taught</div><div class="card-es">pasado = participio</div></div>
+      <div class="card"><span class="card-tag tag-cyan">A–B–C</span><div class="card-en">go–went–gone<br>drink–drank–drunk<br>write–wrote–written</div><div class="card-es">las tres formas distintas</div></div>
+      <div class="card"><span class="card-tag tag-amber">A–B–A</span><div class="card-en">come–came–come<br>run–ran–run<br>become–became–become</div><div class="card-es">base = participio</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s2-3">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Formas del pasado</div><div class="ex-tag">EX_02</div></div>
+      <div class="ex-inst">Escribe el past simple de cada verbo.</div>
+      <div class="q-item"><div class="q-text"><strong>speak</strong> → <input type="text" class="q-input" id="irv1" placeholder="past simple..."></div></div>
+      <div class="q-item"><div class="q-text"><strong>think</strong> → <input type="text" class="q-input" id="irv2" placeholder="past simple..."></div></div>
+      <div class="q-item"><div class="q-text"><strong>fly</strong> → <input type="text" class="q-input" id="irv3" placeholder="past simple..."></div></div>
+      <div class="q-item"><div class="q-text"><strong>write</strong> → <input type="text" class="q-input" id="irv4" placeholder="past simple..."></div></div>
+      <div class="q-item"><div class="q-text"><strong>buy</strong> → <input type="text" class="q-input" id="irv5" placeholder="past simple..."></div></div>
+      <button class="check-btn" onclick="checkInputs('irv',['spoke','thought','flew','wrote','bought'],'res-irv')">verificar →</button>
+      <div class="result-msg" id="res-irv"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(1)">← tipos</button>
+    <div class="nav-prog">03 / 08 — irregulares</div>
+    <button class="nav-btn primary" onclick="goTo(3)">tiempos verbales →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 3: TIEMPOS ═══════════ -->
+<div class="page" id="page-3" data-sections="Línea de tiempo,Presente,Pasado,Futuro,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — tenses.en</div>
+    <h1 class="page-title">Tiempos <em>verbales</em></h1>
+    <p class="page-desc">El inglés tiene 12 tiempos verbales organizados en tres bloques (presente, pasado, futuro) × cuatro aspectos (simple, continuous, perfect, perfect continuous).</p>
+  </div>
+
+  <div class="section" id="s3-0">
+    <h2 class="section-title"><span class="s-num">01</span> Los 12 tiempos — mapa general</h2>
+    <div class="tense-wrap">
+      <div class="tense-row">
+        <div class="tense-cell tense-head-cell">tiempo</div>
+        <div class="tense-cell tense-head-cell">uso + ejemplo</div>
+        <div class="tense-cell tense-head-cell">estructura</div>
+      </div>
+      <!-- PRESENT GROUP -->
+      <div class="group-header" style="color:var(--cyan)">── presente ──</div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Present Simple</div></div>
+        <div class="tense-cell"><div class="tc-use">Hábitos, hechos, verdades generales.</div><div class="tc-ex">She works every day.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + V(s) / S + do/does + not + V</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Present Continuous</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción en progreso ahora o futuro cercano planeado.</div><div class="tc-ex">I am reading right now.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + am/is/are + V-ing</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Present Perfect</div></div>
+        <div class="tense-cell"><div class="tc-use">Experiencia de vida, acción con resultado presente, con since/for.</div><div class="tc-ex">I have visited Paris.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + have/has + past participle</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Present Perfect Continuous</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción que empezó en el pasado y sigue ahora (énfasis en duración).</div><div class="tc-ex">She has been working for 3 hours.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + have/has + been + V-ing</div></div>
+      </div>
+      <!-- PAST GROUP -->
+      <div class="group-header" style="color:var(--blue)">── pasado ──</div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Past Simple</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción terminada en el pasado (a menudo con tiempo específico).</div><div class="tc-ex">They left yesterday.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + V-ed / V-irr</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Past Continuous</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción en progreso en un momento pasado; contexto de otra acción.</div><div class="tc-ex">I was sleeping when she called.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + was/were + V-ing</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Past Perfect</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción que ocurrió antes de otra acción pasada ("pasado del pasado").</div><div class="tc-ex">She had left before I arrived.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + had + past participle</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Past Perfect Continuous</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción en progreso hasta un punto en el pasado (énfasis en duración).</div><div class="tc-ex">He had been studying for hours.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + had + been + V-ing</div></div>
+      </div>
+      <!-- FUTURE GROUP -->
+      <div class="group-header" style="color:var(--purple)">── futuro ──</div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Future Simple (will)</div></div>
+        <div class="tense-cell"><div class="tc-use">Decisión espontánea, predicción, promesas, ofrecimientos.</div><div class="tc-ex">I'll help you tomorrow.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + will + V (base)</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Future (going to)</div></div>
+        <div class="tense-cell"><div class="tc-use">Plan o intención previa; predicción con evidencia visual.</div><div class="tc-ex">I'm going to study abroad.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + am/is/are + going to + V</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Future Continuous</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción en progreso en un momento futuro específico.</div><div class="tc-ex">This time tomorrow I'll be flying.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + will + be + V-ing</div></div>
+      </div>
+      <div class="tense-row">
+        <div class="tense-cell"><div class="tc-name">Future Perfect</div></div>
+        <div class="tense-cell"><div class="tc-use">Acción que estará completada antes de un punto futuro.</div><div class="tc-ex">By June, she will have finished.</div></div>
+        <div class="tense-cell"><div class="tc-form">S + will + have + past participle</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s3-1">
+    <h2 class="section-title"><span class="s-num">02</span> Tiempos del presente — en detalle</h2>
+    <p>El tiempo más confuso para hispanohablantes es la diferencia entre <strong>present simple</strong> y <strong>present continuous</strong>:</p>
+    <div class="code-block">
+      <div class="cb-label">present simple vs continuous</div>
+      <span class="cb-line"><span class="cb-com">// PRESENT SIMPLE — hábito / verdad general</span></span>
+      <span class="cb-line">I <span class="cb-key">drink</span> coffee every morning.   <span class="cb-com">// siempre lo hago</span></span>
+      <span class="cb-line">Water <span class="cb-key">boils</span> at 100°C.          <span class="cb-com">// hecho científico</span></span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// PRESENT CONTINUOUS — ahora mismo</span></span>
+      <span class="cb-line">I <span class="cb-key">am drinking</span> coffee right now. <span class="cb-com">// en este momento</span></span>
+      <span class="cb-line">She <span class="cb-key">is working</span> late today.      <span class="cb-com">// solo hoy</span></span>
+    </div>
+    <p>La diferencia entre <strong>present perfect</strong> y <strong>past simple</strong> es otra fuente común de errores:</p>
+    <div class="code-block">
+      <div class="cb-label">present perfect vs past simple</div>
+      <span class="cb-line"><span class="cb-com">// PRESENT PERFECT — conexión con el presente, sin tiempo específico</span></span>
+      <span class="cb-line">I <span class="cb-key">have seen</span> that film.          <span class="cb-com">// experiencia (no importa cuándo)</span></span>
+      <span class="cb-line">She <span class="cb-key">has just</span> arrived.           <span class="cb-com">// justo ahora</span></span>
+      <span class="cb-line">I <span class="cb-key">have lived</span> here for 5 years.  <span class="cb-com">// empezó antes, sigue ahora</span></span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// PAST SIMPLE — tiempo específico, acción cerrada</span></span>
+      <span class="cb-line">I <span class="cb-key">saw</span> that film last week.       <span class="cb-com">// "last week" = tiempo específico</span></span>
+      <span class="cb-line">She <span class="cb-key">arrived</span> at 3pm yesterday.   <span class="cb-com">// momento puntual cerrado</span></span>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Present perfect ≠ pasado simple en español</strong>En español "he comido" y "comí" son distintos pero similares. En inglés: si hay palabras como <span class="hl-a">yesterday / last year / in 2020 / ago</span> → <span class="hl-g">past simple</span>. Si hay <span class="hl-a">just / already / yet / ever / never / since / for</span> → <span class="hl-g">present perfect</span>.</div>
+    </div>
+  </div>
+
+  <div class="section" id="s3-2">
+    <h2 class="section-title"><span class="s-num">03</span> Will vs. Going to</h2>
+    <div class="code-block">
+      <div class="cb-label">will vs going to</div>
+      <span class="cb-line"><span class="cb-com">// WILL — decisión en el momento / predicción sin evidencia</span></span>
+      <span class="cb-line">"The phone is ringing." → "I'<span class="cb-key">ll</span> answer it."  <span class="cb-com">// decisión ahora</span></span>
+      <span class="cb-line">I think it <span class="cb-key">will</span> rain tomorrow.              <span class="cb-com">// predicción personal</span></span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// GOING TO — plan previo / evidencia visible</span></span>
+      <span class="cb-line">I'm <span class="cb-key">going to</span> visit Paris next year.        <span class="cb-com">// ya lo decidí antes</span></span>
+      <span class="cb-line">Look at those clouds — it's <span class="cb-key">going to</span> rain. <span class="cb-com">// evidencia visible</span></span>
+    </div>
+  </div>
+
+  <div class="section" id="s3-3">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Elige el tiempo correcto</div><div class="ex-tag">EX_03</div></div>
+      <div class="ex-inst">Selecciona la forma verbal correcta para cada oración.</div>
+      <div class="q-item"><div class="q-text"><strong>1.</strong> She ___ (study) every night. (hábito)</div>
+        <select class="q-select" id="ten1"><option value="">—</option><option value="studies">studies</option><option value="is studying">is studying</option><option value="has studied">has studied</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>2.</strong> I ___ (never / be) to Japan. (experiencia)</div>
+        <select class="q-select" id="ten2"><option value="">—</option><option value="never was">never was</option><option value="have never been">have never been</option><option value="never am">never am</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>3.</strong> When I arrived, she ___ (already / leave).</div>
+        <select class="q-select" id="ten3"><option value="">—</option><option value="already left">already left</option><option value="has already left">has already left</option><option value="had already left">had already left</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>4.</strong> "It's freezing!" — "I ___ (get) my coat." (decisión ahora)</div>
+        <select class="q-select" id="ten4"><option value="">—</option><option value="will get">'ll get</option><option value="am going to get">am going to get</option><option value="get">get</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>5.</strong> They ___ (work) on this project for 6 months. (desde hace 6 meses, siguen)</div>
+        <select class="q-select" id="ten5"><option value="">—</option><option value="work">work</option><option value="worked">worked</option><option value="have been working">have been working</option></select></div>
+      <button class="check-btn" onclick="check('ten',['studies','have never been','had already left','will get','have been working'])">verificar →</button>
+      <div class="result-msg" id="res-ten"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(2)">← irregulares</button>
+    <div class="nav-prog">04 / 08 — tiempos</div>
+    <button class="nav-btn primary" onclick="goTo(4)">modales →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 4: MODALES ═══════════ -->
+<div class="page" id="page-4" data-sections="¿Qué son?,Can / Could,Must / Have to,Should / Ought to,May / Might / Will,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — modal_verbs.en</div>
+    <h1 class="page-title">Verbos <em>modales</em></h1>
+    <p class="page-desc">Los verbos modales expresan posibilidad, permiso, obligación, habilidad o sugerencia. Son invariables y siempre van seguidos del infinitivo sin "to".</p>
+  </div>
+
+  <div class="section" id="s4-0">
+    <h2 class="section-title"><span class="s-num">01</span> ¿Qué son los modales?</h2>
+    <p>Los <strong>modal verbs</strong> son auxiliares especiales que modifican el significado del verbo principal. Tienen propiedades únicas:</p>
+    <div class="card-grid">
+      <div class="card"><span class="card-tag tag-red">regla 1</span><div class="card-en">NO llevan -s en 3ª persona</div><div class="card-es"><span class="hl-r strike">She cans</span> → <span class="hl-g">She can</span></div></div>
+      <div class="card"><span class="card-tag tag-red">regla 2</span><div class="card-en">Siguen de infinitivo SIN "to"</div><div class="card-es"><span class="hl-r strike">You must to go</span> → <span class="hl-g">You must go</span></div></div>
+      <div class="card"><span class="card-tag tag-green">regla 3</span><div class="card-en">Negación: modal + not</div><div class="card-es">cannot / can't · shouldn't</div></div>
+      <div class="card"><span class="card-tag tag-green">regla 4</span><div class="card-en">Pregunta: modal + sujeto</div><div class="card-es">Can you…? · Must we…?</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s4-1">
+    <h2 class="section-title"><span class="s-num">02</span> Can / Could</h2>
+    <div class="modal-grid">
+      <div class="modal-card">
+        <div class="mc-verb">can</div>
+        <div class="mc-sp">presente</div>
+        <div class="mc-use">Habilidad presente · Permiso informal · Posibilidad</div>
+        <div class="mc-ex">She can swim. / Can I sit here? / It can be difficult.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">could</div>
+        <div class="mc-sp">pasado / condicional</div>
+        <div class="mc-use">Habilidad pasada · Petición formal · Posibilidad remota</div>
+        <div class="mc-ex">He could run fast. / Could you help me? / It could rain.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">cannot / can't</div>
+        <div class="mc-sp">negación</div>
+        <div class="mc-use">Incapacidad · Prohibición informal · Imposibilidad</div>
+        <div class="mc-ex">I can't drive. / You can't park here. / That can't be right.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4-2">
+    <h2 class="section-title"><span class="s-num">03</span> Must / Have to / Mustn't / Don't have to</h2>
+    <div class="callout callout-warn" style="margin-bottom:16px">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Diferencia crítica: mustn't vs. don't have to</strong>
+      <span class="hl-a">mustn't</span> = está <strong>prohibido</strong> hacerlo.<br>
+      <span class="hl-g">don't have to</span> = no es <strong>necesario</strong> (pero puedes si quieres).</div>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-card">
+        <div class="mc-verb">must</div>
+        <div class="mc-sp">obligación interna / deducción</div>
+        <div class="mc-use">Obligación que viene del hablante. Deducción lógica fuerte.</div>
+        <div class="mc-ex">I must study tonight. / She must be tired.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">have to</div>
+        <div class="mc-sp">obligación externa</div>
+        <div class="mc-use">Obligación que viene de afuera (reglas, leyes, otras personas).</div>
+        <div class="mc-ex">I have to wear a uniform. / She has to work on Saturdays.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">mustn't</div>
+        <div class="mc-sp">prohibición</div>
+        <div class="mc-use">Está prohibido. No debes hacerlo.</div>
+        <div class="mc-ex">You mustn't smoke here. / We mustn't be late.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">don't have to</div>
+        <div class="mc-sp">no es necesario</div>
+        <div class="mc-use">No es obligatorio, pero está permitido.</div>
+        <div class="mc-ex">You don't have to come. / She doesn't have to pay.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4-3">
+    <h2 class="section-title"><span class="s-num">04</span> Should / Ought to</h2>
+    <div class="modal-grid">
+      <div class="modal-card">
+        <div class="mc-verb">should</div>
+        <div class="mc-sp">consejo / recomendación</div>
+        <div class="mc-use">Dar o pedir consejo. Expectativa.</div>
+        <div class="mc-ex">You should see a doctor. / Should I call her?</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">shouldn't</div>
+        <div class="mc-sp">consejo negativo</div>
+        <div class="mc-use">Recomendación de no hacer algo.</div>
+        <div class="mc-ex">You shouldn't eat so much sugar.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">ought to</div>
+        <div class="mc-sp">obligación moral</div>
+        <div class="mc-use">Similar a should pero más formal/enfático. Implica deber moral.</div>
+        <div class="mc-ex">You ought to apologize. / We ought to help.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4-4">
+    <h2 class="section-title"><span class="s-num">05</span> May / Might / Will</h2>
+    <div class="modal-grid">
+      <div class="modal-card">
+        <div class="mc-verb">may</div>
+        <div class="mc-sp">posibilidad / permiso formal</div>
+        <div class="mc-use">50% de posibilidad. Permiso formal.</div>
+        <div class="mc-ex">It may rain. / May I come in?</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">might</div>
+        <div class="mc-sp">posibilidad remota</div>
+        <div class="mc-use">Menor posibilidad que "may". ~30-40%.</div>
+        <div class="mc-ex">I might go. / She might be at home.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">will</div>
+        <div class="mc-sp">certeza / futuro / promesas</div>
+        <div class="mc-use">Decisión, promesa, predicción segura, hábitos futuros.</div>
+        <div class="mc-ex">I'll be there. / The sun will rise.</div>
+      </div>
+      <div class="modal-card">
+        <div class="mc-verb">would</div>
+        <div class="mc-sp">condicional / petición educada</div>
+        <div class="mc-use">Hipótesis condicionales. Peticiones formales. Hábitos pasados.</div>
+        <div class="mc-ex">I would travel if I had money. / Would you help me?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4-5">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Modal correcto</div><div class="ex-tag">EX_04</div></div>
+      <div class="ex-inst">Elige el modal más apropiado.</div>
+      <div class="q-item"><div class="q-text"><strong>1.</strong> The rules say you ___ wear a seatbelt. (obligación externa)</div>
+        <select class="q-select" id="mod1"><option value="">—</option><option value="must">must</option><option value="have to">have to</option><option value="should">should</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>2.</strong> You ___ touch that — it's dangerous! (prohibición)</div>
+        <select class="q-select" id="mod2"><option value="">—</option><option value="mustn't">mustn't</option><option value="don't have to">don't have to</option><option value="couldn't">couldn't</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>3.</strong> I'm not sure, but she ___ be at home. (~40% posibilidad)</div>
+        <select class="q-select" id="mod3"><option value="">—</option><option value="will">will</option><option value="must">must</option><option value="might">might</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>4.</strong> You ___ come to the party — it's optional. (no es necesario)</div>
+        <select class="q-select" id="mod4"><option value="">—</option><option value="mustn't">mustn't</option><option value="don't have to">don't have to</option><option value="can't">can't</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>5.</strong> ___ you speak more slowly, please? (petición formal)</div>
+        <select class="q-select" id="mod5"><option value="">—</option><option value="Can">Can</option><option value="Could">Could</option><option value="Must">Must</option></select></div>
+      <button class="check-btn" onclick="check('mod',['have to','mustn\'t','might','don\'t have to','Could'])">verificar →</button>
+      <div class="result-msg" id="res-mod"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(3)">← tiempos</button>
+    <div class="nav-prog">05 / 08 — modales</div>
+    <button class="nav-btn primary" onclick="goTo(5)">phrasal verbs →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 5: PHRASAL VERBS ═══════════ -->
+<div class="page" id="page-5" data-sections="¿Qué son?,Separables vs. inseparables,Categorías temáticas,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — phrasal_verbs.en</div>
+    <h1 class="page-title">Phrasal <em>verbs</em></h1>
+    <p class="page-desc">Un phrasal verb es un verbo + partícula (preposición o adverbio) cuyo significado conjunto es distinto al del verbo solo. Son omnipresentes en el inglés coloquial.</p>
+  </div>
+
+  <div class="section" id="s5-0">
+    <h2 class="section-title"><span class="s-num">01</span> ¿Qué son?</h2>
+    <div class="def-box">
+      <div class="def-label">// definición</div>
+      A phrasal verb = verb + particle (preposition/adverb). The combined meaning is often idiomatic and cannot be guessed from the individual words.
+    </div>
+    <div class="code-block">
+      <span class="cb-line"><span class="cb-com">// literales — el significado se puede inferir</span></span>
+      <span class="cb-line"><span class="cb-cyan">sit</span> <span class="cb-key">down</span>   → sentarse</span>
+      <span class="cb-line"><span class="cb-cyan">stand</span> <span class="cb-key">up</span>   → levantarse</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// idiomáticos — NO se puede adivinar el significado</span></span>
+      <span class="cb-line"><span class="cb-cyan">give</span> <span class="cb-key">up</span>    → rendirse (≠ dar arriba)</span>
+      <span class="cb-line"><span class="cb-cyan">come</span> <span class="cb-key">across</span>→ encontrarse con algo/alguien por casualidad</span>
+      <span class="cb-line"><span class="cb-cyan">break</span> <span class="cb-key">down</span> → averiarse / desmoronarse</span>
+      <span class="cb-line"><span class="cb-cyan">put</span> <span class="cb-key">off</span>    → posponer</span>
+    </div>
+  </div>
+
+  <div class="section" id="s5-1">
+    <h2 class="section-title"><span class="s-num">02</span> Separables vs. inseparables</h2>
+    <div class="two-col">
+      <div class="rule">
+        <div class="rule-tag tag-green">Separable</div>
+        <div class="rule-head">El objeto puede ir en medio o al final. Si es pronombre, DEBE ir en medio.</div>
+        <div class="rule-ex">Turn <span class="hl">off</span> the light. ✓<br>Turn the light <span class="hl">off</span>. ✓<br>Turn <span class="hl">it</span> off. ✓<br><span class="hl-r strike">Turn off it.</span> ✗</div>
+      </div>
+      <div class="rule">
+        <div class="rule-tag tag-red">Inseparable</div>
+        <div class="rule-head">El objeto va SIEMPRE al final. Nunca se separa.</div>
+        <div class="rule-ex">Look <span class="hl">after</span> the children. ✓<br><span class="hl-r strike">Look the children after.</span> ✗<br>Run <span class="hl">into</span> an old friend. ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s5-2">
+    <h2 class="section-title"><span class="s-num">03</span> Los más importantes por categoría</h2>
+    <p>Phrasal verbs de uso cotidiano agrupados por tema:</p>
+    <div class="pv-grid">
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">give</span> <span class="pv-part">up</span></div><div class="pv-meaning">rendirse, dejar de intentar</div><div class="pv-ex">Never give up your dreams.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">look</span> <span class="pv-part">up</span></div><div class="pv-meaning">buscar información</div><div class="pv-ex">Look up the word in the dictionary.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">run</span> <span class="pv-part">out of</span></div><div class="pv-meaning">quedarse sin algo</div><div class="pv-ex">We've run out of milk.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">put</span> <span class="pv-part">off</span></div><div class="pv-meaning">posponer, aplazar</div><div class="pv-ex">Don't put off what you can do today.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">figure</span> <span class="pv-part">out</span></div><div class="pv-meaning">entender, resolver</div><div class="pv-ex">I can't figure out this problem.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">bring</span> <span class="pv-part">up</span></div><div class="pv-meaning">criar / mencionar un tema</div><div class="pv-ex">She brought up an interesting point.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">come</span> <span class="pv-part">across</span></div><div class="pv-meaning">encontrarse con algo/alguien</div><div class="pv-ex">I came across this article.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">take</span> <span class="pv-part">off</span></div><div class="pv-meaning">quitarse / despegar (avión)</div><div class="pv-ex">The plane took off at noon.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">break</span> <span class="pv-part">down</span></div><div class="pv-meaning">averiarse / derrumbarse</div><div class="pv-ex">My car broke down on the highway.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">turn</span> <span class="pv-part">down</span></div><div class="pv-meaning">rechazar / bajar volumen</div><div class="pv-ex">She turned down the job offer.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">set</span> <span class="pv-part">up</span></div><div class="pv-meaning">establecer, organizar</div><div class="pv-ex">They set up a new company.</div></div>
+      <div class="pv-card"><div class="pv-verb"><span class="pv-base">get</span> <span class="pv-part">along</span></div><div class="pv-meaning">llevarse bien con alguien</div><div class="pv-ex">Do you get along with your boss?</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s5-3">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Phrasal verbs</div><div class="ex-tag">EX_05</div></div>
+      <div class="ex-inst">Completa con la partícula correcta del phrasal verb.</div>
+      <div class="q-item"><div class="q-text">I need to look ___ this word. (buscar en diccionario)</div>
+        <select class="q-select" id="pv1"><option value="">—</option><option value="up">up</option><option value="down">down</option><option value="after">after</option></select></div>
+      <div class="q-item"><div class="q-text">She gave ___ smoking last year. (dejar de)</div>
+        <select class="q-select" id="pv2"><option value="">—</option><option value="out">out</option><option value="up">up</option><option value="off">off</option></select></div>
+      <div class="q-item"><div class="q-text">We've run ___ of coffee. (quedarse sin)</div>
+        <select class="q-select" id="pv3"><option value="">—</option><option value="out">out</option><option value="off">off</option><option value="down">down</option></select></div>
+      <div class="q-item"><div class="q-text">The car broke ___ on the highway. (averiarse)</div>
+        <select class="q-select" id="pv4"><option value="">—</option><option value="up">up</option><option value="down">down</option><option value="out">out</option></select></div>
+      <div class="q-item"><div class="q-text">Could you turn ___ the music? (bajar volumen)</div>
+        <select class="q-select" id="pv5"><option value="">—</option><option value="up">up</option><option value="off">off</option><option value="down">down</option></select></div>
+      <button class="check-btn" onclick="check('pv',['up','up','out','down','down'])">verificar →</button>
+      <div class="result-msg" id="res-pv"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(4)">← modales</button>
+    <div class="nav-prog">06 / 08 — phrasal</div>
+    <button class="nav-btn primary" onclick="goTo(6)">voz pasiva →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 6: VOZ PASIVA ═══════════ -->
+<div class="page" id="page-6" data-sections="Activa vs. pasiva,Formación,Cuándo usarla,Ejercicio">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — passive_voice.en</div>
+    <h1 class="page-title">Voz <em>pasiva</em></h1>
+    <p class="page-desc">La voz pasiva invierte la estructura de la oración activa: el objeto pasa a ser sujeto, y el agente (quien hace la acción) puede omitirse o mencionarse con "by".</p>
+  </div>
+
+  <div class="section" id="s6-0">
+    <h2 class="section-title"><span class="s-num">01</span> Activa vs. pasiva</h2>
+    <div class="code-block">
+      <div class="cb-label">active vs passive</div>
+      <span class="cb-line"><span class="cb-com">// ACTIVA — sujeto hace la acción</span></span>
+      <span class="cb-line"><span class="cb-cyan">Shakespeare</span> <span class="cb-key">wrote</span> <span class="cb-val">Hamlet</span>.</span>
+      <span class="cb-line">  sujeto       verbo  objeto</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// PASIVA — objeto se convierte en sujeto</span></span>
+      <span class="cb-line"><span class="cb-val">Hamlet</span> <span class="cb-key">was written</span> <span class="cb-str">by Shakespeare</span>.</span>
+      <span class="cb-line">  sujeto   be+participio  agente (opcional)</span>
+      <span class="cb-line"></span>
+      <span class="cb-line"><span class="cb-com">// El agente puede omitirse cuando no es importante</span></span>
+      <span class="cb-line"><span class="cb-val">The window</span> <span class="cb-key">was broken</span>.   <span class="cb-com">// no importa quién</span></span>
+    </div>
+  </div>
+
+  <div class="section" id="s6-1">
+    <h2 class="section-title"><span class="s-num">02</span> Formación en todos los tiempos</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Activa</th><th>Pasiva</th></tr></thead>
+        <tbody>
+          <tr><td>Present simple</td><td>They make cars here.</td><td>Cars <span class="hl">are made</span> here.</td></tr>
+          <tr><td>Present continuous</td><td>They are building a bridge.</td><td>A bridge <span class="hl">is being built</span>.</td></tr>
+          <tr><td>Past simple</td><td>Someone stole my bag.</td><td>My bag <span class="hl">was stolen</span>.</td></tr>
+          <tr><td>Past continuous</td><td>They were fixing the road.</td><td>The road <span class="hl">was being fixed</span>.</td></tr>
+          <tr><td>Present perfect</td><td>They have cancelled the flight.</td><td>The flight <span class="hl">has been cancelled</span>.</td></tr>
+          <tr><td>Past perfect</td><td>They had already sent the email.</td><td>The email <span class="hl">had already been sent</span>.</td></tr>
+          <tr><td>Future (will)</td><td>They will deliver the package.</td><td>The package <span class="hl">will be delivered</span>.</td></tr>
+          <tr><td>Modal</td><td>You must complete the form.</td><td>The form <span class="hl">must be completed</span>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <div class="callout-icon">ℹ️</div>
+      <div><strong>Estructura base: be + past participle</strong>La clave es que el verbo <span class="hl-b">be</span> toma el tiempo deseado, y el verbo principal va siempre en <span class="hl-b">participio pasado</span> (3ª columna de los irregulares).</div>
+    </div>
+  </div>
+
+  <div class="section" id="s6-2">
+    <h2 class="section-title"><span class="s-num">03</span> ¿Cuándo usar la voz pasiva?</h2>
+    <div class="rule" style="margin-bottom:12px"><div class="rule-tag tag-cyan">Razón 1</div><div class="rule-head">El agente es desconocido o irrelevante</div><div class="rule-ex">My laptop <span class="hl">was stolen</span>. (no sé quién)<br>English <span class="hl">is spoken</span> worldwide. (no importa quién)</div></div>
+    <div class="rule" style="margin-bottom:12px"><div class="rule-tag tag-blue">Razón 2</div><div class="rule-head">Para enfatizar el objeto / resultado</div><div class="rule-ex">The Eiffel Tower <span class="hl">was built</span> in 1889. (énfasis en la torre)<br>The contract <span class="hl">has been signed</span>. (énfasis en el resultado)</div></div>
+    <div class="rule" style="margin-bottom:12px"><div class="rule-tag tag-purple">Razón 3</div><div class="rule-head">Estilo formal / científico / periodístico</div><div class="rule-ex">The experiment <span class="hl">was conducted</span> over 6 months.<br>Three people <span class="hl">were injured</span> in the accident.</div></div>
+    <div class="rule"><div class="rule-tag tag-amber">Razón 4</div><div class="rule-head">Para evitar mencionar al agente</div><div class="rule-ex">Mistakes <span class="hl">were made</span>. (forma de no asumir responsabilidad)</div></div>
+  </div>
+
+  <div class="section" id="s6-3">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio — Voz pasiva</div><div class="ex-tag">EX_06</div></div>
+      <div class="ex-inst">Escribe la voz pasiva de cada oración. Se indica el tiempo requerido.</div>
+      <div class="q-item"><div class="q-text"><strong>1.</strong> "They build cars in this factory." [present simple passive]<br>Cars ___ <input type="text" class="q-input" id="pass1" placeholder="are built..." style="width:260px"> in this factory.</div></div>
+      <div class="q-item"><div class="q-text"><strong>2.</strong> "Someone has stolen her bike." [present perfect passive]<br>Her bike ___ <input type="text" class="q-input" id="pass2" placeholder="has been stolen..." style="width:260px">.</div></div>
+      <div class="q-item"><div class="q-text"><strong>3.</strong> "They will deliver the results tomorrow." [future passive]<br>The results ___ <input type="text" class="q-input" id="pass3" placeholder="will be delivered..." style="width:300px"> tomorrow.</div></div>
+      <div class="q-item"><div class="q-text"><strong>4.</strong> ¿Cuál es el agente (by-phrase) de esta oración? "Hamlet was written by ___"</div>
+        <select class="q-select" id="pass4"><option value="">—</option><option value="Shakespeare">Shakespeare</option><option value="Dickens">Dickens</option><option value="Tolkien">Tolkien</option></select></div>
+      <button class="check-btn" onclick="checkPassive()">verificar →</button>
+      <div class="result-msg" id="res-pass"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(5)">← phrasal</button>
+    <div class="nav-prog">07 / 08 — pasiva</div>
+    <button class="nav-btn primary" onclick="goTo(7)">repaso final →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 7: REPASO ═══════════ -->
+<div class="page" id="page-7" data-sections="Resumen general,Ejercicio final,¿Qué sigue?">
+
+  <div class="page-header">
+    <div class="page-eyebrow">unit_02 — review.en</div>
+    <h1 class="page-title">Repaso <em>final</em></h1>
+    <p class="page-desc">Un ejercicio mixto para consolidar todo lo aprendido en la unidad de verbos.</p>
+  </div>
+
+  <div class="section" id="s7-0">
+    <h2 class="section-title"><span class="s-num">01</span> Resumen general</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tema</th><th>Concepto clave</th><th>Error común a evitar</th></tr></thead>
+        <tbody>
+          <tr><td>Stative verbs</td><td>No van en continuous</td><td><span class="hl-r strike">I am knowing</span> → <span class="hl-g">I know</span></td></tr>
+          <tr><td>Irregular verbs</td><td>3 formas: base / past / participle</td><td><span class="hl-r strike">goed</span> → <span class="hl-g">went / gone</span></td></tr>
+          <tr><td>Present perfect</td><td>Experiencia / resultado presente</td><td><span class="hl-r strike">I have gone yesterday</span> → past simple</td></tr>
+          <tr><td>Modal verbs</td><td>+ infinitivo sin "to", sin -s</td><td><span class="hl-r strike">She musts go</span> → <span class="hl-g">She must go</span></td></tr>
+          <tr><td>Mustn't ≠ don't have to</td><td>prohibición ≠ no es necesario</td><td>¡Confundirlos cambia el significado!</td></tr>
+          <tr><td>Phrasal verbs</td><td>pronombre entre verbo y partícula</td><td><span class="hl-r strike">Turn off it</span> → <span class="hl-g">Turn it off</span></td></tr>
+          <tr><td>Voz pasiva</td><td>be + past participle</td><td><span class="hl-r strike">It was write</span> → <span class="hl-g">It was written</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="s7-1">
+    <div class="exercise">
+      <div class="ex-header"><div class="ex-title">Ejercicio final mixto</div><div class="ex-tag">FINAL</div></div>
+      <div class="ex-inst">10 preguntas que cubren toda la unidad. ¡A por el 10/10!</div>
+
+      <div class="q-item"><div class="q-text"><strong>1.</strong> "Love" es un verbo… </div>
+        <select class="q-select" id="fin1"><option value="">—</option><option value="action">action</option><option value="stative">stative</option><option value="linking">linking</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>2.</strong> Past simple de "steal":</div>
+        <select class="q-select" id="fin2"><option value="">—</option><option value="stealed">stealed</option><option value="stole">stole</option><option value="stolen">stolen</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>3.</strong> ¿Cuál está correctamente formado?</div>
+        <select class="q-select" id="fin3"><option value="">—</option><option value="a">She can speaks English.</option><option value="b">She can speak English.</option><option value="c">She cans speak English.</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>4.</strong> "I ___ lived here since 2010." (presente con duración)</div>
+        <select class="q-select" id="fin4"><option value="">—</option><option value="live">live</option><option value="have">have</option><option value="am">am</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>5.</strong> "Look after" es un phrasal verb…</div>
+        <select class="q-select" id="fin5"><option value="">—</option><option value="separable">separable</option><option value="inseparable">inseparable</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>6.</strong> Voz pasiva de "They cancelled the game": The game ___</div>
+        <select class="q-select" id="fin6"><option value="">—</option><option value="was cancelled">was cancelled</option><option value="has cancelled">has cancelled</option><option value="cancelled">cancelled</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>7.</strong> "You ___ park here — it's prohibited."</div>
+        <select class="q-select" id="fin7"><option value="">—</option><option value="don't have to">don't have to</option><option value="mustn't">mustn't</option><option value="shouldn't have to">shouldn't have to</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>8.</strong> Participio pasado de "drink":</div>
+        <select class="q-select" id="fin8"><option value="">—</option><option value="drank">drank</option><option value="drunk">drunk</option><option value="drinked">drinked</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>9.</strong> "I ___ to buy milk before the shop closed." [past perfect — ya lo había hecho antes]</div>
+        <select class="q-select" id="fin9"><option value="">—</option><option value="managed">managed</option><option value="had managed">had managed</option><option value="have managed">have managed</option></select></div>
+      <div class="q-item"><div class="q-text"><strong>10.</strong> "The sun ___ at 6am tomorrow." [futuro — hecho predecible]</div>
+        <select class="q-select" id="fin10"><option value="">—</option><option value="rises">rises</option><option value="will rise">will rise</option><option value="is going to rise">is going to rise</option></select></div>
+
+      <button class="check-btn" onclick="checkFinal()">verificar todo →</button>
+      <div class="result-msg" id="res-fin"></div>
+    </div>
+  </div>
+
+  <div class="section" id="s7-2">
+    <h2 class="section-title"><span class="s-num">03</span> ¿Qué sigue?</h2>
+    <p>Has completado la <strong>Unidad 2: Verbos</strong>. Es la unidad más extensa del temario y la que más impacto tiene en tu fluidez. En la próxima unidad estudiaremos los <strong>adjetivos</strong> — comparativos, superlativos, orden, y la diferencia crucial entre -ed y -ing.</p>
+    <div class="callout callout-tip">
+      <div class="callout-icon">🚀</div>
+      <div><strong>Consejo de práctica</strong>Aprende los phrasal verbs y los irregulares en contexto, no en listas aisladas. Lee oraciones completas, escucha podcasts en inglés y nota cómo se usan en contexto real. El volumen de exposición es más importante que la memorización.</div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button class="nav-btn" onclick="goTo(6)">← voz pasiva</button>
+    <div class="nav-prog">08 / 08 — ¡completado!</div>
+    <button class="nav-btn primary" disabled>unidad 03 (próx.)</button>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+let current = 0;
+const TOTAL = 8;
+
+function goTo(n) {
+  document.getElementById('page-' + current).classList.remove('active');
+  document.getElementById('tab-' + current).classList.remove('active');
+  document.getElementById('tab-' + current).classList.add('done');
+  current = n;
+  document.getElementById('page-' + current).classList.add('active');
+  document.getElementById('tab-' + current).classList.remove('done');
+  document.getElementById('tab-' + current).classList.add('active');
+  buildSidebar(n);
+  document.getElementById('progFill').style.width = ((n / (TOTAL - 1)) * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildSidebar(n) {
+  const page = document.getElementById('page-' + n);
+  const secs = (page.dataset.sections || '').split(',');
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = '<div class="sb-label">// sección actual</div>';
+  secs.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'sb-item' + (i === 0 ? ' active' : '');
+    el.textContent = s.trim();
+    const target = document.getElementById('s' + n + '-' + i);
+    el.onclick = () => {
+      document.querySelectorAll('.sb-item').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    sb.appendChild(el);
+  });
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const m = e.target.id.match(/s(\d+)-(\d+)/);
+    if (!m || +m[1] !== current) return;
+    const items = document.querySelectorAll('.sb-item');
+    items.forEach((x, i) => x.classList.toggle('active', i === +m[2]));
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('.section').forEach(s => obs.observe(s));
+
+buildSidebar(0);
+
+// ── EXERCISES ──
+
+function check(prefix, answers) {
+  let correct = 0;
+  answers.forEach((ans, i) => {
+    const el = document.getElementById(prefix + (i + 1));
+    if (!el) return;
+    const ok = el.value === ans;
+    el.className = el.className.replace(/ correct| wrong/g, '') + (ok ? ' correct' : ' wrong');
+    if (ok) correct++;
+  });
+  const msg = document.getElementById('res-' + prefix);
+  const total = answers.length;
+  if (correct === total) msg.textContent = `✓ perfecto — ${correct}/${total}`;
+  else msg.textContent = `${correct}/${total} — revisa las opciones en rojo`;
+  msg.className = 'result-msg ' + (correct === total ? 'good' : 'bad');
+}
+
+function checkInputs(prefix, answers, resultId) {
+  let correct = 0;
+  answers.forEach((ans, i) => {
+    const el = document.getElementById(prefix + (i + 1));
+    if (!el) return;
+    const ok = el.value.trim().toLowerCase() === ans;
+    el.className = el.className.replace(/ correct| wrong/g, '') + (ok ? ' correct' : ' wrong');
+    if (ok) correct++;
+  });
+  const msg = document.getElementById(resultId);
+  const total = answers.length;
+  if (correct === total) msg.textContent = `✓ perfecto — ${correct}/${total}`;
+  else msg.textContent = `${correct}/${total} — respuestas: ${answers.join(', ')}`;
+  msg.className = 'result-msg ' + (correct === total ? 'good' : 'bad');
+}
+
+function checkPassive() {
+  let correct = 0;
+  const p1 = document.getElementById('pass1');
+  const p2 = document.getElementById('pass2');
+  const p3 = document.getElementById('pass3');
+  const p4 = document.getElementById('pass4');
+  const ok1 = p1.value.trim().toLowerCase() === 'are built';
+  const ok2 = p2.value.trim().toLowerCase() === 'has been stolen';
+  const ok3 = p3.value.trim().toLowerCase() === 'will be delivered';
+  const ok4 = p4.value === 'Shakespeare';
+  [ok1,ok2,ok3,ok4].forEach((ok, i) => {
+    const el = [p1,p2,p3,p4][i];
+    el.className = el.className.replace(/ correct| wrong/g, '') + (ok ? ' correct' : ' wrong');
+    if (ok) correct++;
+  });
+  const msg = document.getElementById('res-pass');
+  if (correct === 4) msg.textContent = '✓ perfecto — 4/4';
+  else msg.textContent = `${correct}/4 — respuestas: are built / has been stolen / will be delivered / Shakespeare`;
+  msg.className = 'result-msg ' + (correct === 4 ? 'good' : 'bad');
+}
+
+function checkFinal() {
+  const answers = ['stative','stole','b','have','inseparable','was cancelled','mustn\'t','drunk','had managed','will rise'];
+  let correct = 0;
+  answers.forEach((ans, i) => {
+    const el = document.getElementById('fin' + (i + 1));
+    if (!el) return;
+    const ok = el.value === ans;
+    el.className = el.className.replace(/ correct| wrong/g, '') + (ok ? ' correct' : ' wrong');
+    if (ok) correct++;
+  });
+  const msg = document.getElementById('res-fin');
+  if (correct === 10) msg.textContent = '🏆 ¡10/10! Dominas la unidad de verbos.';
+  else if (correct >= 7) msg.textContent = `✓ ${correct}/10 — ¡muy bien! Repasa las que fallaste.`;
+  else msg.textContent = `${correct}/10 — te recomendamos repasar las secciones marcadas.`;
+  msg.className = 'result-msg ' + (correct >= 8 ? 'good' : 'bad');
+}
+</script>
+</body>
+</html>

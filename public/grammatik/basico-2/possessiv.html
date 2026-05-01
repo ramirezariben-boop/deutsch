@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artículos Posesivos en Alemán</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c8a84b;
+    --gold-light: #e8d08a;
+    --red: #c0392b;
+    --blue: #1a3a5c;
+    --blue-light: #2d6a9f;
+    --green: #1e5a3a;
+    --green-light: #2ecc71;
+    --gray: #8a8a8a;
+    --card-bg: #ffffff;
+    --border: #e0d8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--black);
+    color: var(--cream);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border: 40px solid var(--gold);
+    border-radius: 50%;
+    opacity: .15;
+  }
+  header::after {
+    content: 'DEUTSCH';
+    position: absolute;
+    bottom: -20px; right: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: .06;
+    letter-spacing: 8px;
+  }
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 700px;
+  }
+  header h1 em {
+    color: var(--gold);
+    font-style: normal;
+  }
+  header p {
+    margin-top: 16px;
+    font-size: 1rem;
+    color: #aaa;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--black);
+    border-top: 1px solid #222;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav::-webkit-scrollbar { height: 3px; }
+  nav::-webkit-scrollbar-thumb { background: var(--gold); }
+  nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+    padding: 16px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── MAIN CONTAINER ── */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 24px 80px;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+  .section-divider {
+    width: 50px; height: 3px;
+    background: var(--gold);
+    margin: 10px 0 28px;
+  }
+
+  section { margin-bottom: 70px; scroll-margin-top: 60px; }
+
+  /* ── INTRO CARD ── */
+  .intro-card {
+    background: var(--black);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .intro-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 150px; height: 150px;
+    border: 20px solid var(--gold);
+    border-radius: 50%;
+    opacity: .2;
+  }
+  .intro-card p { line-height: 1.75; font-weight: 300; font-size: .97rem; }
+  .intro-card strong { color: var(--gold-light); }
+
+  /* ── PRONOUN GRID ── */
+  .pronoun-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px;
+  }
+  .pronoun-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    border-top: 3px solid var(--gold);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .pronoun-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+  .pronoun-card .pronoun {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .pronoun-card .translation {
+    font-size: .8rem;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .pronoun-card .possessive {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .pronoun-card .examples {
+    margin-top: 10px;
+    font-size: .87rem;
+    color: #555;
+    line-height: 1.65;
+  }
+  .pronoun-card .examples span {
+    display: block;
+    padding: 5px 0;
+    border-bottom: 1px dashed #eee;
+  }
+  .pronoun-card .examples span:last-child { border: none; }
+  .pronoun-card .examples em {
+    font-style: normal;
+    color: var(--gray);
+    font-size: .82rem;
+  }
+  .highlight-word { color: var(--red); font-weight: 600; }
+
+  /* ── DECLENSION TABLE ── */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    margin-bottom: 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    font-size: .9rem;
+  }
+  thead tr { background: var(--black); color: var(--cream); }
+  thead th {
+    padding: 14px 18px;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .78rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  thead th:first-child { color: var(--gold); }
+  tbody tr:nth-child(even) { background: #faf8f5; }
+  tbody tr:hover { background: #f0ece4; }
+  tbody td {
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--blue);
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+  .masc { color: #1a6bb5; }
+  .fem  { color: #9b2d7c; }
+  .neut { color: #2e7d32; }
+  .plur { color: #6d4c41; }
+  .ending {
+    display: inline-block;
+    background: #fff3cd;
+    border-radius: 2px;
+    padding: 1px 4px;
+    font-weight: 700;
+  }
+
+  .case-badge {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+    margin-right: 8px;
+  }
+  .case-badge.akk { background: var(--red); }
+
+  .tip-box {
+    background: #fff9ec;
+    border-left: 4px solid var(--gold);
+    padding: 18px 22px;
+    border-radius: 0 4px 4px 0;
+    margin: 20px 0;
+    font-size: .9rem;
+    line-height: 1.7;
+  }
+  .tip-box strong { color: var(--gold); }
+
+  /* ── EXERCISES ── */
+  .exercise-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .exercise-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ex-num {
+    background: var(--black);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    padding: 3px 9px;
+    border-radius: 2px;
+  }
+  .exercise-subtitle {
+    font-size: .82rem;
+    color: var(--gray);
+    margin-bottom: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* Fill blanks */
+  .fill-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: .95rem;
+    flex-wrap: wrap;
+  }
+  .fill-item .item-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .8rem;
+    color: var(--gray);
+    min-width: 24px;
+  }
+  .fill-input {
+    border: none;
+    border-bottom: 2px solid var(--blue-light);
+    padding: 4px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .95rem;
+    color: var(--blue);
+    background: #f0f6ff;
+    border-radius: 2px 2px 0 0;
+    width: 120px;
+    outline: none;
+    transition: border-color .2s, background .2s;
+  }
+  .fill-input:focus { border-color: var(--gold); background: #fffbef; }
+  .fill-input.correct { border-color: #27ae60; background: #eafaf1; color: #1e5a3a; }
+  .fill-input.wrong { border-color: var(--red); background: #fdf0ef; color: var(--red); }
+  .fill-hint { font-size: .8rem; color: var(--gray); font-style: italic; }
+
+  /* Multiple choice */
+  .mc-item { margin-bottom: 20px; }
+  .mc-question { font-size: .97rem; margin-bottom: 10px; line-height: 1.5; }
+  .mc-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mc-btn {
+    border: 2px solid var(--border);
+    background: white;
+    padding: 8px 18px;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--black);
+  }
+  .mc-btn:hover { border-color: var(--blue-light); background: #f0f6ff; }
+  .mc-btn.correct-ans { border-color: #27ae60; background: #eafaf1; color: #1e5a3a; font-weight: 700; }
+  .mc-btn.wrong-ans { border-color: var(--red); background: #fdf0ef; color: var(--red); }
+  .mc-btn:disabled { cursor: default; }
+
+  /* Translation */
+  .trans-item { margin-bottom: 18px; }
+  .trans-sentence {
+    font-size: .97rem;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .trans-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 14px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: .9rem;
+    color: var(--black);
+    background: white;
+    outline: none;
+    transition: border-color .2s;
+    resize: none;
+  }
+  .trans-input:focus { border-color: var(--gold); }
+  .trans-reveal {
+    font-size: .82rem;
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 5px;
+    display: none;
+  }
+
+  /* Declension exercise */
+  .decl-exercise {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .decl-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    background: white;
+  }
+  .decl-card .ctx {
+    font-size: .82rem;
+    color: var(--gray);
+    margin-bottom: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .decl-card .sentence { font-size: .9rem; line-height: 1.6; }
+  .decl-card .decl-input {
+    border: none;
+    border-bottom: 2px solid var(--blue-light);
+    padding: 3px 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .92rem;
+    color: var(--blue);
+    background: #f0f6ff;
+    width: 110px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .decl-card .decl-input:focus { border-color: var(--gold); }
+  .decl-card .decl-input.correct { border-color: #27ae60; background: #eafaf1; color: #1e5a3a; }
+  .decl-card .decl-input.wrong { border-color: var(--red); background: #fdf0ef; color: var(--red); }
+
+  /* Buttons */
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    margin-top: 20px;
+    margin-right: 8px;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-check { background: var(--black); color: var(--gold); }
+  .btn-check:hover { background: #222; }
+  .btn-reset { background: white; color: var(--black); border: 2px solid var(--border); }
+  .btn-reset:hover { border-color: var(--black); }
+  .btn-reveal { background: var(--blue); color: white; }
+  .btn-reveal:hover { background: var(--blue-light); }
+
+  .score-display {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .85rem;
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border-radius: 3px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .feedback-msg {
+    margin-top: 10px;
+    font-size: .85rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--green);
+  }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-note {
+    background: var(--black);
+    color: var(--cream);
+    padding: 28px 32px;
+    border-radius: 4px;
+    font-size: .9rem;
+    line-height: 1.8;
+  }
+  .summary-note h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .summary-note ul { padding-left: 18px; }
+  .summary-note li { margin-bottom: 6px; }
+  .summary-note code {
+    background: #222;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--gold-light);
+    font-size: .85rem;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--black);
+    color: #555;
+    text-align: center;
+    padding: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    letter-spacing: 2px;
+  }
+  footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Gramática Alemana · Nivel A1–B1</div>
+  <h1>Artículos <em>Posesivos</em><br>en Alemán</h1>
+  <p>Todas las personas gramaticales · Declinación en Nominativo y Acusativo · Ejercicios interactivos</p>
+</header>
+
+<nav>
+  <a href="#intro">Introducción</a>
+  <a href="#personas">Todas las Personas</a>
+  <a href="#declinacion">Declinación</a>
+  <a href="#ejercicios">Ejercicios</a>
+  <a href="#resumen">Resumen</a>
+</nav>
+
+<main>
+
+  <!-- ── INTRO ── -->
+  <section id="intro">
+    <div class="section-tag">01 · Introducción</div>
+    <h2>¿Qué son los Posesivos?</h2>
+    <div class="section-divider"></div>
+
+    <div class="intro-card">
+      <p>Los <strong>artículos posesivos</strong> (Possessivartikel) indican <strong>pertenencia o relación</strong>. En alemán funcionan como artículos: preceden al sustantivo y <strong>se declinan</strong> según el género (masculino, femenino, neutro), número (singular/plural) y caso (Nominativo, Acusativo, Dativo, Genitivo).</p>
+      <br>
+      <p>En esta lección cubrimos <strong>todas las personas gramaticales</strong> y la declinación en los casos <strong>Nominativo</strong> (sujeto) y <strong>Acusativo</strong> (objeto directo).</p>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 Clave:</strong> Los posesivos alemanes toman las <strong>mismas terminaciones</strong> que el artículo indefinido <em>ein / eine / ein</em>. Por eso se llaman <em>Artikelwörter wie „ein"</em>. Aprender esas terminaciones es suficiente para dominarlos todos.
+    </div>
+  </section>
+
+  <!-- ── PERSONAS ── -->
+  <section id="personas">
+    <div class="section-tag">02 · Todas las Personas</div>
+    <h2>Los Posesivos por Persona</h2>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom:24px; color:#555; font-size:.93rem;">La <strong>raíz</strong> del posesivo cambia según la persona; las terminaciones dependen del sustantivo. Aquí las formas base (sin terminación o con -e):</p>
+
+    <div class="pronoun-grid">
+
+      <div class="pronoun-card">
+        <div class="pronoun">ich</div>
+        <div class="translation">yo</div>
+        <div class="possessive">mein / meine</div>
+        <div class="examples">
+          <span><span class="highlight-word">mein</span> Vater — mi padre (masc.)</span>
+          <span><span class="highlight-word">meine</span> Mutter — mi madre (fem.)</span>
+          <span><span class="highlight-word">mein</span> Kind — mi hijo/a (neut.)</span>
+          <span><span class="highlight-word">meine</span> Eltern — mis padres (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">du</div>
+        <div class="translation">tú</div>
+        <div class="possessive">dein / deine</div>
+        <div class="examples">
+          <span><span class="highlight-word">dein</span> Freund — tu amigo (masc.)</span>
+          <span><span class="highlight-word">deine</span> Schwester — tu hermana (fem.)</span>
+          <span><span class="highlight-word">dein</span> Buch — tu libro (neut.)</span>
+          <span><span class="highlight-word">deine</span> Bücher — tus libros (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">er</div>
+        <div class="translation">él</div>
+        <div class="possessive">sein / seine</div>
+        <div class="examples">
+          <span><span class="highlight-word">sein</span> Hund — su perro (masc.)</span>
+          <span><span class="highlight-word">seine</span> Katze — su gata (fem.)</span>
+          <span><span class="highlight-word">sein</span> Auto — su coche (neut.)</span>
+          <span><span class="highlight-word">seine</span> Kinder — sus hijos (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">sie (sie)</div>
+        <div class="translation">ella</div>
+        <div class="possessive">ihr / ihre</div>
+        <div class="examples">
+          <span><span class="highlight-word">ihr</span> Mann — su esposo (masc.)</span>
+          <span><span class="highlight-word">ihre</span> Tasche — su bolso (fem.)</span>
+          <span><span class="highlight-word">ihr</span> Zimmer — su habitación (neut.)</span>
+          <span><span class="highlight-word">ihre</span> Schuhe — sus zapatos (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">es</div>
+        <div class="translation">ello/neutro</div>
+        <div class="possessive">sein / seine</div>
+        <div class="examples">
+          <span><span class="highlight-word">sein</span> Name — su nombre (masc.)</span>
+          <span><span class="highlight-word">seine</span> Farbe — su color (fem.)</span>
+          <span><span class="highlight-word">sein</span> Spielzeug — su juguete (neut.)</span>
+          <span style="color:#aaa; font-size:.82rem;"><em>Igual que „er" — sein</em></span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">wir</div>
+        <div class="translation">nosotros/as</div>
+        <div class="possessive">unser / unsere</div>
+        <div class="examples">
+          <span><span class="highlight-word">unser</span> Haus — nuestra casa (neut.)</span>
+          <span><span class="highlight-word">unsere</span> Stadt — nuestra ciudad (fem.)</span>
+          <span><span class="highlight-word">unser</span> Lehrer — nuestro prof. (masc.)</span>
+          <span><span class="highlight-word">unsere</span> Freunde — nuestros amigos (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">ihr</div>
+        <div class="translation">vosotros/as</div>
+        <div class="possessive">euer / eure</div>
+        <div class="examples">
+          <span><span class="highlight-word">euer</span> Vater — su/vuestro padre (masc.)</span>
+          <span><span class="highlight-word">eure</span> Mutter — su/vuestra madre (fem.)</span>
+          <span><span class="highlight-word">euer</span> Zimmer — su/vuestra hab. (neut.)</span>
+          <span><span class="highlight-word">eure</span> Ideen — sus/vuestras ideas (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card">
+        <div class="pronoun">sie (pl.)</div>
+        <div class="translation">ellos/ellas</div>
+        <div class="possessive">ihr / ihre</div>
+        <div class="examples">
+          <span><span class="highlight-word">ihr</span> Chef — su jefe (masc.)</span>
+          <span><span class="highlight-word">ihre</span> Firma — su empresa (fem.)</span>
+          <span><span class="highlight-word">ihr</span> Geld — su dinero (neut.)</span>
+          <span><span class="highlight-word">ihre</span> Pläne — sus planes (pl.)</span>
+        </div>
+      </div>
+
+      <div class="pronoun-card" style="border-top-color:#c0392b;">
+        <div class="pronoun">Sie (formal)</div>
+        <div class="translation">usted/ustedes</div>
+        <div class="possessive">Ihr / Ihre</div>
+        <div class="examples">
+          <span><span class="highlight-word">Ihr</span> Name — su nombre (masc.)</span>
+          <span><span class="highlight-word">Ihre</span> Adresse — su dirección (fem.)</span>
+          <span><span class="highlight-word">Ihr</span> Büro — su oficina (neut.)</span>
+          <span style="color:#c0392b; font-size:.8rem;"><em>⚠ Siempre con mayúscula</em></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tip-box" style="margin-top:28px;">
+      <strong>⚠ Atención — ihr vs. Ihr vs. ihre:</strong><br>
+      <code style="background:#fff3cd; padding:2px 6px; border-radius:2px; font-family:'IBM Plex Mono',monospace; font-size:.88rem;">ihr</code> (minúscula) = de ella / de ellos. 
+      <code style="background:#fff3cd; padding:2px 6px; border-radius:2px; font-family:'IBM Plex Mono',monospace; font-size:.88rem;">Ihr</code> (mayúscula) = de usted/ustedes (formal).
+      El contexto y la escritura distinguen ambos.
+    </div>
+  </section>
+
+  <!-- ── DECLINACIÓN ── -->
+  <section id="declinacion">
+    <div class="section-tag">03 · Declinación</div>
+    <h2>Declinación: Nominativo y Acusativo</h2>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom:20px; color:#555; font-size:.93rem;">Los posesivos se declinan igual que <strong>ein/eine/ein</strong>. La raíz (mein-, dein-, sein-…) no cambia; solo la <strong>terminación</strong> depende del género y el caso.</p>
+
+    <span class="case-badge">NOM · Nominativo</span>
+    <span class="case-badge akk">AKK · Acusativo</span>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Posesivo</th>
+            <th class="masc" style="color:#8ec6f5;">Masculino (der)</th>
+            <th class="fem" style="color:#f5a8e0;">Femenino (die)</th>
+            <th class="neut" style="color:#a8f5c0;">Neutro (das)</th>
+            <th class="plur" style="color:#f5d5a8;">Plural (die)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5" style="background:#f5f0e8; font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:2px; color:var(--black); padding:10px 18px;">NOMINATIVO — sujeto de la oración</td>
+          </tr>
+          <tr>
+            <td>mein (mi)</td>
+            <td class="masc">mein<span class="ending">—</span><br><em style="font-size:.8rem;color:#888">mein Bruder</em></td>
+            <td class="fem">mein<span class="ending">e</span><br><em style="font-size:.8rem;color:#888">meine Schwester</em></td>
+            <td class="neut">mein<span class="ending">—</span><br><em style="font-size:.8rem;color:#888">mein Kind</em></td>
+            <td class="plur">mein<span class="ending">e</span><br><em style="font-size:.8rem;color:#888">meine Kinder</em></td>
+          </tr>
+          <tr>
+            <td>dein (tu)</td>
+            <td class="masc">dein<span class="ending">—</span></td>
+            <td class="fem">dein<span class="ending">e</span></td>
+            <td class="neut">dein<span class="ending">—</span></td>
+            <td class="plur">dein<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>sein (su-él)</td>
+            <td class="masc">sein<span class="ending">—</span></td>
+            <td class="fem">sein<span class="ending">e</span></td>
+            <td class="neut">sein<span class="ending">—</span></td>
+            <td class="plur">sein<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>ihr (su-ella)</td>
+            <td class="masc">ihr<span class="ending">—</span></td>
+            <td class="fem">ihr<span class="ending">e</span></td>
+            <td class="neut">ihr<span class="ending">—</span></td>
+            <td class="plur">ihr<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>unser (nuestro)</td>
+            <td class="masc">unser<span class="ending">—</span></td>
+            <td class="fem">unser<span class="ending">e</span></td>
+            <td class="neut">unser<span class="ending">—</span></td>
+            <td class="plur">unser<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>euer (su/vuestro)</td>
+            <td class="masc">eu<span class="ending">er</span></td>
+            <td class="fem">eu<span class="ending">re</span></td>
+            <td class="neut">eu<span class="ending">er</span></td>
+            <td class="plur">eu<span class="ending">re</span></td>
+          </tr>
+          <tr>
+            <td>ihr (su-ellos)</td>
+            <td class="masc">ihr<span class="ending">—</span></td>
+            <td class="fem">ihr<span class="ending">e</span></td>
+            <td class="neut">ihr<span class="ending">—</span></td>
+            <td class="plur">ihr<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>Ihr (su-formal)</td>
+            <td class="masc">Ihr<span class="ending">—</span></td>
+            <td class="fem">Ihr<span class="ending">e</span></td>
+            <td class="neut">Ihr<span class="ending">—</span></td>
+            <td class="plur">Ihr<span class="ending">e</span></td>
+          </tr>
+
+          <tr>
+            <td colspan="5" style="background:#fff0f0; font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:2px; color:var(--red); padding:10px 18px;">ACUSATIVO — objeto directo de la oración</td>
+          </tr>
+          <tr>
+            <td>mein (mi)</td>
+            <td class="masc">mein<span class="ending" style="background:#ffd6d6;">en</span><br><em style="font-size:.8rem;color:#888">meinen Bruder</em></td>
+            <td class="fem">mein<span class="ending">e</span><br><em style="font-size:.8rem;color:#888">meine Schwester</em></td>
+            <td class="neut">mein<span class="ending">—</span><br><em style="font-size:.8rem;color:#888">mein Kind</em></td>
+            <td class="plur">mein<span class="ending">e</span><br><em style="font-size:.8rem;color:#888">meine Kinder</em></td>
+          </tr>
+          <tr>
+            <td>dein (tu)</td>
+            <td class="masc">dein<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">dein<span class="ending">e</span></td>
+            <td class="neut">dein<span class="ending">—</span></td>
+            <td class="plur">dein<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>sein (su-él)</td>
+            <td class="masc">sein<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">sein<span class="ending">e</span></td>
+            <td class="neut">sein<span class="ending">—</span></td>
+            <td class="plur">sein<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>ihr (su-ella)</td>
+            <td class="masc">ihr<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">ihr<span class="ending">e</span></td>
+            <td class="neut">ihr<span class="ending">—</span></td>
+            <td class="plur">ihr<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>unser (nuestro)</td>
+            <td class="masc">unser<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">unser<span class="ending">e</span></td>
+            <td class="neut">unser<span class="ending">—</span></td>
+            <td class="plur">unser<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>euer (su/vuestro)</td>
+            <td class="masc">eu<span class="ending" style="background:#ffd6d6;">ren</span></td>
+            <td class="fem">eu<span class="ending">re</span></td>
+            <td class="neut">eu<span class="ending">er</span></td>
+            <td class="plur">eu<span class="ending">re</span></td>
+          </tr>
+          <tr>
+            <td>ihr (su-ellos)</td>
+            <td class="masc">ihr<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">ihr<span class="ending">e</span></td>
+            <td class="neut">ihr<span class="ending">—</span></td>
+            <td class="plur">ihr<span class="ending">e</span></td>
+          </tr>
+          <tr>
+            <td>Ihr (su-formal)</td>
+            <td class="masc">Ihr<span class="ending" style="background:#ffd6d6;">en</span></td>
+            <td class="fem">Ihr<span class="ending">e</span></td>
+            <td class="neut">Ihr<span class="ending">—</span></td>
+            <td class="plur">Ihr<span class="ending">e</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>🔑 Regla de oro:</strong> Solo cambia algo en <strong>Acusativo Masculino Singular</strong>: la terminación pasa de <code style="background:#fff3cd; font-family:'IBM Plex Mono',monospace; padding:1px 5px;">–</code> a <code style="background:#ffd6d6; font-family:'IBM Plex Mono',monospace; padding:1px 5px;">-en</code>. Femenino, neutro y plural son <strong>idénticos</strong> en Nominativo y Acusativo.
+    </div>
+
+    <div class="tip-box" style="border-color:#c0392b; background:#fff5f5;">
+      <strong>⚠ Atención con „euer":</strong> Este posesivo pierde la -e- interior cuando añade terminación: <em>euer → eu<strong>re</strong></em> (no <em>euere</em>). Lo mismo en Acusativo: <em>eu<strong>ren</strong></em>.
+    </div>
+  </section>
+
+  <!-- ── EJERCICIOS ── -->
+  <section id="ejercicios">
+    <div class="section-tag">04 · Práctica</div>
+    <h2>Ejercicios Interactivos</h2>
+    <div class="section-divider"></div>
+
+    <!-- EJ 1: Completa los espacios -->
+    <div class="exercise-block">
+      <div class="exercise-title">
+        <span class="ex-num">01</span>
+        Completa con el posesivo correcto
+      </div>
+      <div class="exercise-subtitle">Escribe el posesivo en la forma base (sin declinación adicional) según la persona indicada.</div>
+
+      <div id="fill1">
+        <div class="fill-item">
+          <span class="item-num">1.</span>
+          Das ist <input class="fill-input" data-answer="mein" placeholder="___"> Vater. <span class="fill-hint">(ich, masc.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">2.</span>
+          Wo ist <input class="fill-input" data-answer="deine" placeholder="___"> Schwester? <span class="fill-hint">(du, fem.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">3.</span>
+          Er liebt <input class="fill-input" data-answer="seine" placeholder="___"> Katze. <span class="fill-hint">(er, fem. Akk.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">4.</span>
+          Sie hat <input class="fill-input" data-answer="ihre" placeholder="___"> Tasche vergessen. <span class="fill-hint">(sie/ella, fem. Akk.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">5.</span>
+          Das ist <input class="fill-input" data-answer="unser" placeholder="___"> Haus. <span class="fill-hint">(wir, neut.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">6.</span>
+          Wo wohnen <input class="fill-input" data-answer="eure" placeholder="___"> Eltern? <span class="fill-hint">(ihr/vosotros, pl.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">7.</span>
+          Sie verkaufen <input class="fill-input" data-answer="ihr" placeholder="___"> Auto. <span class="fill-hint">(sie/ellos, neut. Akk.)</span>
+        </div>
+        <div class="fill-item">
+          <span class="item-num">8.</span>
+          Wie ist <input class="fill-input" data-answer="Ihr" placeholder="___"> Name, bitte? <span class="fill-hint">(Sie formal, masc.)</span>
+        </div>
+      </div>
+
+      <button class="btn btn-check" onclick="checkFill('fill1')">Corregir</button>
+      <button class="btn btn-reset" onclick="resetFill('fill1')">Reiniciar</button>
+      <div id="fill1-score" class="score-display" style="display:none;"></div>
+    </div>
+
+    <!-- EJ 2: Opción múltiple -->
+    <div class="exercise-block">
+      <div class="exercise-title">
+        <span class="ex-num">02</span>
+        Opción Múltiple
+      </div>
+      <div class="exercise-subtitle">Selecciona la opción correcta para cada frase.</div>
+
+      <div id="mc-exercise">
+
+        <div class="mc-item" data-answer="seinen">
+          <div class="mc-question">1. Er besucht <strong>___</strong> Bruder. <em style="color:#888;">(él visita a su hermano — masc. Akk.)</em></div>
+          <div class="mc-options">
+            <button class="mc-btn" onclick="checkMC(this, 'seinen')">sein</button>
+            <button class="mc-btn" onclick="checkMC(this, 'seinen')">seinen</button>
+            <button class="mc-btn" onclick="checkMC(this, 'seinen')">seine</button>
+            <button class="mc-btn" onclick="checkMC(this, 'seinen')">seines</button>
+          </div>
+        </div>
+
+        <div class="mc-item" data-answer="unsere">
+          <div class="mc-question">2. <strong>___</strong> Lehrerin ist sehr nett. <em style="color:#888;">(nuestra profesora — fem. Nom.)</em></div>
+          <div class="mc-options">
+            <button class="mc-btn" onclick="checkMC(this, 'unsere')">unser</button>
+            <button class="mc-btn" onclick="checkMC(this, 'unsere')">unsere</button>
+            <button class="mc-btn" onclick="checkMC(this, 'unsere')">unseren</button>
+            <button class="mc-btn" onclick="checkMC(this, 'unsere')">unserem</button>
+          </div>
+        </div>
+
+        <div class="mc-item" data-answer="eure">
+          <div class="mc-question">3. Ich mag <strong>___</strong> Ideen. <em style="color:#888;">(me gustan sus/vuestras ideas — pl. Akk.)</em></div>
+          <div class="mc-options">
+            <button class="mc-btn" onclick="checkMC(this, 'eure')">euer</button>
+            <button class="mc-btn" onclick="checkMC(this, 'eure')">euren</button>
+            <button class="mc-btn" onclick="checkMC(this, 'eure')">eure</button>
+            <button class="mc-btn" onclick="checkMC(this, 'eure')">eurem</button>
+          </div>
+        </div>
+
+        <div class="mc-item" data-answer="Ihre">
+          <div class="mc-question">4. Ist das <strong>___</strong> Jacke, Frau Müller? <em style="color:#888;">(¿es su chaqueta? — fem. Nom., formal)</em></div>
+          <div class="mc-options">
+            <button class="mc-btn" onclick="checkMC(this, 'Ihre')">ihr</button>
+            <button class="mc-btn" onclick="checkMC(this, 'Ihre')">ihre</button>
+            <button class="mc-btn" onclick="checkMC(this, 'Ihre')">Ihre</button>
+            <button class="mc-btn" onclick="checkMC(this, 'Ihre')">Ihr</button>
+          </div>
+        </div>
+
+        <div class="mc-item" data-answer="mein">
+          <div class="mc-question">5. <strong>___</strong> Hund heißt Max. <em style="color:#888;">(mi perro — masc. Nom.)</em></div>
+          <div class="mc-options">
+            <button class="mc-btn" onclick="checkMC(this, 'mein')">meinen</button>
+            <button class="mc-btn" onclick="checkMC(this, 'mein')">meine</button>
+            <button class="mc-btn" onclick="checkMC(this, 'mein')">mein</button>
+            <button class="mc-btn" onclick="checkMC(this, 'mein')">meinem</button>
+          </div>
+        </div>
+
+      </div>
+      <button class="btn btn-reset" onclick="resetMC()">Reiniciar</button>
+    </div>
+
+    <!-- EJ 3: Declinación -->
+    <div class="exercise-block">
+      <div class="exercise-title">
+        <span class="ex-num">03</span>
+        Práctica de Declinación
+      </div>
+      <div class="exercise-subtitle">Escribe el posesivo con la terminación correcta según género y caso.</div>
+
+      <div class="decl-exercise" id="decl-ex">
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Maskulin</div>
+          <div class="sentence"><input class="decl-input" data-answer="dein" placeholder="___"> Vater kommt.<br><em style="font-size:.78rem; color:#888">(dein — tu padre)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Maskulin</div>
+          <div class="sentence">Ich sehe <input class="decl-input" data-answer="ihren" placeholder="___"> Chef.<br><em style="font-size:.78rem; color:#888">(ihr — su jefe-ella)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Feminin</div>
+          <div class="sentence"><input class="decl-input" data-answer="seine" placeholder="___"> Frau ist Ärztin.<br><em style="font-size:.78rem; color:#888">(sein — su esposa)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Feminin</div>
+          <div class="sentence">Er kauft <input class="decl-input" data-answer="seine" placeholder="___"> Tasche.<br><em style="font-size:.78rem; color:#888">(sein — su bolso)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Neutral</div>
+          <div class="sentence"><input class="decl-input" data-answer="unser" placeholder="___"> Kind schläft.<br><em style="font-size:.78rem; color:#888">(unser — nuestro hijo)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Neutral</div>
+          <div class="sentence">Wir verkaufen <input class="decl-input" data-answer="unser" placeholder="___"> Haus.<br><em style="font-size:.78rem; color:#888">(unser — nuestra casa)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Plural</div>
+          <div class="sentence"><input class="decl-input" data-answer="meine" placeholder="___"> Freunde sind hier.<br><em style="font-size:.78rem; color:#888">(mein — mis amigos)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Plural</div>
+          <div class="sentence">Du liebst <input class="decl-input" data-answer="deine" placeholder="___"> Eltern.<br><em style="font-size:.78rem; color:#888">(dein — tus padres)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Maskulin</div>
+          <div class="sentence"><input class="decl-input" data-answer="euer" placeholder="___"> Bruder studiert.<br><em style="font-size:.78rem; color:#888">(euer — su/vuestro hermano)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Maskulin</div>
+          <div class="sentence">Ich kenne <input class="decl-input" data-answer="Ihren" placeholder="___"> Mann.<br><em style="font-size:.78rem; color:#888">(Ihr formal — su esposo)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">NOM · Feminin</div>
+          <div class="sentence"><input class="decl-input" data-answer="eure" placeholder="___"> Lehrerin erklärt gut.<br><em style="font-size:.78rem; color:#888">(euer — su/vuestra profesora)</em></div>
+        </div>
+
+        <div class="decl-card">
+          <div class="ctx">AKK · Neutral</div>
+          <div class="sentence">Sie liest <input class="decl-input" data-answer="ihr" placeholder="___"> Buch.<br><em style="font-size:.78rem; color:#888">(ihr — su libro [ella])</em></div>
+        </div>
+
+      </div>
+
+      <button class="btn btn-check" onclick="checkDecl()">Corregir</button>
+      <button class="btn btn-reset" onclick="resetDecl()">Reiniciar</button>
+      <div id="decl-score" class="score-display" style="display:none;"></div>
+    </div>
+
+    <!-- EJ 4: Traducción -->
+    <div class="exercise-block">
+      <div class="exercise-title">
+        <span class="ex-num">04</span>
+        Traduce al Alemán
+      </div>
+      <div class="exercise-subtitle">Escribe la traducción y pulsa "Ver respuesta" para comprobar.</div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">1. Mi hermana estudia medicina. <em style="color:#888; font-size:.85rem;">(Schwester = fem.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr1"><strong>✓</strong> Meine Schwester studiert Medizin.</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr1')">Ver respuesta</button>
+      </div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">2. ¿Dónde vive tu amigo? <em style="color:#888; font-size:.85rem;">(Freund = masc.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr2"><strong>✓</strong> Wo wohnt dein Freund?</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr2')">Ver respuesta</button>
+      </div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">3. Ellos venden su coche. <em style="color:#888; font-size:.85rem;">(Auto = neut.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr3"><strong>✓</strong> Sie verkaufen ihr Auto.</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr3')">Ver respuesta</button>
+      </div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">4. Nuestro profesor es muy simpático. <em style="color:#888; font-size:.85rem;">(Lehrer = masc.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr4"><strong>✓</strong> Unser Lehrer ist sehr nett.</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr4')">Ver respuesta</button>
+      </div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">5. Ella busca a su hijo. <em style="color:#888; font-size:.85rem;">(Sohn = masc., Akk.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr5"><strong>✓</strong> Sie sucht ihren Sohn.</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr5')">Ver respuesta</button>
+      </div>
+
+      <div class="trans-item">
+        <div class="trans-sentence">6. ¿Cuál es su/vuestro número de teléfono? <em style="color:#888; font-size:.85rem;">(Telefonnummer = fem.)</em></div>
+        <textarea class="trans-input" rows="1" placeholder="Escribe aquí..."></textarea>
+        <div class="trans-reveal" id="tr6"><strong>✓</strong> Was ist eure Telefonnummer?</div>
+        <button class="btn btn-reveal" style="margin-top:8px; padding:7px 16px; font-size:.75rem;" onclick="revealTrans('tr6')">Ver respuesta</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── RESUMEN ── -->
+  <section id="resumen">
+    <div class="section-tag">05 · Resumen</div>
+    <h2>Puntos Clave</h2>
+    <div class="section-divider"></div>
+
+    <div class="summary-note">
+      <h3>Lo que debes recordar</h3>
+      <ul>
+        <li>Hay <strong>9 posesivos</strong> según persona: <code>mein</code> · <code>dein</code> · <code>sein</code> · <code>ihr</code> · <code>sein (es)</code> · <code>unser</code> · <code>euer</code> · <code>ihr (pl.)</code> · <code>Ihr</code></li>
+        <li>Se declinan como <code>ein/eine/ein</code> — añades la terminación a la raíz.</li>
+        <li>En <strong>Nominativo</strong>: masc./neut. sin terminación; fem./pl. con <code>-e</code>.</li>
+        <li>En <strong>Acusativo</strong>: <strong>solo el masculino cambia</strong> → <code>-en</code>. El resto igual que Nominativo.</li>
+        <li><code>euer</code> pierde la <em>e</em> interior al añadir terminación: <code>eure / euren</code>.</li>
+        <li><code>Ihr</code> con mayúscula siempre = formal (usted/ustedes).</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Artículos Posesivos en Alemán · <span>Possessivartikel</span> · Gramática A1–B1
+</footer>
+
+<script>
+  // ── Fill in the blanks ──
+  function checkFill(blockId) {
+    const block = document.getElementById(blockId);
+    const inputs = block.querySelectorAll('.fill-input');
+    let correct = 0;
+    inputs.forEach(inp => {
+      inp.classList.remove('correct', 'wrong');
+      const answer = inp.value.trim().toLowerCase();
+      const expected = inp.dataset.answer.toLowerCase();
+      if (answer === expected) { inp.classList.add('correct'); correct++; }
+      else if (answer !== '') { inp.classList.add('wrong'); }
+    });
+    const score = document.getElementById(blockId + '-score');
+    score.style.display = 'inline-block';
+    score.textContent = `Resultado: ${correct} / ${inputs.length} correctas`;
+  }
+
+  function resetFill(blockId) {
+    const block = document.getElementById(blockId);
+    block.querySelectorAll('.fill-input').forEach(inp => {
+      inp.value = '';
+      inp.classList.remove('correct', 'wrong');
+    });
+    const score = document.getElementById(blockId + '-score');
+    if (score) score.style.display = 'none';
+  }
+
+  // ── Multiple choice ──
+  function checkMC(btn, correct) {
+    const item = btn.closest('.mc-item');
+    if (item.querySelector('.correct-ans') || item.querySelector('.wrong-ans')) return;
+    const chosen = btn.textContent.trim();
+    const buttons = item.querySelectorAll('.mc-btn');
+    buttons.forEach(b => b.disabled = true);
+    if (chosen === correct) {
+      btn.classList.add('correct-ans');
+    } else {
+      btn.classList.add('wrong-ans');
+      buttons.forEach(b => { if (b.textContent.trim() === correct) b.classList.add('correct-ans'); });
+    }
+  }
+
+  function resetMC() {
+    document.querySelectorAll('.mc-btn').forEach(b => {
+      b.classList.remove('correct-ans', 'wrong-ans');
+      b.disabled = false;
+    });
+  }
+
+  // ── Declension ──
+  function checkDecl() {
+    const inputs = document.querySelectorAll('#decl-ex .decl-input');
+    let correct = 0;
+    inputs.forEach(inp => {
+      inp.classList.remove('correct', 'wrong');
+      const answer = inp.value.trim().toLowerCase();
+      const expected = inp.dataset.answer.toLowerCase();
+      if (answer === expected) { inp.classList.add('correct'); correct++; }
+      else if (answer !== '') { inp.classList.add('wrong'); }
+    });
+    const score = document.getElementById('decl-score');
+    score.style.display = 'inline-block';
+    score.textContent = `Resultado: ${correct} / ${inputs.length} correctas`;
+  }
+
+  function resetDecl() {
+    document.querySelectorAll('#decl-ex .decl-input').forEach(inp => {
+      inp.value = '';
+      inp.classList.remove('correct', 'wrong');
+    });
+    document.getElementById('decl-score').style.display = 'none';
+  }
+
+  // ── Translation reveal ──
+  function revealTrans(id) {
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+    el.style.animation = 'fadeIn .3s ease';
+  }
+</script>
+</body>
+</html>

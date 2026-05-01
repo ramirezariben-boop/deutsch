@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronunciación Italiana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1a6b3c;
+    --green-light: #2d8f56;
+    --white: #f8f4ee;
+    --red: #c0392b;
+    --gold: #d4a843;
+    --dark: #1c1c1c;
+    --gray: #5a5a5a;
+    --card-bg: #ffffff;
+    --shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0f1a14;
+    color: var(--dark);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Slide container */
+  #slideshow {
+    width: min(920px, 96vw);
+    height: min(560px, 90vh);
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+
+  .slide.exit-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  /* ===== NAVIGATION ===== */
+  #nav {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .nav-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); transform: scale(1.08); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; transform: none; }
+
+  #dots { display: flex; gap: 8px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .dot.active { background: var(--gold); width: 22px; border-radius: 4px; }
+
+  #slide-counter {
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    min-width: 48px;
+    text-align: center;
+  }
+
+  /* ===== SHARED SLIDE PARTS ===== */
+  .flag-stripe {
+    height: 6px;
+    background: linear-gradient(90deg, #009246 33.3%, #fff 33.3% 66.6%, #ce2b37 66.6%);
+  }
+
+  .slide-inner {
+    height: calc(100% - 6px);
+    padding: 36px 44px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  h1.slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--dark);
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--gray);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ===== SLIDE 1 — PORTADA ===== */
+  #slide-1 { background: var(--white); }
+  #slide-1 .slide-inner { justify-content: space-between; }
+
+  .cover-body { flex: 1; display: flex; align-items: center; gap: 36px; padding-top: 14px; }
+  .cover-left { flex: 1; }
+  .cover-right {
+    flex: 0 0 220px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px;
+  }
+
+  .big-flag {
+    font-size: 100px;
+    line-height: 1;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
+  }
+
+  .cover-desc { font-size: 15px; color: var(--gray); margin-top: 14px; max-width: 380px; line-height: 1.65; }
+
+  .topics-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .topic-chip {
+    background: #f0f8f3;
+    border: 1px solid #c5e0cc;
+    color: var(--green);
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ===== SLIDE 2 — VOCALES ===== */
+  #slide-2 { background: #fff; }
+  .vocales-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+    flex: 1;
+  }
+  .vocal-card {
+    background: linear-gradient(135deg, #f0f8f3, #e6f4eb);
+    border: 1.5px solid #b8dcc3;
+    border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .vocal-letter { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--green); }
+  .vocal-sound { font-size: 12px; color: var(--gray); margin: 4px 0 2px; font-style: italic; }
+  .vocal-example { font-size: 11px; color: var(--dark); font-weight: 600; }
+
+  .note-box {
+    background: #fff8e6;
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #6b4f00;
+    line-height: 1.5;
+  }
+
+  /* ===== SLIDE 3 — C y G ===== */
+  #slide-3 { background: #fff; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; flex: 1; margin-top: 16px; }
+  .rule-card {
+    background: #f7f7f7;
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rule-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  }
+  .rule-card.soft::before { background: var(--red); }
+  .rule-card.hard::before { background: var(--green); }
+
+  .rule-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .rule-card.soft .rule-label { color: var(--red); }
+  .rule-card.hard .rule-label { color: var(--green); }
+
+  .rule-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--dark); }
+  .rule-subtitle { font-size: 12px; color: var(--gray); }
+
+  .examples-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .ex-row { display: flex; align-items: baseline; gap: 10px; }
+  .ex-word { font-size: 15px; font-weight: 700; color: var(--dark); min-width: 80px; }
+  .ex-pron { font-size: 13px; color: var(--gray); font-style: italic; }
+  .ex-mean { font-size: 12px; color: #888; }
+
+  /* ===== SLIDE 4 — H, Z, GL, GN ===== */
+  #slide-4 { background: #fff; }
+  .special-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; margin-top: 16px; }
+  .special-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1.5px solid #e8e8e8;
+  }
+  .special-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 900;
+    color: var(--dark);
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    text-align: center; line-height: 44px;
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+  .special-rule { font-size: 13px; color: var(--gray); line-height: 1.55; margin-bottom: 8px; }
+
+  /* ===== SLIDE 5 — ACENTO ===== */
+  #slide-5 { background: #fff; }
+  .accent-row { display: flex; gap: 14px; margin-top: 18px; flex: 1; }
+  .accent-block {
+    flex: 1;
+    background: #f7f7f7;
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .accent-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
+  .accent-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+  .stress { color: var(--red); border-bottom: 3px solid var(--red); }
+  .accent-desc { font-size: 12px; color: var(--gray); font-style: italic; }
+
+  .rules-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .rule-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--dark); line-height: 1.5;
+  }
+  .rule-num {
+    background: var(--gold);
+    color: #fff;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== SLIDE 6 — EJERCICIO 1 ===== */
+  #slide-6 { background: #fff; }
+  .ejercicio-tag {
+    background: var(--red);
+    color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; margin-top: 14px; }
+  .quiz-item {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .quiz-item:hover { border-color: #ccc; }
+  .quiz-item.correct { background: #edf7f0; border-color: var(--green); }
+  .quiz-item.wrong { background: #fdf0f0; border-color: var(--red); }
+
+  .quiz-word { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .quiz-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .q-opt {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1.5px solid #ddd;
+    background: #fff;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .q-opt:hover { background: #f0f0f0; }
+  .q-opt.selected-correct { background: var(--green); color: #fff; border-color: var(--green); }
+  .q-opt.selected-wrong { background: var(--red); color: #fff; border-color: var(--red); }
+  .q-opt.reveal-correct { background: #c5e0cc; border-color: var(--green); }
+
+  .feedback { font-size: 12px; margin-top: 6px; min-height: 16px; color: var(--gray); font-style: italic; }
+
+  /* ===== SLIDE 7 — DOBLES CONSONANTES ===== */
+  #slide-7 { background: #fff; }
+  .doppio-intro { font-size: 14px; color: var(--gray); margin: 10px 0 16px; line-height: 1.6; }
+  .doppio-pairs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; flex: 1; }
+  .doppio-card {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+    border: 1.5px solid #e8e8e8;
+  }
+  .doppio-pair {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 8px;
+  }
+  .dp-word { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; }
+  .dp-word .highlight { color: var(--red); }
+  .dp-mean { font-size: 11px; color: var(--gray); }
+  .dp-arrow { font-size: 16px; color: #ccc; }
+
+  /* ===== SLIDE 8 — EJERCICIO 2 ===== */
+  #slide-8 { background: #fff; }
+  .fill-grid { display: flex; flex-direction: column; gap: 10px; flex: 1; margin-top: 14px; justify-content: center; }
+  .fill-row {
+    display: flex; align-items: center; gap: 12px;
+    background: #f7f7f7; border-radius: 10px; padding: 12px 16px;
+    border: 1.5px solid #e8e8e8;
+  }
+  .fill-num { font-weight: 700; color: var(--green); font-size: 15px; min-width: 20px; }
+  .fill-sentence { font-size: 14px; color: var(--dark); flex: 1; line-height: 1.5; }
+  .fill-blank {
+    display: inline-block;
+    min-width: 50px;
+    border-bottom: 2px solid var(--green);
+    margin: 0 4px;
+    color: transparent;
+    transition: color 0.3s;
+  }
+  .fill-blank.revealed { color: var(--green); font-weight: 700; }
+  .reveal-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--green);
+    background: transparent;
+    color: var(--green);
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reveal-btn:hover { background: var(--green); color: #fff; }
+  .reveal-btn.done { background: #edf7f0; color: #888; border-color: #ccc; cursor: default; }
+
+  /* ===== SLIDE 9 — RESUMEN ===== */
+  #slide-9 { background: var(--dark); }
+  #slide-9 .slide-inner { justify-content: space-between; }
+  #slide-9 .slide-tag { color: var(--gold); }
+  #slide-9 h2.section-title { color: #fff; }
+  #slide-9 .subtitle { color: rgba(255,255,255,0.55); }
+
+  .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; flex: 1; }
+  .sum-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .sum-icon { font-size: 22px; margin-bottom: 8px; }
+  .sum-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .sum-items { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  .closing {
+    text-align: center;
+    padding: 14px 0 4px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+  }
+
+  .progress-bar-wrap { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-top: 16px; }
+  .progress-bar { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* Keyboard hint */
+  #key-hint {
+    position: fixed;
+    bottom: 12px;
+    right: 18px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'DM Sans', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<div id="slideshow">
+
+  <!-- ===== SLIDE 1: PORTADA ===== -->
+  <div class="slide active" id="slide-1">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div>
+        <div class="slide-tag">Lengua Italiana</div>
+        <h1 class="slide-title">La Pronunciación<br>del Italiano</h1>
+      </div>
+      <div class="cover-body">
+        <div class="cover-left">
+          <p class="cover-desc">Dominar la pronunciación italiana es clave para hablar con naturalidad. En esta presentación aprenderás los sonidos más importantes, sus reglas y practicarás con ejemplos reales.</p>
+          <div class="topics-list">
+            <span class="topic-chip">🔤 Vocales</span>
+            <span class="topic-chip">🔡 C y G</span>
+            <span class="topic-chip">✦ H · Z · GL · GN</span>
+            <span class="topic-chip">🎯 El acento</span>
+            <span class="topic-chip">📝 Consonantes dobles</span>
+            <span class="topic-chip">✏️ Ejercicios</span>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="big-flag">🇮🇹</div>
+        </div>
+      </div>
+      <div style="font-size:12px; color:#bbb;">Usa las flechas → para navegar entre diapositivas</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2: VOCALES ===== -->
+  <div class="slide" id="slide-2">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div class="slide-tag">Fonética Básica</div>
+      <h2 class="section-title">Las Vocales</h2>
+      <p class="subtitle">El italiano tiene 5 vocales escritas — siempre se pronuncian <strong>claras y abiertas</strong>, sin diptongos ni reducciones.</p>
+
+      <div class="vocales-grid">
+        <div class="vocal-card">
+          <div class="vocal-letter">A</div>
+          <div class="vocal-sound">[a]</div>
+          <div class="vocal-example">casa</div>
+          <div style="font-size:10px;color:#aaa;">= hogar</div>
+        </div>
+        <div class="vocal-card">
+          <div class="vocal-letter">E</div>
+          <div class="vocal-sound">[e] / [ɛ]</div>
+          <div class="vocal-example">sera / bello</div>
+          <div style="font-size:10px;color:#aaa;">cerrada / abierta</div>
+        </div>
+        <div class="vocal-card">
+          <div class="vocal-letter">I</div>
+          <div class="vocal-sound">[i]</div>
+          <div class="vocal-example">vino</div>
+          <div style="font-size:10px;color:#aaa;">= vino</div>
+        </div>
+        <div class="vocal-card">
+          <div class="vocal-letter">O</div>
+          <div class="vocal-sound">[o] / [ɔ]</div>
+          <div class="vocal-example">sole / cosa</div>
+          <div style="font-size:10px;color:#aaa;">cerrada / abierta</div>
+        </div>
+        <div class="vocal-card">
+          <div class="vocal-letter">U</div>
+          <div class="vocal-sound">[u]</div>
+          <div class="vocal-example">luna</div>
+          <div style="font-size:10px;color:#aaa;">= luna</div>
+        </div>
+      </div>
+
+      <div class="note-box">
+        💡 <strong>Diferencia clave con el español:</strong> en italiano cada vocal tiene siempre el mismo sonido, nunca se "come" — incluso al final de palabra. <em>Parla</em> = par-la (dos vocales claras).
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3: C y G ===== -->
+  <div class="slide" id="slide-3">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div class="slide-tag">Las Consonantes Clave</div>
+      <h2 class="section-title">C y G — la regla de vocales</h2>
+      <p class="subtitle">El sonido de <strong>C</strong> y <strong>G</strong> cambia según la vocal que les sigue. Esta es la regla más importante.</p>
+
+      <div class="two-col">
+        <div>
+          <!-- C -->
+          <div class="rule-card soft" style="margin-bottom:12px;">
+            <div class="rule-label">Suave — "CH"</div>
+            <div class="rule-title">C + e, i → [tʃ]</div>
+            <div class="rule-subtitle">como "ch" en español</div>
+            <div class="examples-list">
+              <div class="ex-row"><span class="ex-word">cena</span><span class="ex-pron">[ˈtʃɛna]</span><span class="ex-mean">cena</span></div>
+              <div class="ex-row"><span class="ex-word">città</span><span class="ex-pron">[tʃitˈta]</span><span class="ex-mean">ciudad</span></div>
+              <div class="ex-row"><span class="ex-word">ciao</span><span class="ex-pron">[ˈtʃao]</span><span class="ex-mean">hola/adiós</span></div>
+            </div>
+          </div>
+          <div class="rule-card hard">
+            <div class="rule-label">Fuerte — "K"</div>
+            <div class="rule-title">C + a, o, u → [k]</div>
+            <div class="rule-subtitle">como "k" en español</div>
+            <div class="examples-list">
+              <div class="ex-row"><span class="ex-word">casa</span><span class="ex-pron">[ˈkaza]</span><span class="ex-mean">hogar</span></div>
+              <div class="ex-row"><span class="ex-word">cosa</span><span class="ex-pron">[ˈkɔza]</span><span class="ex-mean">cosa</span></div>
+              <div class="ex-row"><span class="ex-word">scuola</span><span class="ex-pron">[ˈskwɔla]</span><span class="ex-mean">escuela</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- G -->
+          <div class="rule-card soft" style="margin-bottom:12px;">
+            <div class="rule-label">Suave — "Y"</div>
+            <div class="rule-title">G + e, i → [dʒ]</div>
+            <div class="rule-subtitle">como "y" suave o "dj"</div>
+            <div class="examples-list">
+              <div class="ex-row"><span class="ex-word">gente</span><span class="ex-pron">[ˈdʒɛnte]</span><span class="ex-mean">gente</span></div>
+              <div class="ex-row"><span class="ex-word">giorno</span><span class="ex-pron">[ˈdʒorno]</span><span class="ex-mean">día</span></div>
+              <div class="ex-row"><span class="ex-word">gelato</span><span class="ex-pron">[dʒeˈlato]</span><span class="ex-mean">helado</span></div>
+            </div>
+          </div>
+          <div class="rule-card hard">
+            <div class="rule-label">Fuerte — "G"</div>
+            <div class="rule-title">G + a, o, u → [g]</div>
+            <div class="rule-subtitle">como "g" en español</div>
+            <div class="examples-list">
+              <div class="ex-row"><span class="ex-word">gatto</span><span class="ex-pron">[ˈgatto]</span><span class="ex-mean">gato</span></div>
+              <div class="ex-row"><span class="ex-word">gusto</span><span class="ex-pron">[ˈgusto]</span><span class="ex-mean">gusto</span></div>
+              <div class="ex-row"><span class="ex-word">lago</span><span class="ex-pron">[ˈlago]</span><span class="ex-mean">lago</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4: H, Z, GL, GN ===== -->
+  <div class="slide" id="slide-4">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div class="slide-tag">Consonantes Especiales</div>
+      <h2 class="section-title">H, Z, GL y GN</h2>
+      <p class="subtitle">Cuatro consonantes con comportamiento único que no existen igual en español.</p>
+
+      <div class="special-grid">
+        <div class="special-card">
+          <div class="special-letter">H</div>
+          <div class="rule-label" style="color:var(--gray); margin-bottom:6px;">Letra muda</div>
+          <div class="special-rule">La <strong>H</strong> en italiano es siempre muda — nunca se pronuncia. Se usa solo para cambiar el sonido de C y G: <em>chi</em> → [ki], <em>che</em> → [ke], <em>ghi</em> → [gi].</div>
+          <div class="examples-list">
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">chi</span><span class="ex-pron">= quién [ki]</span></div>
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">ghiaccio</span><span class="ex-pron">= hielo [ˈgjattʃo]</span></div>
+          </div>
+        </div>
+
+        <div class="special-card">
+          <div class="special-letter">Z</div>
+          <div class="rule-label" style="color:var(--gray); margin-bottom:6px;">Ts o Dz</div>
+          <div class="special-rule">La <strong>Z</strong> italiana se pronuncia como <em>[ts]</em> (como "pizza" → pits-za) o como <em>[dz]</em> al inicio de palabra. Nunca como la "z" española.</div>
+          <div class="examples-list">
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">pizza</span><span class="ex-pron">[ˈpit-tsa]</span></div>
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">zero</span><span class="ex-pron">[ˈdze-ro]</span></div>
+          </div>
+        </div>
+
+        <div class="special-card">
+          <div class="special-letter">GL</div>
+          <div class="rule-label" style="color:var(--gray); margin-bottom:6px;">Sonido palatal [ʎ]</div>
+          <div class="special-rule"><strong>GL</strong> seguido de <em>i</em> suena como la "ll" del español rioplatense, o la "lh" del portugués — un sonido palatal suave.</div>
+          <div class="examples-list">
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">figlio</span><span class="ex-pron">= hijo [ˈfiʎʎo]</span></div>
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">moglie</span><span class="ex-pron">= esposa [ˈmɔʎʎe]</span></div>
+          </div>
+        </div>
+
+        <div class="special-card">
+          <div class="special-letter">GN</div>
+          <div class="rule-label" style="color:var(--gray); margin-bottom:6px;">Sonido nasal [ɲ]</div>
+          <div class="special-rule"><strong>GN</strong> se pronuncia como la "ñ" del español — un sonido nasal palatal. Es uno de los sonidos más fáciles para hispanohablantes.</div>
+          <div class="examples-list">
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">bagno</span><span class="ex-pron">= baño [ˈbaɲɲo]</span></div>
+            <div class="ex-row"><span class="ex-word" style="font-size:13px;">gnocchi</span><span class="ex-pron">= ñoquis [ˈɲɔkki]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5: EL ACENTO ===== -->
+  <div class="slide" id="slide-5">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div class="slide-tag">Prosodia</div>
+      <h2 class="section-title">El Acento Tónico</h2>
+      <p class="subtitle">En italiano, el acento generalmente cae en la <strong>penúltima sílaba</strong>, pero hay excepciones importantes.</p>
+
+      <div class="accent-row">
+        <div class="accent-block" style="flex:1.2">
+          <div class="accent-title">📍 Posición más común</div>
+          <div class="accent-word">par<span class="stress">la</span>re</div>
+          <div class="accent-desc" style="margin-bottom:10px;">hablar — penúltima sílaba</div>
+          <div class="accent-word">bel<span class="stress">lez</span>za</div>
+          <div class="accent-desc" style="margin-bottom:10px;">belleza — penúltima</div>
+          <div class="accent-word"><span class="stress">ta</span>volo</div>
+          <div class="accent-desc">mesa — antepenúltima</div>
+        </div>
+
+        <div class="accent-block" style="flex:1">
+          <div class="accent-title">⚠️ Acento en la última sílaba</div>
+          <div style="margin-bottom:6px;">Se marca siempre con tilde escrita</div>
+          <div class="examples-list">
+            <div class="ex-row"><span class="ex-word">città</span><span class="ex-pron">ciudad [tʃitˈta]</span></div>
+            <div class="ex-row"><span class="ex-word">caffè</span><span class="ex-pron">café [kafˈfɛ]</span></div>
+            <div class="ex-row"><span class="ex-word">però</span><span class="ex-pron">pero/sin emb. [peˈrɔ]</span></div>
+            <div class="ex-row"><span class="ex-word">virtù</span><span class="ex-pron">virtud [virˈtu]</span></div>
+          </div>
+        </div>
+
+        <div class="accent-block" style="flex:1">
+          <div class="accent-title">📌 Reglas prácticas</div>
+          <div class="rules-list">
+            <div class="rule-item">
+              <div class="rule-num">1</div>
+              <div>Si la palabra lleva tilde escrita → acento ahí</div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-num">2</div>
+              <div>Sin tilde → prueba primero la penúltima</div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-num">3</div>
+              <div>Palabras esdrújulas son comunes: <em>tèlevision</em>, <em>màquina</em>-style</div>
+            </div>
+            <div class="rule-item">
+              <div class="rule-num">4</div>
+              <div>El acento puede cambiar el significado: <em>àncora</em> (todavía) vs <em>ancòra</em> (ancla)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6: EJERCICIO 1 ===== -->
+  <div class="slide" id="slide-6">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div>
+        <div class="ejercicio-tag">✏️ Ejercicio 1</div>
+        <h2 class="section-title">¿Cómo se pronuncia?</h2>
+        <p class="subtitle">Selecciona la pronunciación correcta de cada palabra italiana.</p>
+      </div>
+
+      <div class="quiz-grid">
+        <div class="quiz-item" id="qi-1">
+          <div class="quiz-word">ciao</div>
+          <div class="quiz-options">
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-1', true, '✓ Correcto: ci → [tʃ] + ao')">tʃao</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-1', false, '✗ C+i → [tʃ], no [k]')">kao</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-1', false, '✗ C+i → [tʃ], no [sj]')">sjao</button>
+          </div>
+          <div class="feedback" id="fb-qi-1"></div>
+        </div>
+
+        <div class="quiz-item" id="qi-2">
+          <div class="quiz-word">gente</div>
+          <div class="quiz-options">
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-2', false, '✗ G+e → [dʒ], no [g]')">gente</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-2', true, '✓ Correcto: G+e → [dʒ]')">dʒente</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-2', false, '✗ G+e → [dʒ], no [x]')">xente</button>
+          </div>
+          <div class="feedback" id="fb-qi-2"></div>
+        </div>
+
+        <div class="quiz-item" id="qi-3">
+          <div class="quiz-word">pizza</div>
+          <div class="quiz-options">
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-3', false, '✗ Z italiana = [ts], no [s]')">pisa</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-3', false, '✗ Z italiana = [ts], no [θ]')">piθa</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-3', true, '✓ Correcto: Z→[ts] y doble [tt]')">pittsa</button>
+          </div>
+          <div class="feedback" id="fb-qi-3"></div>
+        </div>
+
+        <div class="quiz-item" id="qi-4">
+          <div class="quiz-word">figlio</div>
+          <div class="quiz-options">
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-4', false, '✗ GL+i → palatal [ʎ]')">figlio (gl duro)</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-4', true, '✓ Correcto: GL+i → [ʎ] como LL rioplatense')">fiʎʎo</button>
+            <button class="q-opt" onclick="checkAnswer(this, 'qi-4', false, '✗ No es [x]')">fixo</button>
+          </div>
+          <div class="feedback" id="fb-qi-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 7: DOBLES CONSONANTES ===== -->
+  <div class="slide" id="slide-7">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div class="slide-tag">Fonología Avanzada</div>
+      <h2 class="section-title">Consonantes Dobles</h2>
+      <p class="doppio-intro">En italiano las consonantes dobles (<em>geminate</em>) se pronuncian con una pausa ligeramente más larga — y cambian el significado. ¡No ignorarlas!</p>
+
+      <div class="doppio-pairs">
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">no<span class="highlight">n</span>o</div>
+              <div class="dp-mean">abuelo</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">no<span class="highlight">nn</span>o</div>
+              <div class="dp-mean">abuelo (correcto)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">ca<span class="highlight">s</span>a</div>
+              <div class="dp-mean">hogar</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">ca<span class="highlight">ss</span>a</div>
+              <div class="dp-mean">caja/caja registradora</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">pa<span class="highlight">p</span>a</div>
+              <div class="dp-mean">el papa (pontífice)</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">pa<span class="highlight">pp</span>a</div>
+              <div class="dp-mean">papilla/papá (informal)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">so<span class="highlight">n</span>o</div>
+              <div class="dp-mean">soy / son</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">so<span class="highlight">nn</span>o</div>
+              <div class="dp-mean">sueño (sustantivo)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">be<span class="highlight">l</span>o</div>
+              <div class="dp-mean">(no existe)</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">be<span class="highlight">ll</span>o</div>
+              <div class="dp-mean">hermoso</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doppio-card">
+          <div class="doppio-pair">
+            <div>
+              <div class="dp-word">ga<span class="highlight">t</span>o</div>
+              <div class="dp-mean">(no es italiano)</div>
+            </div>
+            <div class="dp-arrow">↔</div>
+            <div>
+              <div class="dp-word">ga<span class="highlight">tt</span>o</div>
+              <div class="dp-mean">gato</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top:12px;">
+        💡 <strong>Técnica:</strong> Para pronunciar una doble consonante, mantén la posición articulatoria un momento extra antes de soltar el sonido. Como una pequeña pausa interior.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 8: EJERCICIO 2 ===== -->
+  <div class="slide" id="slide-8">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div>
+        <div class="ejercicio-tag">✏️ Ejercicio 2</div>
+        <h2 class="section-title">Completa la pronunciación</h2>
+        <p class="subtitle">Intenta pronunciar cada palabra, luego haz clic en "Ver" para verificar.</p>
+      </div>
+
+      <div class="fill-grid">
+        <div class="fill-row">
+          <div class="fill-num">1</div>
+          <div class="fill-sentence">
+            <strong>chiesa</strong> (iglesia) → se pronuncia: 
+            <span class="fill-blank" id="fill-1">[ˈkjɛza]</span>
+            <em style="color:#aaa; font-size:12px;"> (ch+i = ke, no tʃi)</em>
+          </div>
+          <button class="reveal-btn" onclick="revealFill('fill-1', this)">Ver</button>
+        </div>
+
+        <div class="fill-row">
+          <div class="fill-num">2</div>
+          <div class="fill-sentence">
+            <strong>notte</strong> (noche) → se pronuncia:
+            <span class="fill-blank" id="fill-2">[ˈnɔtte]</span>
+            <em style="color:#aaa; font-size:12px;"> (tt doble: pausa antes de soltar)</em>
+          </div>
+          <button class="reveal-btn" onclick="revealFill('fill-2', this)">Ver</button>
+        </div>
+
+        <div class="fill-row">
+          <div class="fill-num">3</div>
+          <div class="fill-sentence">
+            <strong>scienza</strong> (ciencia) → se pronuncia:
+            <span class="fill-blank" id="fill-3">[ˈʃɛntsa]</span>
+            <em style="color:#aaa; font-size:12px;"> (sci = [ʃ] como "sh")</em>
+          </div>
+          <button class="reveal-btn" onclick="revealFill('fill-3', this)">Ver</button>
+        </div>
+
+        <div class="fill-row">
+          <div class="fill-num">4</div>
+          <div class="fill-sentence">
+            <strong>cognome</strong> (apellido) → se pronuncia:
+            <span class="fill-blank" id="fill-4">[koɲˈɲome]</span>
+            <em style="color:#aaa; font-size:12px;"> (gn = [ɲ] como "ñ")</em>
+          </div>
+          <button class="reveal-btn" onclick="revealFill('fill-4', this)">Ver</button>
+        </div>
+
+        <div class="fill-row">
+          <div class="fill-num">5</div>
+          <div class="fill-sentence">
+            <strong>perché</strong> (¿por qué?) → acento en:
+            <span class="fill-blank" id="fill-5">última sílaba → [perˈke]</span>
+            <em style="color:#aaa; font-size:12px;"> (tilde = acento final)</em>
+          </div>
+          <button class="reveal-btn" onclick="revealFill('fill-5', this)">Ver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 9: RESUMEN ===== -->
+  <div class="slide" id="slide-9">
+    <div class="flag-stripe"></div>
+    <div class="slide-inner">
+      <div>
+        <div class="slide-tag">Repaso Final</div>
+        <h2 class="section-title">Lo que aprendiste hoy</h2>
+        <p class="subtitle">Un resumen de los puntos clave de la pronunciación italiana.</p>
+      </div>
+
+      <div class="summary-cards">
+        <div class="sum-card">
+          <div class="sum-icon">🔤</div>
+          <div class="sum-title">Vocales</div>
+          <div class="sum-items">Siempre claras y abiertas<br>Nunca reducidas<br>5 vocales, siempre estables</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-icon">🔡</div>
+          <div class="sum-title">C y G</div>
+          <div class="sum-items">+e,i → suave [tʃ / dʒ]<br>+a,o,u → duro [k / g]<br>+h → siempre duro</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-icon">✦</div>
+          <div class="sum-title">Especiales</div>
+          <div class="sum-items">H = siempre muda<br>Z = [ts] o [dz]<br>GL = [ʎ] · GN = [ɲ]</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-icon">🎯</div>
+          <div class="sum-title">El Acento</div>
+          <div class="sum-items">Normalmente en penúltima<br>Tilde escrita = acento final<br>Cambia el significado</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-icon">📝</div>
+          <div class="sum-title">Dobles</div>
+          <div class="sum-items">Pronunciarlas siempre<br>Pausa + consonante larga<br>Cambian el significado</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-icon">💬</div>
+          <div class="sum-title">Consejo Final</div>
+          <div class="sum-items">Practica con canciones<br>Repite en voz alta<br>¡La música ayuda mucho!</div>
+        </div>
+      </div>
+
+      <div class="closing">
+        Forza! La pratica fa la perfezione 🇮🇹
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" disabled>&#8592;</button>
+  <div id="dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="navigate(1)">&#8594;</button>
+  <span id="slide-counter">1 / 9</span>
+</div>
+
+<div id="key-hint">← → teclas de flecha</div>
+
+<script>
+  const totalSlides = 9;
+  let current = 1;
+  let animating = false;
+
+  // Build dots
+  const dotsEl = document.getElementById('dots');
+  for (let i = 1; i <= totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(target) {
+    if (animating || target === current || target < 1 || target > totalSlides) return;
+    animating = true;
+
+    const oldSlide = document.getElementById('slide-' + current);
+    const newSlide = document.getElementById('slide-' + target);
+
+    const direction = target > current ? 1 : -1;
+
+    // Animate out
+    oldSlide.classList.add('exit-left');
+    oldSlide.classList.remove('active');
+
+    // Animate in
+    newSlide.style.transform = `translateX(${direction * 60}px)`;
+    newSlide.style.opacity = '0';
+    newSlide.classList.add('active');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        newSlide.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+        newSlide.style.transform = 'translateX(0)';
+        newSlide.style.opacity = '1';
+      });
+    });
+
+    setTimeout(() => {
+      oldSlide.classList.remove('exit-left');
+      oldSlide.style.transform = '';
+      oldSlide.style.opacity = '';
+      newSlide.style.transition = '';
+      animating = false;
+    }, 480);
+
+    // Update dots
+    document.querySelectorAll('.dot')[current - 1].classList.remove('active');
+    document.querySelectorAll('.dot')[target - 1].classList.add('active');
+
+    current = target;
+
+    // Update counter + buttons
+    document.getElementById('slide-counter').textContent = current + ' / ' + totalSlides;
+    document.getElementById('btn-prev').disabled = current === 1;
+    document.getElementById('btn-next').disabled = current === totalSlides;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  // Quiz logic
+  function checkAnswer(btn, itemId, isCorrect, feedback) {
+    const item = document.getElementById(itemId);
+    if (item.classList.contains('correct') || item.classList.contains('wrong')) return;
+
+    const allOpts = item.querySelectorAll('.q-opt');
+    allOpts.forEach(o => o.disabled = true);
+
+    if (isCorrect) {
+      btn.classList.add('selected-correct');
+      item.classList.add('correct');
+    } else {
+      btn.classList.add('selected-wrong');
+      item.classList.add('wrong');
+      // Reveal correct
+      allOpts.forEach(o => {
+        if (o.textContent.includes('✓')) o.classList.add('reveal-correct');
+      });
+    }
+
+    document.getElementById('fb-' + itemId).textContent = feedback;
+  }
+
+  // Fill reveal
+  function revealFill(id, btn) {
+    const el = document.getElementById(id);
+    el.classList.add('revealed');
+    btn.textContent = '✓';
+    btn.classList.add('done');
+    btn.disabled = true;
+  }
+</script>
+
+</body>
+</html>

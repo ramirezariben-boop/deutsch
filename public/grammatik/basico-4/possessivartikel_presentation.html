@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Possessivartikel - Nominativ & Akkusativ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .slide {
+            display: none;
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 5px solid #f5576c;
+            padding-left: 15px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .male { color: #2196F3; font-weight: bold; }
+        .neuter { color: #4CAF50; font-weight: bold; }
+        .female { color: #E91E63; font-weight: bold; }
+        .plural { color: #FF9800; font-weight: bold; }
+
+        .examples {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .example-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .exercise {
+            background: #fff3e0;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2196F3;
+            margin: 20px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Possessivartikel</h1>
+            <p class="subtitle">Nominativ & Akkusativ</p>
+        </header>
+
+        <!-- Slide 1: Introducción -->
+        <div class="slide active" id="slide1">
+            <h2>Was sind Possessivartikel?</h2>
+            <div class="info-box">
+                <p><strong>Possessivartikel</strong> (artículos posesivos) indican a quién pertenece algo. En alemán, cambian su forma según el género, número y caso del sustantivo que acompañan.</p>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='80' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='100' y='110' font-size='80' text-anchor='middle' fill='%23667eea'%3E📖%3C/text%3E%3C/svg%3E" alt="Book">
+            </div>
+        </div>
+
+        <!-- Slide 2: Tabla de pronombres posesivos -->
+        <div class="slide" id="slide2">
+            <h2>Possessivartikel nach Pronomen</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pronomen</th>
+                        <th>Possessivartikel</th>
+                        <th>Español</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ich</strong></td>
+                        <td>mein/e</td>
+                        <td>mi, mis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>du</strong></td>
+                        <td>dein/e</td>
+                        <td>tu, tus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>er</strong></td>
+                        <td>sein/e</td>
+                        <td>su (de él), sus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>es</strong></td>
+                        <td>sein/e</td>
+                        <td>su (de ello), sus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sie</strong></td>
+                        <td>ihr/e</td>
+                        <td>su (de ella), sus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>wir</strong></td>
+                        <td>unser/e</td>
+                        <td>nuestro/a, nuestros/as</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ihr</strong></td>
+                        <td>euer/eure</td>
+                        <td>vuestro/a, vuestros/as</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sie</strong></td>
+                        <td>ihr/e</td>
+                        <td>su (de ellos), sus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sie</strong></td>
+                        <td>Ihr/e</td>
+                        <td>su (formal), sus</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 3: Declinación Nominativo -->
+        <div class="slide" id="slide3">
+            <h2>Deklination: Nominativ</h2>
+            <div class="info-box">
+                <p><strong>Nominativ</strong> responde a la pregunta: <em>Wer? Was?</em> (¿Quién? ¿Qué?)</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Genus</th>
+                        <th>Artikel</th>
+                        <th>Beispiel (mein)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="male">Maskulin (der)</td>
+                        <td>mein</td>
+                        <td>mein Sohn</td>
+                    </tr>
+                    <tr>
+                        <td class="neuter">Neutrum (das)</td>
+                        <td>mein</td>
+                        <td>mein Kind</td>
+                    </tr>
+                    <tr>
+                        <td class="female">Feminin (die)</td>
+                        <td>meine</td>
+                        <td>meine Tochter</td>
+                    </tr>
+                    <tr>
+                        <td class="plural">Plural (die)</td>
+                        <td>meine</td>
+                        <td>meine Kinder</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    <span class="male">Das ist mein Vater.</span> (Este es mi padre)
+                </div>
+                <div class="example-item">
+                    <span class="female">Deine Schwester ist nett.</span> (Tu hermana es amable)
+                </div>
+                <div class="example-item">
+                    <span class="plural">Unsere Eltern kommen morgen.</span> (Nuestros padres vienen mañana)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Declinación Acusativo -->
+        <div class="slide" id="slide4">
+            <h2>Deklination: Akkusativ</h2>
+            <div class="info-box">
+                <p><strong>Akkusativ</strong> responde a la pregunta: <em>Wen? Was?</em> (¿A quién? ¿Qué?)</p>
+                <p>Se usa para el objeto directo de la oración.</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Genus</th>
+                        <th>Artikel</th>
+                        <th>Beispiel (mein)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="male">Maskulin (den)</td>
+                        <td>meinen</td>
+                        <td>meinen Sohn</td>
+                    </tr>
+                    <tr>
+                        <td class="neuter">Neutrum (das)</td>
+                        <td>mein</td>
+                        <td>mein Kind</td>
+                    </tr>
+                    <tr>
+                        <td class="female">Feminin (die)</td>
+                        <td>meine</td>
+                        <td>meine Tochter</td>
+                    </tr>
+                    <tr>
+                        <td class="plural">Plural (die)</td>
+                        <td>meine</td>
+                        <td>meine Kinder</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    <span class="male">Ich sehe meinen Bruder.</span> (Veo a mi hermano)
+                </div>
+                <div class="example-item">
+                    <span class="female">Er liebt seine Frau.</span> (Él ama a su esposa)
+                </div>
+                <div class="example-item">
+                    <span class="plural">Wir besuchen unsere Großeltern.</span> (Visitamos a nuestros abuelos)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Comparación -->
+        <div class="slide" id="slide5">
+            <h2>Nominativ vs Akkusativ</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kasus</th>
+                        <th class="male">Maskulin</th>
+                        <th class="neuter">Neutrum</th>
+                        <th class="female">Feminin</th>
+                        <th class="plural">Plural</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nominativ</strong></td>
+                        <td class="male">mein Sohn</td>
+                        <td class="neuter">mein Kind</td>
+                        <td class="female">meine Tochter</td>
+                        <td class="plural">meine Kinder</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Akkusativ</strong></td>
+                        <td class="male">meinen Sohn</td>
+                        <td class="neuter">mein Kind</td>
+                        <td class="female">meine Tochter</td>
+                        <td class="plural">meine Kinder</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="info-box">
+                <p>⚠️ <strong>¡Importante!</strong> Solo el <span class="male">masculino</span> cambia en acusativo (mein → meinen)</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Ejercicio 1 -->
+        <div class="slide" id="slide6">
+            <h2>Übung 1: Nominativ</h2>
+            
+            <div class="exercise">
+                <h3>Ergänze die Possessivartikel</h3>
+                
+                <div class="question">
+                    1. (ich) <input type="text" id="ex1_1" placeholder="..."> Vater ist Arzt.
+                </div>
+                <div class="question">
+                    2. (du) <input type="text" id="ex1_2" placeholder="..."> Schwester ist sehr nett.
+                </div>
+                <div class="question">
+                    3. (er) <input type="text" id="ex1_3" placeholder="..."> Auto ist neu.
+                </div>
+                <div class="question">
+                    4. (wir) <input type="text" id="ex1_4" placeholder="..."> Kinder spielen im Garten.
+                </div>
+                
+                <button class="action-button" onclick="checkExercise1()">Überprüfen</button>
+                <button class="action-button" onclick="resetExercise1()">Zurücksetzen</button>
+                <div id="result1"></div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Ejercicio 2 -->
+        <div class="slide" id="slide7">
+            <h2>Übung 2: Akkusativ</h2>
+            
+            <div class="exercise">
+                <h3>Ergänze die Possessivartikel</h3>
+                
+                <div class="question">
+                    1. Ich liebe (ich) <input type="text" id="ex2_1" placeholder="..."> Hund.
+                </div>
+                <div class="question">
+                    2. Siehst du (du) <input type="text" id="ex2_2" placeholder="..."> Bruder?
+                </div>
+                <div class="question">
+                    3. Sie besucht (sie/ella) <input type="text" id="ex2_3" placeholder="..."> Mutter.
+                </div>
+                <div class="question">
+                    4. Wir kennen (ihr) <input type="text" id="ex2_4" placeholder="..."> Lehrer.
+                </div>
+                
+                <button class="action-button" onclick="checkExercise2()">Überprüfen</button>
+                <button class="action-button" onclick="resetExercise2()">Zurücksetzen</button>
+                <div id="result2"></div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">
+                ← Zurück
+            </button>
+            <span class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
+            </span>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">
+                Weiter →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        function checkExercise1() {
+            const answers = {
+                ex1_1: 'mein',
+                ex1_2: 'deine',
+                ex1_3: 'sein',
+                ex1_4: 'unsere'
+            };
+
+            let correct = 0;
+            let total = Object.keys(answers).length;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id].toLowerCase()) {
+                    input.style.borderColor = '#4CAF50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+            resultDiv.innerHTML = `Resultat: ${correct} von ${total} richtig! ${correct === total ? '🎉 Ausgezeichnet!' : '💪 Versuch es nochmal!'}`;
+        }
+
+        function resetExercise1() {
+            ['ex1_1', 'ex1_2', 'ex1_3', 'ex1_4'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result1').innerHTML = '';
+        }
+
+        function checkExercise2() {
+            const answers = {
+                ex2_1: 'meinen',
+                ex2_2: 'deinen',
+                ex2_3: 'ihre',
+                ex2_4: 'euren'
+            };
+
+            let correct = 0;
+            let total = Object.keys(answers).length;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id].toLowerCase()) {
+                    input.style.borderColor = '#4CAF50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+            resultDiv.innerHTML = `Resultat: ${correct} von ${total} richtig! ${correct === total ? '🎉 Perfekt!' : '💪 Versuch es nochmal!'}`;
+        }
+
+        function resetExercise2() {
+            ['ex2_1', 'ex2_2', 'ex2_3', 'ex2_4'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result2').innerHTML = '';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft' && currentSlide > 1) {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' && currentSlide < totalSlides) {
+                changeSlide(1);
+            }
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

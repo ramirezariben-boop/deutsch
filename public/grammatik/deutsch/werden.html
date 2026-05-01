@@ -1,0 +1,1190 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Verb WERDEN – Guía Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1a1a2e;
+  --gold: #c9a84c;
+  --gold-light: #e8d08a;
+  --cream: #f5f0e8;
+  --rust: #b5432a;
+  --slate: #4a5568;
+  --pale: #faf8f3;
+  --border: rgba(201,168,76,0.3);
+  --sidebar: 220px;
+}
+
+html, body {
+  height: 100%; width: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+}
+
+/* ══════════════ SIDEBAR ══════════════ */
+#sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar);
+  background: var(--ink);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  padding: 24px 0 16px;
+}
+#sidebar .logo {
+  text-align: center;
+  padding: 0 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+#sidebar .logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--gold); display: block; line-height: 1;
+}
+#sidebar .logo small {
+  color: rgba(255,255,255,0.35);
+  font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+}
+#nav-list { list-style: none; overflow-y: auto; flex: 1; padding: 10px 0; }
+#nav-list::-webkit-scrollbar { width: 3px; }
+#nav-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+#nav-list li button {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 18px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.76rem;
+  color: rgba(255,255,255,0.45); text-align: left;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+#nav-list li button .num {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  color: var(--gold); opacity: 0.55; min-width: 20px;
+}
+#nav-list li button:hover { color: rgba(255,255,255,0.9); background: rgba(201,168,76,0.07); }
+#nav-list li button.active {
+  color: var(--gold); border-left-color: var(--gold);
+  background: rgba(201,168,76,0.1); font-weight: 600;
+}
+#nav-list li button.active .num { opacity: 1; }
+#sidebar footer {
+  padding: 10px 16px; border-top: 1px solid var(--border);
+  font-size: 0.62rem; color: rgba(255,255,255,0.2);
+  text-align: center; letter-spacing: 0.05em;
+}
+
+/* ══════════════ VIEWPORT + STRIP ══════════════ */
+#viewport {
+  position: fixed;
+  left: var(--sidebar); top: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+#strip {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+  will-change: transform;
+}
+
+/* ══════════════ SLIDES ══════════════ */
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 52px 64px 100px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.slide::-webkit-scrollbar { width: 5px; }
+.slide::-webkit-scrollbar-track { background: transparent; }
+.slide::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.slide::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+.slide-dark  { background: var(--ink); color: white; }
+.slide-light { background: var(--pale); color: var(--ink); }
+.slide-cream { background: var(--cream); color: var(--ink); }
+
+/* ══════════════ ARROW BUTTONS ══════════════ */
+#arrow-prev, #arrow-next {
+  position: fixed; bottom: 28px;
+  z-index: 300;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+  backdrop-filter: blur(6px);
+  user-select: none;
+}
+#arrow-prev { left: calc(var(--sidebar) + 28px); }
+#arrow-next { left: calc(var(--sidebar) + 84px); }
+#arrow-prev:hover:not(:disabled), #arrow-next:hover:not(:disabled) {
+  background: rgba(201,168,76,0.28); transform: scale(1.08);
+}
+#arrow-prev:disabled, #arrow-next:disabled { opacity: 0.2; cursor: default; }
+
+#slide-counter {
+  position: fixed; bottom: 38px;
+  left: calc(var(--sidebar) + 144px);
+  z-index: 300;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.32);
+  letter-spacing: 0.1em;
+}
+
+/* Progress bar */
+#progress {
+  position: fixed; bottom: 0;
+  left: var(--sidebar); right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.05);
+  z-index: 300;
+}
+#progress-bar { height: 100%; background: var(--gold); transition: width 0.4s; }
+
+/* ══════════════ TYPOGRAPHY ══════════════ */
+.slide-num {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase;
+  margin-bottom: 10px; opacity: 0.8;
+}
+h1.hero {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 6vw, 5.5rem);
+  font-weight: 900; line-height: 0.95;
+  color: var(--gold); letter-spacing: -0.02em;
+}
+h2.slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 24px; letter-spacing: -0.01em;
+}
+.slide-dark h2.slide-title { color: white; }
+.slide-light h2.slide-title, .slide-cream h2.slide-title { color: var(--ink); }
+
+.accent-line {
+  width: 52px; height: 3px; background: var(--gold);
+  margin: 14px 0 22px; border-radius: 2px;
+}
+p.lead {
+  font-size: 0.98rem; line-height: 1.75;
+  color: rgba(255,255,255,0.72); max-width: 680px; margin-bottom: 14px;
+}
+.slide-light p.lead, .slide-cream p.lead { color: var(--slate); }
+
+/* ══════════════ CONJUGATION TABLES ══════════════ */
+.conj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px; margin-top: 4px;
+}
+.conj-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+.slide-light .conj-card, .slide-cream .conj-card {
+  background: white; border-color: rgba(201,168,76,0.22);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.conj-card-header {
+  background: var(--gold); padding: 8px 16px;
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 0.85rem; color: var(--ink);
+}
+.conj-card table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.conj-card table tr { border-bottom: 1px solid rgba(201,168,76,0.08); }
+.conj-card table tr:last-child { border-bottom: none; }
+.conj-card table td { padding: 7px 16px; line-height: 1.4; }
+.conj-card table td:first-child {
+  font-family: 'DM Mono', monospace; font-size: 0.74rem; opacity: 0.55; width: 80px;
+}
+.conj-card table td:last-child { font-weight: 600; color: var(--gold); }
+.slide-light .conj-card table td:last-child,
+.slide-cream .conj-card table td:last-child { color: var(--rust); }
+
+/* ══════════════ EXAMPLES ══════════════ */
+.example-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.example-item {
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0; padding: 11px 18px;
+}
+.slide-light .example-item, .slide-cream .example-item {
+  background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.example-item .de {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1rem; color: var(--gold); margin-bottom: 3px;
+}
+.slide-light .example-item .de, .slide-cream .example-item .de { color: var(--rust); }
+.example-item .es { font-size: 0.82rem; opacity: 0.62; line-height: 1.4; }
+
+/* ══════════════ USE CARDS ══════════════ */
+.use-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 6px; }
+.use-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  transition: transform 0.2s;
+}
+.use-card:hover { transform: translateY(-2px); }
+.slide-light .use-card, .slide-cream .use-card {
+  background: white; box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+  border-color: rgba(201,168,76,0.18);
+}
+.use-card .icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+.use-card h3 {
+  font-family: 'Playfair Display', serif; font-size: 1rem;
+  font-weight: 700; margin-bottom: 7px; color: var(--gold);
+}
+.slide-light .use-card h3, .slide-cream .use-card h3 { color: var(--ink); }
+.use-card p { font-size: 0.82rem; line-height: 1.65; opacity: 0.7; }
+
+/* ══════════════ EXERCISES ══════════════ */
+.exercise-block {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 22px; margin-bottom: 16px;
+}
+.slide-light .exercise-block, .slide-cream .exercise-block {
+  background: white; box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  border-color: rgba(201,168,76,0.18);
+}
+.exercise-block h3 {
+  font-family: 'Playfair Display', serif; font-size: 0.95rem;
+  font-weight: 700; margin-bottom: 12px; color: var(--gold);
+}
+.slide-light .exercise-block h3, .slide-cream .exercise-block h3 { color: var(--rust); }
+.exercise-block ol { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.exercise-block li { font-size: 0.875rem; line-height: 1.6; }
+
+.answer-btn {
+  margin-top: 14px; background: var(--gold); color: var(--ink);
+  border: none; padding: 7px 16px; border-radius: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.answer-btn:hover { opacity: 0.82; }
+.answers {
+  display: none; margin-top: 12px; padding: 12px 14px;
+  background: rgba(201,168,76,0.08); border-radius: 8px;
+  border: 1px solid var(--border); font-size: 0.83rem; line-height: 1.85;
+}
+.slide-light .answers, .slide-cream .answers {
+  background: #fff8e8; border-color: var(--gold-light);
+}
+.answers.open { display: block; }
+.answers .ans-key { font-weight: 700; color: var(--gold); }
+.slide-light .answers .ans-key, .slide-cream .answers .ans-key { color: var(--rust); }
+
+/* ══════════════ SUMMARY TABLE ══════════════ */
+.summary-table {
+  width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 6px;
+}
+.summary-table th {
+  background: var(--gold); color: var(--ink); padding: 9px 14px;
+  text-align: left; font-family: 'Playfair Display', serif; font-weight: 700;
+}
+.summary-table td {
+  padding: 9px 14px; border-bottom: 1px solid rgba(201,168,76,0.1); line-height: 1.5;
+}
+.summary-table tr:nth-child(even) td { background: rgba(201,168,76,0.04); }
+.slide-light .summary-table tr:nth-child(even) td,
+.slide-cream .summary-table tr:nth-child(even) td { background: #faf5e8; }
+.summary-table td:first-child {
+  font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gold); font-weight: 600;
+}
+.slide-light .summary-table td:first-child,
+.slide-cream .summary-table td:first-child { color: var(--rust); }
+
+/* ══════════════ HERO DECO ══════════════ */
+.hero-deco {
+  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(7rem, 16vw, 14rem); font-weight: 900;
+  color: rgba(201,168,76,0.055); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+.tag {
+  background: rgba(201,168,76,0.1); border: 1px solid var(--border);
+  color: var(--gold); padding: 4px 13px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+}
+
+/* ══════════════ ANIMATION ══════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide.active-slide > * {
+  animation: fadeUp 0.38s ease both;
+}
+.slide.active-slide > *:nth-child(1) { animation-delay:0.04s }
+.slide.active-slide > *:nth-child(2) { animation-delay:0.09s }
+.slide.active-slide > *:nth-child(3) { animation-delay:0.14s }
+.slide.active-slide > *:nth-child(4) { animation-delay:0.18s }
+.slide.active-slide > *:nth-child(n+5) { animation-delay:0.22s }
+
+/* ══════════════ MOBILE ══════════════ */
+@media (max-width: 640px) {
+  :root { --sidebar: 0px; }
+
+  /* Sidebar se convierte en bottom sheet / drawer */
+  #sidebar {
+    top: auto;
+    bottom: 0; left: 0; right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    padding: 0;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 18px 18px 0 0;
+    z-index: 500;
+  }
+  #sidebar.open {
+    transform: translateY(0);
+  }
+  #sidebar .logo {
+    display: none;
+  }
+  /* Drag handle */
+  #sidebar::before {
+    content: '';
+    display: block;
+    width: 40px; height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin: 12px auto 8px;
+  }
+  #nav-list {
+    padding: 4px 0 20px;
+    max-height: 55vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #nav-list li button {
+    padding: 11px 24px;
+    font-size: 0.88rem;
+  }
+  #sidebar footer { display: none; }
+
+  /* Overlay when drawer open */
+  #overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 490;
+  }
+  #overlay.show { display: block; }
+
+  /* Viewport full screen */
+  #viewport {
+    left: 0; top: 0; right: 0;
+    bottom: 64px; /* space for mobile bottom bar */
+  }
+
+  /* Slides padding adjusted */
+  .slide {
+    padding: 40px 24px 80px;
+  }
+
+  /* Mobile bottom toolbar */
+  #mobile-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: var(--ink);
+    border-top: 1px solid var(--border);
+    z-index: 400;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+  #mobile-menu-btn {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+  }
+  #mobile-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+  }
+  #mobile-arrows {
+    display: flex; gap: 10px;
+  }
+  #mobile-arrows button {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  #mobile-arrows button:hover { background: rgba(201,168,76,0.25); }
+  #mobile-arrows button:disabled { opacity: 0.2; cursor: default; }
+
+  /* Hide desktop arrow nav & counter on mobile */
+  #arrow-prev, #arrow-next, #slide-counter { display: none; }
+
+  /* Progress bar stays */
+  #progress { left: 0; bottom: 64px; }
+
+  /* Grids collapse to 1 col */
+  .conj-grid { grid-template-columns: 1fr; }
+  .use-grid  { grid-template-columns: 1fr; }
+
+  /* Summary table scrollable */
+  .summary-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .summary-table { min-width: 480px; }
+
+  h1.hero { font-size: 2.8rem; }
+  h2.slide-title { font-size: 1.4rem; }
+  .hero-deco { display: none; }
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 900px) {
+  :root { --sidebar: 170px; }
+  .slide { padding: 40px 36px 90px; }
+  #arrow-prev { left: calc(var(--sidebar) + 16px); }
+  #arrow-next { left: calc(var(--sidebar) + 70px); }
+  #slide-counter { left: calc(var(--sidebar) + 126px); }
+  #mobile-bar { display: none; }
+  #overlay { display: none !important; }
+}
+@media (min-width: 641px) {
+  #mobile-bar { display: none; }
+  #overlay { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="logo">
+    <span>werden</span>
+    <small>Guía completa</small>
+  </div>
+  <ul id="nav-list">
+    <li><button onclick="goTo(0)"><span class="num">00</span>Introducción</button></li>
+    <li><button onclick="goTo(1)"><span class="num">01</span>Los 3 usos</button></li>
+    <li><button onclick="goTo(2)"><span class="num">02</span>Präsens</button></li>
+    <li><button onclick="goTo(3)"><span class="num">03</span>Präteritum</button></li>
+    <li><button onclick="goTo(4)"><span class="num">04</span>Perfekt</button></li>
+    <li><button onclick="goTo(5)"><span class="num">05</span>Futur I</button></li>
+    <li><button onclick="goTo(6)"><span class="num">06</span>Futur II</button></li>
+    <li><button onclick="goTo(7)"><span class="num">07</span>Konjunktiv II</button></li>
+    <li><button onclick="goTo(8)"><span class="num">08</span>Vorgangspassiv</button></li>
+    <li><button onclick="goTo(9)"><span class="num">09</span>Zustandspassiv</button></li>
+    <li><button onclick="goTo(10)"><span class="num">10</span>Ejercicios I</button></li>
+    <li><button onclick="goTo(11)"><span class="num">11</span>Ejercicios II</button></li>
+    <li><button onclick="goTo(12)"><span class="num">12</span>Ejercicios III</button></li>
+    <li><button onclick="goTo(13)"><span class="num">13</span>Resumen</button></li>
+  </ul>
+  <footer>Das Verb WERDEN · DE</footer>
+</nav>
+
+<!-- Overlay for mobile drawer -->
+<div id="overlay" onclick="closeDrawer()"></div>
+
+<!-- ARROW NAV (desktop) -->
+<button id="arrow-prev" onclick="prev()" title="Anterior (←)">&#8592;</button>
+<button id="arrow-next" onclick="next()" title="Siguiente (→)">&#8594;</button>
+<div id="slide-counter">1 / 14</div>
+
+<!-- MOBILE BOTTOM BAR -->
+<div id="mobile-bar">
+  <button id="mobile-menu-btn" onclick="toggleDrawer()">☰ Menú</button>
+  <div id="mobile-counter">1 / 14</div>
+  <div id="mobile-arrows">
+    <button id="mob-prev" onclick="prev()" disabled>&#8592;</button>
+    <button id="mob-next" onclick="next()">&#8594;</button>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div id="progress"><div id="progress-bar"></div></div>
+
+<!-- VIEWPORT -->
+<div id="viewport">
+  <div id="strip">
+
+    <!-- 0: INTRO -->
+    <section class="slide slide-dark">
+      <div class="hero-deco">W</div>
+      <div class="slide-num">00 — Introducción</div>
+      <h1 class="hero">Das Verb<br>WERDEN</h1>
+      <div class="accent-line"></div>
+      <p class="lead"><strong style="color:var(--gold)">werden</strong> es uno de los verbos más importantes del alemán. Significa «llegar a ser / convertirse», construye el futuro, la voz pasiva y el Konjunktiv II. Dominarlo es dominar la gramática alemana.</p>
+      <p class="lead">En esta guía: tres grandes usos, todos los tiempos verbales con conjugaciones completas, decenas de ejemplos y ejercicios interactivos con respuestas.</p>
+      <div class="tag-row">
+        <span class="tag">Verbo irregular</span>
+        <span class="tag">Auxiliar de futuro</span>
+        <span class="tag">Auxiliar de voz pasiva</span>
+        <span class="tag">Konjunktiv II</span>
+        <span class="tag">A2 → C1</span>
+      </div>
+    </section>
+
+    <!-- 1: 3 USOS -->
+    <section class="slide slide-light">
+      <div class="slide-num">01 — Usos principales</div>
+      <h2 class="slide-title">Los tres grandes usos de <em>werden</em></h2>
+      <div class="accent-line"></div>
+      <div class="use-grid">
+        <div class="use-card">
+          <span class="icon">🌱</span>
+          <h3>1. Verbo léxico pleno</h3>
+          <p>Expresa transformación o cambio de estado: <strong>«llegar a ser», «ponerse», «convertirse en»</strong>.<br><br>
+          <em style="color:var(--rust)">Er wird Arzt.</em> → Él se hace médico.<br>
+          <em style="color:var(--rust)">Es wird kalt.</em> → Se pone frío.</p>
+        </div>
+        <div class="use-card">
+          <span class="icon">🔮</span>
+          <h3>2. Auxiliar de Futuro</h3>
+          <p>Con infinitivo (Futur I) o infinitivo perfecto (Futur II) expresa futuro o probabilidad.<br><br>
+          <em style="color:var(--rust)">Sie wird kommen.</em> → Vendrá.<br>
+          <em style="color:var(--rust)">Er wird geschlafen haben.</em> → Habrá dormido.</p>
+        </div>
+        <div class="use-card">
+          <span class="icon">🔄</span>
+          <h3>3. Auxiliar de voz Pasiva</h3>
+          <p>Con Partizip II forma el <strong>Vorgangspassiv</strong>. El Zustandspassiv usa <em>sein</em>.<br><br>
+          <em style="color:var(--rust)">Das Buch wird gelesen.</em> → Es leído.<br>
+          <em style="color:var(--rust)">Das Fenster ist geöffnet.</em> → Está abierta.</p>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">werden + Adj./Sust.</div><div class="es">Uso léxico: cambio de estado o identidad</div></li>
+        <li class="example-item"><div class="de">werden + Infinitiv</div><div class="es">Futur I: acciones futuras o suposición sobre el presente</div></li>
+        <li class="example-item"><div class="de">werden + Partizip II</div><div class="es">Vorgangspassiv: el sujeto recibe la acción</div></li>
+      </ul>
+    </section>
+
+    <!-- 2: PRÄSENS -->
+    <section class="slide slide-dark">
+      <div class="slide-num">02 — Präsens</div>
+      <h2 class="slide-title" style="color:white">Presente de Indicativo <span style="color:var(--gold)">Präsens</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead">Verbo irregular: la vocal cambia <strong>e → i</strong> en 2ª y 3ª persona del singular.</p>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">Singular</div>
+          <table>
+            <tr><td>ich</td><td>werde</td></tr>
+            <tr><td>du</td><td>wirst ⚠</td></tr>
+            <tr><td>er/sie/es</td><td>wird ⚠</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Plural</div>
+          <table>
+            <tr><td>wir</td><td>werden</td></tr>
+            <tr><td>ihr</td><td>werdet</td></tr>
+            <tr><td>sie/Sie</td><td>werden</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Ich werde müde.</div><div class="es">Me estoy poniendo cansado/a.</div></li>
+        <li class="example-item"><div class="de">Du wirst Ingenieur, oder?</div><div class="es">Te vas a hacer ingeniero, ¿no?</div></li>
+        <li class="example-item"><div class="de">Es wird dunkel.</div><div class="es">Se está oscureciendo.</div></li>
+        <li class="example-item"><div class="de">Wir werden älter.</div><div class="es">Nos hacemos mayores.</div></li>
+        <li class="example-item"><div class="de">Ihr werdet gute Studenten.</div><div class="es">Os convertiréis / Se convertirán en buenos estudiantes.</div></li>
+        <li class="example-item"><div class="de">Sie werden reich.</div><div class="es">Ellos se vuelven ricos.</div></li>
+      </ul>
+    </section>
+
+    <!-- 3: PRÄTERITUM -->
+    <section class="slide slide-cream">
+      <div class="slide-num">03 — Präteritum</div>
+      <h2 class="slide-title">Pretérito Imperfecto <span style="color:var(--rust)">Präteritum</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead" style="color:var(--slate)">La raíz es <strong>wurde-</strong>. Muy usado en la escritura y en la voz pasiva narrativa.</p>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">Singular</div>
+          <table>
+            <tr><td>ich</td><td>wurde</td></tr>
+            <tr><td>du</td><td>wurdest</td></tr>
+            <tr><td>er/sie/es</td><td>wurde</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Plural</div>
+          <table>
+            <tr><td>wir</td><td>wurden</td></tr>
+            <tr><td>ihr</td><td>wurdet</td></tr>
+            <tr><td>sie/Sie</td><td>wurden</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Sie wurde Lehrerin.</div><div class="es">Ella se convirtió en profesora.</div></li>
+        <li class="example-item"><div class="de">Es wurde kalt und windig.</div><div class="es">Se puso frío y ventoso (hizo viento).</div></li>
+        <li class="example-item"><div class="de">Wir wurden nervös.</div><div class="es">Nos pusimos nerviosos.</div></li>
+        <li class="example-item"><div class="de">Das Haus wurde gebaut.</div><div class="es">La casa fue construida. (voz pasiva)</div></li>
+        <li class="example-item"><div class="de">Er wurde zum König gekrönt.</div><div class="es">Fue coronado rey.</div></li>
+        <li class="example-item"><div class="de">Die Kinder wurden müde.</div><div class="es">Los niños se cansaron.</div></li>
+      </ul>
+    </section>
+
+    <!-- 4: PERFEKT -->
+    <section class="slide slide-dark">
+      <div class="slide-num">04 — Perfekt</div>
+      <h2 class="slide-title" style="color:white">Pretérito Perfecto <span style="color:var(--gold)">Perfekt</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead">Se forma con <strong>sein + geworden</strong>. En la voz pasiva el ge- desaparece: solo <strong>worden</strong>.</p>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">Perfekt — uso léxico</div>
+          <table>
+            <tr><td>ich</td><td>bin geworden</td></tr>
+            <tr><td>du</td><td>bist geworden</td></tr>
+            <tr><td>er/sie/es</td><td>ist geworden</td></tr>
+            <tr><td>wir</td><td>sind geworden</td></tr>
+            <tr><td>ihr</td><td>seid geworden</td></tr>
+            <tr><td>sie/Sie</td><td>sind geworden</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Perfekt voz pasiva (worden)</div>
+          <table>
+            <tr><td>ich</td><td>bin … worden</td></tr>
+            <tr><td>du</td><td>bist … worden</td></tr>
+            <tr><td>er/sie/es</td><td>ist … worden</td></tr>
+            <tr><td>wir</td><td>sind … worden</td></tr>
+            <tr><td>ihr</td><td>seid … worden</td></tr>
+            <tr><td>sie/Sie</td><td>sind … worden</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Er ist Arzt geworden.</div><div class="es">Se ha convertido en médico.</div></li>
+        <li class="example-item"><div class="de">Das Kind ist größer geworden.</div><div class="es">El niño ha crecido.</div></li>
+        <li class="example-item"><div class="de">Das Gebäude ist renoviert worden.</div><div class="es">El edificio ha sido renovado. (voz pasiva)</div></li>
+        <li class="example-item"><div class="de">Die Rechnung ist bezahlt worden.</div><div class="es">La factura ha sido pagada. (voz pasiva)</div></li>
+      </ul>
+      <br>
+      <p class="lead" style="font-size:0.86rem">⚠️ <strong>geworden</strong> (léxico/futuro) vs <strong>worden</strong> (solo en voz pasiva Perfekt)</p>
+    </section>
+
+    <!-- 5: FUTUR I -->
+    <section class="slide slide-light">
+      <div class="slide-num">05 — Futur I</div>
+      <h2 class="slide-title">Futuro I <span style="color:var(--rust)">werden + Infinitiv</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead" style="color:var(--slate)">Presente de <em>werden</em> + infinitivo al final de la oración. Tres usos principales:</p>
+      <div class="use-grid" style="margin-bottom:20px">
+        <div class="use-card"><span class="icon">📅</span><h3>Futuro real</h3><p>Acciones que ocurrirán. (El alemán también usa el Präsens + adverbio temporal.)</p></div>
+        <div class="use-card"><span class="icon">🤔</span><h3>Probabilidad presente</h3><p><em>Er wird schlafen</em> → Seguramente está durmiendo ahora mismo.</p></div>
+        <div class="use-card"><span class="icon">🎯</span><h3>Intención / promesa</h3><p><em>Ich werde dich nie vergessen.</em> → Nunca te olvidaré. (solemne)</p></div>
+      </div>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Morgen werden wir nach Berlin fahren.</div><div class="es">Mañana iremos a Berlín.</div></li>
+        <li class="example-item"><div class="de">Sie wird bestimmt gewinnen.</div><div class="es">Seguro que ganará.</div></li>
+        <li class="example-item"><div class="de">Ich werde dir helfen.</div><div class="es">Te ayudaré. (promesa)</div></li>
+        <li class="example-item"><div class="de">Du wirst es nicht glauben!</div><div class="es">¡No te lo vas a creer!</div></li>
+        <li class="example-item"><div class="de">Er wird jetzt zu Hause sein.</div><div class="es">Seguramente estará en casa ahora. (probabilidad)</div></li>
+      </ul>
+      <br>
+      <p class="lead" style="font-size:0.86rem;color:var(--slate)">📌 <strong>Sujeto + werden (conj.) + … + Infinitiv</strong> — <em>Ich werde morgen früh aufstehen.</em></p>
+    </section>
+
+    <!-- 6: FUTUR II -->
+    <section class="slide slide-cream">
+      <div class="slide-num">06 — Futur II</div>
+      <h2 class="slide-title">Futuro II <span style="color:var(--rust)">werden + Infinitiv Perfekt</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead" style="color:var(--slate)">Acción que habrá ocurrido antes de un punto futuro, o suposición sobre algo ya sucedido.</p>
+      <div class="example-item" style="margin:12px 0 20px;background:white;border-color:var(--rust)">
+        <div class="de">werden (Präsens) + Partizip II + haben / sein</div>
+        <div class="es">Estructura del Futuro II</div>
+      </div>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">Con haben</div>
+          <table>
+            <tr><td>ich</td><td>werde … gemacht haben</td></tr>
+            <tr><td>du</td><td>wirst … gemacht haben</td></tr>
+            <tr><td>er/sie/es</td><td>wird … gemacht haben</td></tr>
+            <tr><td>wir</td><td>werden … gemacht haben</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Con sein</div>
+          <table>
+            <tr><td>ich</td><td>werde … gegangen sein</td></tr>
+            <tr><td>du</td><td>wirst … gegangen sein</td></tr>
+            <tr><td>er/sie/es</td><td>wird … gegangen sein</td></tr>
+            <tr><td>wir</td><td>werden … gegangen sein</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Bis morgen werde ich den Bericht geschrieben haben.</div><div class="es">Para mañana habré escrito el informe.</div></li>
+        <li class="example-item"><div class="de">Er wird schon angekommen sein.</div><div class="es">Seguramente ya habrá llegado. (suposición)</div></li>
+        <li class="example-item"><div class="de">Sie werden es vergessen haben.</div><div class="es">Lo habrán olvidado.</div></li>
+      </ul>
+    </section>
+
+    <!-- 7: KONJUNKTIV II -->
+    <section class="slide slide-dark">
+      <div class="slide-num">07 — Konjunktiv II</div>
+      <h2 class="slide-title" style="color:white">Konjunktiv II <span style="color:var(--gold)">würde-Form</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead"><strong>würde-</strong> funciona como el condicional en español. Es la forma de KII más usada en el alemán moderno.</p>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">KII — würde-Form</div>
+          <table>
+            <tr><td>ich</td><td>würde</td></tr>
+            <tr><td>du</td><td>würdest</td></tr>
+            <tr><td>er/sie/es</td><td>würde</td></tr>
+            <tr><td>wir</td><td>würden</td></tr>
+            <tr><td>ihr</td><td>würdet</td></tr>
+            <tr><td>sie/Sie</td><td>würden</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">KII Perfekt (pasado irreal)</div>
+          <table>
+            <tr><td>ich</td><td>wäre geworden</td></tr>
+            <tr><td>du</td><td>wärst geworden</td></tr>
+            <tr><td>er/sie/es</td><td>wäre geworden</td></tr>
+            <tr><td>wir</td><td>wären geworden</td></tr>
+            <tr><td>ihr</td><td>wäret geworden</td></tr>
+            <tr><td>sie/Sie</td><td>wären geworden</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Ich würde gern nach Japan reisen.</div><div class="es">Me gustaría viajar a Japón.</div></li>
+        <li class="example-item"><div class="de">Wenn ich reich wäre, würde ich ein Haus kaufen.</div><div class="es">Si fuera rico, compraría una casa.</div></li>
+        <li class="example-item"><div class="de">Das würde ich nie tun.</div><div class="es">Eso nunca lo haría.</div></li>
+        <li class="example-item"><div class="de">Würdest du mir helfen?</div><div class="es">¿Me ayudarías?</div></li>
+        <li class="example-item"><div class="de">Wenn er geübt hätte, wäre er besser geworden.</div><div class="es">Si hubiera practicado, habría mejorado.</div></li>
+      </ul>
+    </section>
+
+    <!-- 8: VORGANGSPASSIV -->
+    <section class="slide slide-light">
+      <div class="slide-num">08 — Vorgangspassiv</div>
+      <h2 class="slide-title">Voz pasiva de proceso <span style="color:var(--rust)">Vorgangspassiv</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead" style="color:var(--slate)"><strong>werden + Partizip II</strong> — describe la acción en sí misma. El agente se indica con <em>von + Dativ</em>.</p>
+      <div class="conj-grid">
+        <div class="conj-card">
+          <div class="conj-card-header">Präsens Passiv</div>
+          <table>
+            <tr><td>ich</td><td>werde gefragt</td></tr>
+            <tr><td>du</td><td>wirst gefragt</td></tr>
+            <tr><td>er/sie/es</td><td>wird gefragt</td></tr>
+            <tr><td>wir</td><td>werden gefragt</td></tr>
+            <tr><td>ihr</td><td>werdet gefragt</td></tr>
+            <tr><td>sie/Sie</td><td>werden gefragt</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Präteritum Passiv</div>
+          <table>
+            <tr><td>ich</td><td>wurde gefragt</td></tr>
+            <tr><td>du</td><td>wurdest gefragt</td></tr>
+            <tr><td>er/sie/es</td><td>wurde gefragt</td></tr>
+            <tr><td>wir</td><td>wurden gefragt</td></tr>
+            <tr><td>ihr</td><td>wurdet gefragt</td></tr>
+            <tr><td>sie/Sie</td><td>wurden gefragt</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Perfekt Passiv</div>
+          <table>
+            <tr><td>ich</td><td>bin gefragt worden</td></tr>
+            <tr><td>du</td><td>bist gefragt worden</td></tr>
+            <tr><td>er/sie/es</td><td>ist gefragt worden</td></tr>
+            <tr><td>wir</td><td>sind gefragt worden</td></tr>
+          </table>
+        </div>
+        <div class="conj-card">
+          <div class="conj-card-header">Futur I Passiv</div>
+          <table>
+            <tr><td>ich</td><td>werde gefragt werden</td></tr>
+            <tr><td>du</td><td>wirst gefragt werden</td></tr>
+            <tr><td>er/sie/es</td><td>wird gefragt werden</td></tr>
+            <tr><td>wir</td><td>werden gefragt werden</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Das Buch wird von dem Schüler gelesen.</div><div class="es">El libro es leído por el alumno. (Präsens)</div></li>
+        <li class="example-item"><div class="de">Die Tür wurde geschlossen.</div><div class="es">La puerta fue cerrada. (Präteritum)</div></li>
+        <li class="example-item"><div class="de">Der Brief ist geschrieben worden.</div><div class="es">La carta ha sido escrita. (Perfekt)</div></li>
+        <li class="example-item"><div class="de">Das Paket wird morgen geliefert werden.</div><div class="es">El paquete será entregado mañana. (Futur I)</div></li>
+      </ul>
+    </section>
+
+    <!-- 9: ZUSTANDSPASSIV -->
+    <section class="slide slide-cream">
+      <div class="slide-num">09 — Zustandspassiv</div>
+      <h2 class="slide-title">Voz pasiva de estado <span style="color:var(--rust)">Zustandspassiv</span></h2>
+      <div class="accent-line"></div>
+      <p class="lead" style="color:var(--slate)"><strong>sein + Partizip II</strong> — describe el estado resultante de una acción. La diferencia con el Vorgangspassiv es fundamental:</p>
+      <table class="summary-table" style="margin-bottom:20px">
+        <tr><th>Tipo</th><th>Formación</th><th>Significado</th><th>Ejemplo</th></tr>
+        <tr><td>Vorgangspassiv</td><td>werden + Part.II</td><td>la acción en sí</td><td><em>Die Tür wird geöffnet.</em> → alguien la abre</td></tr>
+        <tr><td>Zustandspassiv</td><td>sein + Part.II</td><td>el estado resultante</td><td><em>Die Tür ist geöffnet.</em> → está abierta</td></tr>
+      </table>
+      <ul class="example-list">
+        <li class="example-item"><div class="de">Das Geschäft ist geschlossen.</div><div class="es">La tienda está cerrada. (estado)</div></li>
+        <li class="example-item"><div class="de">Das Geschäft wird geschlossen.</div><div class="es">La tienda está siendo cerrada. (proceso)</div></li>
+        <li class="example-item"><div class="de">Der Tisch ist gedeckt.</div><div class="es">La mesa está puesta.</div></li>
+        <li class="example-item"><div class="de">Das Auto ist repariert.</div><div class="es">El coche está reparado.</div></li>
+        <li class="example-item"><div class="de">Die Aufgabe ist erledigt.</div><div class="es">La tarea está completada.</div></li>
+      </ul>
+    </section>
+
+    <!-- 10: EJERCICIOS I -->
+    <section class="slide slide-dark">
+      <div class="slide-num">10 — Übungen I</div>
+      <h2 class="slide-title" style="color:white">Ejercicios I <span style="color:var(--gold)">Conjugación y usos</span></h2>
+      <div class="accent-line"></div>
+      <div class="exercise-block">
+        <h3>📝 A. Conjuga <em>werden</em> en Präsens</h3>
+        <ol>
+          <li>Du _____ ein guter Lehrer.</li>
+          <li>Es _____ langsam Abend.</li>
+          <li>Ich _____ müde.</li>
+          <li>Wir _____ jeden Tag besser.</li>
+          <li>Sie (Sg.) _____ Ärztin.</li>
+          <li>Ihr _____ nicht jünger.</li>
+          <li>Er _____ nervös vor dem Spiel.</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> wirst &nbsp;<span class="ans-key">2.</span> wird &nbsp;<span class="ans-key">3.</span> werde &nbsp;<span class="ans-key">4.</span> werden &nbsp;<span class="ans-key">5.</span> wird &nbsp;<span class="ans-key">6.</span> werdet &nbsp;<span class="ans-key">7.</span> wird
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>📝 B. Conjuga <em>werden</em> en Präteritum</h3>
+        <ol>
+          <li>Er _____ Fußballspieler.</li>
+          <li>Wir _____ sehr aufgeregt.</li>
+          <li>Das Wasser _____ kalt.</li>
+          <li>Du _____ blass.</li>
+          <li>Sie (Pl.) _____ müde nach der langen Reise.</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> wurde &nbsp;<span class="ans-key">2.</span> wurden &nbsp;<span class="ans-key">3.</span> wurde &nbsp;<span class="ans-key">4.</span> wurdest &nbsp;<span class="ans-key">5.</span> wurden
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>📝 C. Identifica el uso (L / F / P / K)</h3>
+        <p style="font-size:0.83rem;opacity:0.6;margin-bottom:10px">(L) léxico · (F) futuro · (P) voz pasiva · (K) Konjunktiv II</p>
+        <ol>
+          <li>Er wird Pilot. → ___</li>
+          <li>Das Buch wird gelesen. → ___</li>
+          <li>Sie wird morgen kommen. → ___</li>
+          <li>Ich würde das nie sagen. → ___</li>
+          <li>Der Brief wurde geschrieben. → ___</li>
+          <li>Es wird wärmer. → ___</li>
+          <li>Wir werden gewählt werden. → ___</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> L &nbsp;<span class="ans-key">2.</span> P &nbsp;<span class="ans-key">3.</span> F &nbsp;<span class="ans-key">4.</span> K &nbsp;<span class="ans-key">5.</span> P &nbsp;<span class="ans-key">6.</span> L &nbsp;<span class="ans-key">7.</span> P
+        </div>
+      </div>
+    </section>
+
+    <!-- 11: EJERCICIOS II -->
+    <section class="slide slide-light">
+      <div class="slide-num">11 — Übungen II</div>
+      <h2 class="slide-title">Ejercicios II <span style="color:var(--rust)">Futuro y voz pasiva</span></h2>
+      <div class="accent-line"></div>
+      <div class="exercise-block">
+        <h3>🔮 D. Forma el Futuro I</h3>
+        <ol>
+          <li>Morgen / ich / arbeiten → <em>Morgen werde ich arbeiten.</em></li>
+          <li>Sie / nächstes Jahr / heiraten → ___</li>
+          <li>Wir / das Problem / lösen → ___</li>
+          <li>Du / bestimmt / gewinnen → ___</li>
+          <li>Er / vielleicht / krank sein → ___</li>
+          <li>Es / bald / regnen → ___</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">2.</span> Sie wird nächstes Jahr heiraten.<br>
+          <span class="ans-key">3.</span> Wir werden das Problem lösen.<br>
+          <span class="ans-key">4.</span> Du wirst bestimmt gewinnen.<br>
+          <span class="ans-key">5.</span> Er wird vielleicht krank sein.<br>
+          <span class="ans-key">6.</span> Es wird bald regnen.
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>🔄 E. Transforma al Vorgangspassiv</h3>
+        <ol>
+          <li><em>Der Koch kocht das Essen.</em> (Präsens) → ___</li>
+          <li><em>Die Schüler lernen das Lied.</em> (Präsens) → ___</li>
+          <li><em>Die Polizei verhaftete den Dieb.</em> (Präteritum) → ___</li>
+          <li><em>Die Mutter hat den Brief geschrieben.</em> (Perfekt) → ___</li>
+          <li><em>Man wird das Museum renovieren.</em> (Futur I) → ___</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> Das Essen wird (vom Koch) gekocht.<br>
+          <span class="ans-key">2.</span> Das Lied wird (von den Schülern) gelernt.<br>
+          <span class="ans-key">3.</span> Der Dieb wurde (von der Polizei) verhaftet.<br>
+          <span class="ans-key">4.</span> Der Brief ist (von der Mutter) geschrieben worden.<br>
+          <span class="ans-key">5.</span> Das Museum wird renoviert werden.
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>⚖️ F. <em>wird</em> o <em>ist</em></h3>
+        <ol>
+          <li>Das Licht _____ ausgeschaltet. (alguien lo apaga ahora)</li>
+          <li>Das Licht _____ ausgeschaltet. (ya está en off)</li>
+          <li>Der Kuchen _____ gebacken. (el proceso ocurre ahora)</li>
+          <li>Der Kuchen _____ gebacken. (resultado: ya está listo)</li>
+          <li>Das Auto _____ repariert. (el mecánico lo está arreglando)</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> wird (Vorgangspassiv)<br>
+          <span class="ans-key">2.</span> ist (Zustandspassiv)<br>
+          <span class="ans-key">3.</span> wird (Vorgangspassiv)<br>
+          <span class="ans-key">4.</span> ist (Zustandspassiv)<br>
+          <span class="ans-key">5.</span> wird (Vorgangspassiv)
+        </div>
+      </div>
+    </section>
+
+    <!-- 12: EJERCICIOS III -->
+    <section class="slide slide-cream">
+      <div class="slide-num">12 — Übungen III</div>
+      <h2 class="slide-title">Ejercicios III <span style="color:var(--rust)">Konjunktiv II y Futur II</span></h2>
+      <div class="accent-line"></div>
+      <div class="exercise-block">
+        <h3>💭 G. Konjunktiv II con <em>würde</em></h3>
+        <ol>
+          <li>Ich gehe ins Kino. → Ich _____ ins Kino gehen.</li>
+          <li>Er kauft ein neues Auto. → Er _____ ein neues Auto kaufen.</li>
+          <li>Wir reisen nach Spanien. → Wir _____ nach Spanien reisen.</li>
+          <li>Du hilfst mir. → Du _____ mir helfen.</li>
+          <li>Sie lernt Deutsch. → Sie _____ Deutsch lernen.</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> würde &nbsp;<span class="ans-key">2.</span> würde &nbsp;<span class="ans-key">3.</span> würden &nbsp;<span class="ans-key">4.</span> würdest &nbsp;<span class="ans-key">5.</span> würde
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>⏳ H. Futur II — traduce al alemán</h3>
+        <ol>
+          <li>Para las 6, habré terminado el trabajo.</li>
+          <li>Seguramente ya habrán llegado.</li>
+          <li>Ella habrá olvidado mi nombre.</li>
+          <li>Para el viernes, habré estudiado todo.</li>
+        </ol>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> Bis 6 Uhr werde ich die Arbeit erledigt haben.<br>
+          <span class="ans-key">2.</span> Sie werden schon angekommen sein.<br>
+          <span class="ans-key">3.</span> Sie wird meinen Namen vergessen haben.<br>
+          <span class="ans-key">4.</span> Bis Freitag werde ich alles gelernt haben.
+        </div>
+      </div>
+      <div class="exercise-block">
+        <h3>🎯 I. Texto con huecos — todos los usos</h3>
+        <p style="line-height:2.1;font-size:0.9rem">
+          Lena studiert Medizin und (1)_____ eines Tages Ärztin.
+          Sie sagt: „Ich (2)_____ den Menschen helfen."
+          Das Krankenhaus (3)_____ gerade renoviert.
+          Bis nächstes Jahr (4)_____ es fertig renoviert worden _____.
+          Wenn Lena mehr Zeit hätte, (5)_____ sie öfter Sport treiben.
+        </p>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Ver respuestas</button>
+        <div class="answers">
+          <span class="ans-key">1.</span> wird — léxico (proceso de llegar a ser)<br>
+          <span class="ans-key">2.</span> werde — Futur I (intención/promesa)<br>
+          <span class="ans-key">3.</span> wird — Vorgangspassiv Präsens<br>
+          <span class="ans-key">4.</span> wird … sein — Futur II Passiv (wird … worden sein)<br>
+          <span class="ans-key">5.</span> würde — Konjunktiv II (würde … treiben)
+        </div>
+      </div>
+    </section>
+
+    <!-- 13: RESUMEN -->
+    <section class="slide slide-dark">
+      <div class="slide-num">13 — Zusammenfassung</div>
+      <h2 class="slide-title" style="color:white">Resumen completo <span style="color:var(--gold)">WERDEN</span></h2>
+      <div class="accent-line"></div>
+      <table class="summary-table">
+        <tr><th>Uso</th><th>Estructura</th><th>Ejemplo</th><th>Traducción</th></tr>
+        <tr><td>Léxico</td><td>werden + adj/sust</td><td><em>Es wird kalt.</em></td><td>Se pone frío.</td></tr>
+        <tr><td>Futur I</td><td>werden + Inf.</td><td><em>Sie wird kommen.</em></td><td>Ella vendrá.</td></tr>
+        <tr><td>Futur II</td><td>werden + Part.II + haben/sein</td><td><em>Er wird gegangen sein.</em></td><td>Habrá ido.</td></tr>
+        <tr><td>Passiv Präs.</td><td>wird + Part.II</td><td><em>Es wird gebaut.</em></td><td>Está siendo construido.</td></tr>
+        <tr><td>Passiv Prät.</td><td>wurde + Part.II</td><td><em>Es wurde gebaut.</em></td><td>Fue construido.</td></tr>
+        <tr><td>Passiv Perf.</td><td>ist + Part.II + worden</td><td><em>Es ist gebaut worden.</em></td><td>Ha sido construido.</td></tr>
+        <tr><td>Konjunktiv II</td><td>würde + Inf.</td><td><em>Ich würde kaufen.</em></td><td>Compraría.</td></tr>
+        <tr><td>Zustandspassiv</td><td>sein + Part.II</td><td><em>Es ist gebaut.</em></td><td>Está construido.</td></tr>
+      </table>
+      <br>
+      <div class="use-grid">
+        <div class="use-card">
+          <span class="icon">⭐</span>
+          <h3>Claves esenciales</h3>
+          <p>
+            • <strong>wirst / wird</strong> — cambio e → i en Präsens<br>
+            • <strong>wurde</strong> — raíz del Präteritum<br>
+            • <strong>geworden</strong> (léxico) vs <strong>worden</strong> (voz pasiva Perfekt)<br>
+            • <strong>würde</strong> — Konjunktiv II / condicional
+          </p>
+        </div>
+        <div class="use-card">
+          <span class="icon">🏆</span>
+          <h3>¡Sigue practicando!</h3>
+          <p>
+            <em>werden</em> aparece en casi toda la gramática avanzada del alemán. Futuro, voz pasiva, condicional — todo pasa por este verbo. Viel Erfolg! 🇩🇪
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /strip -->
+</div><!-- /viewport -->
+
+<script>
+const TOTAL = 14;
+let current = 0;
+
+const strip      = document.getElementById('strip');
+const counter    = document.getElementById('slide-counter');
+const mobCounter = document.getElementById('mobile-counter');
+const bar        = document.getElementById('progress-bar');
+const btnPrev    = document.getElementById('arrow-prev');
+const btnNext    = document.getElementById('arrow-next');
+const mobPrev    = document.getElementById('mob-prev');
+const mobNext    = document.getElementById('mob-next');
+const navBtns    = document.querySelectorAll('#nav-list li button');
+const slides     = document.querySelectorAll('.slide');
+const sidebar    = document.getElementById('sidebar');
+const overlay    = document.getElementById('overlay');
+
+function goTo(idx) {
+  if (idx < 0 || idx >= TOTAL) return;
+  slides[current].classList.remove('active-slide');
+  current = idx;
+  strip.style.transform = `translateX(-${current * 100}%)`;
+  slides[current].scrollTop = 0;
+  void slides[current].offsetWidth;
+  slides[current].classList.add('active-slide');
+
+  const label = `${current + 1} / ${TOTAL}`;
+  if (counter)    counter.textContent = label;
+  if (mobCounter) mobCounter.textContent = label;
+
+  bar.style.width = `${(current / (TOTAL - 1)) * 100}%`;
+
+  if (btnPrev) btnPrev.disabled = current === 0;
+  if (btnNext) btnNext.disabled = current === TOTAL - 1;
+  if (mobPrev) mobPrev.disabled = current === 0;
+  if (mobNext) mobNext.disabled = current === TOTAL - 1;
+
+  navBtns.forEach((b, i) => b.classList.toggle('active', i === current));
+  navBtns[current].scrollIntoView({ block: 'nearest' });
+  closeDrawer();
+}
+
+function prev() { goTo(current - 1); }
+function next() { goTo(current + 1); }
+
+/* ── Drawer (mobile) ── */
+function toggleDrawer() {
+  const isOpen = sidebar.classList.toggle('open');
+  overlay.classList.toggle('show', isOpen);
+}
+function closeDrawer() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+}
+
+/* ── Keyboard ── */
+document.addEventListener('keydown', e => {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prev();
+  if (e.key === 'Escape') closeDrawer();
+});
+
+/* ── Touch swipe ── */
+let touchStartX = 0, touchStartY = 0;
+const viewport = document.getElementById('viewport');
+
+viewport.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+viewport.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    if (dx < 0) next(); else prev();
+  }
+}, { passive: true });
+
+/* ── Answers ── */
+function toggleAnswer(btn) {
+  const ans  = btn.nextElementSibling;
+  const open = ans.classList.toggle('open');
+  btn.textContent = open ? 'Ocultar respuestas' : 'Ver respuestas';
+}
+
+goTo(0);
+</script>
+</body>
+</html>

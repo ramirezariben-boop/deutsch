@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinitiv mit zu — Deutschkurs</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:     #1a1610;
+    --paper:   #f5f0e8;
+    --cream:   #ede7d4;
+    --amber:   #c8892a;
+    --amber-l: #e8b84b;
+    --rust:    #a84e2a;
+    --slate:   #2d3040;
+    --muted:   #7a7060;
+    --correct: #2e6e45;
+    --wrong:   #8c2020;
+    --shadow:  rgba(26,22,16,.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--slate);
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ── COVER ── */
+  #cover {
+    position: fixed; inset: 0;
+    background: var(--slate);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2rem;
+    z-index: 10;
+    transition: opacity .6s, transform .6s;
+  }
+  #cover.hide { opacity: 0; pointer-events: none; transform: scale(1.04); }
+
+  .cover-deco {
+    width: 120px; height: 4px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    color: var(--paper);
+    text-align: center;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+  }
+  .cover-title em {
+    color: var(--amber-l);
+    font-style: italic;
+  }
+  .cover-sub {
+    font-size: 1.15rem;
+    color: #a89e88;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .cover-btn {
+    margin-top: 1.5rem;
+    padding: .85rem 2.8rem;
+    background: var(--amber);
+    color: var(--ink);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .cover-btn:hover { background: var(--amber-l); transform: translateY(-2px); }
+
+  /* ── MODAL SHELL ── */
+  #modal {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .5s;
+    z-index: 5;
+  }
+  #modal.visible { opacity: 1; pointer-events: all; }
+
+  .modal-card {
+    background: var(--paper);
+    width: 100%; max-width: 820px;
+    height: min(90vh, 760px);
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px var(--shadow), 0 0 0 1px rgba(200,137,42,.25);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* header bar */
+  .modal-header {
+    background: var(--slate);
+    color: var(--paper);
+    padding: .7rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .modal-header .chapter-tag {
+    font-size: .75rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 600;
+  }
+  .progress-dots { display: flex; gap: 6px; align-items: center; }
+
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    border: 1px solid rgba(200,137,42,.45);
+    background: rgba(245,240,232,.06);
+    color: #d8cdb8;
+    border-radius: 999px;
+    padding: .22rem .55rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: .78rem;
+    line-height: 1;
+    cursor: pointer;
+    letter-spacing: .03em;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .lang-toggle:hover {
+    background: rgba(200,137,42,.14);
+    border-color: var(--amber);
+    color: var(--paper);
+  }
+  .lang-toggle .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.9rem;
+    padding: .16rem .34rem;
+    border-radius: 999px;
+    background: var(--amber);
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4a5060;
+    transition: background .3s, transform .3s;
+  }
+  .dot.active { background: var(--amber); transform: scale(1.3); }
+  .dot.done   { background: #7a8090; }
+
+  /* page viewport */
+  .page-viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* pages */
+  .page {
+    position: absolute; inset: 0;
+    padding: 2.2rem 2.8rem;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity .35s ease, transform .35s ease;
+    pointer-events: none;
+  }
+  .page.active {
+    opacity: 1; transform: translateX(0);
+    pointer-events: all;
+  }
+  .page.exit {
+    opacity: 0; transform: translateX(-60px);
+    pointer-events: none;
+  }
+
+  /* footer nav */
+  .modal-footer {
+    border-top: 1px solid var(--cream);
+    padding: .9rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+    background: var(--paper);
+  }
+  .page-counter {
+    font-size: .88rem;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+  .nav-btns { display: flex; gap: .75rem; }
+  .nav-btn {
+    padding: .5rem 1.4rem;
+    border: 1.5px solid var(--amber);
+    background: transparent;
+    color: var(--amber);
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .nav-btn:hover { background: var(--amber); color: var(--paper); }
+  .nav-btn:disabled { opacity: .3; cursor: default; }
+  .nav-btn:disabled:hover { background: transparent; color: var(--amber); }
+
+  /* ── TYPOGRAPHY ── */
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--slate);
+    margin-bottom: .35rem;
+    line-height: 1.15;
+  }
+  .page-title .num {
+    color: var(--amber);
+    font-size: 1rem;
+    letter-spacing: .1em;
+    display: block;
+    margin-bottom: .2rem;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .rule { width: 60px; height: 2px; background: var(--amber); margin: .8rem 0 1.4rem; }
+  p { font-size: 1.05rem; line-height: 1.7; color: #38321f; margin-bottom: .9rem; }
+  ul, ol { padding-left: 1.6rem; margin-bottom: 1rem; }
+  li { font-size: 1.02rem; line-height: 1.65; margin-bottom: .35rem; }
+
+  /* formula box */
+  .formula {
+    background: var(--slate);
+    color: var(--paper);
+    border-left: 4px solid var(--amber);
+    padding: 1rem 1.4rem;
+    margin: 1.2rem 0;
+    border-radius: 0 2px 2px 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .formula code {
+    font-family: 'Playfair Display', serif;
+    color: var(--amber-l);
+    font-style: italic;
+  }
+
+  /* example cards */
+  .ex-grid { display: grid; gap: .75rem; margin: 1rem 0; }
+  .ex-card {
+    background: var(--cream);
+    border-radius: 2px;
+    padding: .75rem 1.1rem;
+    border-left: 3px solid transparent;
+  }
+  .ex-card.de { border-color: var(--amber); }
+  .ex-card.es { border-color: var(--muted); }
+  .ex-pair { margin-bottom: .75rem; }
+  .ex-pair:last-child { margin-bottom: 0; }
+  .ex-de {
+    font-size: 1.05rem; color: var(--ink); font-weight: 600;
+  }
+  .ex-es {
+    font-size: .94rem; color: var(--muted); font-style: italic;
+  }
+  .highlight { color: var(--rust); font-weight: 700; }
+
+  /* note box */
+  .note {
+    background: #fff9ef;
+    border: 1px solid #e8d09a;
+    border-radius: 2px;
+    padding: .85rem 1.2rem;
+    margin: 1rem 0;
+    font-size: .97rem;
+    color: #5a4a20;
+  }
+  .note strong { color: var(--amber); }
+
+  /* section heading inside page */
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.22rem;
+    color: var(--slate);
+    margin: 1.3rem 0 .5rem;
+  }
+  h3:first-of-type { margin-top: .2rem; }
+
+  /* two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: .8rem 0; }
+  @media (max-width: 600px) {
+    #modal { padding: .75rem; }
+    .modal-card { height: 92vh; }
+    .page { padding: 1.5rem 1.3rem; }
+    .modal-footer { padding: .75rem 1rem; }
+    .nav-btn { padding: .45rem .9rem; }
+    .header-tools { gap: .45rem; }
+    .lang-toggle .label { display: none; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* tag */
+  .tag {
+    display: inline-block;
+    background: var(--slate);
+    color: var(--amber);
+    font-size: .75rem;
+    padding: .15rem .55rem;
+    border-radius: 20px;
+    letter-spacing: .07em;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+
+  /* ── EXERCISES ── */
+  .ex-instructions {
+    background: var(--slate);
+    color: #ccc5b0;
+    padding: .65rem 1.1rem;
+    border-radius: 2px;
+    font-size: .94rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: .02em;
+  }
+
+  /* fill-in-the-blank */
+  .blank-item {
+    margin-bottom: 1.1rem;
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+  .blank-item .sentence {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  }
+  .blank {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid var(--amber);
+    background: transparent;
+    width: 130px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0 4px;
+    outline: none;
+    text-align: center;
+    transition: border-color .2s;
+  }
+  .blank:focus { border-color: var(--rust); }
+  .blank.ok   { border-color: var(--correct); color: var(--correct); }
+  .blank.fail { border-color: var(--wrong);   color: var(--wrong); }
+  .feedback-icon { margin-left: 4px; font-size: 1rem; }
+
+  /* MCQ */
+  .mcq-item { margin-bottom: 1.3rem; }
+  .mcq-item .q { font-size: 1.02rem; font-weight: 600; margin-bottom: .5rem; line-height: 1.5; }
+  .options { display: flex; flex-direction: column; gap: .4rem; }
+  .opt-btn {
+    text-align: left;
+    padding: .5rem .9rem;
+    border: 1.5px solid #d4c9aa;
+    background: var(--cream);
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: .98rem;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--amber); background: #fdf6e3; }
+  .opt-btn.correct  { border-color: var(--correct); background: #eaf5ee; color: var(--correct); font-weight: 600; }
+  .opt-btn.incorrect{ border-color: var(--wrong);   background: #fdeaea; color: var(--wrong);   }
+  .opt-btn:disabled { cursor: default; }
+
+  /* reorder */
+  .words-pool { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
+  .word-chip {
+    padding: .3rem .75rem;
+    background: var(--slate);
+    color: var(--paper);
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: .98rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s, transform .15s;
+  }
+  .word-chip:hover { background: var(--amber); color: var(--ink); transform: translateY(-1px); }
+  .word-chip.used { opacity: .3; pointer-events: none; }
+  .answer-slots {
+    min-height: 2.5rem;
+    border-bottom: 2px solid var(--amber);
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    padding: .3rem 0;
+    margin-bottom: .5rem;
+  }
+  .slot-chip {
+    padding: .25rem .7rem;
+    background: var(--amber);
+    color: var(--ink);
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: .96rem;
+    cursor: pointer;
+  }
+  .slot-chip:hover { background: var(--rust); color: var(--paper); }
+  .reorder-item { margin-bottom: 1.4rem; }
+  .reorder-item .q { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; color: var(--muted); font-style: italic; }
+
+  /* check btn */
+  .check-btn {
+    margin-top: 1rem;
+    padding: .6rem 1.8rem;
+    background: var(--amber);
+    color: var(--ink);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .05em;
+    transition: background .2s;
+  }
+  .check-btn:hover { background: var(--amber-l); }
+  .score-box {
+    margin-top: .8rem;
+    padding: .6rem 1rem;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: none;
+  }
+  .score-box.show { display: block; }
+  .score-box.good { background: #eaf5ee; color: var(--correct); }
+  .score-box.bad  { background: #fdeaea; color: var(--wrong); }
+
+  /* scrollbar styling */
+  .page::-webkit-scrollbar { width: 5px; }
+  .page::-webkit-scrollbar-track { background: var(--cream); }
+  .page::-webkit-scrollbar-thumb { background: #c8b880; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<div id="cover">
+  <div class="cover-deco"></div>
+  <h1 class="cover-title">Infinitiv<br><em>mit zu</em></h1>
+  <p class="cover-sub">Deutschgrammatik · B1 – B2</p>
+  <div class="cover-deco"></div>
+  <button class="cover-btn" onclick="startLesson()">Lektion starten →</button>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div id="modal">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <span class="chapter-tag" id="chapter-tag">Introducción</span>
+      <div class="header-tools">
+        <button class="lang-toggle" id="lang-toggle" onclick="toggleExplanationLang()" aria-label="Cambiar idioma de las explicaciones" title="Cambiar idioma de las explicaciones">
+          <span class="label">Explicaciones</span>
+          <span class="lang-pill" id="lang-pill">ES</span>
+        </button>
+        <div class="progress-dots" id="dots"></div>
+      </div>
+    </div>
+
+    <div class="page-viewport" id="viewport">
+
+      <!-- PAGE 1: Was ist der Infinitiv mit zu? -->
+      <div class="page active" data-chapter="Einführung">
+        <div class="page-title"><span class="num">Seite 01</span>Was ist der Infinitiv mit zu?</div>
+        <div class="rule"></div>
+        <p>Im Deutschen wird der <strong>Infinitiv mit zu</strong> verwendet, wenn zwei Verben in einem Satz miteinander verbunden werden und das zweite Verb im Infinitiv steht. Das Wörtchen <em>zu</em> erscheint dabei direkt vor dem Infinitiv.</p>
+
+        <div class="formula">
+          Verb (konjugiert) + … + <code>zu</code> + Infinitiv
+        </div>
+
+        <p>Im Gegensatz zu <em>Modal- und Hilfsverben</em> (z.B. <em>können, müssen, dürfen</em>), die den reinen Infinitiv fordern, verlangen viele andere Verben, Adjektive und Ausdrücke immer das <strong>zu + Infinitiv</strong>-Konstrukt.</p>
+
+        <div class="note">
+          <strong>Wichtiger Unterschied:</strong><br>
+          „Ich <em>kann</em> schwimmen." → kein <em>zu</em> (Modalverb)<br>
+          „Ich <em>versuche</em> <strong>zu</strong> schwimmen." → mit <em>zu</em> (normales Verb)
+        </div>
+
+        <p>Diese Konstruktion entspricht im Spanischen dem <em>infinitivo</em> nach Verben wie <em>intentar, querer, decidir, olvidar…</em>, auch wenn es im Deutschen immer ein ausdrückliches <em>zu</em> benötigt.</p>
+      </div>
+
+      <!-- PAGE 2: Bildung -->
+      <div class="page" data-chapter="Bildung">
+        <div class="page-title"><span class="num">Seite 02</span>Bildung</div>
+        <div class="rule"></div>
+
+        <h3>Einfache Verben</h3>
+        <p>Bei einfachen Verben steht <em>zu</em> direkt vor dem Infinitiv:</p>
+        <div class="formula"><code>zu</code> + Infinitiv → <code>zu gehen, zu lesen, zu schlafen</code></div>
+
+        <h3>Trennbare Verben</h3>
+        <p>Bei trennbaren Verben tritt <em>zu</em> zwischen Präfix und Verbstamm — das Ganze bleibt ein einziges Wort:</p>
+        <div class="formula">Präfix + <code>zu</code> + Verbstamm → <code>an<strong>zu</strong>rufen, ein<strong>zu</strong>kaufen, auf<strong>zu</strong>stehen</code></div>
+        <div class="note"><strong>Merke:</strong> Nie ein Leerzeichen zwischen Präfix, <em>zu</em> und Stamm!</div>
+
+        <h3>Nicht-trennbare Verben</h3>
+        <p>Nicht-trennbare Verben (be-, ver-, er-, ent-, ge-, zer-…) verhalten sich wie einfache Verben:</p>
+        <div class="formula"><code>zu</code> + Infinitiv → <code>zu besuchen, zu verstehen, zu erklären</code></div>
+
+        <h3>Perfekt-Infinitiv (Vergangenheit)</h3>
+        <p>Manchmal steht der Infinitiv im Perfekt. Dann erscheint <em>zu</em> vor dem Hilfsverb:</p>
+        <div class="formula"><code>zu</code> + Partizip II + haben/sein → <code>gemacht zu haben, gegangen zu sein</code></div>
+      </div>
+
+      <!-- PAGE 3: Verben mit Infinitiv mit zu -->
+      <div class="page" data-chapter="Verben">
+        <div class="page-title"><span class="num">Seite 03</span>Verben, die „zu + Infinitiv" verlangen</div>
+        <div class="rule"></div>
+        <p>Viele Vollverben verlangen als Ergänzung einen Infinitiv mit <em>zu</em>. Die häufigsten:</p>
+
+        <div class="two-col">
+          <ul>
+            <li><strong>versuchen</strong> – intentar</li>
+            <li><strong>anfangen / beginnen</strong> – comenzar</li>
+            <li><strong>aufhören</strong> – dejar de</li>
+            <li><strong>vergessen</strong> – olvidar</li>
+            <li><strong>versprechen</strong> – prometer</li>
+            <li><strong>beschließen</strong> – decidir</li>
+            <li><strong>vorhaben</strong> – tener la intención</li>
+            <li><strong>planen</strong> – planear</li>
+          </ul>
+          <ul>
+            <li><strong>wünschen</strong> – desear</li>
+            <li><strong>empfehlen</strong> – recomendar</li>
+            <li><strong>bitten</strong> – pedir</li>
+            <li><strong>raten</strong> – aconsejar</li>
+            <li><strong>drohen</strong> – amenazar con</li>
+            <li><strong>scheinen</strong> – parecer</li>
+            <li><strong>beabsichtigen</strong> – tener la intención</li>
+            <li><strong>vermeiden</strong> – evitar</li>
+          </ul>
+        </div>
+
+        <div class="ex-grid">
+          <div class="ex-pair">
+            <div class="ex-de">Er versucht, <span class="highlight">zu schlafen</span>.</div>
+            <div class="ex-es">Él intenta dormir.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Sie hat aufgehört, <span class="highlight">zu rauchen</span>.</div>
+            <div class="ex-es">Ella dejó de fumar.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Ich habe vergessen, die Tür <span class="highlight">zu schließen</span>.</div>
+            <div class="ex-es">Olvidé cerrar la puerta.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Wir beschlossen, früh <span class="highlight">aufzustehen</span>.</div>
+            <div class="ex-es">Decidimos levantarnos temprano.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 4: Ausdrücke + haben/sein -->
+      <div class="page" data-chapter="Adjektive & Ausdrücke">
+        <div class="page-title"><span class="num">Seite 04</span>Adjektive & Ausdrücke mit „zu + Infinitiv"</div>
+        <div class="rule"></div>
+
+        <h3>Adjektive + sein</h3>
+        <p>Das Muster lautet: <em>Es ist + Adjektiv + zu + Infinitiv</em></p>
+        <div class="formula"><code>Es ist + [Adjektiv] + zu + Infinitiv</code></div>
+        <div class="ex-grid">
+          <div class="ex-pair">
+            <div class="ex-de">Es ist wichtig, <span class="highlight">zu lernen</span>.</div>
+            <div class="ex-es">Es importante aprender.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Es ist schwer, Deutsch <span class="highlight">zu sprechen</span>.</div>
+            <div class="ex-es">Es difícil hablar alemán.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Es ist unmöglich, alles <span class="highlight">zu wissen</span>.</div>
+            <div class="ex-es">Es imposible saberlo todo.</div>
+          </div>
+        </div>
+
+        <h3>Haben + zu + Infinitiv (Pflicht)</h3>
+        <p>Drückt aus, dass jemand etwas tun muss (ähnlich wie <em>müssen</em>):</p>
+        <div class="formula">Subjekt + <code>haben</code> + … + <code>zu</code> + Infinitiv</div>
+        <div class="ex-grid">
+          <div class="ex-pair">
+            <div class="ex-de">Du hast das Zimmer <span class="highlight">aufzuräumen</span>.</div>
+            <div class="ex-es">Tienes que ordenar tu cuarto.</div>
+          </div>
+          <div class="ex-pair">
+            <div class="ex-de">Er hat nichts <span class="highlight">zu sagen</span>.</div>
+            <div class="ex-es">Él no tiene nada que decir.</div>
+          </div>
+        </div>
+
+        <h3>Sein + zu + Infinitiv (Möglichkeit / Pflicht)</h3>
+        <div class="ex-grid">
+          <div class="ex-pair">
+            <div class="ex-de">Das Problem ist <span class="highlight">zu lösen</span>.</div>
+            <div class="ex-es">El problema puede resolverse / debe resolverse.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 5: um…zu / ohne…zu / anstatt…zu -->
+      <div class="page" data-chapter="um/ohne/anstatt">
+        <div class="page-title"><span class="num">Seite 05</span>um…zu · ohne…zu · anstatt…zu</div>
+        <div class="rule"></div>
+
+        <h3>um … zu — Zweck / Finalangabe</h3>
+        <p>Drückt den <strong>Zweck</strong> oder das <strong>Ziel</strong> einer Handlung aus (<em>para + infinitivo</em>):</p>
+        <div class="formula"><code>um</code> + … + <code>zu</code> + Infinitiv</div>
+        <div class="ex-grid">
+          <div class="ex-pair"><div class="ex-de">Ich lerne Deutsch, <span class="highlight">um</span> in Berlin <span class="highlight">zu arbeiten</span>.</div><div class="ex-es">Aprendo alemán para trabajar en Berlín.</div></div>
+          <div class="ex-pair"><div class="ex-de">Sie spart Geld, <span class="highlight">um</span> ein Auto <span class="highlight">zu kaufen</span>.</div><div class="ex-es">Ella ahorra dinero para comprar un auto.</div></div>
+          <div class="ex-pair"><div class="ex-de">Wir stehen früh auf, <span class="highlight">um</span> den Zug <span class="highlight">zu nehmen</span>.</div><div class="ex-es">Nos levantamos temprano para tomar el tren.</div></div>
+        </div>
+
+        <h3>ohne … zu — ohne dass</h3>
+        <p>Drückt aus, dass etwas <strong>nicht getan wird</strong> (<em>sin + infinitivo</em>):</p>
+        <div class="formula"><code>ohne</code> + … + <code>zu</code> + Infinitiv</div>
+        <div class="ex-grid">
+          <div class="ex-pair"><div class="ex-de">Er ging weg, <span class="highlight">ohne</span> sich <span class="highlight">zu verabschieden</span>.</div><div class="ex-es">Se fue sin despedirse.</div></div>
+          <div class="ex-pair"><div class="ex-de">Sie aß, <span class="highlight">ohne</span> etwas <span class="highlight">zu sagen</span>.</div><div class="ex-es">Comió sin decir nada.</div></div>
+        </div>
+
+        <h3>anstatt … zu — statt etwas anderem</h3>
+        <p>Bezeichnet eine <strong>Alternative, die nicht gewählt wurde</strong> (<em>en vez de / en lugar de + infinitivo</em>):</p>
+        <div class="formula"><code>anstatt</code> (/ <code>statt</code>) + … + <code>zu</code> + Infinitiv</div>
+        <div class="ex-grid">
+          <div class="ex-pair"><div class="ex-de">Er schaut TV, <span class="highlight">anstatt</span> <span class="highlight">zu lernen</span>.</div><div class="ex-es">Ve tele en vez de estudiar.</div></div>
+          <div class="ex-pair"><div class="ex-de">Sie schreibt eine SMS, <span class="highlight">statt</span> <span class="highlight">anzurufen</span>.</div><div class="ex-es">Escribe un mensaje en lugar de llamar.</div></div>
+        </div>
+
+        <div class="note"><strong>Wichtig:</strong> Bei <em>um…zu, ohne…zu, anstatt…zu</em> muss das Subjekt beider Sätze <strong>identisch</strong> sein. Wenn nicht, braucht man einen Nebensatz mit <em>damit, ohne dass, anstatt dass</em>.</div>
+      </div>
+
+      <!-- PAGE 6: Satzstellung & Komma -->
+      <div class="page" data-chapter="Satzstellung">
+        <div class="page-title"><span class="num">Seite 06</span>Satzstellung & Komma</div>
+        <div class="rule"></div>
+
+        <h3>Komma: Wann?</h3>
+        <p>In den neuen Rechtschreibregeln ist das Komma vor einem einfachen Infinitivsatz <em>optional</em>. Es gibt jedoch Fälle, in denen es <strong>obligatorisch</strong> ist:</p>
+
+        <ul>
+          <li>Wenn der Infinitivsatz durch <em>um, ohne, anstatt, als, statt</em> eingeleitet wird → <strong>immer Komma</strong>.</li>
+          <li>Wenn ein Bezugswort (z.B. <em>die Absicht, die Aufgabe</em>) im Hauptsatz steht → <strong>empfohlen</strong>.</li>
+          <li>Wenn der Infinitivsatz aus einem einzigen Wort besteht → <strong>kein Komma nötig</strong>.</li>
+        </ul>
+
+        <div class="ex-grid">
+          <div class="ex-pair"><div class="ex-de">Ich habe vor<span class="highlight">,</span> morgen <span class="highlight">aufzustehen</span>.</div><div class="ex-es">Tengo la intención de levantarme mañana.</div></div>
+          <div class="ex-pair"><div class="ex-de">Er fing an<span class="highlight">,</span> Geige <span class="highlight">zu spielen</span>.</div><div class="ex-es">Él empezó a tocar el violín.</div></div>
+        </div>
+
+        <h3>Position des Infinitivs</h3>
+        <p>Das <em>zu</em> + Infinitiv steht immer am <strong>Ende des Satzes</strong> (oder Infinitivsatzes). Bei trennbaren Verben bleibt alles zusammen:</p>
+        <div class="formula">Ich habe vergessen, die Hausaufgaben <code>abzugeben</code>. ✓<br>Ich habe vergessen, abzugeben die Hausaufgaben. ✗</div>
+
+        <h3>Verneinung: nicht zu</h3>
+        <p><em>Nicht</em> steht direkt <strong>vor</strong> <em>zu + Infinitiv</em>:</p>
+        <div class="ex-grid">
+          <div class="ex-pair"><div class="ex-de">Er hat versprochen, <span class="highlight">nicht zu lügen</span>.</div><div class="ex-es">Prometió no mentir.</div></div>
+          <div class="ex-pair"><div class="ex-de">Ich rate dir, <span class="highlight">nicht aufzugeben</span>.</div><div class="ex-es">Te aconsejo no rendirte.</div></div>
+        </div>
+      </div>
+
+      <!-- PAGE 7: Übung 1 – Lückentext -->
+      <div class="page" data-chapter="Übung 1">
+        <div class="page-title"><span class="num">Übung 01</span>Lückentext: zu oder Ø?</div>
+        <div class="rule"></div>
+        <div class="ex-instructions">Fülle die Lücken mit <strong>zu</strong> oder lasse sie leer (Ø). Klicke dann auf „Überprüfen".</div>
+
+        <div id="ex1-items"></div>
+        <button class="check-btn" onclick="checkEx1()">Überprüfen ✓</button>
+        <div class="score-box" id="ex1-score"></div>
+      </div>
+
+      <!-- PAGE 8: Übung 2 – Multiple Choice -->
+      <div class="page" data-chapter="Übung 2">
+        <div class="page-title"><span class="num">Übung 02</span>Multiple Choice: Infinitivkonstruktionen</div>
+        <div class="rule"></div>
+        <div class="ex-instructions">Wähle die richtige Antwort. Nur eine Option ist korrekt.</div>
+
+        <div id="ex2-items"></div>
+        <button class="check-btn" onclick="checkEx2()">Überprüfen ✓</button>
+        <div class="score-box" id="ex2-score"></div>
+      </div>
+
+      <!-- PAGE 9: Übung 3 – Sätze umformen -->
+      <div class="page" data-chapter="Übung 3">
+        <div class="page-title"><span class="num">Übung 03</span>Satz-Baukasten: Wörter ordnen</div>
+        <div class="rule"></div>
+        <div class="ex-instructions">Klicke die Wörter in der richtigen Reihenfolge an, um den Satz zu bilden. Klicke auf ein Wort im Kasten, um es zu entfernen.</div>
+
+        <div id="ex3-items"></div>
+        <button class="check-btn" onclick="checkEx3()">Überprüfen ✓</button>
+        <div class="score-box" id="ex3-score"></div>
+      </div>
+
+      <!-- PAGE 10: Zusammenfassung -->
+      <div class="page" data-chapter="Zusammenfassung">
+        <div class="page-title"><span class="num">Seite 10</span>Zusammenfassung</div>
+        <div class="rule"></div>
+        <p>Du hast jetzt alle wichtigen Regeln des <strong>Infinitivs mit zu</strong> kennengelernt. Hier eine schnelle Übersicht:</p>
+
+        <div class="ex-grid">
+          <div class="ex-card de">
+            <span class="tag">Bildung</span>
+            <div class="ex-de">zu + Infinitiv / Präfix+zu+Stamm (trennbar)</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">Nach Verben</span>
+            <div class="ex-de">versuchen, anfangen, aufhören, vergessen, beschließen…</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">Adjektiv + sein</span>
+            <div class="ex-de">Es ist wichtig / schwer / schön … zu + Inf.</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">haben/sein + zu</span>
+            <div class="ex-de">Ausdrückt Pflicht oder Möglichkeit (passivisch)</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">um … zu</span>
+            <div class="ex-de">Zweck: Ich lerne, um zu bestehen.</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">ohne … zu</span>
+            <div class="ex-de">Ohne Begleithandlung: ohne zu fragen</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">anstatt … zu</span>
+            <div class="ex-de">Alternative: anstatt zu arbeiten</div>
+          </div>
+          <div class="ex-card de">
+            <span class="tag">Verneinung</span>
+            <div class="ex-de">nicht direkt vor zu + Infinitiv</div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:1.2rem">
+          <strong>Nächste Schritte:</strong> Übe die Konstruktionen in eigenen Sätzen. Beschreibe deinen Alltag und versuche dabei <em>um…zu</em>, <em>ohne…zu</em> und <em>anstatt…zu</em> einzubauen. Viel Erfolg! 🎉
+        </div>
+      </div>
+
+    </div><!-- /page-viewport -->
+
+    <div class="modal-footer">
+      <span class="page-counter" id="page-counter">1 / 10</span>
+      <div class="nav-btns">
+        <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" disabled>← Zurück</button>
+        <button class="nav-btn" id="btn-next" onclick="navigate(1)">Weiter →</button>
+      </div>
+    </div>
+
+  </div><!-- /modal-card -->
+</div><!-- /modal -->
+
+<script>
+
+// ── LANGUAGE SWITCH ──────────────────────────────────────────────────────
+
+let explanationLang = 'es';
+
+const chapterLabels = {
+  "Einführung": { es: "Introducción", de: "Einführung" },
+  "Bildung": { es: "Formación", de: "Bildung" },
+  "Verben": { es: "Verbos", de: "Verben" },
+  "Adjektive & Ausdrücke": { es: "Adjetivos y expresiones", de: "Adjektive & Ausdrücke" },
+  "um/ohne/anstatt": { es: "um/ohne/anstatt", de: "um/ohne/anstatt" },
+  "Satzstellung": { es: "Orden y coma", de: "Satzstellung" },
+  "Übung 1": { es: "Ejercicio 1", de: "Übung 1" },
+  "Übung 2": { es: "Ejercicio 2", de: "Übung 2" },
+  "Übung 3": { es: "Ejercicio 3", de: "Übung 3" },
+  "Zusammenfassung": { es: "Resumen", de: "Zusammenfassung" }
+};
+
+function registerI18nElement(el, esHTML) {
+  if (!el) return;
+  if (!el.dataset.de) el.dataset.de = el.innerHTML;
+  el.dataset.es = esHTML;
+  el.classList.add('explain-i18n');
+}
+
+function applyExplanationLang(lang) {
+  explanationLang = lang;
+  document.documentElement.lang = lang === 'es' ? 'es' : 'de';
+
+  document.querySelectorAll('.explain-i18n').forEach(el => {
+    el.innerHTML = lang === 'es' ? el.dataset.es : el.dataset.de;
+  });
+
+  const pill = document.getElementById('lang-pill');
+  if (pill) pill.textContent = lang.toUpperCase();
+
+  const toggle = document.getElementById('lang-toggle');
+  const label = toggle?.querySelector('.label');
+  if (label) label.textContent = lang === 'es' ? 'Explicaciones' : 'Erklärungen';
+  if (toggle) {
+    const msg = lang === 'es'
+      ? 'Cambiar explicaciones a alemán'
+      : 'Erklärungen auf Spanisch umstellen';
+    toggle.setAttribute('aria-label', msg);
+    toggle.setAttribute('title', msg);
+  }
+
+  updateChapterTag();
+}
+
+function toggleExplanationLang() {
+  applyExplanationLang(explanationLang === 'es' ? 'de' : 'es');
+}
+
+function resultText(score, total) {
+  return explanationLang === 'es'
+    ? `Resultado: ${score} / ${total} correctas`
+    : `Ergebnis: ${score} / ${total} richtig`;
+}
+
+function updateChapterTag() {
+  const tag = document.getElementById('chapter-tag');
+  if (!tag || !pages[current]) return;
+  const key = pages[current].dataset.chapter;
+  tag.textContent = chapterLabels[key]?.[explanationLang] || key;
+}
+
+function registerStaticTranslations() {
+  const page = i => pages[i];
+
+  registerI18nElement(page(0).querySelector('.page-title'), '<span class="num">Página 01</span>¿Qué es el infinitivo con zu?');
+  const p0 = page(0).querySelectorAll('p');
+  registerI18nElement(p0[0], 'En alemán se usa el <strong>Infinitiv mit zu</strong> cuando dos verbos se conectan en una oración y el segundo aparece en infinitivo. La palabra <em>zu</em> se coloca directamente antes del infinitivo.');
+  registerI18nElement(page(0).querySelector('.formula'), 'Verbo conjugado + … + <code>zu</code> + infinitivo');
+  registerI18nElement(p0[1], 'A diferencia de los <em>verbos modales y auxiliares</em> —por ejemplo <em>können, müssen, dürfen</em>—, muchos otros verbos, adjetivos y expresiones exigen la construcción <strong>zu + infinitivo</strong>.');
+  registerI18nElement(page(0).querySelector('.note'), '<strong>Diferencia importante:</strong><br>„Ich <em>kann</em> schwimmen.“ → sin <em>zu</em> (verbo modal)<br>„Ich <em>versuche</em> <strong>zu</strong> schwimmen.“ → con <em>zu</em> (verbo normal)');
+  registerI18nElement(p0[2], 'Esta construcción corresponde muchas veces al infinitivo español después de verbos como <em>intentar, decidir, olvidar, prometer…</em>, pero en alemán el <em>zu</em> aparece de forma explícita.');
+
+  registerI18nElement(page(1).querySelector('.page-title'), '<span class="num">Página 02</span>Formación');
+  const h1 = page(1).querySelectorAll('h3');
+  const p1 = page(1).querySelectorAll('p');
+  const f1 = page(1).querySelectorAll('.formula');
+  registerI18nElement(h1[0], 'Verbos simples');
+  registerI18nElement(p1[0], 'Con verbos simples, <em>zu</em> se coloca directamente antes del infinitivo:');
+  registerI18nElement(f1[0], '<code>zu</code> + infinitivo → <code>zu gehen, zu lesen, zu schlafen</code>');
+  registerI18nElement(h1[1], 'Verbos separables');
+  registerI18nElement(p1[1], 'Con verbos separables, <em>zu</em> se coloca entre el prefijo y la raíz verbal. Todo queda escrito como una sola palabra:');
+  registerI18nElement(f1[1], 'Prefijo + <code>zu</code> + raíz → <code>an<strong>zu</strong>rufen, ein<strong>zu</strong>kaufen, auf<strong>zu</strong>stehen</code>');
+  registerI18nElement(page(1).querySelector('.note'), '<strong>Recuerda:</strong> Nunca se escribe un espacio entre el prefijo, <em>zu</em> y la raíz verbal.');
+  registerI18nElement(h1[2], 'Verbos no separables');
+  registerI18nElement(p1[2], 'Los verbos no separables —be-, ver-, er-, ent-, ge-, zer-…— se comportan como verbos simples:');
+  registerI18nElement(f1[2], '<code>zu</code> + infinitivo → <code>zu besuchen, zu verstehen, zu erklären</code>');
+  registerI18nElement(h1[3], 'Infinitivo perfecto / pasado');
+  registerI18nElement(p1[3], 'A veces el infinitivo aparece en forma de perfecto. En ese caso, <em>zu</em> se coloca antes del auxiliar:');
+  registerI18nElement(f1[3], '<code>zu</code> + participio II + haben/sein → <code>gemacht zu haben, gegangen zu sein</code>');
+
+  registerI18nElement(page(2).querySelector('.page-title'), '<span class="num">Página 03</span>Verbos que exigen „zu + infinitivo“');
+  registerI18nElement(page(2).querySelector('p'), 'Muchos verbos plenos exigen como complemento un infinitivo con <em>zu</em>. Estos son algunos de los más frecuentes:');
+
+  registerI18nElement(page(3).querySelector('.page-title'), '<span class="num">Página 04</span>Adjetivos y expresiones con „zu + infinitivo“');
+  const h3 = page(3).querySelectorAll('h3');
+  const p3 = page(3).querySelectorAll('p');
+  const f3 = page(3).querySelectorAll('.formula');
+  registerI18nElement(h3[0], 'Adjetivos + sein');
+  registerI18nElement(p3[0], 'El patrón es: <em>Es ist + adjetivo + zu + infinitivo</em>.');
+  registerI18nElement(f3[0], '<code>Es ist + [adjetivo] + zu + infinitivo</code>');
+  registerI18nElement(h3[1], 'Haben + zu + infinitivo: obligación');
+  registerI18nElement(p3[1], 'Expresa que alguien tiene que hacer algo, de manera parecida a <em>müssen</em>:');
+  registerI18nElement(f3[1], 'Sujeto + <code>haben</code> + … + <code>zu</code> + infinitivo');
+  registerI18nElement(h3[2], 'Sein + zu + infinitivo: posibilidad u obligación');
+
+  registerI18nElement(page(4).querySelector('.page-title'), '<span class="num">Página 05</span>um…zu · ohne…zu · anstatt…zu');
+  const h4 = page(4).querySelectorAll('h3');
+  const p4 = page(4).querySelectorAll('p');
+  registerI18nElement(h4[0], 'um … zu — finalidad');
+  registerI18nElement(p4[0], 'Expresa el <strong>propósito</strong> o la <strong>meta</strong> de una acción. Equivale a <em>para + infinitivo</em>.');
+  registerI18nElement(h4[1], 'ohne … zu — sin hacer algo');
+  registerI18nElement(p4[1], 'Expresa que una acción <strong>no se realiza</strong>. Equivale a <em>sin + infinitivo</em>.');
+  registerI18nElement(h4[2], 'anstatt … zu — en vez de hacer algo');
+  registerI18nElement(p4[2], 'Expresa una <strong>alternativa que no se elige</strong>. Equivale a <em>en vez de / en lugar de + infinitivo</em>.');
+  registerI18nElement(page(4).querySelector('.note'), '<strong>Importante:</strong> Con <em>um…zu, ohne…zu, anstatt…zu</em>, el sujeto de ambas partes debe ser <strong>el mismo</strong>. Si no lo es, se necesita una oración subordinada con <em>damit, ohne dass, anstatt dass</em>.');
+
+  registerI18nElement(page(5).querySelector('.page-title'), '<span class="num">Página 06</span>Orden de la oración y coma');
+  const h5 = page(5).querySelectorAll('h3');
+  const p5 = page(5).querySelectorAll('p');
+  registerI18nElement(h5[0], 'Coma: ¿cuándo se usa?');
+  registerI18nElement(p5[0], 'Según las reglas actuales, la coma antes de una oración simple de infinitivo puede ser opcional. Sin embargo, hay casos en los que es <strong>obligatoria</strong>:');
+  const li5 = page(5).querySelectorAll('li');
+  registerI18nElement(li5[0], 'Si la construcción de infinitivo empieza con <em>um, ohne, anstatt, als, statt</em> → <strong>siempre lleva coma</strong>.');
+  registerI18nElement(li5[1], 'Si en la oración principal hay una palabra de referencia, por ejemplo <em>die Absicht, die Aufgabe</em> → <strong>la coma es recomendable</strong>.');
+  registerI18nElement(li5[2], 'Si la construcción de infinitivo consta de una sola palabra → <strong>no hace falta coma</strong>.');
+  registerI18nElement(h5[1], 'Posición del infinitivo');
+  registerI18nElement(p5[1], '<em>zu</em> + infinitivo aparece siempre al <strong>final de la oración</strong> o de la construcción de infinitivo. Con verbos separables, todo permanece junto:');
+  registerI18nElement(h5[2], 'Negación: nicht zu');
+  registerI18nElement(p5[2], '<em>Nicht</em> se coloca directamente <strong>antes</strong> de <em>zu + infinitivo</em>:');
+
+  registerI18nElement(page(6).querySelector('.page-title'), '<span class="num">Ejercicio 01</span>Texto con huecos: ¿zu u Ø?');
+  registerI18nElement(page(6).querySelector('.ex-instructions'), 'Completa los espacios con <strong>zu</strong> o déjalos vacíos (Ø). Luego haz clic en “Überprüfen”.');
+
+  registerI18nElement(page(7).querySelector('.page-title'), '<span class="num">Ejercicio 02</span>Opción múltiple: construcciones de infinitivo');
+  registerI18nElement(page(7).querySelector('.ex-instructions'), 'Elige la respuesta correcta. Solo una opción es correcta.');
+
+  registerI18nElement(page(8).querySelector('.page-title'), '<span class="num">Ejercicio 03</span>Construcción de oraciones: ordena las palabras');
+  registerI18nElement(page(8).querySelector('.ex-instructions'), 'Haz clic en las palabras en el orden correcto para formar la oración. Haz clic en una palabra del recuadro para quitarla.');
+
+  registerI18nElement(page(9).querySelector('.page-title'), '<span class="num">Página 10</span>Resumen');
+  registerI18nElement(page(9).querySelector('p'), 'Ya conoces las reglas principales del <strong>Infinitiv mit zu</strong>. Aquí tienes una vista rápida:');
+  const tags = page(9).querySelectorAll('.tag');
+  registerI18nElement(tags[0], 'Formación');
+  registerI18nElement(tags[1], 'Después de verbos');
+  registerI18nElement(tags[2], 'Adjetivo + sein');
+  registerI18nElement(tags[3], 'haben/sein + zu');
+  registerI18nElement(tags[4], 'um … zu');
+  registerI18nElement(tags[5], 'ohne … zu');
+  registerI18nElement(tags[6], 'anstatt … zu');
+  registerI18nElement(tags[7], 'Negación');
+
+  const cards = page(9).querySelectorAll('.ex-card .ex-de');
+  registerI18nElement(cards[0], 'zu + infinitivo / prefijo+zu+raíz en verbos separables');
+  registerI18nElement(cards[1], 'versuchen, anfangen, aufhören, vergessen, beschließen…');
+  registerI18nElement(cards[2], 'Es ist wichtig / schwer / schön … zu + infinitivo');
+  registerI18nElement(cards[3], 'Expresa obligación o posibilidad, a menudo con sentido pasivo');
+  registerI18nElement(cards[4], 'Finalidad: Ich lerne, um zu bestehen.');
+  registerI18nElement(cards[5], 'Acción no realizada: ohne zu fragen');
+  registerI18nElement(cards[6], 'Alternativa: anstatt zu arbeiten');
+  registerI18nElement(cards[7], 'nicht se coloca directamente antes de zu + infinitivo');
+  registerI18nElement(page(9).querySelector('.note'), '<strong>Siguiente paso:</strong> Practica estas construcciones en tus propias oraciones. Describe tu rutina e intenta incluir <em>um…zu</em>, <em>ohne…zu</em> y <em>anstatt…zu</em>. Viel Erfolg! 🎉');
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+
+const ex1Data = [
+  {
+    before:"Ich versuche,", blank:"zu", after:"schlafen.",
+    hintDe:"versuchen → zu + Infinitiv",
+    hintEs:"versuchen exige zu + infinitivo"
+  },
+  {
+    before:"Er kann gut", blank:"", after:"kochen.",
+    hintDe:"können → Modalverb, kein zu",
+    hintEs:"können es verbo modal: no lleva zu"
+  },
+  {
+    before:"Sie hat angefangen,", blank:"zu", after:"laufen.",
+    hintDe:"anfangen → zu + Infinitiv",
+    hintEs:"anfangen exige zu + infinitivo"
+  },
+  {
+    before:"Wir möchten", blank:"", after:"reisen.",
+    hintDe:"möchten → Modalverb, kein zu",
+    hintEs:"möchten funciona como modal: no lleva zu"
+  },
+  {
+    before:"Er fährt nach Berlin, ohne", blank:"zu", after:"fragen.",
+    hintDe:"ohne…zu → zu + Infinitiv",
+    hintEs:"ohne…zu expresa una acción no realizada"
+  },
+  {
+    before:"Ich habe beschlossen,", blank:"zu", after:"studieren.",
+    hintDe:"beschließen → zu + Infinitiv",
+    hintEs:"beschließen exige zu + infinitivo"
+  },
+  {
+    before:"Du musst das", blank:"", after:"machen.",
+    hintDe:"müssen → Modalverb, kein zu",
+    hintEs:"müssen es verbo modal: no lleva zu"
+  },
+  {
+    before:"Es ist wichtig,", blank:"zu", after:"üben.",
+    hintDe:"es ist + Adjektiv → zu + Infinitiv",
+    hintEs:"es ist + adjetivo exige zu + infinitivo"
+  },
+  {
+    before:"Sie darf hier", blank:"", after:"parken.",
+    hintDe:"dürfen → Modalverb, kein zu",
+    hintEs:"dürfen es verbo modal: no lleva zu"
+  },
+  {
+    before:"Er vergaß, das Fenster", blank:"zu", after:"schließen.",
+    hintDe:"vergessen → zu + Infinitiv",
+    hintEs:"vergessen exige zu + infinitivo"
+  },
+];
+
+const ex2Data = [
+  {
+    q: "Ich hoffe, bald Urlaub ___ machen.",
+    opts: ["zu", "Ø (kein zu)", "um zu", "ohne zu"],
+    correct: 0,
+    explanationDe: "„hoffen“ verlangt zu + Infinitiv.",
+    explanationEs: "hoffen exige zu + infinitivo."
+  },
+  {
+    q: "Er geht ins Gym, ___ fit zu bleiben.",
+    opts: ["anstatt", "ohne", "um", "statt"],
+    correct: 2,
+    explanationDe: "Zweck/Ziel → um … zu.",
+    explanationEs: "Para expresar finalidad o meta se usa um … zu."
+  },
+  {
+    q: "Sie aß das Essen, ___ es zu probieren.",
+    opts: ["um", "anstatt", "ohne", "damit"],
+    correct: 2,
+    explanationDe: "Ohne Begleithandlung → ohne … zu.",
+    explanationEs: "Para indicar que algo no se hace, se usa ohne … zu."
+  },
+  {
+    q: "Er schaut Netflix, ___ zu lernen.",
+    opts: ["um", "ohne", "anstatt", "bis"],
+    correct: 2,
+    explanationDe: "Nicht gewählte Alternative → anstatt … zu.",
+    explanationEs: "Para expresar una alternativa no elegida se usa anstatt … zu."
+  },
+  {
+    q: "Sie kann sehr gut ___ singen.",
+    opts: ["zu", "Ø (kein zu)", "um zu", "ohne"],
+    correct: 1,
+    explanationDe: "„können“ ist ein Modalverb → reiner Infinitiv ohne zu.",
+    explanationEs: "können es verbo modal: el infinitivo va sin zu."
+  },
+  {
+    q: "Wir haben vor, morgen früh ___.",
+    opts: ["aufzustehen", "zu aufstehen", "aufzustehen zu", "aufstehen"],
+    correct: 0,
+    explanationDe: "„aufstehen“ ist trennbar → auf+zu+stehen = aufzustehen.",
+    explanationEs: "aufstehen es separable: zu va entre el prefijo y la raíz → aufzustehen."
+  },
+  {
+    q: "Es ist nett von dir, mir ___ helfen.",
+    opts: ["zu", "Ø", "um zu", "ohne zu"],
+    correct: 0,
+    explanationDe: "Es ist + Adjektiv → zu + Infinitiv.",
+    explanationEs: "Es ist + adjetivo suele exigir zu + infinitivo."
+  },
+  {
+    q: "Sie versprach, nie wieder ___.",
+    opts: ["zu lügen", "lügen", "um zu lügen", "zu lügen zu"],
+    correct: 0,
+    explanationDe: "„versprechen“ → zu + Infinitiv; Verneinung: nie … zu lügen.",
+    explanationEs: "versprechen exige zu + infinitivo; la negación queda antes de zu + infinitivo."
+  },
+];
+
+const ex3Data = [
+  {
+    hint:"Para no llegar tarde, tomó un taxi.",
+    words:["Er","nahm","ein","Taxi","um","nicht","zu","spät","anzukommen","."],
+    answer:"Er nahm ein Taxi , um nicht zu spät anzukommen ."
+  },
+  {
+    hint:"Ella empezó a tocar la guitarra.",
+    words:["Sie","fing","an","Gitarre","zu","spielen","."],
+    answer:"Sie fing an , Gitarre zu spielen ."
+  },
+  {
+    hint:"Decidimos quedarnos en casa.",
+    words:["Wir","beschlossen","zu","Hause","zu","bleiben","."],
+    answer:"Wir beschlossen , zu Hause zu bleiben ."
+  },
+  {
+    hint:"Se fue sin despedirse.",
+    words:["Er","ging","weg","ohne","sich","zu","verabschieden","."],
+    answer:"Er ging weg , ohne sich zu verabschieden ."
+  },
+  {
+    hint:"En vez de estudiar, ve la televisión.",
+    words:["Anstatt","zu","lernen","schaut","er","fern","."],
+    answer:"Anstatt zu lernen , schaut er fern ."
+  },
+];
+
+// ── PAGES ────────────────────────────────────────────────────────────────
+
+const pages = document.querySelectorAll('.page');
+let current = 0;
+const total = pages.length;
+
+function buildDots() {
+  const c = document.getElementById('dots');
+  c.innerHTML = '';
+  pages.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i===0?' active':'');
+    c.appendChild(d);
+  });
+}
+
+function updateDots() {
+  document.querySelectorAll('.dot').forEach((d,i) => {
+    d.className = 'dot' + (i===current?' active':(i<current?' done':''));
+  });
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next < 0 || next >= total) return;
+
+  const leaving = current;
+
+  pages[leaving].classList.remove('active');
+  pages[leaving].classList.add('exit');
+
+  current = next;
+
+  // Por seguridad: si una página quedó con "exit", no debe ganar sobre "active".
+  pages[current].classList.remove('exit');
+  pages[current].classList.add('active');
+  pages[current].scrollTop = 0;
+
+  setTimeout(() => {
+    pages[leaving].classList.remove('exit');
+  }, 400);
+
+  updateDots();
+  document.getElementById('page-counter').textContent = (current + 1) + ' / ' + total;
+  updateChapterTag();
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === total - 1;
+  document.getElementById('btn-next').textContent = current === total - 1 ? '✓ Ende' : 'Weiter →';
+}
+
+function startLesson() {
+  document.getElementById('cover').classList.add('hide');
+  document.getElementById('modal').classList.add('visible');
+}
+
+// ── EXERCISE 1 ──────────────────────────────────────────────────────────
+
+function buildEx1() {
+  const cont = document.getElementById('ex1-items');
+  ex1Data.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'blank-item';
+    div.innerHTML = `
+      <div class="sentence">
+        <span>${item.before}</span>
+        <input class="blank" id="b${i}" type="text" placeholder="zu / Ø" autocomplete="off" spellcheck="false">
+        <span>${item.after}</span>
+        <span class="feedback-icon" id="fi${i}"></span>
+      </div>
+      <small style="color:var(--muted);font-style:italic;display:none" id="hint${i}"></small>
+    `;
+    cont.appendChild(div);
+
+    const hintEl = document.getElementById('hint' + i);
+    hintEl.dataset.de = item.hintDe;
+    hintEl.dataset.es = item.hintEs;
+    hintEl.classList.add('explain-i18n');
+    hintEl.textContent = explanationLang === 'es' ? item.hintEs : item.hintDe;
+  });
+}
+
+function checkEx1() {
+  let score = 0;
+  ex1Data.forEach((item, i) => {
+    const inp = document.getElementById('b'+i);
+    const icon = document.getElementById('fi'+i);
+    const hint = document.getElementById('hint'+i);
+    const val = inp.value.trim().toLowerCase();
+    const correct = item.blank;
+    const isOk = val === correct || (correct==='' && (val==='' || val==='ø' || val==='o'));
+    if (isOk) {
+      inp.className = 'blank ok';
+      icon.textContent = '✓';
+      hint.style.display = 'none';
+      score++;
+    } else {
+      inp.className = 'blank fail';
+      icon.textContent = '✗';
+      inp.value = correct === '' ? 'Ø' : correct;
+      hint.style.display = 'block';
+    }
+  });
+  const box = document.getElementById('ex1-score');
+  box.textContent = resultText(score, ex1Data.length);
+  box.className = 'score-box show ' + (score >= ex1Data.length*0.7 ? 'good' : 'bad');
+}
+
+// ── EXERCISE 2 ──────────────────────────────────────────────────────────
+
+function buildEx2() {
+  const cont = document.getElementById('ex2-items');
+  ex2Data.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'mcq-item';
+    const optsHTML = item.opts.map((o, j) =>
+      `<button class="opt-btn" id="opt${i}_${j}" onclick="selectOpt(${i},${j})">${o}</button>`
+    ).join('');
+    div.innerHTML = `
+      <div class="q">${i+1}. ${item.q}</div>
+      <div class="options">${optsHTML}</div>
+      <small style="color:var(--muted);font-style:italic;display:none;margin-top:.3rem" id="expl${i}"></small>
+    `;
+    cont.appendChild(div);
+
+    const explEl = document.getElementById('expl' + i);
+    explEl.dataset.de = item.explanationDe;
+    explEl.dataset.es = item.explanationEs;
+    explEl.classList.add('explain-i18n');
+    explEl.textContent = explanationLang === 'es' ? item.explanationEs : item.explanationDe;
+  });
+}
+
+const mcqAnswers = {};
+
+function selectOpt(qi, oi) {
+  // toggle selection (only if not checked)
+  if (document.getElementById(`opt${qi}_0`).disabled) return;
+  for (let j=0;j<ex2Data[qi].opts.length;j++) {
+    document.getElementById(`opt${qi}_${j}`).style.background='';
+    document.getElementById(`opt${qi}_${j}`).style.borderColor='';
+  }
+  mcqAnswers[qi] = oi;
+  const btn = document.getElementById(`opt${qi}_${oi}`);
+  btn.style.background = '#fdf0d0';
+  btn.style.borderColor = 'var(--amber)';
+}
+
+function checkEx2() {
+  let score = 0;
+  ex2Data.forEach((item, i) => {
+    for (let j=0;j<item.opts.length;j++) {
+      const btn = document.getElementById(`opt${i}_${j}`);
+      btn.disabled = true;
+      btn.style.background='';
+      btn.style.borderColor='';
+      if (j === item.correct) btn.classList.add('correct');
+      else if (mcqAnswers[i]===j) btn.classList.add('incorrect');
+    }
+    if (mcqAnswers[i] === item.correct) score++;
+    else document.getElementById('expl'+i).style.display='block';
+  });
+  const box = document.getElementById('ex2-score');
+  box.textContent = resultText(score, ex2Data.length);
+  box.className = 'score-box show ' + (score >= ex2Data.length*0.7 ? 'good' : 'bad');
+}
+
+// ── EXERCISE 3 ──────────────────────────────────────────────────────────
+
+const ex3State = [];
+
+function buildEx3() {
+  const cont = document.getElementById('ex3-items');
+  ex3Data.forEach((item, i) => {
+    ex3State.push({ chosen: [] });
+    const shuffled = [...item.words].sort(() => Math.random() - .5);
+    const chipsHTML = shuffled.map((w, j) =>
+      `<span class="word-chip" id="chip${i}_${j}" data-word="${w}" onclick="pickWord(${i},${j})">${w}</span>`
+    ).join('');
+    const div = document.createElement('div');
+    div.className = 'reorder-item';
+    div.innerHTML = `
+      <div class="q"><em>${item.hint}</em></div>
+      <div class="answer-slots" id="slots${i}"></div>
+      <div class="words-pool">${chipsHTML}</div>
+      <small style="color:var(--muted);font-style:italic;display:none" id="ans${i}">✓ ${item.answer}</small>
+    `;
+    cont.appendChild(div);
+  });
+}
+
+function pickWord(qi, wi) {
+  const chip = document.getElementById(`chip${qi}_${wi}`);
+  if (chip.classList.contains('used')) return;
+  chip.classList.add('used');
+  const word = chip.dataset.word;
+  ex3State[qi].chosen.push({ wi, word });
+  renderSlots(qi);
+}
+
+function renderSlots(qi) {
+  const slotsEl = document.getElementById('slots'+qi);
+  slotsEl.innerHTML = '';
+  ex3State[qi].chosen.forEach((entry, idx) => {
+    const s = document.createElement('span');
+    s.className = 'slot-chip';
+    s.textContent = entry.word;
+    s.title = 'Klicken zum Entfernen';
+    s.onclick = () => removeSlot(qi, idx);
+    slotsEl.appendChild(s);
+  });
+}
+
+function removeSlot(qi, idx) {
+  const { wi } = ex3State[qi].chosen[idx];
+  document.getElementById(`chip${qi}_${wi}`).classList.remove('used');
+  ex3State[qi].chosen.splice(idx, 1);
+  renderSlots(qi);
+}
+
+function checkEx3() {
+  let score = 0;
+  ex3Data.forEach((item, i) => {
+    const built = ex3State[i].chosen.map(e=>e.word).join(' ');
+    const norm = s => s.replace(/\s+/g,' ').trim().toLowerCase().replace(/,/g,'');
+    const ok = norm(built) === norm(item.answer);
+    if (ok) score++;
+    else {
+      document.getElementById('ans'+i).style.display='block';
+    }
+  });
+  const box = document.getElementById('ex3-score');
+  box.textContent = resultText(score, ex3Data.length);
+  box.className = 'score-box show ' + (score >= ex3Data.length*0.7 ? 'good' : 'bad');
+}
+
+// ── INIT ────────────────────────────────────────────────────────────────
+
+buildDots();
+buildEx1();
+buildEx2();
+buildEx3();
+registerStaticTranslations();
+applyExplanationLang('es');
+</script>
+</body>
+</html>

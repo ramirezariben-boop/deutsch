@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mögen y Möchten - Verbos Modales Alemanes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            padding-bottom: 120px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            min-height: 80vh;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .pronoun {
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .verb {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .example {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .german {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .spanish {
+            color: #666;
+            font-style: italic;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .important {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 300px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Navigation Controls */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            input[type="text"] {
+                width: 100%;
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 10px 20px;
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active" data-slide="1">
+            <h1>Mögen y Möchten</h1>
+            <div class="subtitle">Verbos Modales Alemanes</div>
+            
+            <div class="section" style="text-align: center; padding: 60px 40px;">
+                <h2 style="border: none; font-size: 2.5em; margin-bottom: 30px;">🇩🇪</h2>
+                <p style="font-size: 1.3em; color: #666; margin-bottom: 20px;">
+                    Una guía completa para dominar estos dos verbos esenciales
+                </p>
+                <p style="font-size: 1.1em; color: #999;">
+                    Aprende a expresar gustos y deseos en alemán
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introducción -->
+        <div class="slide" data-slide="2">
+            <div class="section">
+                <h2>📚 Introducción</h2>
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    Los verbos <strong class="verb">mögen</strong> y <strong class="verb">möchten</strong> son fundamentales en alemán, 
+                    pero pueden generar confusión. Aunque están relacionados, tienen usos muy diferentes.
+                </p>
+
+                <div class="comparison-table">
+                    <div class="comparison-card">
+                        <h3 style="text-align: center;">🎯 Mögen</h3>
+                        <ul style="line-height: 2;">
+                            <li>Expresa <strong>gustos generales</strong></li>
+                            <li>Similar a "gustar" en español</li>
+                            <li>Se usa principalmente con sustantivos</li>
+                            <li>Ejemplo: <em>Ich mag Pizza</em></li>
+                        </ul>
+                    </div>
+
+                    <div class="comparison-card">
+                        <h3 style="text-align: center;">💭 Möchten</h3>
+                        <ul style="line-height: 2;">
+                            <li>Expresa <strong>deseos específicos</strong></li>
+                            <li>Similar a "quisiera/me gustaría"</li>
+                            <li>Se usa frecuentemente con verbos</li>
+                            <li>Ejemplo: <em>Ich möchte Pizza essen</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Consejo clave:</strong> Piensa en <strong>mögen</strong> como algo permanente (gustos) 
+                    y <strong>möchten</strong> como algo temporal (deseos del momento).
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Conjugación de Mögen -->
+        <div class="slide" data-slide="3">
+            <div class="section">
+                <h2>🔤 Conjugación de "Mögen"</h2>
+                <p style="margin-bottom: 20px;">
+                    <strong>Mögen</strong> es un verbo irregular. Observa cómo cambia la raíz en singular:
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pronombre</th>
+                            <th>Conjugación</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="pronoun">ich</span></td>
+                            <td><span class="verb">mag</span></td>
+                            <td>Ich mag Schokolade</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">du</span></td>
+                            <td><span class="verb">magst</span></td>
+                            <td>Du magst Musik</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">er/sie/es</span></td>
+                            <td><span class="verb">mag</span></td>
+                            <td>Er mag Sport</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">wir</span></td>
+                            <td><span class="verb">mögen</span></td>
+                            <td>Wir mögen Filme</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">ihr</span></td>
+                            <td><span class="verb">mögt</span></td>
+                            <td>Ihr mögt Tiere</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">sie/Sie</span></td>
+                            <td><span class="verb">mögen</span></td>
+                            <td>Sie mögen Bücher</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    <strong>⚠️ Atención:</strong> La raíz cambia de "mög-" a "mag-" en singular (ich, du, er/sie/es).
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Conjugación de Möchten -->
+        <div class="slide" data-slide="4">
+            <div class="section">
+                <h2>🔤 Conjugación de "Möchten"</h2>
+                <p style="margin-bottom: 20px;">
+                    <strong>Möchten</strong> es más regular. Técnicamente es el subjuntivo (Konjunktiv II) de "mögen":
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pronombre</th>
+                            <th>Conjugación</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="pronoun">ich</span></td>
+                            <td><span class="verb">möchte</span></td>
+                            <td>Ich möchte schlafen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">du</span></td>
+                            <td><span class="verb">möchtest</span></td>
+                            <td>Du möchtest tanzen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">er/sie/es</span></td>
+                            <td><span class="verb">möchte</span></td>
+                            <td>Sie möchte lesen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">wir</span></td>
+                            <td><span class="verb">möchten</span></td>
+                            <td>Wir möchten essen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">ihr</span></td>
+                            <td><span class="verb">möchtet</span></td>
+                            <td>Ihr möchtet spielen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pronoun">sie/Sie</span></td>
+                            <td><span class="verb">möchten</span></td>
+                            <td>Sie möchten reisen</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>💡 Más fácil:</strong> Möchten mantiene su raíz en todas las formas. ¡Solo cambian las terminaciones!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Usos de Mögen -->
+        <div class="slide" data-slide="5">
+            <div class="section">
+                <h2>💚 Usos de "Mögen"</h2>
+                
+                <h3>1. Expresar gustos generales (lo más común)</h3>
+                <div class="example">
+                    <div class="german">Ich mag Kaffee.</div>
+                    <div class="spanish">Me gusta el café.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Sie mag keine Spinnen.</div>
+                    <div class="spanish">A ella no le gustan las arañas.</div>
+                </div>
+
+                <h3>2. Expresar que alguien te cae bien</h3>
+                <div class="example">
+                    <div class="german">Ich mag dich.</div>
+                    <div class="spanish">Me caes bien / Te quiero.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Alle mögen ihn.</div>
+                    <div class="spanish">A todos les cae bien.</div>
+                </div>
+
+                <div class="note">
+                    <strong>📌 Nota:</strong> Cuando mögen se usa con infinitivos, suele ser en forma negativa o para expresar preferencias generales.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Usos de Möchten -->
+        <div class="slide" data-slide="6">
+            <div class="section">
+                <h2>💭 Usos de "Möchten"</h2>
+                
+                <h3>1. Expresar deseos o intenciones (lo más común)</h3>
+                <div class="example">
+                    <div class="german">Ich möchte ein Buch lesen.</div>
+                    <div class="spanish">Quisiera leer un libro.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Wir möchten nach Spanien reisen.</div>
+                    <div class="spanish">Quisiéramos viajar a España.</div>
+                </div>
+
+                <h3>2. Hacer peticiones educadas</h3>
+                <div class="example">
+                    <div class="german">Ich möchte einen Kaffee, bitte.</div>
+                    <div class="spanish">Quisiera un café, por favor.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Möchten Sie etwas trinken?</div>
+                    <div class="spanish">¿Quisiera tomar algo?</div>
+                </div>
+
+                <h3>3. Con sustantivos (menos frecuente que con verbos)</h3>
+                <div class="example">
+                    <div class="german">Ich möchte ein Eis.</div>
+                    <div class="spanish">Quisiera un helado.</div>
+                </div>
+
+                <div class="important">
+                    <strong>⭐ Importante:</strong> Möchten es considerado más educado y cortés que mögen, especialmente en situaciones formales.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Diferencias Clave -->
+        <div class="slide" data-slide="7">
+            <div class="section">
+                <h2>🔍 Diferencias Clave</h2>
+
+                <h3>Con sustantivos vs. con verbos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contexto</th>
+                            <th>Mögen</th>
+                            <th>Möchten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gusto general por comida</td>
+                            <td class="verb">Ich mag Pizza</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Deseo de comer ahora</td>
+                            <td>-</td>
+                            <td class="verb">Ich möchte Pizza essen</td>
+                        </tr>
+                        <tr>
+                            <td>Pedir en un restaurante</td>
+                            <td>-</td>
+                            <td class="verb">Ich möchte ein Bier</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Ejemplos comparativos</h3>
+                <div class="comparison-table">
+                    <div class="comparison-card">
+                        <div class="example">
+                            <div class="german">Ich mag Schokolade.</div>
+                            <div class="spanish">Me gusta el chocolate (siempre)</div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="example">
+                            <div class="german">Ich möchte Schokolade essen.</div>
+                            <div class="spanish">Quisiera comer chocolate (ahora)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>🎯 Truco rápido:</strong><br>
+                    • ¿Hablas de tus gustos en general? → <strong>Mögen</strong><br>
+                    • ¿Quieres hacer algo específico ahora? → <strong>Möchten</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Casos Especiales -->
+        <div class="slide" data-slide="8">
+            <div class="section">
+                <h2>⚡ Casos Especiales</h2>
+
+                <h3>1. Negación</h3>
+                <div class="example">
+                    <div class="german">Ich mag keine Spinnen.</div>
+                    <div class="spanish">No me gustan las arañas.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Ich möchte nicht tanzen.</div>
+                    <div class="spanish">No quiero bailar.</div>
+                </div>
+
+                <h3>2. Mögen con personas</h3>
+                <div class="example">
+                    <div class="german">Ich mag meinen Lehrer.</div>
+                    <div class="spanish">Me cae bien mi profesor.</div>
+                </div>
+                <div class="note">
+                    <strong>📌 Nota cultural:</strong> "Ich mag dich" puede significar tanto "me caes bien" como "te quiero", 
+                    dependiendo del contexto y la relación.
+                </div>
+
+                <h3>3. Möchten en preguntas corteses</h3>
+                <div class="example">
+                    <div class="german">Möchten Sie Platz nehmen?</div>
+                    <div class="spanish">¿Quisiera tomar asiento?</div>
+                </div>
+                <div class="example">
+                    <div class="german">Was möchten Sie bestellen?</div>
+                    <div class="spanish">¿Qué quisiera ordenar?</div>
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ Error común:</strong> No uses mögen para pedir cosas. Siempre usa möchten para peticiones.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Ejemplos Contextualizados -->
+        <div class="slide" data-slide="9">
+            <div class="section">
+                <h2>🗣️ Ejemplos en Contexto</h2>
+
+                <h3>En un restaurante</h3>
+                <div class="example">
+                    <div class="german">Ich möchte die Speisekarte sehen.</div>
+                    <div class="spanish">Quisiera ver el menú.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Möchten Sie bestellen?</div>
+                    <div class="spanish">¿Desean ordenar?</div>
+                </div>
+
+                <h3>De compras</h3>
+                <div class="example">
+                    <div class="german">Ich möchte dieses Kleid anprobieren.</div>
+                    <div class="spanish">Quisiera probarme este vestido.</div>
+                </div>
+                <div class="example">
+                    <div class="german">Was möchten Sie kaufen?</div>
+                    <div class="spanish">¿Qué quisiera comprar?</div>
+                </div>
+
+                <h3>Conversación casual</h3>
+                <div class="example">
+                    <div class="german">Ich mag deine Idee!</div>
+                    <div class="spanish">¡Me gusta tu idea!</div>
+                </div>
+                <div class="example">
+                    <div class="german">Möchtest du mit mir kommen?</div>
+                    <div class="spanish">¿Quisieras venir conmigo?</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Ejercicio 1 -->
+        <div class="slide" data-slide="10">
+            <div class="section">
+                <h2>✏️ Ejercicio 1: Mögen</h2>
+                
+                <div class="exercise">
+                    <h3>Completa con la forma correcta de "mögen"</h3>
+                    
+                    <div class="question">
+                        1. Ich _____ Katzen. (Me gustan los gatos)
+                        <br><input type="text" id="ex1q1" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex1q1', 'mag', 1)">Verificar</button>
+                        <div id="result1"></div>
+                    </div>
+
+                    <div class="question">
+                        2. _____ du Pizza? (¿Te gusta la pizza?)
+                        <br><input type="text" id="ex1q2" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex1q2', 'Magst', 2)">Verificar</button>
+                        <div id="result2"></div>
+                    </div>
+
+                    <div class="question">
+                        3. Wir _____ diesen Film. (Nos gusta esta película)
+                        <br><input type="text" id="ex1q3" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex1q3', 'mögen', 3)">Verificar</button>
+                        <div id="result3"></div>
+                    </div>
+
+                    <div class="question">
+                        4. Sie _____ keine Spinnen. (A ella no le gustan las arañas)
+                        <br><input type="text" id="ex1q4" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex1q4', 'mag', 4)">Verificar</button>
+                        <div id="result4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Ejercicio 2 -->
+        <div class="slide" data-slide="11">
+            <div class="section">
+                <h2>✏️ Ejercicio 2: Möchten</h2>
+                
+                <div class="exercise">
+                    <h3>Completa con la forma correcta de "möchten"</h3>
+                    
+                    <div class="question">
+                        5. Ich _____ einen Tee trinken. (Quisiera tomar un té)
+                        <br><input type="text" id="ex2q1" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex2q1', 'möchte', 5)">Verificar</button>
+                        <div id="result5"></div>
+                    </div>
+
+                    <div class="question">
+                        6. _____ Sie bezahlen? (¿Quisiera pagar?)
+                        <br><input type="text" id="ex2q2" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex2q2', 'Möchten', 6)">Verificar</button>
+                        <div id="result6"></div>
+                    </div>
+
+                    <div class="question">
+                        7. Wir _____ nach Berlin fahren. (Quisiéramos ir a Berlín)
+                        <br><input type="text" id="ex2q3" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex2q3', 'möchten', 7)">Verificar</button>
+                        <div id="result7"></div>
+                    </div>
+
+                    <div class="question">
+                        8. _____ du mitkommen? (¿Quisieras venir?)
+                        <br><input type="text" id="ex2q4" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex2q4', 'Möchtest', 8)">Verificar</button>
+                        <div id="result8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Ejercicio 3 -->
+        <div class="slide" data-slide="12">
+            <div class="section">
+                <h2>✏️ Ejercicio 3: ¿Mögen o Möchten?</h2>
+                
+                <div class="exercise">
+                    <h3>Elige el verbo correcto</h3>
+                    
+                    <div class="question">
+                        9. Ich _____ Schokolade. (Me gusta el chocolate - gusto general)
+                        <br><input type="text" id="ex3q1" placeholder="mögen o möchten">
+                        <br><button onclick="checkAnswer('ex3q1', 'mag', 9)">Verificar</button>
+                        <div id="result9"></div>
+                    </div>
+
+                    <div class="question">
+                        10. Ich _____ Schokolade kaufen. (Quisiera comprar chocolate - deseo específico)
+                        <br><input type="text" id="ex3q2" placeholder="mögen o möchten">
+                        <br><button onclick="checkAnswer('ex3q2', 'möchte', 10)">Verificar</button>
+                        <div id="result10"></div>
+                    </div>
+
+                    <div class="question">
+                        11. _____ ihr Deutsch? (¿Os gusta el alemán?)
+                        <br><input type="text" id="ex3q3" placeholder="mögen o möchten">
+                        <br><button onclick="checkAnswer('ex3q3', 'Mögt', 11)">Verificar</button>
+                        <div id="result11"></div>
+                    </div>
+
+                    <div class="question">
+                        12. _____ ihr Deutsch lernen? (¿Quisierais aprender alemán?)
+                        <br><input type="text" id="ex3q4" placeholder="mögen o möchten">
+                        <br><button onclick="checkAnswer('ex3q4', 'Möchtet', 12)">Verificar</button>
+                        <div id="result12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Ejercicio 4 -->
+        <div class="slide" data-slide="13">
+            <div class="section">
+                <h2>✏️ Ejercicio 4: Traducción</h2>
+                
+                <div class="exercise">
+                    <h3>Traduce al alemán</h3>
+                    
+                    <div class="question">
+                        13. Me gusta la música. → Ich _____ Musik.
+                        <br><input type="text" id="ex4q1" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex4q1', 'mag', 13)">Verificar</button>
+                        <div id="result13"></div>
+                    </div>
+
+                    <div class="question">
+                        14. Quisiera un café. → Ich _____ einen Kaffee.
+                        <br><input type="text" id="ex4q2" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex4q2', 'möchte', 14)">Verificar</button>
+                        <div id="result14"></div>
+                    </div>
+
+                    <div class="question">
+                        15. ¿Te caen bien los animales? → _____ du Tiere?
+                        <br><input type="text" id="ex4q3" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex4q3', 'Magst', 15)">Verificar</button>
+                        <div id="result15"></div>
+                    </div>
+
+                    <div class="question">
+                        16. Quisiéramos bailar. → Wir _____ tanzen.
+                        <br><input type="text" id="ex4q4" placeholder="Escribe tu respuesta">
+                        <br><button onclick="checkAnswer('ex4q4', 'möchten', 16)">Verificar</button>
+                        <div id="result16"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Resumen -->
+        <div class="slide" data-slide="14">
+            <div class="section">
+                <h2>📌 Resumen</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Mögen</th>
+                            <th>Möchten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Significado</strong></td>
+                            <td>Gustar, querer</td>
+                            <td>Quisiera, me gustaría</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uso principal</strong></td>
+                            <td>Gustos generales</td>
+                            <td>Deseos específicos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Con sustantivos</strong></td>
+                            <td>✓ Común</td>
+                            <td>✓ Posible</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Con infinitivos</strong></td>
+                            <td>Menos común</td>
+                            <td>✓ Muy común</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cortesía</strong></td>
+                            <td>Neutral/directo</td>
+                            <td>Más educado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ejemplo</strong></td>
+                            <td>Ich mag Kaffee</td>
+                            <td>Ich möchte Kaffee trinken</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="important">
+                    <strong>🎯 Regla práctica:</strong>
+                    <ul style="line-height: 2; margin-top: 15px;">
+                        <li>Si hablas de gustos generales → usa <strong>mögen</strong></li>
+                        <li>Si expresas un deseo o pides algo → usa <strong>möchten</strong></li>
+                        <li>¿Con infinitivo? → probablemente <strong>möchten</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Final -->
+        <div class="slide" data-slide="15">
+            <div class="section" style="text-align: center; padding: 80px 40px;">
+                <h1 style="font-size: 3em; margin-bottom: 30px;">¡Felicitaciones! 🎉</h1>
+                <p style="font-size: 1.4em; color: #666; margin-bottom: 30px;">
+                    Has completado la guía de <strong class="verb">mögen</strong> y <strong class="verb">möchten</strong>
+                </p>
+                <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <p style="font-size: 1.2em; color: #333; line-height: 1.8;">
+                        Ahora conoces las diferencias entre estos dos verbos fundamentales.<br>
+                        ¡Sigue practicando y verás cómo mejora tu alemán!
+                    </p>
+                </div>
+                <p style="font-size: 1.3em; color: #764ba2; font-weight: bold; margin-top: 40px;">
+                    Viel Erfolg! 🇩🇪
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">
+            ← Anterior
+        </button>
+        <span class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
+        </span>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">
+            Siguiente →
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            } else if (n < 1) {
+                currentSlide = 1;
+            } else {
+                currentSlide = n;
+            }
+
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+
+            // Disable/enable buttons at boundaries
+            prevBtn.disabled = (currentSlide === 1);
+            nextBtn.disabled = (currentSlide === totalSlides);
+
+            // Scroll to top when changing slides
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        // Exercise checking function
+        function checkAnswer(inputId, correctAnswer, resultNum) {
+            const userAnswer = document.getElementById(inputId).value.trim();
+            const resultDiv = document.getElementById('result' + resultNum);
+            
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultDiv.className = 'result correct';
+                resultDiv.innerHTML = '✓ ¡Correcto! La respuesta es: ' + correctAnswer;
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.innerHTML = '✗ Incorrecto. La respuesta correcta es: ' + correctAnswer;
+            }
+        }
+
+        // Initialize
+        document.getElementById('totalSlides').textContent = totalSlides;
+        showSlide(1);
+    </script>
+</body>
+</html>

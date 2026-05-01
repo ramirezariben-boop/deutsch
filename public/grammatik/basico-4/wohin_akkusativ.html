@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wohin? - in + Akkusativ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .progress-dot.active {
+            background: #667eea;
+            width: 16px;
+            height: 16px;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        .progress-dot:hover {
+            transform: scale(1.2);
+        }
+        
+        .section-counter {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .rule-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .example {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .akkusativ {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .exercise {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 5px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            display: block;
+        }
+        
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            display: block;
+        }
+        
+        .tip {
+            background: #fff9c4;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #fbc02d;
+        }
+        
+        .arrow {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wohin? 📍</h1>
+        <p class="subtitle">in + Akkusativ (Movimiento hacia un lugar)</p>
+        
+        <div class="section active" data-section="1">
+            <h2>📚 Explicación</h2>
+            <div class="rule-box">
+                <p><strong>¿Cuándo usamos "Wohin?"</strong></p>
+                <p>Usamos <strong>Wohin?</strong> (¿A dónde?) cuando preguntamos sobre el <strong>destino</strong> o <strong>dirección</strong> de un movimiento.</p>
+                <p style="margin-top: 15px;">Cuando hay movimiento hacia el interior de un lugar, usamos la preposición <strong>in</strong> + <span class="akkusativ">AKKUSATIV</span></p>
+            </div>
+            
+            <h3>📋 Tabla de Artículos en Acusativo</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Género</th>
+                        <th>Nominativ</th>
+                        <th>Akkusativ</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Masculino</strong></td>
+                        <td>der</td>
+                        <td class="akkusativ">den</td>
+                        <td>der Flur <span class="arrow">→</span> in <span class="akkusativ">den</span> Flur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Femenino</strong></td>
+                        <td>die</td>
+                        <td class="akkusativ">die</td>
+                        <td>die Küche <span class="arrow">→</span> in <span class="akkusativ">die</span> Küche</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Neutro</strong></td>
+                        <td>das</td>
+                        <td class="akkusativ">das</td>
+                        <td>das Bad <span class="arrow">→</span> in <span class="akkusativ">das</span> Bad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plural</strong></td>
+                        <td>die</td>
+                        <td class="akkusativ">die</td>
+                        <td>die Regale <span class="arrow">→</span> in <span class="akkusativ">die</span> Regale</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Recuerda:</strong> Solo el artículo masculino cambia de "der" a "den" en acusativo. Los demás permanecen igual.
+            </div>
+        </div>
+        
+        <div class="section" data-section="2">
+            <h2>📝 Ejemplos</h2>
+            
+            <div class="example">
+                <strong>Wohin stellen wir den Stuhl?</strong> (¿Dónde ponemos la silla?)<br>
+                → Wir stellen den Stuhl <span class="akkusativ">in den Flur</span>. (Ponemos la silla en el pasillo)
+            </div>
+            
+            <div class="example">
+                <strong>Wohin gehst du?</strong> (¿A dónde vas?)<br>
+                → Ich gehe <span class="akkusativ">in die Küche</span>. (Voy a la cocina)
+            </div>
+            
+            <div class="example">
+                <strong>Wohin legst du das Buch?</strong> (¿Dónde pones el libro?)<br>
+                → Ich lege das Buch <span class="akkusativ">in das Regal</span>. (Pongo el libro en el estante)
+            </div>
+            
+            <div class="example">
+                <strong>Wohin bringst du die Handtücher?</strong> (¿A dónde llevas las toallas?)<br>
+                → Ich bringe die Handtücher <span class="akkusativ">in das Bad</span>. (Llevo las toallas al baño)
+            </div>
+        </div>
+        
+        <div class="section" data-section="3">
+            <h2>✏️ Ejercicios - Wohin? (Akkusativ)</h2>
+            
+            <div class="exercise">
+                <h3>Ejercicio 1: Completa con el artículo correcto en Akkusativ</h3>
+                
+                <div class="question">
+                    <p>1. Ich gehe in <input type="text" id="ex1q1" placeholder="artículo"> Küche. (die Küche - femenino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Wir stellen das Sofa in <input type="text" id="ex1q2" placeholder="artículo"> Wohnzimmer. (das Wohnzimmer - neutro)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Er geht in <input type="text" id="ex1q3" placeholder="artículo"> Garten. (der Garten - masculino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>4. Sie legt die Bücher in <input type="text" id="ex1q4" placeholder="artículo"> Regale. (die Regale - plural)</p>
+                </div>
+                
+                <button onclick="checkExercise1()">Comprobar respuestas</button>
+                <button onclick="resetExercise1()">Reiniciar</button>
+                <div id="result1" class="result"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 2: Traduce al alemán</h3>
+                
+                <div class="question">
+                    <p>1. Voy al baño: Ich gehe <input type="text" id="ex2q1" style="width: 200px;" placeholder="in + artículo + Bad"></p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Ponemos la mesa en la cocina: Wir stellen den Tisch <input type="text" id="ex2q2" style="width: 200px;" placeholder="in + artículo + Küche"></p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Él va al pasillo: Er geht <input type="text" id="ex2q3" style="width: 200px;" placeholder="in + artículo + Flur"></p>
+                </div>
+                
+                <button onclick="checkExercise2()">Comprobar respuestas</button>
+                <button onclick="resetExercise2()">Reiniciar</button>
+                <div id="result2" class="result"></div>
+            </div>
+        </div>
+        
+        <div class="section" data-section="4" style="border-left-color: #4caf50;">
+            <h2>📍 Wo? + Dativ</h2>
+            <div class="rule-box">
+                <p><strong>¿Cuándo usamos "Wo?"</strong></p>
+                <p>Usamos <strong>Wo?</strong> (¿Dónde?) cuando preguntamos sobre la <strong>ubicación</strong> o <strong>posición</strong> de algo/alguien (sin movimiento).</p>
+                <p style="margin-top: 15px;">Cuando NO hay movimiento (solo ubicación), usamos las Wechselpräpositionen + <span style="color: #4caf50; font-weight: bold;">DATIV</span></p>
+            </div>
+            
+            <h3>📋 Tabla de Artículos en Dativ</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Género</th>
+                        <th>Nominativ</th>
+                        <th style="background: #4caf50;">Dativ</th>
+                        <th>Ejemplo (in)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Masculino</strong></td>
+                        <td>der</td>
+                        <td style="color: #4caf50; font-weight: bold;">dem</td>
+                        <td>der Flur <span class="arrow">→</span> in <span style="color: #4caf50; font-weight: bold;">dem</span> Flur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Femenino</strong></td>
+                        <td>die</td>
+                        <td style="color: #4caf50; font-weight: bold;">der</td>
+                        <td>die Küche <span class="arrow">→</span> in <span style="color: #4caf50; font-weight: bold;">der</span> Küche</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Neutro</strong></td>
+                        <td>das</td>
+                        <td style="color: #4caf50; font-weight: bold;">dem</td>
+                        <td>das Bad <span class="arrow">→</span> in <span style="color: #4caf50; font-weight: bold;">dem</span> Bad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plural</strong></td>
+                        <td>die</td>
+                        <td style="color: #4caf50; font-weight: bold;">den</td>
+                        <td>die Regale <span class="arrow">→</span> in <span style="color: #4caf50; font-weight: bold;">den</span> Regalen</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Nota:</strong> En plural, los sustantivos en Dativ añaden "-n" al final (excepto si ya terminan en -n o -s).
+            </div>
+        </div>
+        
+        <div class="section" data-section="5" style="border-left-color: #ff9800;">
+            <h2>🔄 Wechselpräpositionen (Preposiciones de Cambio)</h2>
+            <p style="margin-bottom: 20px;">Estas preposiciones pueden usar <span class="akkusativ">AKKUSATIV</span> (con movimiento - Wohin?) o <span style="color: #4caf50; font-weight: bold;">DATIV</span> (sin movimiento - Wo?):</p>
+            
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Preposición</th>
+                        <th>Significado</th>
+                        <th>Ejemplo con Wo? (Dativ)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>in</strong></td>
+                        <td>en, dentro de</td>
+                        <td>Das Buch ist <span style="color: #4caf50; font-weight: bold;">in dem</span> Regal.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>an</strong></td>
+                        <td>en, junto a, al lado de</td>
+                        <td>Das Bild hängt <span style="color: #4caf50; font-weight: bold;">an der</span> Wand.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>auf</strong></td>
+                        <td>sobre, encima de</td>
+                        <td>Die Lampe steht <span style="color: #4caf50; font-weight: bold;">auf dem</span> Tisch.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>hinter</strong></td>
+                        <td>detrás de</td>
+                        <td>Der Stuhl steht <span style="color: #4caf50; font-weight: bold;">hinter dem</span> Sofa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>neben</strong></td>
+                        <td>al lado de, junto a</td>
+                        <td>Der Schrank steht <span style="color: #4caf50; font-weight: bold;">neben der</span> Tür.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>über</strong></td>
+                        <td>sobre, encima de (sin contacto)</td>
+                        <td>Die Lampe hängt <span style="color: #4caf50; font-weight: bold;">über dem</span> Tisch.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>unter</strong></td>
+                        <td>debajo de</td>
+                        <td>Die Katze liegt <span style="color: #4caf50; font-weight: bold;">unter dem</span> Bett.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>vor</strong></td>
+                        <td>delante de, frente a</td>
+                        <td>Das Auto steht <span style="color: #4caf50; font-weight: bold;">vor dem</span> Haus.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>zwischen</strong></td>
+                        <td>entre</td>
+                        <td>Der Stuhl steht <span style="color: #4caf50; font-weight: bold;">zwischen den</span> Fenstern.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section" data-section="6" style="border-left-color: #4caf50;">
+            <h2>📝 Ejemplos: Wo? vs Wohin?</h2>
+            
+            <div class="example" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <strong>Wo ist das Buch?</strong> (¿Dónde está el libro? - ubicación)<br>
+                → Das Buch ist <span style="color: #4caf50; font-weight: bold;">in dem Regal</span>. (El libro está en el estante)
+            </div>
+            
+            <div class="example">
+                <strong>Wohin legst du das Buch?</strong> (¿Dónde pones el libro? - movimiento)<br>
+                → Ich lege das Buch <span class="akkusativ">in das Regal</span>. (Pongo el libro en el estante)
+            </div>
+            
+            <div class="example" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <strong>Wo hängt das Bild?</strong> (¿Dónde cuelga el cuadro? - ubicación)<br>
+                → Das Bild hängt <span style="color: #4caf50; font-weight: bold;">an der Wand</span>. (El cuadro cuelga en la pared)
+            </div>
+            
+            <div class="example">
+                <strong>Wohin hängst du das Bild?</strong> (¿Dónde cuelgas el cuadro? - movimiento)<br>
+                → Ich hänge das Bild <span class="akkusativ">an die Wand</span>. (Cuelgo el cuadro en la pared)
+            </div>
+            
+            <div class="example" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <strong>Wo steht der Tisch?</strong> (¿Dónde está la mesa? - ubicación)<br>
+                → Der Tisch steht <span style="color: #4caf50; font-weight: bold;">in der Küche</span>. (La mesa está en la cocina)
+            </div>
+            
+            <div class="tip" style="background: #c8e6c9; border-left-color: #4caf50;">
+                <strong>🎯 Regla de oro:</strong><br>
+                <strong>Wo? (¿Dónde?)</strong> = Sin movimiento = <span style="color: #4caf50; font-weight: bold;">DATIV</span><br>
+                <strong>Wohin? (¿A dónde?)</strong> = Con movimiento = <span class="akkusativ">AKKUSATIV</span>
+            </div>
+        </div>
+        
+        <div class="section" data-section="7" style="border-left-color: #4caf50;">
+            <h2>✏️ Ejercicios - Wo? (Dativ)</h2>
+            
+            <div class="exercise" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <h3>Ejercicio 3: Completa con el artículo correcto en Dativ</h3>
+                
+                <div class="question">
+                    <p>1. Das Buch ist in <input type="text" id="ex3q1" placeholder="artículo"> Regal. (das Regal - neutro)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Die Lampe steht auf <input type="text" id="ex3q2" placeholder="artículo"> Tisch. (der Tisch - masculino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Der Stuhl steht neben <input type="text" id="ex3q3" placeholder="artículo"> Tür. (die Tür - femenino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>4. Die Bücher liegen in <input type="text" id="ex3q4" placeholder="artículo"> Regalen. (die Regale - plural)</p>
+                </div>
+                
+                <button onclick="checkExercise3()" style="background: #4caf50;">Comprobar respuestas</button>
+                <button onclick="resetExercise3()" style="background: #66bb6a;">Reiniciar</button>
+                <div id="result3" class="result"></div>
+            </div>
+            
+            <div class="exercise" style="background: #fff3e0; border-left-color: #ff9800;">
+                <h3>Ejercicio 4: Elige Akkusativ (movimiento) o Dativ (ubicación)</h3>
+                
+                <div class="question">
+                    <p>1. Wo ist der Hund? - Er liegt <input type="text" id="ex4q1" style="width: 150px;" placeholder="unter + artículo"> Bett. (das Bett)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Wohin stellst du die Vase? - Ich stelle sie <input type="text" id="ex4q2" style="width: 150px;" placeholder="auf + artículo"> Tisch. (der Tisch)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Wo hängt das Bild? - Es hängt <input type="text" id="ex4q3" style="width: 150px;" placeholder="an + artículo"> Wand. (die Wand)</p>
+                </div>
+                
+                <div class="question">
+                    <p>4. Wohin gehst du? - Ich gehe <input type="text" id="ex4q4" style="width: 150px;" placeholder="in + artículo"> Küche. (die Küche)</p>
+                </div>
+                
+                <div class="question">
+                    <p>5. Wo steht das Auto? - Es steht <input type="text" id="ex4q5" style="width: 150px;" placeholder="vor + artículo"> Haus. (das Haus)</p>
+                </div>
+                
+                <button onclick="checkExercise4()">Comprobar respuestas</button>
+                <button onclick="resetExercise4()">Reiniciar</button>
+                <div id="result4" class="result"></div>
+            </div>
+        </div>
+        
+        <!-- Navegación -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSection(-1)" disabled>
+                ← Anterior
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="progress-indicator" id="progressDots"></div>
+                <div class="section-counter">
+                    <span id="currentSection">1</span> / <span id="totalSections">7</span>
+                </div>
+            </div>
+            
+            <button class="nav-button" id="nextBtn" onclick="changeSection(1)">
+                Siguiente →
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSection = 1;
+        const totalSections = 7;
+        
+        // Inicializar navegación
+        function initNavigation() {
+            // Crear puntos de progreso
+            const progressDots = document.getElementById('progressDots');
+            for (let i = 1; i <= totalSections; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (i === 1 ? ' active' : '');
+                dot.onclick = () => goToSection(i);
+                dot.title = `Ir a sección ${i}`;
+                progressDots.appendChild(dot);
+            }
+            updateNavigation();
+        }
+        
+        // Cambiar de sección
+        function changeSection(direction) {
+            const newSection = currentSection + direction;
+            if (newSection >= 1 && newSection <= totalSections) {
+                goToSection(newSection);
+            }
+        }
+        
+        // Ir a una sección específica
+        function goToSection(sectionNumber) {
+            // Ocultar sección actual
+            document.querySelector(`[data-section="${currentSection}"]`).classList.remove('active');
+            
+            // Mostrar nueva sección
+            currentSection = sectionNumber;
+            document.querySelector(`[data-section="${currentSection}"]`).classList.add('active');
+            
+            // Actualizar navegación
+            updateNavigation();
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Actualizar botones y progreso
+        function updateNavigation() {
+            // Actualizar botones
+            document.getElementById('prevBtn').disabled = currentSection === 1;
+            document.getElementById('nextBtn').disabled = currentSection === totalSections;
+            
+            // Actualizar contador
+            document.getElementById('currentSection').textContent = currentSection;
+            
+            // Actualizar puntos de progreso
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                if (index + 1 === currentSection) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeSection(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSection(1);
+            }
+        });
+        
+        // Inicializar al cargar
+        initNavigation();
+        
+        // Funciones de ejercicios existentes
+        function checkExercise1() {
+            const answers = {
+                ex1q1: 'die',
+                ex1q2: 'das',
+                ex1q3: 'den',
+                ex1q4: 'die'
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                
+                if (userAnswer === answers[id]) {
+                    input.style.borderColor = '#4caf50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const resultDiv = document.getElementById('result1');
+            resultDiv.textContent = `Resultado: ${correct} de ${total} correctas`;
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+        }
+        
+        function resetExercise1() {
+            const ids = ['ex1q1', 'ex1q2', 'ex1q3', 'ex1q4'];
+            ids.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result1').style.display = 'none';
+        }
+        
+        function checkExercise2() {
+            const answers = {
+                ex2q1: ['in das bad', 'ins bad'],
+                ex2q2: ['in die küche'],
+                ex2q3: ['in den flur']
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                
+                const isCorrect = answers[id].some(ans => userAnswer === ans);
+                
+                if (isCorrect) {
+                    input.style.borderColor = '#4caf50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const resultDiv = document.getElementById('result2');
+            resultDiv.textContent = `Resultado: ${correct} de ${total} correctas`;
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+        }
+        
+        function resetExercise2() {
+            const ids = ['ex2q1', 'ex2q2', 'ex2q3'];
+            ids.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result2').style.display = 'none';
+        }
+        
+        function checkExercise3() {
+            const answers = {
+                ex3q1: 'dem',
+                ex3q2: 'dem',
+                ex3q3: 'der',
+                ex3q4: 'den'
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                
+                if (userAnswer === answers[id]) {
+                    input.style.borderColor = '#4caf50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const resultDiv = document.getElementById('result3');
+            resultDiv.textContent = `Resultado: ${correct} de ${total} correctas`;
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+        }
+        
+        function resetExercise3() {
+            const ids = ['ex3q1', 'ex3q2', 'ex3q3', 'ex3q4'];
+            ids.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result3').style.display = 'none';
+        }
+        
+        function checkExercise4() {
+            const answers = {
+                ex4q1: ['unter dem'],
+                ex4q2: ['auf den'],
+                ex4q3: ['an der'],
+                ex4q4: ['in die'],
+                ex4q5: ['vor dem']
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                
+                const isCorrect = answers[id].some(ans => userAnswer === ans);
+                
+                if (isCorrect) {
+                    input.style.borderColor = '#4caf50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const resultDiv = document.getElementById('result4');
+            resultDiv.textContent = `Resultado: ${correct} de ${total} correctas`;
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+        }
+        
+        function resetExercise4() {
+            const ids = ['ex4q1', 'ex4q2', 'ex4q3', 'ex4q4', 'ex4q5'];
+            ids.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result4').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

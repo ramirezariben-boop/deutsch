@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verbos Irregulares en Italiano</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra: #8b3a1e;
+    --terra-dark: #5c1f08;
+    --ocre: #c47d2f;
+    --ocre-light: #e8a84b;
+    --cream: #faf4e8;
+    --parch: #f0e6cc;
+    --parch-dark: #dfd0aa;
+    --verde: #3d5a3e;
+    --verde-light: #5a7d5c;
+    --inchiostro: #1e140a;
+    --muted: #7a6040;
+    --border: #c9b08a;
+    --shadow: rgba(92,31,8,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--cream);
+    color: var(--inchiostro);
+    min-height: 100vh;
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9b08a' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 15% 40%, rgba(196,125,47,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 15%, rgba(139,58,30,0.06) 0%, transparent 50%);
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: var(--terra-dark);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 80px
+    );
+  }
+
+  .header-inner {
+    position: relative;
+    z-index: 1;
+    padding: 28px 40px 0;
+  }
+
+  .flag-stripe {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .stripe { width: 24px; height: 4px; border-radius: 2px; }
+  .s-g { background: #009246; }
+  .s-w { background: #ffffff; }
+  .s-r { background: #ce2b37; }
+
+  .header-eyebrow {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ocre-light);
+    margin-bottom: 8px;
+  }
+
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 6px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .header-title em {
+    color: var(--ocre-light);
+    font-style: italic;
+  }
+
+  .header-sub {
+    font-size: 1rem;
+    color: rgba(250,244,232,0.55);
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    background: var(--inchiostro);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 24px rgba(0,0,0,0.35);
+  }
+
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 16px;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: rgba(250,244,232,0.45);
+    padding: 12px 20px;
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .tab-btn:hover { color: var(--cream); }
+  .tab-btn.active {
+    color: var(--ocre-light);
+    border-bottom-color: var(--ocre);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ===== PAGES ===== */
+  .page { display: none; max-width: 940px; margin: 0 auto; padding: 52px 36px 90px; }
+  .page.active { display: block; animation: reveal 0.4s ease; }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 10px;
+    font-family: 'Crimson Pro', serif;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 20px;
+    color: var(--terra-dark);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 44px 0 16px;
+    color: var(--terra-dark);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--ocre);
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--terra);
+    font-style: italic;
+  }
+
+  p { line-height: 1.85; color: #3d2810; margin-bottom: 14px; font-size: 1.02rem; }
+
+  .lead {
+    font-size: 1.12rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 34px;
+    padding-bottom: 34px;
+    border-bottom: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: var(--parch);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 26px 30px;
+    margin-bottom: 22px;
+    box-shadow: 3px 4px 0 var(--shadow), 0 1px 0 rgba(255,255,255,0.6) inset;
+    position: relative;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 7px 0 var(--shadow), 0 1px 0 rgba(255,255,255,0.6) inset;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--ocre);
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* ===== CONJUGATION ===== */
+  .conj-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .conj-section p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 8px;
+    font-style: normal;
+    font-family: 'Crimson Pro', serif;
+  }
+
+  .conj-row {
+    display: flex;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: rgba(139,58,30,0.05);
+    margin-bottom: 4px;
+  }
+  .pro { color: var(--muted); font-size: 0.88rem; min-width: 40px; font-style: italic; }
+  .vb { font-weight: 600; color: var(--terra); font-size: 0.96rem; }
+
+  .verb-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .meta-item { display: flex; gap: 5px; align-items: center; }
+  .meta-label { color: var(--muted); font-style: italic; }
+  .meta-val { font-weight: 600; color: var(--terra-dark); }
+
+  /* ===== EXAMPLES ===== */
+  .ex {
+    border-left: 3px solid var(--ocre-light);
+    padding: 10px 16px;
+    margin: 10px 0;
+    background: rgba(196,125,47,0.05);
+    border-radius: 0 3px 3px 0;
+  }
+  .ex .it { display: block; font-size: 1.04rem; font-weight: 600; margin-bottom: 3px; color: var(--terra-dark); }
+  .ex .es { display: block; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+  .hl { color: var(--terra); font-style: normal; background: rgba(139,58,30,0.08); border-radius: 2px; padding: 0 2px; }
+
+  /* ===== TABLE ===== */
+  .verb-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.93rem;
+  }
+  .verb-table th {
+    background: var(--terra-dark);
+    color: var(--ocre-light);
+    padding: 10px 16px;
+    text-align: left;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .verb-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .verb-table tr:nth-child(even) td { background: rgba(196,125,47,0.04); }
+  .verb-table tr:hover td { background: rgba(139,58,30,0.06); }
+  .it-w { font-weight: 600; color: var(--terra-dark); }
+  .es-w { color: var(--muted); font-style: italic; font-size: 0.88em; }
+
+  /* ===== INFO BOX ===== */
+  .info {
+    background: rgba(61,90,62,0.07);
+    border: 1px solid rgba(61,90,62,0.25);
+    border-radius: 3px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 0.97rem;
+  }
+  .info strong { color: var(--verde); }
+
+  .warn {
+    background: rgba(196,125,47,0.08);
+    border: 1px solid rgba(196,125,47,0.3);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+
+  /* ===== BADGE ===== */
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Crimson Pro', serif;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .b-are { background: #ffe0b2; color: #6d3200; }
+  .b-ere { background: #e3f2fd; color: #0d47a1; }
+  .b-ire { background: #f3e5f5; color: #4a148c; }
+  .b-modal { background: #e8f5e9; color: #1b5e20; }
+
+  /* ===== QUIZ ===== */
+  .quiz-q-box {
+    background: var(--parch);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 26px 28px;
+    margin-bottom: 26px;
+    box-shadow: 2px 3px 0 var(--shadow);
+  }
+  .quiz-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.12rem;
+    margin-bottom: 18px;
+    line-height: 1.55;
+    color: var(--terra-dark);
+  }
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    text-align: left;
+    transition: all 0.15s;
+    color: var(--inchiostro);
+  }
+  .opt:hover:not(:disabled) { background: rgba(196,125,47,0.1); border-color: var(--ocre); }
+  .opt.correct { background: rgba(61,90,62,0.12); border-color: var(--verde); color: var(--verde); font-weight: 600; }
+  .opt.wrong { background: rgba(139,58,30,0.1); border-color: var(--terra); color: var(--terra); }
+  .opt:disabled { cursor: default; }
+  .feedback { margin-top: 10px; font-size: 0.9rem; font-style: italic; color: var(--muted); min-height: 20px; }
+
+  /* fill */
+  .fill-input {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 8px 13px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    width: 180px;
+    background: var(--cream);
+    transition: border-color 0.2s;
+    color: var(--inchiostro);
+  }
+  .fill-input:focus { outline: none; border-color: var(--ocre); }
+  .fill-input.correct { border-color: var(--verde); background: rgba(61,90,62,0.07); color: var(--verde); }
+  .fill-input.wrong { border-color: var(--terra); background: rgba(139,58,30,0.07); color: var(--terra); }
+
+  .score-bar {
+    background: var(--parch);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 20px 28px;
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 2px 3px 0 var(--shadow);
+  }
+  .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--ocre);
+    line-height: 1;
+  }
+  .score-lbl { font-size: 0.88rem; color: var(--muted); font-style: italic; }
+
+  .btn-primary {
+    background: var(--terra-dark);
+    color: var(--ocre-light);
+    border: none;
+    padding: 10px 26px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+    margin-top: 10px;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--terra); }
+
+  .btn-reset {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--border);
+    padding: 8px 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+    transition: all 0.15s;
+    font-style: italic;
+  }
+  .btn-reset:hover { border-color: var(--terra); color: var(--terra); }
+
+  @media (max-width: 600px) {
+    .page { padding: 32px 18px 60px; }
+    .header-inner { padding: 20px 20px 0; }
+    .conj-block { grid-template-columns: 1fr; }
+    .verb-table { font-size: 0.82rem; }
+    .verb-table th, .verb-table td { padding: 8px 10px; }
+  }
+
+  /* ornamental rule */
+  .ornament {
+    text-align: center;
+    color: var(--border);
+    font-size: 1.2rem;
+    letter-spacing: 0.4em;
+    margin: 36px 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="flag-stripe">
+      <div class="stripe s-g"></div>
+      <div class="stripe s-w"></div>
+      <div class="stripe s-r"></div>
+    </div>
+    <div class="header-eyebrow">Grammatica Italiana · Guía de estudio</div>
+    <h1 class="header-title">Verbos <em>Irregolari</em><br>en Italiano</h1>
+    <p class="header-sub">I verbi irregolari più importanti — explicados, conjugados, practicados</p>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPage('intro', this)">Introducción</button>
+    <button class="tab-btn" onclick="showPage('essere-avere', this)">essere & avere</button>
+    <button class="tab-btn" onclick="showPage('movimiento', this)">Movimiento</button>
+    <button class="tab-btn" onclick="showPage('cotidianos', this)">Cotidianos</button>
+    <button class="tab-btn" onclick="showPage('modali', this)">Modales</button>
+    <button class="tab-btn" onclick="showPage('passato', this)">Passato Prossimo</button>
+    <button class="tab-btn" onclick="showPage('tabla', this)">Tabla General</button>
+    <button class="tab-btn" onclick="showPage('quiz1', this)">Ejercicios I</button>
+    <button class="tab-btn" onclick="showPage('quiz2', this)">Ejercicios II</button>
+  </div>
+</nav>
+
+<!-- ============ INTRO ============ -->
+<div class="page active" id="page-intro">
+  <div class="eyebrow">Capitolo 1 · Introducción</div>
+  <h1>¿Qué son los verbos irregolari?</h1>
+  <p class="lead">El italiano hereda del latín una riquísima tradición de verbos irregulares que no siguen los patrones estándar de las tres conjugaciones (-are, -ere, -ire). Dominarlos es indispensable, pues incluyen los verbos más usados del idioma.</p>
+
+  <div class="info">
+    <strong>📜 Las tres conjugaciones regulares del italiano:</strong><br><br>
+    <strong>-ARE</strong> (parlare, mangiare…) → parlo, parli, parla, parliamo, parlate, parlano<br>
+    <strong>-ERE</strong> (vendere, leggere…) → vendo, vendi, vende…<br>
+    <strong>-IRE</strong> (sentire / finire…) → sento… / finisco, finisci, finisce…
+  </div>
+
+  <h2>¿Por qué son irregulares?</h2>
+  <p>Los verbos irregulares cambian su <strong>raíz</strong> (radical), sus <strong>terminaciones</strong>, o ambas cosas al conjugarse. En italiano los irregulares afectan principalmente al:</p>
+  <div class="card">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+      <div>
+        <h3>Presente</h3>
+        <p style="font-size:0.93rem;">La raíz cambia en algunas personas. Frecuente en verbos -ere e -ire.</p>
+        <div class="ex"><span class="it">andare: vado, vai, va…</span><span class="es">vs. *ando (incorrecto)</span></div>
+      </div>
+      <div>
+        <h3>Passato Prossimo</h3>
+        <p style="font-size:0.93rem;">Participio passato irregular. Muchos no tienen -ato/-uto/-ito.</p>
+        <div class="ex"><span class="it">fare → fatto</span><span class="es">vs. *farito</span></div>
+      </div>
+      <div>
+        <h3>Futuro / Cond.</h3>
+        <p style="font-size:0.93rem;">La raíz del futuro y condicional se contrae o modifica.</p>
+        <div class="ex"><span class="it">essere → sarò</span><span class="es">vs. *esserò</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Las formas que debes memorizar</h2>
+  <p>Para cada verbo irregular te daremos cinco formas clave:</p>
+  <table class="verb-table">
+    <thead><tr><th>Forma</th><th>Ejemplo: andare</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td>Infinito</td><td class="it-w">andare</td><td class="es-w">forma base</td></tr>
+      <tr><td>Presente (yo)</td><td class="it-w">vado</td><td class="es-w">presente de indicativo</td></tr>
+      <tr><td>Participio passato</td><td class="it-w">andato</td><td class="es-w">con essere/avere → Passato Prossimo</td></tr>
+      <tr><td>Imperfetto (yo)</td><td class="it-w">andavo</td><td class="es-w">pasado continuo/habitual</td></tr>
+      <tr><td>Futuro (yo)</td><td class="it-w">andrò</td><td class="es-w">futuro simple</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info">
+    <strong>💡 Auxiliares en Passato Prossimo:</strong> Al contrario del español, en italiano debes elegir entre <strong>essere</strong> o <strong>avere</strong>. Los verbos de movimiento y los reflexivos usan <em>essere</em>; la mayoría de los transitivos usa <em>avere</em>. Con <em>essere</em>, el participio concuerda en género y número con el sujeto.
+    <div class="ex" style="margin-top:10px">
+      <span class="it">Lei è <span class="hl">andata</span> al mercato. / Lui è <span class="hl">andato</span> al mercato.</span>
+      <span class="es">Ella fue al mercado. / Él fue al mercado.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ESSERE & AVERE ============ -->
+<div class="page" id="page-essere-avere">
+  <div class="eyebrow">Capitolo 2 · Verbos esenciales</div>
+  <h1>essere & avere</h1>
+  <p class="lead">Los dos pilares del italiano. Funcionan como verbos plenos (ser/estar, tener) y como auxiliares para construir los tiempos compuestos. Ambos son completamente irregolari.</p>
+
+  <div class="card">
+    <h3>essere — ser / estar</h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">sono</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">sei</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">è</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">siamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">siete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">sono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Imperfetto</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">ero</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">eri</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">era</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">eravamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">eravate</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">erano</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">stato/a</span></div>
+      <div class="meta-item"><span class="meta-label">Futuro:</span><span class="meta-val">sarò, sarai, sarà…</span></div>
+      <div class="meta-item"><span class="meta-label">Condicional:</span><span class="meta-val">sarei, saresti…</span></div>
+      <div class="meta-item"><span class="meta-label">Aux. P.P.:</span><span class="meta-val">essere</span></div>
+    </div>
+    <div class="ex"><span class="it">Io <span class="hl">sono</span> italiano. Lei <span class="hl">è</span> stanca. Noi <span class="hl">siamo</span> stati a Roma.</span><span class="es">Soy italiano. Ella está cansada. Hemos estado en Roma.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>avere — tener / haber</h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">ho</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">hai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">ha</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">abbiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">avete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">hanno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Imperfetto</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">avevo</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">avevi</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">aveva</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">avevamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">avevate</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">avevano</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">avuto</span></div>
+      <div class="meta-item"><span class="meta-label">Futuro:</span><span class="meta-val">avrò, avrai, avrà…</span></div>
+      <div class="meta-item"><span class="meta-label">Aux. P.P.:</span><span class="meta-val">avere</span></div>
+    </div>
+    <div class="ex"><span class="it">Lui <span class="hl">ha</span> fame. Noi <span class="hl">abbiamo</span> una macchina. Io <span class="hl">ho</span> mangiato.</span><span class="es">Él tiene hambre. Tenemos un coche. He comido.</span></div>
+  </div>
+
+  <div class="warn">
+    ⚠️ <strong>Atención:</strong> <em>ho, hai, ha, hanno</em> llevan <strong>h</strong> muda para distinguirse de <em>o</em> (o), <em>ai</em> (a los), <em>a</em> (a), <em>anno</em> (año).
+  </div>
+</div>
+
+<!-- ============ MOVIMIENTO ============ -->
+<div class="page" id="page-movimiento">
+  <div class="eyebrow">Capitolo 3 · Movimento</div>
+  <h1>Verbos de movimiento</h1>
+  <p class="lead">Los verbos de movimiento son de uso diario y casi todos usan <em>essere</em> como auxiliar en el Passato Prossimo. Sus participios concuerdan en género y número.</p>
+
+  <div class="card">
+    <h3>andare — ir <span class="badge b-are">-are</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">vado</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">vai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">va</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">andiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">andate</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">vanno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro / Cond.</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">andrò / andrei</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">andrai / andresti</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">andrà / andrebbe</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">andremo</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">andato/a/i/e</span></div>
+      <div class="meta-item"><span class="meta-label">Imperfetto:</span><span class="meta-val">andavo</span></div>
+      <div class="meta-item"><span class="meta-label">Aux.:</span><span class="meta-val">essere</span></div>
+    </div>
+    <div class="ex"><span class="it">Dove <span class="hl">vai</span>? Loro <span class="hl">vanno</span> al mare. Ieri sono <span class="hl">andato</span> al cinema.</span><span class="es">¿Adónde vas? Ellos van al mar. Ayer fui al cine.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>venire — venir <span class="badge b-ire">-ire</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">vengo</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">vieni</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">viene</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">veniamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">venite</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">vengono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">verrò</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">verrai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">verrà</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">venuto/a</span></div>
+      <div class="meta-item"><span class="meta-label">Aux.:</span><span class="meta-val">essere</span></div>
+    </div>
+    <div class="ex"><span class="it"><span class="hl">Vengo</span> subito! Loro non <span class="hl">vengono</span> stasera.</span><span class="es">¡Ya voy! Ellos no vienen esta noche.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>uscire — salir <span class="badge b-ire">-ire</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">esco</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">esci</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">esce</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">usciamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">uscite</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">escono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Clave</p>
+        <div class="conj-row"><span class="pro">P.P.:</span><span class="vb">uscito/a</span></div>
+        <div class="conj-row"><span class="pro">Imp.:</span><span class="vb">uscivo</span></div>
+        <div class="conj-row"><span class="pro">Fut.:</span><span class="vb">uscirò</span></div>
+        <div class="conj-row"><span class="pro">Aux.:</span><span class="vb">essere</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">A che ora <span class="hl">esci</span>? Siamo <span class="hl">usciti</span> tardi.</span><span class="es">¿A qué hora sales? Salimos tarde.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>tornare — volver <span class="badge b-are">-are</span></h3>
+    <p style="font-size:0.93rem; color:var(--muted)">Regular en el presente, pero importante por usar <em>essere</em>.</p>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">torno</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">torni</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">torna</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">tornano</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Clave</p>
+        <div class="conj-row"><span class="pro">P.P.:</span><span class="vb">tornato/a</span></div>
+        <div class="conj-row"><span class="pro">Aux.:</span><span class="vb">essere</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">Marco è <span class="hl">tornato</span> ieri. <span class="hl">Torno</span> a casa alle sette.</span><span class="es">Marco volvió ayer. Vuelvo a casa a las siete.</span></div>
+  </div>
+</div>
+
+<!-- ============ COTIDIANOS ============ -->
+<div class="page" id="page-cotidianos">
+  <div class="eyebrow">Capitolo 4 · Vita quotidiana</div>
+  <h1>Verbos del día a día</h1>
+  <p class="lead">Estos verbos aparecen en toda conversación. Muchos tienen participios passati completamente irregulares que hay que memorizar.</p>
+
+  <div class="card">
+    <h3>fare — hacer / ir (tiempo) <span class="badge b-are">-are</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">faccio</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">fai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">fa</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">facciamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">fate</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">fanno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Imperfetto / Futuro</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">facevo / farò</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">facevi / farai</span></div>
+        <div class="conj-row"><span class="pro">lui</span><span class="vb">faceva / farà</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">fatto ← ¡irregular!</span></div>
+      <div class="meta-item"><span class="meta-label">Aux.:</span><span class="meta-val">avere</span></div>
+    </div>
+    <div class="ex"><span class="it">Cosa <span class="hl">fai</span> stasera? Ho <span class="hl">fatto</span> colazione. Fa bello oggi!</span><span class="es">¿Qué haces esta noche? He desayunado. ¡Hace buen tiempo hoy!</span></div>
+  </div>
+
+  <div class="card">
+    <h3>dire — decir <span class="badge b-ere">-ere</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">dico</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">dici</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">dice</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">diciamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">dite</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">dicono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Imperfetto / Futuro</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">dicevo / dirò</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">dicevi / dirai</span></div>
+      </div>
+    </div>
+    <div class="verb-meta">
+      <div class="meta-item"><span class="meta-label">Part. pass.:</span><span class="meta-val">detto ← ¡irregular!</span></div>
+      <div class="meta-item"><span class="meta-label">Aux.:</span><span class="meta-val">avere</span></div>
+    </div>
+    <div class="ex"><span class="it">Cosa <span class="hl">dici</span>? Te lo <span class="hl">dico</span> domani. Ha <span class="hl">detto</span> la verità.</span><span class="es">¿Qué dices? Te lo digo mañana. Ha dicho la verdad.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>sapere — saber <span class="badge b-ere">-ere</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">so</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">sai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">sa</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">sappiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">sapete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">sanno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">saprò</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">saprai</span></div>
+        <div class="conj-row"><span class="pro">Part. p.:</span><span class="vb">saputo</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">Non <span class="hl">so</span> dove sei. <span class="hl">Sai</span> parlare italiano?</span><span class="es">No sé dónde estás. ¿Sabes hablar italiano?</span></div>
+  </div>
+
+  <div class="card">
+    <h3>volere — querer <span class="badge b-ere">-ere</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">voglio</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">vuoi</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">vuole</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">vogliamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">volete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">vogliono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">vorrò</span></div>
+        <div class="conj-row"><span class="pro">Cond.:</span><span class="vb">vorrei</span></div>
+        <div class="conj-row"><span class="pro">Part. p.:</span><span class="vb">voluto</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it"><span class="hl">Voglio</span> un caffè. <span class="hl">Vorrei</span> prenotare un tavolo.</span><span class="es">Quiero un café. Querría reservar una mesa.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>dare — dar <span class="badge b-are">-are</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">do</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">dai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">dà</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">diamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">date</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">danno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Clave</p>
+        <div class="conj-row"><span class="pro">P.P.:</span><span class="vb">dato</span></div>
+        <div class="conj-row"><span class="pro">Fut.:</span><span class="vb">darò</span></div>
+        <div class="conj-row"><span class="pro">Aux.:</span><span class="vb">avere</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">Ti <span class="hl">do</span> il libro. Gli hanno <span class="hl">dato</span> un premio.</span><span class="es">Te doy el libro. Le dieron un premio.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>stare — estar / quedarse <span class="badge b-are">-are</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">sto</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">stai</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">sta</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">stiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">state</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">stanno</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Clave</p>
+        <div class="conj-row"><span class="pro">P.P.:</span><span class="vb">stato/a</span></div>
+        <div class="conj-row"><span class="pro">Imp.:</span><span class="vb">stavo</span></div>
+        <div class="conj-row"><span class="pro">Aux.:</span><span class="vb">essere</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">Come <span class="hl">stai</span>? <span class="hl">Sto</span> bene, grazie! <span class="hl">Stiamo</span> mangiando.</span><span class="es">¿Cómo estás? ¡Estoy bien, gracias! Estamos comiendo.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>bere — beber <span class="badge b-ere">-ere</span></h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">bevo</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">bevi</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">beve</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">beviamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">bevete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">bevono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Clave</p>
+        <div class="conj-row"><span class="pro">P.P.:</span><span class="vb">bevuto</span></div>
+        <div class="conj-row"><span class="pro">Imp.:</span><span class="vb">bevevo</span></div>
+        <div class="conj-row"><span class="pro">Fut.:</span><span class="vb">berrò</span></div>
+        <div class="conj-row"><span class="pro">Aux.:</span><span class="vb">avere</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it">Cosa <span class="hl">bevi</span>? Ho <span class="hl">bevuto</span> troppo caffè.</span><span class="es">¿Qué bebes? He bebido demasiado café.</span></div>
+  </div>
+</div>
+
+<!-- ============ MODALI ============ -->
+<div class="page" id="page-modali">
+  <div class="eyebrow">Capitolo 5 · Verbi modali</div>
+  <h1>Verbos modales</h1>
+  <p class="lead">Los tres verbos modales del italiano son <em>dovere</em>, <em>potere</em> y <em>volere</em>. Todos son irregolari y se construyen con infinitivo.</p>
+
+  <div class="info">
+    <strong>🔑 Estructura:</strong> Modal (conjugado) + infinitivo.<br>
+    El auxiliar del Passato Prossimo puede ser <em>avere</em> o el del verbo que acompaña.
+    <div class="ex" style="margin-top:10px">
+      <span class="it">Devo <span class="hl">andare</span>. / Ho <span class="hl">dovuto</span> aspettare. / Sono <span class="hl">dovuto</span> andare.</span>
+      <span class="es">Tengo que ir. / He tenido que esperar. / He tenido que ir (con andare).</span>
+    </div>
+  </div>
+
+  <table class="verb-table">
+    <thead>
+      <tr><th>Verbo</th><th>Significado</th><th>io</th><th>tu</th><th>lui/lei</th><th>loro</th><th>Part. pass.</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="it-w">dovere</td><td class="es-w">deber / tener que</td><td class="it-w">devo</td><td class="it-w">devi</td><td class="it-w">deve</td><td class="it-w">devono</td><td class="it-w">dovuto</td></tr>
+      <tr><td class="it-w">potere</td><td class="es-w">poder</td><td class="it-w">posso</td><td class="it-w">puoi</td><td class="it-w">può</td><td class="it-w">possono</td><td class="it-w">potuto</td></tr>
+      <tr><td class="it-w">volere</td><td class="es-w">querer</td><td class="it-w">voglio</td><td class="it-w">vuoi</td><td class="it-w">vuole</td><td class="it-w">vogliono</td><td class="it-w">voluto</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <h3>dovere — deber, tener que</h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">devo</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">devi</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">deve</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">dobbiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">dovete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">devono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro / Condicional</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">dovrò / dovrei</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">dovrai / dovresti</span></div>
+        <div class="conj-row"><span class="pro">lui</span><span class="vb">dovrà / dovrebbe</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it"><span class="hl">Devo</span> studiare. Non <span class="hl">devi</span> fumare qui. <span class="hl">Dovrei</span> chiamarti.</span><span class="es">Tengo que estudiar. No debes fumar aquí. Debería llamarte.</span></div>
+  </div>
+
+  <div class="card">
+    <h3>potere — poder</h3>
+    <div class="conj-block">
+      <div class="conj-section">
+        <p>Presente</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">posso</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">puoi</span></div>
+        <div class="conj-row"><span class="pro">lui/lei</span><span class="vb">può</span></div>
+        <div class="conj-row"><span class="pro">noi</span><span class="vb">possiamo</span></div>
+        <div class="conj-row"><span class="pro">voi</span><span class="vb">potete</span></div>
+        <div class="conj-row"><span class="pro">loro</span><span class="vb">possono</span></div>
+      </div>
+      <div class="conj-section">
+        <p>Futuro / Condicional</p>
+        <div class="conj-row"><span class="pro">io</span><span class="vb">potrò / potrei</span></div>
+        <div class="conj-row"><span class="pro">tu</span><span class="vb">potrai / potresti</span></div>
+      </div>
+    </div>
+    <div class="ex"><span class="it"><span class="hl">Posso</span> entrare? Non <span class="hl">possiamo</span> venire domani. <span class="hl">Potresti</span> aiutarmi?</span><span class="es">¿Puedo entrar? No podemos venir mañana. ¿Podrías ayudarme?</span></div>
+  </div>
+</div>
+
+<!-- ============ PASSATO ============ -->
+<div class="page" id="page-passato">
+  <div class="eyebrow">Capitolo 6 · Passato Prossimo</div>
+  <h1>Participios irregolari</h1>
+  <p class="lead">El Passato Prossimo es el tiempo del pasado más usado en el italiano hablado. Se forma con <em>essere</em> o <em>avere</em> + participio passato. Los participios irregulares hay que memorizarlos.</p>
+
+  <div class="info">
+    <strong>Regla de oro:</strong><br>
+    Con <strong>avere</strong>: participio invariable → Ho mangiato / Ho mangiata ✗<br>
+    Con <strong>essere</strong>: participio concuerda → Sono andato (m) / Sono andata (f) / Siamo andati (m.pl) / Siamo andate (f.pl)
+  </div>
+
+  <h2>Participios irregulares más importantes</h2>
+
+  <table class="verb-table">
+    <thead><tr><th>Infinito</th><th>Participio</th><th>Aux.</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td class="it-w">essere</td><td class="it-w">stato/a</td><td>essere</td><td class="es-w">ser/estar</td><td class="it-w">Sono stato a Roma</td></tr>
+      <tr><td class="it-w">avere</td><td class="it-w">avuto</td><td>avere</td><td class="es-w">tener</td><td class="it-w">Ho avuto freddo</td></tr>
+      <tr><td class="it-w">fare</td><td class="it-w">fatto</td><td>avere</td><td class="es-w">hacer</td><td class="it-w">Ho fatto colazione</td></tr>
+      <tr><td class="it-w">dire</td><td class="it-w">detto</td><td>avere</td><td class="es-w">decir</td><td class="it-w">Ha detto tutto</td></tr>
+      <tr><td class="it-w">scrivere</td><td class="it-w">scritto</td><td>avere</td><td class="es-w">escribir</td><td class="it-w">Ho scritto una lettera</td></tr>
+      <tr><td class="it-w">leggere</td><td class="it-w">letto</td><td>avere</td><td class="es-w">leer</td><td class="it-w">Hai letto il giornale?</td></tr>
+      <tr><td class="it-w">vedere</td><td class="it-w">visto</td><td>avere</td><td class="es-w">ver</td><td class="it-w">Ho visto un film</td></tr>
+      <tr><td class="it-w">mettere</td><td class="it-w">messo</td><td>avere</td><td class="es-w">poner</td><td class="it-w">Ho messo la giacca</td></tr>
+      <tr><td class="it-w">prendere</td><td class="it-w">preso</td><td>avere</td><td class="es-w">tomar/coger</td><td class="it-w">Ho preso il treno</td></tr>
+      <tr><td class="it-w">aprire</td><td class="it-w">aperto</td><td>avere</td><td class="es-w">abrir</td><td class="it-w">Ha aperto la finestra</td></tr>
+      <tr><td class="it-w">offrire</td><td class="it-w">offerto</td><td>avere</td><td class="es-w">ofrecer</td><td class="it-w">Mi ha offerto caffè</td></tr>
+      <tr><td class="it-w">rispondere</td><td class="it-w">risposto</td><td>avere</td><td class="es-w">responder</td><td class="it-w">Non hai risposto</td></tr>
+      <tr><td class="it-w">chiedere</td><td class="it-w">chiesto</td><td>avere</td><td class="es-w">pedir/preguntar</td><td class="it-w">Ho chiesto aiuto</td></tr>
+      <tr><td class="it-w">perdere</td><td class="it-w">perso/perduto</td><td>avere</td><td class="es-w">perder</td><td class="it-w">Ho perso le chiavi</td></tr>
+      <tr><td class="it-w">vivere</td><td class="it-w">vissuto</td><td>avere / essere</td><td class="es-w">vivir</td><td class="it-w">Ha vissuto in Italia</td></tr>
+      <tr><td class="it-w">venire</td><td class="it-w">venuto</td><td>essere</td><td class="es-w">venir</td><td class="it-w">È venuto tardi</td></tr>
+      <tr><td class="it-w">andare</td><td class="it-w">andato</td><td>essere</td><td class="es-w">ir</td><td class="it-w">Sono andato al mare</td></tr>
+      <tr><td class="it-w">nascere</td><td class="it-w">nato</td><td>essere</td><td class="es-w">nacer</td><td class="it-w">Sono nato a Milano</td></tr>
+      <tr><td class="it-w">morire</td><td class="it-w">morto</td><td>essere</td><td class="es-w">morir</td><td class="it-w">È morto giovane</td></tr>
+      <tr><td class="it-w">rimanere</td><td class="it-w">rimasto</td><td>essere</td><td class="es-w">quedarse</td><td class="it-w">Siamo rimasti a casa</td></tr>
+    </tbody>
+  </table>
+
+  <div class="warn">
+    💡 <strong>Truco para memorizar:</strong> Muchos participios terminados en <strong>-etto, -itto, -otto</strong> son irregulares: detto, scritto, rotto (roto), cotto (cocido), condotto (conducido/llevado).
+  </div>
+</div>
+
+<!-- ============ TABLA GENERAL ============ -->
+<div class="page" id="page-tabla">
+  <div class="eyebrow">Capitolo 7 · Riferimento</div>
+  <h1>Tabla general de referencia</h1>
+  <p class="lead">Resumen de los verbos irregolari más usados con sus formas principales.</p>
+
+  <table class="verb-table">
+    <thead>
+      <tr><th>Infinito</th><th>Significado</th><th>Presente (io)</th><th>Part. passato</th><th>Futuro (io)</th><th>Aux.</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="it-w">essere</td><td class="es-w">ser/estar</td><td class="it-w">sono</td><td class="it-w">stato</td><td class="it-w">sarò</td><td>essere</td></tr>
+      <tr><td class="it-w">avere</td><td class="es-w">tener</td><td class="it-w">ho</td><td class="it-w">avuto</td><td class="it-w">avrò</td><td>avere</td></tr>
+      <tr><td class="it-w">stare</td><td class="es-w">estar</td><td class="it-w">sto</td><td class="it-w">stato</td><td class="it-w">starò</td><td>essere</td></tr>
+      <tr><td class="it-w">fare</td><td class="es-w">hacer</td><td class="it-w">faccio</td><td class="it-w">fatto</td><td class="it-w">farò</td><td>avere</td></tr>
+      <tr><td class="it-w">dire</td><td class="es-w">decir</td><td class="it-w">dico</td><td class="it-w">detto</td><td class="it-w">dirò</td><td>avere</td></tr>
+      <tr><td class="it-w">dare</td><td class="es-w">dar</td><td class="it-w">do</td><td class="it-w">dato</td><td class="it-w">darò</td><td>avere</td></tr>
+      <tr><td class="it-w">andare</td><td class="es-w">ir</td><td class="it-w">vado</td><td class="it-w">andato</td><td class="it-w">andrò</td><td>essere</td></tr>
+      <tr><td class="it-w">venire</td><td class="es-w">venir</td><td class="it-w">vengo</td><td class="it-w">venuto</td><td class="it-w">verrò</td><td>essere</td></tr>
+      <tr><td class="it-w">uscire</td><td class="es-w">salir</td><td class="it-w">esco</td><td class="it-w">uscito</td><td class="it-w">uscirò</td><td>essere</td></tr>
+      <tr><td class="it-w">sapere</td><td class="es-w">saber</td><td class="it-w">so</td><td class="it-w">saputo</td><td class="it-w">saprò</td><td>avere</td></tr>
+      <tr><td class="it-w">volere</td><td class="es-w">querer</td><td class="it-w">voglio</td><td class="it-w">voluto</td><td class="it-w">vorrò</td><td>avere</td></tr>
+      <tr><td class="it-w">potere</td><td class="es-w">poder</td><td class="it-w">posso</td><td class="it-w">potuto</td><td class="it-w">potrò</td><td>avere</td></tr>
+      <tr><td class="it-w">dovere</td><td class="es-w">deber</td><td class="it-w">devo</td><td class="it-w">dovuto</td><td class="it-w">dovrò</td><td>avere</td></tr>
+      <tr><td class="it-w">bere</td><td class="es-w">beber</td><td class="it-w">bevo</td><td class="it-w">bevuto</td><td class="it-w">berrò</td><td>avere</td></tr>
+      <tr><td class="it-w">vedere</td><td class="es-w">ver</td><td class="it-w">vedo</td><td class="it-w">visto</td><td class="it-w">vedrò</td><td>avere</td></tr>
+      <tr><td class="it-w">scrivere</td><td class="es-w">escribir</td><td class="it-w">scrivo</td><td class="it-w">scritto</td><td class="it-w">scriverò</td><td>avere</td></tr>
+      <tr><td class="it-w">leggere</td><td class="es-w">leer</td><td class="it-w">leggo</td><td class="it-w">letto</td><td class="it-w">leggerò</td><td>avere</td></tr>
+      <tr><td class="it-w">prendere</td><td class="es-w">tomar</td><td class="it-w">prendo</td><td class="it-w">preso</td><td class="it-w">prenderò</td><td>avere</td></tr>
+      <tr><td class="it-w">mettere</td><td class="es-w">poner</td><td class="it-w">metto</td><td class="it-w">messo</td><td class="it-w">metterò</td><td>avere</td></tr>
+      <tr><td class="it-w">chiedere</td><td class="es-w">preguntar</td><td class="it-w">chiedo</td><td class="it-w">chiesto</td><td class="it-w">chiederò</td><td>avere</td></tr>
+      <tr><td class="it-w">rispondere</td><td class="es-w">responder</td><td class="it-w">rispondo</td><td class="it-w">risposto</td><td class="it-w">risponderò</td><td>avere</td></tr>
+      <tr><td class="it-w">aprire</td><td class="es-w">abrir</td><td class="it-w">apro</td><td class="it-w">aperto</td><td class="it-w">aprirò</td><td>avere</td></tr>
+      <tr><td class="it-w">rimanere</td><td class="es-w">quedarse</td><td class="it-w">rimango</td><td class="it-w">rimasto</td><td class="it-w">rimarrò</td><td>essere</td></tr>
+      <tr><td class="it-w">tenere</td><td class="es-w">tener/guardar</td><td class="it-w">tengo</td><td class="it-w">tenuto</td><td class="it-w">terrò</td><td>avere</td></tr>
+      <tr><td class="it-w">scegliere</td><td class="es-w">elegir</td><td class="it-w">scelgo</td><td class="it-w">scelto</td><td class="it-w">sceglierò</td><td>avere</td></tr>
+      <tr><td class="it-w">morire</td><td class="es-w">morir</td><td class="it-w">muoio</td><td class="it-w">morto</td><td class="it-w">morirò</td><td>essere</td></tr>
+      <tr><td class="it-w">nascere</td><td class="es-w">nacer</td><td class="it-w">nasco</td><td class="it-w">nato</td><td class="it-w">nascerò</td><td>essere</td></tr>
+      <tr><td class="it-w">perdere</td><td class="es-w">perder</td><td class="it-w">perdo</td><td class="it-w">perso</td><td class="it-w">perderò</td><td>avere</td></tr>
+      <tr><td class="it-w">vivere</td><td class="es-w">vivir</td><td class="it-w">vivo</td><td class="it-w">vissuto</td><td class="it-w">vivrò</td><td>avere</td></tr>
+      <tr><td class="it-w">tradurre</td><td class="es-w">traducir</td><td class="it-w">traduco</td><td class="it-w">tradotto</td><td class="it-w">tradurrò</td><td>avere</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ EJERCICIOS I ============ -->
+<div class="page" id="page-quiz1">
+  <div class="eyebrow">Capitolo 8 · Esercizi</div>
+  <h1>Ejercicios I — Opción múltiple</h1>
+  <p class="lead">Selecciona la forma correcta del verbo entre las opciones dadas.</p>
+
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="sc1">0/0</div>
+      <div class="score-lbl">Risposta corretta</div>
+    </div>
+    <button class="btn-reset" onclick="resetQ1()">↺ Reiniciar</button>
+  </div>
+
+  <div id="q1-wrap"></div>
+</div>
+
+<!-- ============ EJERCICIOS II ============ -->
+<div class="page" id="page-quiz2">
+  <div class="eyebrow">Capitolo 9 · Esercizi</div>
+  <h1>Ejercicios II — Completar</h1>
+  <p class="lead">Escribe la forma correcta del verbo indicado. Presta atención al tiempo y la persona.</p>
+
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="sc2">–</div>
+      <div class="score-lbl">Punteggio</div>
+    </div>
+    <button class="btn-reset" onclick="resetQ2()">↺ Reiniciar</button>
+  </div>
+
+  <div id="q2-wrap"></div>
+  <button class="btn-primary" onclick="checkFill()">Corregir tutto</button>
+</div>
+
+<script>
+// Navigation
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ====== QUIZ 1 ======
+const q1data = [
+  { q: 'Dove ___ stasera? (andare – presente, tu)', opts: ['vai', 'andate', 'vado', 'va'], ans: 0, exp: 'Con <em>tu</em>, andare: <strong>vai</strong>.' },
+  { q: 'Noi ___ molto stanchi. (essere – presente)', opts: ['siamo', 'siano', 'siete', 'sono'], ans: 0, exp: 'Con <em>noi</em>, essere: <strong>siamo</strong>.' },
+  { q: 'Ieri loro ___ al ristorante. (andare – Passato Prossimo)', opts: ['hanno andato', 'sono andati', 'sono andato', 'hanno andati'], ans: 1, exp: '<em>andare</em> usa essere → <strong>sono andati</strong> (concordancia masc. plur.).' },
+  { q: 'Io non ___ dormire. (potere – presente)', opts: ['può', 'puoi', 'posso', 'possiamo'], ans: 2, exp: 'Con <em>io</em>, potere: <strong>posso</strong>.' },
+  { q: 'Maria ___ la verità. (dire – Passato Prossimo)', opts: ['ha detto', 'è detta', 'ha dito', 'ha detto'], ans: 0, exp: 'dire → <strong>detto</strong>; aux. avere → <strong>ha detto</strong>.' },
+  { q: '___  un caffè, per favore. (volere – condicional, io)', opts: ['Voglio', 'Vorrei', 'Vorrò', 'Voglio'], ans: 1, exp: 'El condicional de <em>io</em> en volere: <strong>vorrei</strong> (quisiera, forma educada).' },
+  { q: 'Loro ___ in Italia per tre anni. (vivere – Passato Prossimo)', opts: ['hanno vissuto', 'sono vissuti', 'hanno vivuto', 'hanno visto'], ans: 0, exp: '<em>vivere</em> usa avere; part. pass. irregolare: <strong>vissuto</strong>.' },
+  { q: 'Tu ___ leggere bene. (sapere – presente)', opts: ['so', 'sai', 'sa', 'sapete'], ans: 1, exp: 'Con <em>tu</em>, sapere: <strong>sai</strong>.' },
+  { q: 'Noi ___ a casa. (rimanere – Passato Prossimo)', opts: ['abbiamo rimasto', 'siamo rimasti', 'siamo rimaste', 'abbiamo rimanuto'], ans: 1, exp: '<em>rimanere</em> usa essere; part. pass.: <strong>rimasto</strong> → siamo rimasti (m.pl).' },
+  { q: '___ subito! (venire – presente, io)', opts: ['Vado', 'Sono', 'Vengo', 'Venga'], ans: 2, exp: 'Con <em>io</em>, venire: <strong>vengo</strong>.' },
+];
+
+let q1state = new Array(q1data.length).fill(null);
+
+function buildQ1() {
+  const c = document.getElementById('q1-wrap');
+  c.innerHTML = '';
+  q1data.forEach((item, i) => {
+    const d = document.createElement('div');
+    d.className = 'quiz-q-box';
+    d.innerHTML = `
+      <div class="quiz-q">${i+1}. ${item.q}</div>
+      <div class="opts">${item.opts.map((o,j)=>`<button class="opt" id="o1-${i}-${j}" onclick="ans1(${i},${j})">${o}</button>`).join('')}</div>
+      <div class="feedback" id="f1-${i}"></div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+function ans1(qi, choice) {
+  if (q1state[qi] !== null) return;
+  q1state[qi] = choice;
+  const correct = q1data[qi].ans;
+  for (let j = 0; j < q1data[qi].opts.length; j++) {
+    const b = document.getElementById(`o1-${qi}-${j}`);
+    b.disabled = true;
+    if (j === correct) b.classList.add('correct');
+    else if (j === choice) b.classList.add('wrong');
+  }
+  document.getElementById(`f1-${qi}`).innerHTML = choice === correct
+    ? '✓ Bravo! ' + q1data[qi].exp
+    : '✗ Sbagliato. ' + q1data[qi].exp;
+  const answered = q1state.filter(a=>a!==null).length;
+  const corr = q1state.filter((a,i)=>a===q1data[i].ans).length;
+  document.getElementById('sc1').textContent = `${corr}/${answered}`;
+}
+
+function resetQ1() { q1state = new Array(q1data.length).fill(null); buildQ1(); document.getElementById('sc1').textContent='0/0'; }
+
+// ====== QUIZ 2 ======
+const q2data = [
+  { s: 'Ieri (io) ___ a casa tutto il giorno. (rimanere)', blank: 'sono rimasto', note: 'essere + rimasto (concordancia masc.)' },
+  { s: 'Loro ___ già mangiato quando siamo arrivati. (avere)', blank: 'avevano', note: 'Trapassato prossimo: avevano + part.' },
+  { s: 'Lei ___ una bella canzone. (cantare – Passato Prossimo)', blank: 'ha cantato', note: 'cantare regular, aux. avere' },
+  { s: 'Domani noi ___ a Venezia. (andare – futuro)', blank: 'andremo', note: 'Futuro de andare: andrò, andrai, andrà, andremo…' },
+  { s: 'Marco, cosa ___ stasera? (fare – presente)', blank: 'fai', note: 'Con tu, fare → fai' },
+  { s: 'Voi ___ studiare di più. (dovere – presente)', blank: 'dovete', note: 'Con voi, dovere → dovete' },
+  { s: 'Io non ___ dove abiti. (sapere – presente)', blank: 'so', note: 'Con io, sapere → so' },
+  { s: 'Quando ___ (tu) da Tokyo? (venire – Passato Prossimo)', blank: 'sei venuto', note: 'venire → essere + venuto/a' },
+  { s: 'I bambini ___ tutto il gelato. (mangiare – Passato Prossimo)', blank: 'hanno mangiato', note: 'mangiare regular, aux. avere, loro → hanno' },
+  { s: 'Senza di te non ___ farcela. (potere – cond., io)', blank: 'potrei', note: 'Condicional de potere, io → potrei' },
+];
+
+function buildQ2() {
+  const c = document.getElementById('q2-wrap');
+  c.innerHTML = '';
+  q2data.forEach((item, i) => {
+    const d = document.createElement('div');
+    d.className = 'quiz-q-box';
+    d.innerHTML = `
+      <div class="quiz-q">${i+1}. ${item.s}</div>
+      <input type="text" class="fill-input" id="fi-${i}" placeholder="risposta…" autocomplete="off">
+      <div class="feedback" id="f2-${i}"></div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+function norm(s) { return s.trim().toLowerCase().replace(/[àáä]/g,'a').replace(/[èéê]/g,'e').replace(/[ìíî]/g,'i').replace(/[òóô]/g,'o').replace(/[ùúû]/g,'u'); }
+
+function checkFill() {
+  let corr = 0;
+  q2data.forEach((item, i) => {
+    const inp = document.getElementById('fi-' + i);
+    const fb = document.getElementById('f2-' + i);
+    const ok = norm(inp.value) === norm(item.blank);
+    inp.classList.remove('correct','wrong');
+    inp.classList.add(ok ? 'correct' : 'wrong');
+    fb.innerHTML = ok ? '✓ Perfetto!' : `✗ Risposta: <strong>${item.blank}</strong> — ${item.note}`;
+    if (ok) corr++;
+  });
+  document.getElementById('sc2').textContent = `${corr}/${q2data.length}`;
+}
+
+function resetQ2() { buildQ2(); document.getElementById('sc2').textContent='–'; }
+
+buildQ1();
+buildQ2();
+</script>
+</body>
+</html>

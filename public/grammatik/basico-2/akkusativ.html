@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Akkusativ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .rule-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .example {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .akkusativ {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .nominativ {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .exercise {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 5px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            display: block;
+        }
+        
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            display: block;
+        }
+        
+        .tip {
+            background: #fff9c4;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #fbc02d;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .section-counter {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .progress-dot:hover {
+            background: #999;
+            transform: scale(1.2);
+        }
+        
+        .progress-dot.active {
+            background: #667eea;
+            width: 30px;
+            border-radius: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .progress-indicator {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇩🇪 Der Akkusativ</h1>
+        <p class="subtitle">El Caso Acusativo en Alemán</p>
+        
+        <!-- Sección 1 -->
+        <div class="section active" data-section="1">
+            <h2>📚 ¿Qué es el Akkusativ?</h2>
+            
+            <div class="rule-box">
+                <p style="font-size: 1.1em; line-height: 1.6;">
+                    El <strong>Akkusativ</strong> (acusativo) es uno de los cuatro casos del alemán. 
+                    Se usa principalmente para el <strong>objeto directo</strong> de la oración, 
+                    es decir, la cosa o persona que recibe la acción del verbo.
+                </p>
+            </div>
+            
+            <div class="example">
+                <p><strong>Ejemplo:</strong></p>
+                <p><span class="nominativ">Der Mann</span> sieht <span class="akkusativ">den Hund</span>.</p>
+                <p>→ El hombre ve al perro.</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">
+                    🔵 <span class="nominativ">Der Mann</span> = Sujeto (Nominativ)<br>
+                    🔴 <span class="akkusativ">den Hund</span> = Objeto directo (Akkusativ)
+                </p>
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Pregunta clave:</strong> Para encontrar el acusativo pregunta: 
+                <strong>"¿Qué?" o "¿A quién?"</strong>
+                <br>→ ¿Qué ve el hombre? → <span class="akkusativ">Den Hund</span>
+            </div>
+        </div>
+        
+        <!-- Sección 2 -->
+        <div class="section" data-section="2">
+            <h2>📋 Artículos Definidos en Akkusativ</h2>
+            
+            <div class="rule-box">
+                <p style="margin-bottom: 20px;">Los artículos definidos cambian en acusativo:</p>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Género</th>
+                            <th>Nominativ</th>
+                            <th>Akkusativ</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Masculino</strong></td>
+                            <td class="nominativ">der</td>
+                            <td class="akkusativ">den</td>
+                            <td>Ich sehe <span class="akkusativ">den Mann</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Femenino</strong></td>
+                            <td class="nominativ">die</td>
+                            <td class="akkusativ">die</td>
+                            <td>Ich sehe <span class="akkusativ">die Frau</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutro</strong></td>
+                            <td class="nominativ">das</td>
+                            <td class="akkusativ">das</td>
+                            <td>Ich sehe <span class="akkusativ">das Kind</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plural</strong></td>
+                            <td class="nominativ">die</td>
+                            <td class="akkusativ">die</td>
+                            <td>Ich sehe <span class="akkusativ">die Kinder</span>.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <strong>⚡ Regla importante:</strong> Solo el <strong>masculino</strong> cambia: 
+                <strong>der → den</strong>
+            </div>
+        </div>
+        
+        <!-- Sección 3 -->
+        <div class="section" data-section="3">
+            <h2>📝 Artículos Indefinidos en Akkusativ</h2>
+            
+            <div class="rule-box">
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Género</th>
+                            <th>Nominativ</th>
+                            <th>Akkusativ</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Masculino</strong></td>
+                            <td class="nominativ">ein</td>
+                            <td class="akkusativ">einen</td>
+                            <td>Ich habe <span class="akkusativ">einen Hund</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Femenino</strong></td>
+                            <td class="nominativ">eine</td>
+                            <td class="akkusativ">eine</td>
+                            <td>Ich habe <span class="akkusativ">eine Katze</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutro</strong></td>
+                            <td class="nominativ">ein</td>
+                            <td class="akkusativ">ein</td>
+                            <td>Ich habe <span class="akkusativ">ein Auto</span>.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="example">
+                <p><strong>Más ejemplos:</strong></p>
+                <p>• Ich kaufe <span class="akkusativ">einen Apfel</span>. (Compro una manzana)</p>
+                <p>• Er liest <span class="akkusativ">eine Zeitung</span>. (Él lee un periódico)</p>
+                <p>• Sie sucht <span class="akkusativ">ein Buch</span>. (Ella busca un libro)</p>
+            </div>
+        </div>
+        
+        <!-- Sección 4 -->
+        <div class="section" data-section="4">
+            <h2>🚫 Negación: kein en Akkusativ</h2>
+            
+            <div class="rule-box">
+                <p style="margin-bottom: 20px;"><strong>kein</strong> (ningún, no) se declina igual que <strong>ein</strong>:</p>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Género</th>
+                            <th>Nominativ</th>
+                            <th>Akkusativ</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Masculino</strong></td>
+                            <td>kein</td>
+                            <td class="akkusativ">keinen</td>
+                            <td>Ich habe <span class="akkusativ">keinen Hund</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Femenino</strong></td>
+                            <td>keine</td>
+                            <td class="akkusativ">keine</td>
+                            <td>Ich habe <span class="akkusativ">keine Katze</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutro</strong></td>
+                            <td>kein</td>
+                            <td class="akkusativ">kein</td>
+                            <td>Ich habe <span class="akkusativ">kein Auto</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plural</strong></td>
+                            <td>keine</td>
+                            <td class="akkusativ">keine</td>
+                            <td>Ich habe <span class="akkusativ">keine Kinder</span>.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección 5 -->
+        <div class="section" data-section="5">
+            <h2>👤 Posesivos en Akkusativ</h2>
+            
+            <div class="rule-box">
+                <p style="margin-bottom: 20px;">Los posesivos se declinan igual que <strong>ein/kein</strong>:</p>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Posesivo</th>
+                            <th>Masculino</th>
+                            <th>Femenino</th>
+                            <th>Neutro</th>
+                        </tr>
+                        <tr>
+                            <td><strong>mein</strong> (mi)</td>
+                            <td class="akkusativ">meinen</td>
+                            <td class="akkusativ">meine</td>
+                            <td class="akkusativ">mein</td>
+                        </tr>
+                        <tr>
+                            <td><strong>dein</strong> (tu)</td>
+                            <td class="akkusativ">deinen</td>
+                            <td class="akkusativ">deine</td>
+                            <td class="akkusativ">dein</td>
+                        </tr>
+                        <tr>
+                            <td><strong>sein</strong> (su-él)</td>
+                            <td class="akkusativ">seinen</td>
+                            <td class="akkusativ">seine</td>
+                            <td class="akkusativ">sein</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ihr</strong> (su-ella)</td>
+                            <td class="akkusativ">ihren</td>
+                            <td class="akkusativ">ihre</td>
+                            <td class="akkusativ">ihr</td>
+                        </tr>
+                        <tr>
+                            <td><strong>unser</strong> (nuestro)</td>
+                            <td class="akkusativ">unseren</td>
+                            <td class="akkusativ">unsere</td>
+                            <td class="akkusativ">unser</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="example">
+                <p><strong>Ejemplos:</strong></p>
+                <p>• Ich liebe <span class="akkusativ">meinen Vater</span>. (Amo a mi padre)</p>
+                <p>• Er besucht <span class="akkusativ">seine Mutter</span>. (Él visita a su madre)</p>
+                <p>• Wir verkaufen <span class="akkusativ">unser Auto</span>. (Vendemos nuestro coche)</p>
+            </div>
+        </div>
+        
+        <!-- Sección 6 -->
+        <div class="section" data-section="6">
+            <h2>🎯 Verbos que usan Akkusativ</h2>
+            
+            <div class="rule-box">
+                <p style="margin-bottom: 20px;">La mayoría de los verbos transitivos usan acusativo:</p>
+                
+                <table>
+                    <tr>
+                        <th>Verbo</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>haben</strong></td>
+                        <td>tener</td>
+                        <td>Ich habe <span class="akkusativ">einen Bruder</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sehen</strong></td>
+                        <td>ver</td>
+                        <td>Sie sieht <span class="akkusativ">den Film</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>kaufen</strong></td>
+                        <td>comprar</td>
+                        <td>Er kauft <span class="akkusativ">das Buch</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>lesen</strong></td>
+                        <td>leer</td>
+                        <td>Du liest <span class="akkusativ">die Zeitung</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>trinken</strong></td>
+                        <td>beber</td>
+                        <td>Wir trinken <span class="akkusativ">Kaffee</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>essen</strong></td>
+                        <td>comer</td>
+                        <td>Ihr esst <span class="akkusativ">einen Apfel</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>brauchen</strong></td>
+                        <td>necesitar</td>
+                        <td>Ich brauche <span class="akkusativ">deine Hilfe</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>lieben</strong></td>
+                        <td>amar</td>
+                        <td>Er liebt <span class="akkusativ">seine Frau</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>suchen</strong></td>
+                        <td>buscar</td>
+                        <td>Sie sucht <span class="akkusativ">ihren Schlüssel</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>besuchen</strong></td>
+                        <td>visitar</td>
+                        <td>Wir besuchen <span class="akkusativ">unsere Großeltern</span>.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Sección 7 -->
+        <div class="section" data-section="7">
+            <h2>✏️ Ejercicio 1</h2>
+            
+            <div class="exercise">
+                <h3>Completa con el artículo correcto en Akkusativ</h3>
+                
+                <div class="question">
+                    <p>1. Ich sehe <input type="text" id="ex1q1" style="width: 80px;"> Mann. (masculino definido)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Er kauft <input type="text" id="ex1q2" style="width: 80px;"> Auto. (neutro indefinido)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Sie liebt <input type="text" id="ex1q3" style="width: 80px;"> Musik. (femenino definido)</p>
+                </div>
+                
+                <div class="question">
+                    <p>4. Wir haben <input type="text" id="ex1q4" style="width: 80px;"> Hund. (masculino indefinido)</p>
+                </div>
+                
+                <button onclick="checkExercise1()">Comprobar</button>
+                <button onclick="resetExercise1()">Reiniciar</button>
+                <div id="result1" class="result"></div>
+            </div>
+        </div>
+        
+        <!-- Sección 8 -->
+        <div class="section" data-section="8">
+            <h2>✏️ Ejercicio 2</h2>
+            
+            <div class="exercise">
+                <h3>Completa con "kein" en Akkusativ</h3>
+                
+                <div class="question">
+                    <p>1. Ich habe <input type="text" id="ex2q1" style="width: 100px;"> Zeit. (femenino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Er hat <input type="text" id="ex2q2" style="width: 100px;"> Bruder. (masculino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Wir brauchen <input type="text" id="ex2q3" style="width: 100px;"> Geld. (neutro)</p>
+                </div>
+                
+                <button onclick="checkExercise2()">Comprobar</button>
+                <button onclick="resetExercise2()">Reiniciar</button>
+                <div id="result2" class="result"></div>
+            </div>
+        </div>
+        
+        <!-- Sección 9 -->
+        <div class="section" data-section="9">
+            <h2>✏️ Ejercicio 3</h2>
+            
+            <div class="exercise">
+                <h3>Completa con el posesivo correcto en Akkusativ</h3>
+                
+                <div class="question">
+                    <p>1. Ich liebe <input type="text" id="ex3q1" style="width: 120px;"> Vater. (mi - masculino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>2. Er sucht <input type="text" id="ex3q2" style="width: 120px;"> Schwester. (su de él - femenino)</p>
+                </div>
+                
+                <div class="question">
+                    <p>3. Wir verkaufen <input type="text" id="ex3q3" style="width: 120px;"> Auto. (nuestro - neutro)</p>
+                </div>
+                
+                <button onclick="checkExercise3()">Comprobar</button>
+                <button onclick="resetExercise3()">Reiniciar</button>
+                <div id="result3" class="result"></div>
+            </div>
+        </div>
+        
+        <!-- Sección 10 -->
+        <div class="section" data-section="10">
+            <h2>📋 Resumen</h2>
+            
+            <div class="rule-box">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Tabla Resumen:</h3>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Masculino</th>
+                            <th>Femenino</th>
+                            <th>Neutro</th>
+                            <th>Plural</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Definido</strong></td>
+                            <td class="akkusativ">den</td>
+                            <td class="akkusativ">die</td>
+                            <td class="akkusativ">das</td>
+                            <td class="akkusativ">die</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Indefinido</strong></td>
+                            <td class="akkusativ">einen</td>
+                            <td class="akkusativ">eine</td>
+                            <td class="akkusativ">ein</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Negativo</strong></td>
+                            <td class="akkusativ">keinen</td>
+                            <td class="akkusativ">keine</td>
+                            <td class="akkusativ">kein</td>
+                            <td class="akkusativ">keine</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Posesivo</strong></td>
+                            <td class="akkusativ">meinen</td>
+                            <td class="akkusativ">meine</td>
+                            <td class="akkusativ">mein</td>
+                            <td class="akkusativ">meine</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <strong>🎯 Regla de oro:</strong> Solo el <strong>masculino</strong> cambia en acusativo.
+            </div>
+            
+            <div class="tip" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <strong>✅ ¡Felicitaciones!</strong> Has completado la lección sobre el Akkusativ.
+            </div>
+        </div>
+        
+        <!-- NAVEGACIÓN -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSection(-1)" disabled>
+                ← Anterior
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="progress-indicator" id="progressDots"></div>
+                <div class="section-counter">
+                    <span id="currentSection">1</span> / <span id="totalSections">10</span>
+                </div>
+            </div>
+            
+            <button class="nav-button" id="nextBtn" onclick="changeSection(1)">
+                Siguiente →
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSection = 1;
+        const totalSections = 10;
+        
+        // Inicializar navegación al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            initNavigation();
+        });
+        
+        function initNavigation() {
+            const progressDots = document.getElementById('progressDots');
+            for (let i = 1; i <= totalSections; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (i === 1 ? ' active' : '');
+                dot.onclick = () => goToSection(i);
+                dot.title = `Ir a sección ${i}`;
+                progressDots.appendChild(dot);
+            }
+            updateNavigation();
+        }
+        
+        function changeSection(direction) {
+            const newSection = currentSection + direction;
+            if (newSection >= 1 && newSection <= totalSections) {
+                goToSection(newSection);
+            }
+        }
+        
+        function goToSection(sectionNumber) {
+            // Remover clase active de la sección actual
+            const currentSectionElement = document.querySelector(`[data-section="${currentSection}"]`);
+            if (currentSectionElement) {
+                currentSectionElement.classList.remove('active');
+            }
+            
+            // Actualizar número de sección
+            currentSection = sectionNumber;
+            
+            // Agregar clase active a la nueva sección
+            const newSectionElement = document.querySelector(`[data-section="${currentSection}"]`);
+            if (newSectionElement) {
+                newSectionElement.classList.add('active');
+            }
+            
+            // Actualizar navegación
+            updateNavigation();
+            
+            // Scroll suave al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function updateNavigation() {
+            // Actualizar botones
+            document.getElementById('prevBtn').disabled = currentSection === 1;
+            document.getElementById('nextBtn').disabled = currentSection === totalSections;
+            document.getElementById('currentSection').textContent = currentSection;
+            
+            // Actualizar puntos de progreso
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                if (index + 1 === currentSection) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSection < totalSections) {
+                changeSection(1);
+            } else if (e.key === 'ArrowLeft' && currentSection > 1) {
+                changeSection(-1);
+            }
+        });
+        
+        // EJERCICIO 1
+        function checkExercise1() {
+            const answers = {
+                ex1q1: 'den',
+                ex1q2: 'ein',
+                ex1q3: 'die',
+                ex1q4: 'einen'
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id]) {
+                    correct++;
+                    input.style.borderColor = '#4caf50';
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const result = document.getElementById('result1');
+            if (correct === total) {
+                result.className = 'result correct';
+                result.textContent = `¡Perfecto! ${correct}/${total} correctas ✓`;
+            } else {
+                result.className = 'result incorrect';
+                result.textContent = `${correct}/${total} correctas. Inténtalo de nuevo.`;
+            }
+        }
+        
+        function resetExercise1() {
+            ['ex1q1', 'ex1q2', 'ex1q3', 'ex1q4'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result1').className = 'result';
+        }
+        
+        // EJERCICIO 2
+        function checkExercise2() {
+            const answers = {
+                ex2q1: 'keine',
+                ex2q2: 'keinen',
+                ex2q3: 'kein'
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id]) {
+                    correct++;
+                    input.style.borderColor = '#4caf50';
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const result = document.getElementById('result2');
+            if (correct === total) {
+                result.className = 'result correct';
+                result.textContent = `¡Excelente! ${correct}/${total} correctas ✓`;
+            } else {
+                result.className = 'result incorrect';
+                result.textContent = `${correct}/${total} correctas. Revisa las respuestas.`;
+            }
+        }
+        
+        function resetExercise2() {
+            ['ex2q1', 'ex2q2', 'ex2q3'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result2').className = 'result';
+        }
+        
+        // EJERCICIO 3
+        function checkExercise3() {
+            const answers = {
+                ex3q1: 'meinen',
+                ex3q2: 'seine',
+                ex3q3: 'unser'
+            };
+            
+            let correct = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id]) {
+                    correct++;
+                    input.style.borderColor = '#4caf50';
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+            
+            const result = document.getElementById('result3');
+            if (correct === total) {
+                result.className = 'result correct';
+                result.textContent = `¡Increíble! ${correct}/${total} correctas ✓`;
+            } else {
+                result.className = 'result incorrect';
+                result.textContent = `${correct}/${total} correctas. Sigue intentando.`;
+            }
+        }
+        
+        function resetExercise3() {
+            ['ex3q1', 'ex3q2', 'ex3q3'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result3').className = 'result';
+        }
+    </script>
+</body>
+</html>

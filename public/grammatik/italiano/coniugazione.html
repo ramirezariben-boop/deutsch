@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conjugación Italiana — Tutti i Tempi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1208;
+    --gold: #c8962a;
+    --rust: #b34a2a;
+    --olive: #5a6e3a;
+    --terracotta: #c4623a;
+    --sage: #8a9e72;
+    --shadow: rgba(26,18,8,0.12);
+    --nav-h: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    padding: 0 1.5rem;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-brand {
+    font-family: 'IM Fell English SC', serif;
+    color: var(--gold);
+    font-size: 1rem;
+    white-space: nowrap;
+    margin-right: 2rem;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .nav-group-label {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.55);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-btn.active { color: var(--gold); background: rgba(200,150,42,0.15); }
+
+  .nav-sep {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+    margin: 0 0.5rem;
+  }
+
+  /* ── CONTENT ── */
+  main {
+    padding-top: calc(var(--nav-h) + 2rem);
+    padding-bottom: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .slide {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .slide.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SLIDE HEADER ── */
+  .slide-header {
+    border-left: 5px solid var(--gold);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .slide-mode {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .slide-subtitle {
+    font-size: 0.9rem;
+    color: rgba(26,18,8,0.55);
+    font-style: italic;
+  }
+
+  /* ── DESCRIPTION BOX ── */
+  .desc-box {
+    background: white;
+    border: 1px solid rgba(26,18,8,0.1);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: rgba(26,18,8,0.8);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .desc-box strong { color: var(--rust); }
+  .desc-box em { color: var(--olive); font-style: italic; }
+
+  /* ── USE CASES ── */
+  .uses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+  .use-tag {
+    background: rgba(200,150,42,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(200,150,42,0.3);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── CONJUGATION TABLE ── */
+  .table-wrap {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(26,18,8,0.08);
+  }
+  .table-title {
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 1.25rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th {
+    background: rgba(26,18,8,0.04);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(26,18,8,0.45);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(26,18,8,0.08);
+  }
+  td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(26,18,8,0.05);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(200,150,42,0.04); }
+  .pronoun { color: rgba(26,18,8,0.4); font-size: 0.82rem; width: 90px; }
+  .verb-form { font-weight: 500; color: var(--ink); }
+  .verb-are { color: var(--rust); }
+  .verb-ere { color: var(--olive); }
+  .verb-ire { color: #5a4a8a; }
+  .example { font-style: italic; color: rgba(26,18,8,0.55); font-size: 0.82rem; }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    border-left: 3px solid var(--terracotta);
+    padding: 0.9rem 1.25rem;
+    background: rgba(196,98,58,0.06);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(26,18,8,0.75);
+    margin-bottom: 1.5rem;
+  }
+  .note-box .note-label {
+    font-weight: 600;
+    color: var(--terracotta);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── TWO COLS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  @media(max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── HOME SLIDE ── */
+  .home-hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+  .home-hero .flag { font-size: 3rem; margin-bottom: 1rem; }
+  .home-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  .home-hero p {
+    color: rgba(26,18,8,0.55);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    text-align: left;
+  }
+  .index-card {
+    background: white;
+    border: 1px solid rgba(26,18,8,0.1);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+  .index-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow);
+  }
+  .index-card .ic-mode {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+  .index-card .ic-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+  .index-card .ic-sub {
+    font-size: 0.75rem;
+    color: rgba(26,18,8,0.45);
+    margin-top: 0.15rem;
+  }
+
+  /* ── NAV ARROWS ── */
+  .slide-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  .snav-btn {
+    background: var(--ink);
+    color: var(--gold);
+    border: none;
+    padding: 0.65rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .snav-btn:hover { background: #2d2010; }
+  .snav-btn:disabled { opacity: 0.3; cursor: default; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">🇮🇹 Italiano</div>
+
+  <button class="nav-btn active" onclick="goTo('home')">Inicio</button>
+  <div class="nav-sep"></div>
+
+  <span class="nav-group-label">Indicativo</span>
+  <div class="nav-group">
+    <button class="nav-btn" onclick="goTo('presente')">Presente</button>
+    <button class="nav-btn" onclick="goTo('imperfetto')">Imperfetto</button>
+    <button class="nav-btn" onclick="goTo('passato-prossimo')">Pass. Prossimo</button>
+    <button class="nav-btn" onclick="goTo('passato-remoto')">Pass. Remoto</button>
+    <button class="nav-btn" onclick="goTo('trapassato-prossimo')">Traps. Prox.</button>
+    <button class="nav-btn" onclick="goTo('trapassato-remoto')">Traps. Rem.</button>
+    <button class="nav-btn" onclick="goTo('futuro-semplice')">Futuro Semplice</button>
+    <button class="nav-btn" onclick="goTo('futuro-anteriore')">Futuro Anteriore</button>
+  </div>
+  <div class="nav-sep"></div>
+
+  <span class="nav-group-label">Congiuntivo</span>
+  <div class="nav-group">
+    <button class="nav-btn" onclick="goTo('cong-presente')">Presente</button>
+    <button class="nav-btn" onclick="goTo('cong-passato')">Passato</button>
+    <button class="nav-btn" onclick="goTo('cong-imperfetto')">Imperfetto</button>
+    <button class="nav-btn" onclick="goTo('cong-trapassato')">Trapassato</button>
+  </div>
+  <div class="nav-sep"></div>
+
+  <span class="nav-group-label">Condizionale</span>
+  <div class="nav-group">
+    <button class="nav-btn" onclick="goTo('cond-presente')">Presente</button>
+    <button class="nav-btn" onclick="goTo('cond-passato')">Passato</button>
+  </div>
+  <div class="nav-sep"></div>
+
+  <span class="nav-group-label">Imperativo</span>
+  <div class="nav-group">
+    <button class="nav-btn" onclick="goTo('imperativo')">Imperativo</button>
+  </div>
+  <div class="nav-sep"></div>
+
+  <span class="nav-group-label">Infinito</span>
+  <div class="nav-group">
+    <button class="nav-btn" onclick="goTo('infinito')">Infinito</button>
+    <button class="nav-btn" onclick="goTo('gerundio')">Gerundio</button>
+    <button class="nav-btn" onclick="goTo('participio')">Participio</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="slide active" id="slide-home">
+  <div class="home-hero">
+    <div class="flag">🇮🇹</div>
+    <h1>Tutti i Tempi<br>dell'Italiano</h1>
+    <p>Guía completa de todos los modos y tiempos verbales del italiano, con conjugaciones, usos y ejemplos.</p>
+  </div>
+  <div class="index-grid">
+    <div class="index-card" onclick="goTo('presente')"><div class="ic-mode">Indicativo</div><div class="ic-name">Presente</div><div class="ic-sub">Acciones habituales y actuales</div></div>
+    <div class="index-card" onclick="goTo('imperfetto')"><div class="ic-mode">Indicativo</div><div class="ic-name">Imperfetto</div><div class="ic-sub">Pasado habitual / descriptivo</div></div>
+    <div class="index-card" onclick="goTo('passato-prossimo')"><div class="ic-mode">Indicativo</div><div class="ic-name">Passato Prossimo</div><div class="ic-sub">Pasado reciente o relevante</div></div>
+    <div class="index-card" onclick="goTo('passato-remoto')"><div class="ic-mode">Indicativo</div><div class="ic-name">Passato Remoto</div><div class="ic-sub">Pasado histórico o lejano</div></div>
+    <div class="index-card" onclick="goTo('trapassato-prossimo')"><div class="ic-mode">Indicativo</div><div class="ic-name">Trapassato Prossimo</div><div class="ic-sub">Anterior a otro hecho pasado</div></div>
+    <div class="index-card" onclick="goTo('trapassato-remoto')"><div class="ic-mode">Indicativo</div><div class="ic-name">Trapassato Remoto</div><div class="ic-sub">Anterior a pasado remoto</div></div>
+    <div class="index-card" onclick="goTo('futuro-semplice')"><div class="ic-mode">Indicativo</div><div class="ic-name">Futuro Semplice</div><div class="ic-sub">Acciones futuras</div></div>
+    <div class="index-card" onclick="goTo('futuro-anteriore')"><div class="ic-mode">Indicativo</div><div class="ic-name">Futuro Anteriore</div><div class="ic-sub">Futuro anterior a otro futuro</div></div>
+    <div class="index-card" onclick="goTo('cong-presente')"><div class="ic-mode">Congiuntivo</div><div class="ic-name">Presente</div><div class="ic-sub">Opinión, deseo, duda (presente)</div></div>
+    <div class="index-card" onclick="goTo('cong-passato')"><div class="ic-mode">Congiuntivo</div><div class="ic-name">Passato</div><div class="ic-sub">Opinión sobre hecho pasado</div></div>
+    <div class="index-card" onclick="goTo('cong-imperfetto')"><div class="ic-mode">Congiuntivo</div><div class="ic-name">Imperfetto</div><div class="ic-sub">Hipótesis en pasado</div></div>
+    <div class="index-card" onclick="goTo('cong-trapassato')"><div class="ic-mode">Congiuntivo</div><div class="ic-name">Trapassato</div><div class="ic-sub">Hipótesis anterior al pasado</div></div>
+    <div class="index-card" onclick="goTo('cond-presente')"><div class="ic-mode">Condizionale</div><div class="ic-name">Presente</div><div class="ic-sub">Condiciones y cortesía</div></div>
+    <div class="index-card" onclick="goTo('cond-passato')"><div class="ic-mode">Condizionale</div><div class="ic-name">Passato</div><div class="ic-sub">Condición en el pasado</div></div>
+    <div class="index-card" onclick="goTo('imperativo')"><div class="ic-mode">Imperativo</div><div class="ic-name">Imperativo</div><div class="ic-sub">Órdenes y solicitudes</div></div>
+    <div class="index-card" onclick="goTo('infinito')"><div class="ic-mode">Modi Indefiniti</div><div class="ic-name">Infinito</div><div class="ic-sub">Presente y pasado</div></div>
+    <div class="index-card" onclick="goTo('gerundio')"><div class="ic-mode">Modi Indefiniti</div><div class="ic-name">Gerundio</div><div class="ic-sub">Stando parlando...</div></div>
+    <div class="index-card" onclick="goTo('participio')"><div class="ic-mode">Modi Indefiniti</div><div class="ic-name">Participio</div><div class="ic-sub">Passato e presente</div></div>
+  </div>
+</div>
+
+<!-- PRESENTE -->
+<div class="slide" id="slide-presente">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Presente</div>
+    <div class="slide-subtitle">Il presente indicativo</div>
+  </div>
+  <div class="desc-box">
+    El presente indicativo expresa <strong>acciones que ocurren ahora</strong>, <strong>verdades generales</strong> y <strong>hábitos</strong>. También se usa para el futuro próximo planificado.
+    <div class="uses">
+      <span class="use-tag">Acciones actuales</span>
+      <span class="use-tag">Hábitos</span>
+      <span class="use-tag">Verdades generales</span>
+      <span class="use-tag">Futuro planificado</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">-ARE → parlare (hablar)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlo</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parli</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parla</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parliamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlate</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlano</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">-ERE → credere (creer)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">credo</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">credi</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">crede</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">crediamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">credete</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">credono</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">-IRE → partire (partir)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ire">parto</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ire">parti</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ire">parte</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ire">partiamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ire">partite</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ire">partono</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">-IRE (isc) → finire (terminar)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ire">finisco</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ire">finisci</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ire">finisce</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ire">finiamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ire">finite</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ire">finiscono</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Parlo italiano.</em> — Hablo italiano. &nbsp;|&nbsp; <em>Credi in lui?</em> — ¿Crees en él? &nbsp;|&nbsp; <em>Domani parto.</em> — Mañana parto.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" disabled>← Anterior</button>
+    <button class="snav-btn" onclick="goTo('imperfetto')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- IMPERFETTO -->
+<div class="slide" id="slide-imperfetto">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Imperfetto</div>
+    <div class="slide-subtitle">L'imperfetto indicativo</div>
+  </div>
+  <div class="desc-box">
+    El imperfetto describe <strong>acciones habituales en el pasado</strong>, <strong>estados continuos</strong>, <strong>descripciones</strong> y acciones en curso cuando ocurrió otra cosa. Es el equivalente al pretérito imperfecto español.
+    <div class="uses">
+      <span class="use-tag">Hábitos pasados</span>
+      <span class="use-tag">Descripciones</span>
+      <span class="use-tag">Estado de fondo</span>
+      <span class="use-tag">Cortesía</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare → -avo, -avi, -ava...</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlavo</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parlavi</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parlava</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parlavamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlavate</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlavano</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">credere / partire → -evo / -ivo</div>
+      <table><thead><tr><th>Pronombre</th><th>-ere</th><th>-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">credevo</td><td class="verb-form verb-ire">partivo</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">credevi</td><td class="verb-form verb-ire">partivi</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">credeva</td><td class="verb-form verb-ire">partiva</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">credevamo</td><td class="verb-form verb-ire">partivamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">credevate</td><td class="verb-form verb-ire">partivate</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">credevano</td><td class="verb-form verb-ire">partivano</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Da bambino, parlavo sempre italiano.</em> — De niño, siempre hablaba italiano. &nbsp;|&nbsp; <em>Mentre leggevo, suonò il telefono.</em> — Mientras leía, sonó el teléfono.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('presente')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('passato-prossimo')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PASSATO PROSSIMO -->
+<div class="slide" id="slide-passato-prossimo">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Passato Prossimo</div>
+    <div class="slide-subtitle">Tiempo compuesto: auxiliar + participio passato</div>
+  </div>
+  <div class="desc-box">
+    El passato prossimo expresa <strong>acciones concluidas en el pasado reciente</strong> o con relevancia en el presente. Se forma con <strong>avere</strong> o <strong>essere</strong> + participio pasado.
+    <div class="uses">
+      <span class="use-tag">Pasado reciente</span>
+      <span class="use-tag">Acción completa</span>
+      <span class="use-tag">Resultado presente</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → parlare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">ho parlato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">hai parlato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">ha parlato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">abbiamo parlato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">avete parlato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">hanno parlato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → andare (concordancia)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io (m/f)</td><td class="verb-form verb-ere">sono andato/a</td></tr>
+        <tr><td class="pronoun">tu (m/f)</td><td class="verb-form verb-ere">sei andato/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">è andato/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">siamo andati/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">siete andati/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">sono andati/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">⚠️ Con ESSERE</span>
+    Los verbos de movimiento (andare, venire, partire...), verbos reflexivos y algunos verbos intransitivos usan ESSERE. El participio concuerda en género y número con el sujeto.
+  </div>
+  <div class="note-box"><span class="note-label">📌 Participios irregulares</span>
+    essere → stato &nbsp;|&nbsp; fare → fatto &nbsp;|&nbsp; dire → detto &nbsp;|&nbsp; prendere → preso &nbsp;|&nbsp; scrivere → scritto &nbsp;|&nbsp; vedere → visto &nbsp;|&nbsp; leggere → letto
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('imperfetto')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('passato-remoto')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PASSATO REMOTO -->
+<div class="slide" id="slide-passato-remoto">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Passato Remoto</div>
+    <div class="slide-subtitle">Acciones históricas o definitivamente concluidas</div>
+  </div>
+  <div class="desc-box">
+    Expresa <strong>acciones completamente concluidas</strong> en un tiempo distante del presente. Común en el <em>sur de Italia</em> y en la lengua escrita/literaria. En el norte se prefiere el passato prossimo.
+    <div class="uses">
+      <span class="use-tag">Historia</span>
+      <span class="use-tag">Narrativa literaria</span>
+      <span class="use-tag">Pasado lejano</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare (-are)</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlai</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parlasti</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parlò</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parlammo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlaste</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlarono</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">credere (-ere) / partire (-ire)</div>
+      <table><thead><tr><th>Pronombre</th><th>-ere</th><th>-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">credei/credetti</td><td class="verb-form verb-ire">partii</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">credesti</td><td class="verb-form verb-ire">partisti</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">credé/credette</td><td class="verb-form verb-ire">partì</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">credemmo</td><td class="verb-form verb-ire">partimmo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">credeste</td><td class="verb-form verb-ire">partiste</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">crederono/credettero</td><td class="verb-form verb-ire">partirono</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos históricos</span>
+    <em>Dante scrisse la Divina Commedia.</em> — Dante escribió la Divina Comedia. &nbsp;|&nbsp; <em>Roma cadde nel 476 d.C.</em> — Roma cayó en el 476 d.C.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('passato-prossimo')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('trapassato-prossimo')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- TRAPASSATO PROSSIMO -->
+<div class="slide" id="slide-trapassato-prossimo">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Trapassato Prossimo</div>
+    <div class="slide-subtitle">Anterior a otro hecho en el pasado — equivale al pluscuamperfecto</div>
+  </div>
+  <div class="desc-box">
+    Expresa una acción <strong>anterior a otra acción pasada</strong>. Se forma con el <strong>imperfetto de avere/essere</strong> + participio pasado.
+    <div class="uses">
+      <span class="use-tag">Anterioridad pasada</span>
+      <span class="use-tag">Causa-efecto en pasado</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → mangiare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">avevo mangiato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">avevi mangiato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">aveva mangiato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">avevamo mangiato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">avevate mangiato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">avevano mangiato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → arrivare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">ero arrivato/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">eri arrivato/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">era arrivato/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">eravamo arrivati/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">eravate arrivati/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">erano arrivati/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Quando arrivai, loro avevano già mangiato.</em> — Cuando llegué, ellos ya habían comido. &nbsp;|&nbsp; <em>Era partita prima che io arrivassi.</em> — Había partido antes de que yo llegara.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('passato-remoto')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('trapassato-remoto')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- TRAPASSATO REMOTO -->
+<div class="slide" id="slide-trapassato-remoto">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Trapassato Remoto</div>
+    <div class="slide-subtitle">Anterior inmediato al passato remoto — uso literario</div>
+  </div>
+  <div class="desc-box">
+    Expresa una acción ocurrida <strong>inmediatamente antes de otra en passato remoto</strong>. Uso <em>exclusivamente literario</em>. Se forma con el passato remoto de avere/essere + participio pasado.
+    <div class="uses">
+      <span class="use-tag">Lenguaje literario</span>
+      <span class="use-tag">Anterioridad al passato remoto</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → finire</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">ebbi finito</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">avesti finito</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">ebbe finito</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">avemmo finito</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">aveste finito</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">ebbero finito</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → partire</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">fui partito/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">fosti partito/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">fu partito/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">fummo partiti/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">foste partiti/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">furono partiti/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplo literario</span>
+    <em>Dopo che ebbe finito di parlare, tutti applaudirono.</em> — Después de que terminó de hablar, todos aplaudieron.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('trapassato-prossimo')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('futuro-semplice')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- FUTURO SEMPLICE -->
+<div class="slide" id="slide-futuro-semplice">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Futuro Semplice</div>
+    <div class="slide-subtitle">Acciones futuras, hipótesis, probabilidad presente</div>
+  </div>
+  <div class="desc-box">
+    Expresa <strong>acciones que ocurrirán en el futuro</strong>. También se usa para expresar <strong>suposiciones sobre el presente</strong> (futuro epistémico).
+    <div class="uses">
+      <span class="use-tag">Futuro</span>
+      <span class="use-tag">Suposición presente</span>
+      <span class="use-tag">Promesas</span>
+      <span class="use-tag">Órdenes formales</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare / credere / partire</div>
+      <table><thead><tr><th>Pronombre</th><th>-are</th><th>-ere/-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlerò</td><td class="verb-form verb-ere">crederò / partirò</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parlerai</td><td class="verb-form verb-ere">crederai / partirai</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parlerà</td><td class="verb-form verb-ere">crederà / partirà</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parleremo</td><td class="verb-form verb-ere">crederemo / partiremo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlerete</td><td class="verb-form verb-ere">crederete / partirete</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parleranno</td><td class="verb-form verb-ere">crederanno / partiranno</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Irregolari comuni</div>
+      <table><thead><tr><th>Infinito</th><th>Raíz futura</th><th>Ejemplo</th></tr></thead><tbody>
+        <tr><td>essere</td><td class="verb-form verb-are">sar-</td><td class="example">sarò, sarai...</td></tr>
+        <tr><td>avere</td><td class="verb-form verb-are">avr-</td><td class="example">avrò, avrai...</td></tr>
+        <tr><td>fare</td><td class="verb-form verb-are">far-</td><td class="example">farò, farai...</td></tr>
+        <tr><td>andare</td><td class="verb-form verb-are">andr-</td><td class="example">andrò, andrai...</td></tr>
+        <tr><td>venire</td><td class="verb-form verb-are">verr-</td><td class="example">verrò, verrai...</td></tr>
+        <tr><td>potere</td><td class="verb-form verb-are">potr-</td><td class="example">potrò, potrai...</td></tr>
+        <tr><td>dovere</td><td class="verb-form verb-are">dovr-</td><td class="example">dovrò, dovrai...</td></tr>
+        <tr><td>volere</td><td class="verb-form verb-are">vorr-</td><td class="example">vorrò, vorrai...</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Domani andrò a Roma.</em> — Mañana iré a Roma. &nbsp;|&nbsp; <em>Saranno le tre.</em> — Serán las tres (suposición).
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('trapassato-remoto')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('futuro-anteriore')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- FUTURO ANTERIORE -->
+<div class="slide" id="slide-futuro-anteriore">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Indicativo</div>
+    <div class="slide-title">Futuro Anteriore</div>
+    <div class="slide-subtitle">Futuro anterior a otro futuro — equivale al futuro compuesto</div>
+  </div>
+  <div class="desc-box">
+    Expresa una acción <strong>futura que habrá ocurrido antes de otra</strong>. También expresa suposiciones sobre el pasado reciente.
+    <div class="uses">
+      <span class="use-tag">Anterioridad futura</span>
+      <span class="use-tag">Suposición sobre el pasado</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → parlare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">avrò parlato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">avrai parlato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">avrà parlato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">avremo parlato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">avrete parlato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">avranno parlato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → arrivare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">sarò arrivato/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">sarai arrivato/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">sarà arrivato/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">saremo arrivati/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">sarete arrivati/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">saranno arrivati/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Quando tornerai, avrò già finito.</em> — Cuando regreses, ya habré terminado. &nbsp;|&nbsp; <em>Sarà già partito.</em> — Ya habrá partido (suposición).
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('futuro-semplice')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cong-presente')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONGIUNTIVO PRESENTE -->
+<div class="slide" id="slide-cong-presente">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Congiuntivo</div>
+    <div class="slide-title">Congiuntivo Presente</div>
+    <div class="slide-subtitle">Opinión, deseo, duda, emoción — frases subordinadas</div>
+  </div>
+  <div class="desc-box">
+    El congiuntivo expresa <strong>subjetividad</strong>: opiniones, deseos, dudas, emociones, posibilidad. Se usa en <strong>oraciones subordinadas</strong> introducidas por <em>che</em> tras verbos de opinión, voluntad, emoción o impersonales.
+    <div class="uses">
+      <span class="use-tag">Opinión (penso che...)</span>
+      <span class="use-tag">Deseo (voglio che...)</span>
+      <span class="use-tag">Duda (dubito che...)</span>
+      <span class="use-tag">Emoción (sono felice che...)</span>
+      <span class="use-tag">Impersonales (è importante che...)</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare / credere / partire</div>
+      <table><thead><tr><th>Pronombre</th><th>-are</th><th>-ere</th><th>-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parli</td><td class="verb-form verb-ere">creda</td><td class="verb-form verb-ire">parta</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parli</td><td class="verb-form verb-ere">creda</td><td class="verb-form verb-ire">parta</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parli</td><td class="verb-form verb-ere">creda</td><td class="verb-form verb-ire">parta</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parliamo</td><td class="verb-form verb-ere">crediamo</td><td class="verb-form verb-ire">partiamo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parliate</td><td class="verb-form verb-ere">crediate</td><td class="verb-form verb-ire">partiate</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlino</td><td class="verb-form verb-ere">credano</td><td class="verb-form verb-ire">partano</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Irregolari</div>
+      <table><thead><tr><th>Verbo</th><th>io/tu/lui</th><th>noi</th><th>loro</th></tr></thead><tbody>
+        <tr><td>essere</td><td class="verb-form verb-are">sia</td><td class="verb-form verb-are">siamo</td><td class="verb-form verb-are">siano</td></tr>
+        <tr><td>avere</td><td class="verb-form verb-are">abbia</td><td class="verb-form verb-are">abbiamo</td><td class="verb-form verb-are">abbiano</td></tr>
+        <tr><td>fare</td><td class="verb-form verb-are">faccia</td><td class="verb-form verb-are">facciamo</td><td class="verb-form verb-are">facciano</td></tr>
+        <tr><td>andare</td><td class="verb-form verb-are">vada</td><td class="verb-form verb-are">andiamo</td><td class="verb-form verb-are">vadano</td></tr>
+        <tr><td>venire</td><td class="verb-form verb-are">venga</td><td class="verb-form verb-are">veniamo</td><td class="verb-form verb-are">vengano</td></tr>
+        <tr><td>sapere</td><td class="verb-form verb-are">sappia</td><td class="verb-form verb-are">sappiamo</td><td class="verb-form verb-are">sappiano</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Penso che lui parli bene.</em> — Creo que él habla bien. &nbsp;|&nbsp; <em>È importante che tu venga.</em> — Es importante que vengas. &nbsp;|&nbsp; <em>Voglio che siano felici.</em> — Quiero que sean felices.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('futuro-anteriore')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cong-passato')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONGIUNTIVO PASSATO -->
+<div class="slide" id="slide-cong-passato">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Congiuntivo</div>
+    <div class="slide-title">Congiuntivo Passato</div>
+    <div class="slide-subtitle">Opinión o emoción sobre un hecho pasado</div>
+  </div>
+  <div class="desc-box">
+    Expresa <strong>opinión, duda o emoción sobre algo que ya ocurrió</strong>. Se forma con el <strong>congiuntivo presente de avere/essere</strong> + participio pasado.
+    <div class="uses">
+      <span class="use-tag">Hecho pasado desde perspectiva subjetiva</span>
+      <span class="use-tag">Anterioridad en frases con che</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → parlare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">abbia parlato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">abbia parlato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">abbia parlato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">abbiamo parlato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">abbiate parlato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">abbiano parlato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → andare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">sia andato/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">sia andato/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">sia andato/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">siamo andati/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">siate andati/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">siano andati/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Penso che abbia già mangiato.</em> — Creo que ya ha comido. &nbsp;|&nbsp; <em>Sono felice che tu sia venuto.</em> — Estoy feliz de que hayas venido.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cong-presente')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cong-imperfetto')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONGIUNTIVO IMPERFETTO -->
+<div class="slide" id="slide-cong-imperfetto">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Congiuntivo</div>
+    <div class="slide-title">Congiuntivo Imperfetto</div>
+    <div class="slide-subtitle">Hipótesis en pasado — frases con "se" y concordanza dei tempi</div>
+  </div>
+  <div class="desc-box">
+    Usado en <strong>oraciones hipotéticas</strong> (si... allora...), en la <strong>concordanza dei tempi</strong> cuando la principal está en pasado, y para expresar deseos o suposiciones en el pasado.
+    <div class="uses">
+      <span class="use-tag">Si + cong. imp. → cond. pres.</span>
+      <span class="use-tag">Concordanza dei tempi</span>
+      <span class="use-tag">Frases con magari, come se</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare / credere / partire</div>
+      <table><thead><tr><th>Pronombre</th><th>-are</th><th>-ere</th><th>-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlassi</td><td class="verb-form verb-ere">credessi</td><td class="verb-form verb-ire">partissi</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parlassi</td><td class="verb-form verb-ere">credessi</td><td class="verb-form verb-ire">partissi</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parlasse</td><td class="verb-form verb-ere">credesse</td><td class="verb-form verb-ire">partisse</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parlassimo</td><td class="verb-form verb-ere">credessimo</td><td class="verb-form verb-ire">partissimo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlaste</td><td class="verb-form verb-ere">credeste</td><td class="verb-form verb-ire">partiste</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlassero</td><td class="verb-form verb-ere">credessero</td><td class="verb-form verb-ire">partissero</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Irregolari</div>
+      <table><thead><tr><th>Verbo</th><th>io/tu</th><th>lui/lei</th><th>loro</th></tr></thead><tbody>
+        <tr><td>essere</td><td class="verb-form verb-are">fossi</td><td class="verb-form verb-are">fosse</td><td class="verb-form verb-are">fossero</td></tr>
+        <tr><td>avere</td><td class="verb-form verb-are">avessi</td><td class="verb-form verb-are">avesse</td><td class="verb-form verb-are">avessero</td></tr>
+        <tr><td>fare</td><td class="verb-form verb-are">facessi</td><td class="verb-form verb-are">facesse</td><td class="verb-form verb-are">facessero</td></tr>
+        <tr><td>dare</td><td class="verb-form verb-are">dessi</td><td class="verb-form verb-are">desse</td><td class="verb-form verb-are">dessero</td></tr>
+        <tr><td>stare</td><td class="verb-form verb-are">stessi</td><td class="verb-form verb-are">stesse</td><td class="verb-form verb-are">stessero</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Se parlassi italiano, potrei lavorare in Italia.</em> — Si hablara italiano, podría trabajar en Italia. &nbsp;|&nbsp; <em>Pensavo che tu fossi a Roma.</em> — Creía que estabas en Roma.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cong-passato')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cong-trapassato')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONGIUNTIVO TRAPASSATO -->
+<div class="slide" id="slide-cong-trapassato">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Congiuntivo</div>
+    <div class="slide-title">Congiuntivo Trapassato</div>
+    <div class="slide-subtitle">Hipótesis anterior al pasado — "Si avessi... avrei..."</div>
+  </div>
+  <div class="desc-box">
+    El congiuntivo trapassato expresa <strong>hipótesis sobre el pasado</strong> que no se cumplieron. Se usa típicamente en frases del tipo <em>Se avessi studiato, avresti capito.</em>
+    <div class="uses">
+      <span class="use-tag">Si + cong. traps. → cond. passato</span>
+      <span class="use-tag">Condición irreal en el pasado</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → studiare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">avessi studiato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">avessi studiato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">avesse studiato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">avessimo studiato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">aveste studiato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">avessero studiato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → venire</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">fossi venuto/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">fossi venuto/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">fosse venuto/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">fossimo venuti/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">foste venuti/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">fossero venuti/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Se avessi studiato, avresti superato l'esame.</em> — Si hubieras estudiado, habrías aprobado el examen. &nbsp;|&nbsp; <em>Magari avesse detto la verità!</em> — ¡Ojalá hubiera dicho la verdad!
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cong-imperfetto')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cond-presente')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONDIZIONALE PRESENTE -->
+<div class="slide" id="slide-cond-presente">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Condizionale</div>
+    <div class="slide-title">Condizionale Presente</div>
+    <div class="slide-subtitle">Condiciones, cortesía, deseos — equivale al condicional simple</div>
+  </div>
+  <div class="desc-box">
+    Expresa <strong>acciones condicionadas</strong>, <strong>deseos</strong>, <strong>peticiones corteses</strong> y forma la apódosis de las frases hipotéticas del tipo 2 (irreales en presente).
+    <div class="uses">
+      <span class="use-tag">Petición cortés</span>
+      <span class="use-tag">Condición irreal presente</span>
+      <span class="use-tag">Deseos</span>
+      <span class="use-tag">Opinión suavizada</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">parlare / credere / partire</div>
+      <table><thead><tr><th>Pronombre</th><th>-are</th><th>-ere/-ire</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">parlerei</td><td class="verb-form verb-ere">crederei / partirei</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parleresti</td><td class="verb-form verb-ere">crederesti / partiresti</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">parlerebbe</td><td class="verb-form verb-ere">crederebbe / partirebbe</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parleremmo</td><td class="verb-form verb-ere">crederemmo / partiremmo</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlereste</td><td class="verb-form verb-ere">credereste / partireste</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">parlerebbero</td><td class="verb-form verb-ere">crederebbero / partirebbero</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Irregolari (misma raíz que futuro)</div>
+      <table><thead><tr><th>Verbo</th><th>io</th><th>lui/lei</th><th>loro</th></tr></thead><tbody>
+        <tr><td>essere</td><td class="verb-form verb-are">sarei</td><td class="verb-form verb-are">sarebbe</td><td class="verb-form verb-are">sarebbero</td></tr>
+        <tr><td>avere</td><td class="verb-form verb-are">avrei</td><td class="verb-form verb-are">avrebbe</td><td class="verb-form verb-are">avrebbero</td></tr>
+        <tr><td>fare</td><td class="verb-form verb-are">farei</td><td class="verb-form verb-are">farebbe</td><td class="verb-form verb-are">farebbero</td></tr>
+        <tr><td>andare</td><td class="verb-form verb-are">andrei</td><td class="verb-form verb-are">andrebbe</td><td class="verb-form verb-are">andrebbero</td></tr>
+        <tr><td>venire</td><td class="verb-form verb-are">verrei</td><td class="verb-form verb-are">verrebbe</td><td class="verb-form verb-are">verrebbero</td></tr>
+        <tr><td>volere</td><td class="verb-form verb-are">vorrei</td><td class="verb-form verb-are">vorrebbe</td><td class="verb-form verb-are">vorrebbero</td></tr>
+        <tr><td>potere</td><td class="verb-form verb-are">potrei</td><td class="verb-form verb-are">potrebbe</td><td class="verb-form verb-are">potrebbero</td></tr>
+        <tr><td>dovere</td><td class="verb-form verb-are">dovrei</td><td class="verb-form verb-are">dovrebbe</td><td class="verb-form verb-are">dovrebbero</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Vorrei un caffè, per favore.</em> — Quisiera un café, por favor. &nbsp;|&nbsp; <em>Se avessi tempo, viaggerei di più.</em> — Si tuviera tiempo, viajaría más. &nbsp;|&nbsp; <em>Dovresti studiare.</em> — Deberías estudiar.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cong-trapassato')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('cond-passato')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- CONDIZIONALE PASSATO -->
+<div class="slide" id="slide-cond-passato">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Condizionale</div>
+    <div class="slide-title">Condizionale Passato</div>
+    <div class="slide-subtitle">Condición irreal en el pasado — equivale al condicional compuesto</div>
+  </div>
+  <div class="desc-box">
+    Expresa <strong>acciones que habrían ocurrido en el pasado</strong> bajo una condición que no se cumplió. También se usa para el futuro en el pasado en discurso indirecto.
+    <div class="uses">
+      <span class="use-tag">Condición irreal pasada</span>
+      <span class="use-tag">Arrepentimiento</span>
+      <span class="use-tag">Futuro en el pasado</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Con AVERE → mangiare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-are">avrei mangiato</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-are">avresti mangiato</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-are">avrebbe mangiato</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-are">avremmo mangiato</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-are">avreste mangiato</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-are">avrebbero mangiato</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Con ESSERE → andare</div>
+      <table><thead><tr><th>Pronombre</th><th>Forma</th></tr></thead><tbody>
+        <tr><td class="pronoun">io</td><td class="verb-form verb-ere">sarei andato/a</td></tr>
+        <tr><td class="pronoun">tu</td><td class="verb-form verb-ere">saresti andato/a</td></tr>
+        <tr><td class="pronoun">lui/lei</td><td class="verb-form verb-ere">sarebbe andato/a</td></tr>
+        <tr><td class="pronoun">noi</td><td class="verb-form verb-ere">saremmo andati/e</td></tr>
+        <tr><td class="pronoun">voi</td><td class="verb-form verb-ere">sareste andati/e</td></tr>
+        <tr><td class="pronoun">loro</td><td class="verb-form verb-ere">sarebbero andati/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Se avessi studiato, avrei superato l'esame.</em> — Si hubiera estudiado, habría aprobado el examen. &nbsp;|&nbsp; <em>Sapevo che sarebbe partito.</em> — Sabía que habría partido (futuro en el pasado).
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cond-presente')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('imperativo')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- IMPERATIVO -->
+<div class="slide" id="slide-imperativo">
+  <div class="slide-header">
+    <div class="slide-mode">Modo Imperativo</div>
+    <div class="slide-title">Imperativo</div>
+    <div class="slide-subtitle">Órdenes, instrucciones, peticiones, prohibiciones</div>
+  </div>
+  <div class="desc-box">
+    El imperativo se usa para dar <strong>órdenes, instrucciones y peticiones</strong>. Solo existe en 2ª persona (tu, voi) y 1ª del plural (noi). La forma negativa de <em>tu</em> usa el infinito.
+    <div class="uses">
+      <span class="use-tag">Órdenes directas</span>
+      <span class="use-tag">Instrucciones</span>
+      <span class="use-tag">Peticiones</span>
+      <span class="use-tag">Sugerencias (noi)</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <div class="table-title">parlare / credere / partire / finire</div>
+    <table><thead><tr><th>Persona</th><th>-are</th><th>-ere</th><th>-ire</th><th>-ire (isc)</th><th>Negativo tu</th></tr></thead><tbody>
+      <tr><td class="pronoun">tu</td><td class="verb-form verb-are">parla!</td><td class="verb-form verb-ere">credi!</td><td class="verb-form verb-ire">parti!</td><td class="verb-form verb-ire">finisci!</td><td class="example">non parlare!</td></tr>
+      <tr><td class="pronoun">Lei (form.)</td><td class="verb-form verb-are">parli!</td><td class="verb-form verb-ere">creda!</td><td class="verb-form verb-ire">parta!</td><td class="verb-form verb-ire">finisca!</td><td class="example">non parli!</td></tr>
+      <tr><td class="pronoun">noi</td><td class="verb-form verb-are">parliamo!</td><td class="verb-form verb-ere">crediamo!</td><td class="verb-form verb-ire">partiamo!</td><td class="verb-form verb-ire">finiamo!</td><td class="example">non parliamo!</td></tr>
+      <tr><td class="pronoun">voi</td><td class="verb-form verb-are">parlate!</td><td class="verb-form verb-ere">credete!</td><td class="verb-form verb-ire">partite!</td><td class="verb-form verb-ire">finite!</td><td class="example">non parlate!</td></tr>
+    </tbody></table>
+  </div>
+  <div class="table-wrap" style="margin-top:1rem">
+    <div class="table-title">Irregolari — essere, avere, andare, fare, dare, stare, dire</div>
+    <table><thead><tr><th>Verbo</th><th>tu</th><th>Lei</th><th>noi</th><th>voi</th></tr></thead><tbody>
+      <tr><td>essere</td><td class="verb-form verb-are">sii</td><td class="verb-form verb-are">sia</td><td class="verb-form verb-are">siamo</td><td class="verb-form verb-are">siate</td></tr>
+      <tr><td>avere</td><td class="verb-form verb-are">abbi</td><td class="verb-form verb-are">abbia</td><td class="verb-form verb-are">abbiamo</td><td class="verb-form verb-are">abbiate</td></tr>
+      <tr><td>andare</td><td class="verb-form verb-are">va'/vai</td><td class="verb-form verb-are">vada</td><td class="verb-form verb-are">andiamo</td><td class="verb-form verb-are">andate</td></tr>
+      <tr><td>fare</td><td class="verb-form verb-are">fa'/fai</td><td class="verb-form verb-are">faccia</td><td class="verb-form verb-are">facciamo</td><td class="verb-form verb-are">fate</td></tr>
+      <tr><td>dare</td><td class="verb-form verb-are">da'/dai</td><td class="verb-form verb-are">dia</td><td class="verb-form verb-are">diamo</td><td class="verb-form verb-are">date</td></tr>
+      <tr><td>stare</td><td class="verb-form verb-are">sta'/stai</td><td class="verb-form verb-are">stia</td><td class="verb-form verb-are">stiamo</td><td class="verb-form verb-are">state</td></tr>
+      <tr><td>dire</td><td class="verb-form verb-are">di'</td><td class="verb-form verb-are">dica</td><td class="verb-form verb-are">diciamo</td><td class="verb-form verb-are">dite</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Parla più lentamente!</em> — ¡Habla más despacio! &nbsp;|&nbsp; <em>Non fare tardi!</em> — ¡No llegues tarde! &nbsp;|&nbsp; <em>Andiamo al cinema!</em> — ¡Vamos al cine!
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('cond-passato')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('infinito')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- INFINITO -->
+<div class="slide" id="slide-infinito">
+  <div class="slide-header">
+    <div class="slide-mode">Modi Indefiniti</div>
+    <div class="slide-title">Infinito</div>
+    <div class="slide-subtitle">Presente y pasado — forma base del verbo</div>
+  </div>
+  <div class="desc-box">
+    El infinito es la <strong>forma base del verbo</strong>. En italiano hay tres conjugaciones: <strong>-are, -ere, -ire</strong>. El infinito pasado se forma con avere/essere en infinito + participio pasado.
+    <div class="uses">
+      <span class="use-tag">Sujeto de frase (Studiare è bello)</span>
+      <span class="use-tag">Tras preposiciones</span>
+      <span class="use-tag">Tras verbos modali</span>
+      <span class="use-tag">Tras per, senza, prima di</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <div class="table-title">Infinito Presente y Passato</div>
+    <table><thead><tr><th>Verbo</th><th>Infinito Presente</th><th>Infinito Passato</th><th>Significado</th></tr></thead><tbody>
+      <tr><td>-are</td><td class="verb-form verb-are">parlare</td><td class="verb-form verb-are">aver(e) parlato</td><td class="example">hablar / haber hablado</td></tr>
+      <tr><td>-ere</td><td class="verb-form verb-ere">credere</td><td class="verb-form verb-ere">aver(e) creduto</td><td class="example">creer / haber creído</td></tr>
+      <tr><td>-ire</td><td class="verb-form verb-ire">partire</td><td class="verb-form verb-ire">essere partiti/e</td><td class="example">partir / haber partido</td></tr>
+      <tr><td>essere</td><td class="verb-form verb-are">essere</td><td class="verb-form verb-are">essere stato/a</td><td class="example">ser/estar / haber sido</td></tr>
+      <tr><td>fare</td><td class="verb-form verb-are">fare</td><td class="verb-form verb-are">aver fatto</td><td class="example">hacer / haber hecho</td></tr>
+      <tr><td>andare</td><td class="verb-form verb-are">andare</td><td class="verb-form verb-are">essere andato/a</td><td class="example">ir / haber ido</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Voglio mangiare.</em> — Quiero comer. &nbsp;|&nbsp; <em>Sono felice di averti visto.</em> — Estoy feliz de haberte visto. &nbsp;|&nbsp; <em>Prima di partire, chiama.</em> — Antes de partir, llama.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('imperativo')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('gerundio')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- GERUNDIO -->
+<div class="slide" id="slide-gerundio">
+  <div class="slide-header">
+    <div class="slide-mode">Modi Indefiniti</div>
+    <div class="slide-title">Gerundio</div>
+    <div class="slide-subtitle">Presente y passato — acción simultánea o anterior</div>
+  </div>
+  <div class="desc-box">
+    El gerundio expresa una acción <strong>simultánea o anterior</strong> a la del verbo principal. Se usa en las perífrasis <em>stare + gerundio</em> (estar haciendo algo). No tiene sujeto propio.
+    <div class="uses">
+      <span class="use-tag">Stare + gerundio (acción en curso)</span>
+      <span class="use-tag">Simultaneidad</span>
+      <span class="use-tag">Causa / Condición</span>
+      <span class="use-tag">Modo</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <div class="table-title">Gerundio Presente y Passato</div>
+    <table><thead><tr><th>Verbo</th><th>Gerundio Presente</th><th>Gerundio Passato</th></tr></thead><tbody>
+      <tr><td>parlare (-are)</td><td class="verb-form verb-are">parlando</td><td class="verb-form verb-are">avendo parlato</td></tr>
+      <tr><td>credere (-ere)</td><td class="verb-form verb-ere">credendo</td><td class="verb-form verb-ere">avendo creduto</td></tr>
+      <tr><td>partire (-ire)</td><td class="verb-form verb-ire">partendo</td><td class="verb-form verb-ire">essendo partito/a</td></tr>
+      <tr><td>essere</td><td class="verb-form verb-are">essendo</td><td class="verb-form verb-are">essendo stato/a</td></tr>
+      <tr><td>fare</td><td class="verb-form verb-are">facendo</td><td class="verb-form verb-are">avendo fatto</td></tr>
+      <tr><td>dire</td><td class="verb-form verb-are">dicendo</td><td class="verb-form verb-are">avendo detto</td></tr>
+      <tr><td>bere</td><td class="verb-form verb-are">bevendo</td><td class="verb-form verb-are">avendo bevuto</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Sto studiando l'italiano.</em> — Estoy estudiando italiano. &nbsp;|&nbsp; <em>Parlando lentamente, si capisce meglio.</em> — Hablando despacio, se entiende mejor. &nbsp;|&nbsp; <em>Avendo finito, uscii.</em> — Habiendo terminado, salí.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('infinito')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('participio')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PARTICIPIO -->
+<div class="slide" id="slide-participio">
+  <div class="slide-header">
+    <div class="slide-mode">Modi Indefiniti</div>
+    <div class="slide-title">Participio</div>
+    <div class="slide-subtitle">Presente y passato — usos adjetivales y verbales</div>
+  </div>
+  <div class="desc-box">
+    El participio tiene función <strong>adjetival</strong> y <strong>verbal</strong>. El <em>participio presente</em> (-ante/-ente) equivale a un adjetivo activo. El <em>participio passato</em> se usa en tiempos compuestos y como adjetivo.
+    <div class="uses">
+      <span class="use-tag">Tiempos compuestos</span>
+      <span class="use-tag">Adjetivo</span>
+      <span class="use-tag">Proposizione participiale</span>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="table-wrap">
+      <div class="table-title">Participio Presente</div>
+      <table><thead><tr><th>Verbo</th><th>Part. Presente</th><th>Significado</th></tr></thead><tbody>
+        <tr><td>parlare</td><td class="verb-form verb-are">parlante</td><td class="example">que habla / hablante</td></tr>
+        <tr><td>credere</td><td class="verb-form verb-ere">credente</td><td class="example">creyente</td></tr>
+        <tr><td>partire</td><td class="verb-form verb-ire">partente</td><td class="example">que parte</td></tr>
+        <tr><td>correre</td><td class="verb-form verb-ere">corrente</td><td class="example">corriente / que corre</td></tr>
+        <tr><td>dirigere</td><td class="verb-form verb-ere">dirigente</td><td class="example">dirigente</td></tr>
+        <tr><td>interessare</td><td class="verb-form verb-are">interessante</td><td class="example">interesante</td></tr>
+      </tbody></table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">Participio Passato (regulares)</div>
+      <table><thead><tr><th>Verbo</th><th>Masch. sing.</th><th>Femm. sing.</th><th>Plurale</th></tr></thead><tbody>
+        <tr><td>parlare</td><td class="verb-form verb-are">parlato</td><td class="verb-form verb-are">parlata</td><td class="verb-form verb-are">parlati/e</td></tr>
+        <tr><td>credere</td><td class="verb-form verb-ere">creduto</td><td class="verb-form verb-ere">creduta</td><td class="verb-form verb-ere">creduti/e</td></tr>
+        <tr><td>partire</td><td class="verb-form verb-ire">partito</td><td class="verb-form verb-ire">partita</td><td class="verb-form verb-ire">partiti/e</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <div class="table-title">Participi Passati Irregolari — los más importantes</div>
+    <table><thead><tr><th>Infinito</th><th>Participio</th><th>Infinito</th><th>Participio</th><th>Infinito</th><th>Participio</th></tr></thead><tbody>
+      <tr><td>essere</td><td class="verb-form verb-are">stato</td><td>fare</td><td class="verb-form verb-are">fatto</td><td>dire</td><td class="verb-form verb-are">detto</td></tr>
+      <tr><td>avere</td><td class="verb-form verb-are">avuto</td><td>vedere</td><td class="verb-form verb-are">visto</td><td>scrivere</td><td class="verb-form verb-are">scritto</td></tr>
+      <tr><td>venire</td><td class="verb-form verb-are">venuto</td><td>leggere</td><td class="verb-form verb-are">letto</td><td>prendere</td><td class="verb-form verb-are">preso</td></tr>
+      <tr><td>aprire</td><td class="verb-form verb-are">aperto</td><td>mettere</td><td class="verb-form verb-are">messo</td><td>chiudere</td><td class="verb-form verb-are">chiuso</td></tr>
+      <tr><td>bere</td><td class="verb-form verb-are">bevuto</td><td>scegliere</td><td class="verb-form verb-are">scelto</td><td>rispondere</td><td class="verb-form verb-are">risposto</td></tr>
+      <tr><td>rimanere</td><td class="verb-form verb-are">rimasto</td><td>vivere</td><td class="verb-form verb-are">vissuto</td><td>chiedere</td><td class="verb-form verb-are">chiesto</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note-box"><span class="note-label">📌 Ejemplos</span>
+    <em>Una storia interessante.</em> — Una historia interesante (part. presente). &nbsp;|&nbsp; <em>Finito il lavoro, uscì.</em> — Terminado el trabajo, salió (proposición participial). &nbsp;|&nbsp; <em>La porta è aperta.</em> — La puerta está abierta.
+  </div>
+  <div class="slide-nav">
+    <button class="snav-btn" onclick="goTo('gerundio')">← Anterior</button>
+    <button class="snav-btn" onclick="goTo('home')">↑ Inicio</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+  const slideOrder = [
+    'home','presente','imperfetto','passato-prossimo','passato-remoto',
+    'trapassato-prossimo','trapassato-remoto','futuro-semplice','futuro-anteriore',
+    'cong-presente','cong-passato','cong-imperfetto','cong-trapassato',
+    'cond-presente','cond-passato','imperativo','infinito','gerundio','participio'
+  ];
+
+  function goTo(id) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('slide-' + id).classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

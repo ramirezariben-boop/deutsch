@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modalverben - müssen, können, wollen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .slide {
+            display: none;
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 5px solid #f5576c;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .modal-verb {
+            color: #f5576c;
+            font-weight: bold;
+        }
+
+        .infinitive {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .examples {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .example-item {
+            padding: 12px;
+            margin: 10px 0;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .syntax-box {
+            background: #fff3e0;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #FF9800;
+        }
+
+        .syntax-formula {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.2em;
+            border: 2px dashed #667eea;
+        }
+
+        .position {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .pos1 { background: #e3f2fd; color: #1976D2; }
+        .pos2 { background: #fce4ec; color: #C2185B; }
+        .pos-end { background: #e8f5e9; color: #388E3C; }
+
+        .exercise {
+            background: #f3e5f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 150px;
+            margin: 0 10px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2196F3;
+            margin: 20px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .meaning-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .meaning-card h4 {
+            color: #f5576c;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .sentence-structure {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+
+        .word-box {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Modalverben</h1>
+            <p class="subtitle">müssen, können, wollen</p>
+        </header>
+
+        <!-- Slide 1: Introducción -->
+        <div class="slide active" id="slide1">
+            <h2>Was sind Modalverben?</h2>
+            <div class="info-box">
+                <p><strong>Modalverben</strong> (verbos modales) son verbos auxiliares que modifican el significado de otro verbo. Expresan necesidad, capacidad, deseo, permiso, obligación, etc.</p>
+                <p style="margin-top: 15px;"><strong>Los tres verbos modales principales:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li><span class="modal-verb">müssen</span> = deber, tener que (obligación)</li>
+                    <li><span class="modal-verb">können</span> = poder, saber (capacidad/posibilidad)</li>
+                    <li><span class="modal-verb">wollen</span> = querer (deseo/intención)</li>
+                </ul>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='80' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='100' y='110' font-size='80' text-anchor='middle' fill='%23667eea'%3E✨%3C/text%3E%3C/svg%3E" alt="Stars">
+            </div>
+        </div>
+
+        <!-- Slide 2: Conjugación -->
+        <div class="slide" id="slide2">
+            <h2>Konjugation der Modalverben</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pronomen</th>
+                        <th>müssen</th>
+                        <th>können</th>
+                        <th>wollen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ich</strong></td>
+                        <td class="modal-verb">muss</td>
+                        <td class="modal-verb">kann</td>
+                        <td class="modal-verb">will</td>
+                    </tr>
+                    <tr>
+                        <td><strong>du</strong></td>
+                        <td class="modal-verb">musst</td>
+                        <td class="modal-verb">kannst</td>
+                        <td class="modal-verb">willst</td>
+                    </tr>
+                    <tr>
+                        <td><strong>er/es/sie</strong></td>
+                        <td class="modal-verb">muss</td>
+                        <td class="modal-verb">kann</td>
+                        <td class="modal-verb">will</td>
+                    </tr>
+                    <tr>
+                        <td><strong>wir</strong></td>
+                        <td class="modal-verb">müssen</td>
+                        <td class="modal-verb">können</td>
+                        <td class="modal-verb">wollen</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ihr</strong></td>
+                        <td class="modal-verb">müsst</td>
+                        <td class="modal-verb">könnt</td>
+                        <td class="modal-verb">wollt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sie/Sie</strong></td>
+                        <td class="modal-verb">müssen</td>
+                        <td class="modal-verb">können</td>
+                        <td class="modal-verb">wollen</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="info-box">
+                <p>⚠️ <strong>¡Atención!</strong> Los verbos modales tienen formas irregulares. Nota que "ich", "er/es/sie" tienen la misma forma y no llevan la terminación típica.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Sintaxis básica -->
+        <div class="slide" id="slide3">
+            <h2>Satzstruktur mit Modalverben</h2>
+            <div class="syntax-box">
+                <h3>Estructura básica:</h3>
+                <div class="syntax-formula">
+                    <span class="position pos1">Subjekt</span>
+                    <span class="position pos2">Modalverb (konjugiert)</span>
+                    <span>...</span>
+                    <span class="position pos-end">Hauptverb (Infinitiv)</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Regla importante:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li>El verbo modal se <strong>conjuga</strong> y va en la <strong>posición 2</strong></li>
+                    <li>El verbo principal va en <strong>infinitivo</strong> al <strong>final</strong> de la oración</li>
+                    <li>Esta estructura se llama "Satzklammer" (marco oracional)</li>
+                </ul>
+            </div>
+
+            <div class="examples">
+                <h3>Ejemplo visual:</h3>
+                <div class="sentence-structure">
+                    <div class="word-box pos1">Ich</div>
+                    <div class="word-box pos2">muss</div>
+                    <div class="word-box" style="background: #f5f5f5;">heute</div>
+                    <div class="word-box pos-end">arbeiten</div>
+                </div>
+                <p style="text-align: center; margin-top: 10px; color: #666;">Tengo que trabajar hoy</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: müssen -->
+        <div class="slide" id="slide4">
+            <h2>Modalverb: müssen</h2>
+            <div class="meaning-card">
+                <h4>müssen = deber / tener que</h4>
+                <p><strong>Uso:</strong> Expresa obligación o necesidad</p>
+                <p><strong>Español:</strong> "tengo que", "debo", "hay que"</p>
+            </div>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    Ich <span class="modal-verb">muss</span> heute <span class="infinitive">arbeiten</span>.<br>
+                    <small>(Tengo que trabajar hoy)</small>
+                </div>
+                <div class="example-item">
+                    Du <span class="modal-verb">musst</span> die Hausaufgaben <span class="infinitive">machen</span>.<br>
+                    <small>(Tienes que hacer la tarea)</small>
+                </div>
+                <div class="example-item">
+                    Wir <span class="modal-verb">müssen</span> pünktlich <span class="infinitive">sein</span>.<br>
+                    <small>(Tenemos que ser puntuales)</small>
+                </div>
+                <div class="example-item">
+                    Sie <span class="modal-verb">müssen</span> einen Pass <span class="infinitive">haben</span>.<br>
+                    <small>(Usted tiene que tener un pasaporte)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: können -->
+        <div class="slide" id="slide5">
+            <h2>Modalverb: können</h2>
+            <div class="meaning-card">
+                <h4>können = poder / saber</h4>
+                <p><strong>Uso:</strong> Expresa capacidad, habilidad o posibilidad</p>
+                <p><strong>Español:</strong> "puedo", "sé (hacer algo)", "es posible"</p>
+            </div>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    Ich <span class="modal-verb">kann</span> Deutsch <span class="infinitive">sprechen</span>.<br>
+                    <small>(Puedo/Sé hablar alemán)</small>
+                </div>
+                <div class="example-item">
+                    <span class="modal-verb">Kannst</span> du mir <span class="infinitive">helfen</span>?<br>
+                    <small>(¿Puedes ayudarme?)</small>
+                </div>
+                <div class="example-item">
+                    Er <span class="modal-verb">kann</span> gut <span class="infinitive">kochen</span>.<br>
+                    <small>(Él sabe cocinar bien)</small>
+                </div>
+                <div class="example-item">
+                    Wir <span class="modal-verb">können</span> nicht ins Kino <span class="infinitive">gehen</span>.<br>
+                    <small>(No podemos ir al cine)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: wollen -->
+        <div class="slide" id="slide6">
+            <h2>Modalverb: wollen</h2>
+            <div class="meaning-card">
+                <h4>wollen = querer</h4>
+                <p><strong>Uso:</strong> Expresa deseo, intención o voluntad</p>
+                <p><strong>Español:</strong> "quiero", "deseo"</p>
+            </div>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    Ich <span class="modal-verb">will</span> nach Deutschland <span class="infinitive">reisen</span>.<br>
+                    <small>(Quiero viajar a Alemania)</small>
+                </div>
+                <div class="example-item">
+                    <span class="modal-verb">Willst</span> du Kaffee <span class="infinitive">trinken</span>?<br>
+                    <small>(¿Quieres tomar café?)</small>
+                </div>
+                <div class="example-item">
+                    Sie <span class="modal-verb">will</span> Ärztin <span class="infinitive">werden</span>.<br>
+                    <small>(Ella quiere ser médica)</small>
+                </div>
+                <div class="example-item">
+                    Wir <span class="modal-verb">wollen</span> zum Yoga <span class="infinitive">gehen</span>.<br>
+                    <small>(Queremos ir al yoga)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Preguntas con verbos modales -->
+        <div class="slide" id="slide7">
+            <h2>Fragen mit Modalverben</h2>
+            <div class="syntax-box">
+                <h3>Estructura de pregunta:</h3>
+                <div class="syntax-formula">
+                    <span class="position pos2">Modalverb</span>
+                    <span class="position pos1">Subjekt</span>
+                    <span>...</span>
+                    <span class="position pos-end">Infinitiv</span>
+                    <span>?</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p>En preguntas, el verbo modal conjugado va en <strong>primera posición</strong>, seguido del sujeto.</p>
+            </div>
+
+            <div class="examples">
+                <h3>Beispiele:</h3>
+                <div class="example-item">
+                    <span class="modal-verb">Musst</span> du heute arbeiten?<br>
+                    <small>(¿Tienes que trabajar hoy?)</small>
+                </div>
+                <div class="example-item">
+                    <span class="modal-verb">Kannst</span> du Gitarre spielen?<br>
+                    <small>(¿Sabes tocar la guitarra?)</small>
+                </div>
+                <div class="example-item">
+                    <span class="modal-verb">Wollen</span> Sie Tee trinken?<br>
+                    <small>(¿Quiere usted tomar té?)</small>
+                </div>
+                <div class="example-item">
+                    <span class="modal-verb">Können</span> wir morgen kommen?<br>
+                    <small>(¿Podemos venir mañana?)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Ejercicio 1 -->
+        <div class="slide" id="slide8">
+            <h2>Übung 1: Konjugation</h2>
+            
+            <div class="exercise">
+                <h3>Ergänze das richtige Modalverb</h3>
+                
+                <div class="question">
+                    1. Ich <input type="text" id="ex1_1" placeholder="..."> heute lernen. (müssen)
+                </div>
+                <div class="question">
+                    2. <input type="text" id="ex1_2" placeholder="..."> du Deutsch sprechen? (können)
+                </div>
+                <div class="question">
+                    3. Er <input type="text" id="ex1_3" placeholder="..."> nach Berlin fahren. (wollen)
+                </div>
+                <div class="question">
+                    4. Wir <input type="text" id="ex1_4" placeholder="..."> das Buch lesen. (müssen)
+                </div>
+                <div class="question">
+                    5. Ihr <input type="text" id="ex1_5" placeholder="..."> hier bleiben. (können)
+                </div>
+                
+                <button class="action-button" onclick="checkExercise1()">Überprüfen</button>
+                <button class="action-button" onclick="resetExercise1()">Zurücksetzen</button>
+                <div id="result1"></div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Ejercicio 2 -->
+        <div class="slide" id="slide9">
+            <h2>Übung 2: Satzbau</h2>
+            
+            <div class="exercise">
+                <h3>Ordne die Wörter (escribe el verbo correcto en infinitivo al final)</h3>
+                
+                <div class="question">
+                    1. Ich muss heute <input type="text" id="ex2_1" placeholder="infinitiv">. (arbeiten)
+                </div>
+                <div class="question">
+                    2. Kannst du mir <input type="text" id="ex2_2" placeholder="infinitiv">? (helfen)
+                </div>
+                <div class="question">
+                    3. Wir wollen ins Kino <input type="text" id="ex2_3" placeholder="infinitiv">. (gehen)
+                </div>
+                <div class="question">
+                    4. Sie müssen einen Pass <input type="text" id="ex2_4" placeholder="infinitiv">. (haben)
+                </div>
+                <div class="question">
+                    5. Wollt ihr Pizza <input type="text" id="ex2_5" placeholder="infinitiv">? (essen)
+                </div>
+                
+                <button class="action-button" onclick="checkExercise2()">Überprüfen</button>
+                <button class="action-button" onclick="resetExercise2()">Zurücksetzen</button>
+                <div id="result2"></div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">
+                ← Zurück
+            </button>
+            <span class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+            </span>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">
+                Weiter →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        function checkExercise1() {
+            const answers = {
+                ex1_1: 'muss',
+                ex1_2: 'kannst',
+                ex1_3: 'will',
+                ex1_4: 'müssen',
+                ex1_5: 'könnt'
+            };
+
+            let correct = 0;
+            let total = Object.keys(answers).length;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id].toLowerCase()) {
+                    input.style.borderColor = '#4CAF50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+            resultDiv.innerHTML = `Resultat: ${correct} von ${total} richtig! ${correct === total ? '🎉 Ausgezeichnet!' : '💪 Versuch es nochmal!'}`;
+        }
+
+        function resetExercise1() {
+            ['ex1_1', 'ex1_2', 'ex1_3', 'ex1_4', 'ex1_5'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result1').innerHTML = '';
+        }
+
+        function checkExercise2() {
+            const answers = {
+                ex2_1: 'arbeiten',
+                ex2_2: 'helfen',
+                ex2_3: 'gehen',
+                ex2_4: 'haben',
+                ex2_5: 'essen'
+            };
+
+            let correct = 0;
+            let total = Object.keys(answers).length;
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim().toLowerCase();
+                if (userAnswer === answers[id].toLowerCase()) {
+                    input.style.borderColor = '#4CAF50';
+                    correct++;
+                } else {
+                    input.style.borderColor = '#f44336';
+                }
+            }
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.className = 'result ' + (correct === total ? 'correct' : 'incorrect');
+            resultDiv.innerHTML = `Resultat: ${correct} von ${total} richtig! ${correct === total ? '🎉 Perfekt!' : '💪 Versuch es nochmal!'}`;
+        }
+
+        function resetExercise2() {
+            ['ex2_1', 'ex2_2', 'ex2_3', 'ex2_4', 'ex2_5'].forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result2').innerHTML = '';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft' && currentSlide > 1) {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' && currentSlide < totalSlides) {
+                changeSlide(1);
+            }
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

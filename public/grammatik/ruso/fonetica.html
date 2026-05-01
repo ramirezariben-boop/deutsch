@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русский — Escritura y Fonética</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0c0a;
+  --bg2: #161310;
+  --bg3: #1e1a15;
+  --card: #221e18;
+  --card2: #2a2420;
+  --border: #3a3228;
+  --border2: #4a4038;
+  --accent: #e8a44a;
+  --accent2: #c47d2a;
+  --accent3: #f2c97a;
+  --red: #d96b5a;
+  --blue: #6b9fd4;
+  --green: #7abf8a;
+  --text: #f0ebe2;
+  --text2: #b8aa98;
+  --text3: #7a6e5e;
+  --shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Spectral', serif;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+.shell { max-width: 860px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+header {
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.logo { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 300; letter-spacing: .2em; color: var(--accent); text-transform: uppercase; }
+.progress-bar-outer { flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; max-width: 320px; }
+.progress-bar-inner { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent3)); border-radius: 2px; transition: width .5s cubic-bezier(.4,0,.2,1); }
+.page-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text3); white-space: nowrap; }
+main { flex: 1; padding: 2.5rem 2rem 1.5rem; position: relative; }
+.page { display: none; animation: fadeIn .35s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.page-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 400; letter-spacing: .25em; color: var(--accent2); text-transform: uppercase; margin-bottom: .5rem; }
+h1.page-title { font-family: 'Unbounded', sans-serif; font-weight: 300; font-size: 1.9rem; line-height: 1.2; color: var(--text); margin-bottom: .4rem; }
+.page-subtitle { font-style: italic; color: var(--text2); font-size: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.2rem; }
+h2 { font-family: 'Unbounded', sans-serif; font-size: .75rem; font-weight: 400; letter-spacing: .15em; color: var(--accent); text-transform: uppercase; margin: 2rem 0 1rem; }
+h3 { font-family: 'Spectral', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 1.2rem 0 .5rem; }
+p { margin-bottom: .9rem; color: var(--text2); }
+p strong { color: var(--text); font-weight: 600; }
+.ru { font-family: 'Spectral', serif; color: var(--accent); font-size: 1.05em; }
+.ru-big { font-family: 'Spectral', serif; color: var(--accent); font-size: 1.4em; font-weight: 600; }
+.alpha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; margin: 1rem 0 1.5rem; }
+.alpha-cell { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 6px 8px; text-align: center; transition: all .2s; cursor: default; }
+.alpha-cell:hover { border-color: var(--accent2); background: var(--card2); }
+.alpha-cell .cyr { font-size: 1.5rem; color: var(--accent3); line-height: 1; }
+.alpha-cell .lat { font-family: 'JetBrains Mono', monospace; font-size: .62rem; color: var(--text3); margin-top: 4px; }
+.alpha-cell .name-ru { font-size: .58rem; color: var(--text3); font-style: italic; }
+.alpha-cell.vowel .cyr { color: var(--blue); }
+.alpha-cell.special .cyr { color: var(--red); }
+.legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; font-size: .8rem; color: var(--text3); }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-gold { background: var(--accent3); }
+.dot-blue { background: var(--blue); }
+.dot-red { background: var(--red); }
+.examples { display: grid; gap: 8px; margin: .8rem 0 1.5rem; }
+.ex-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 6px; padding: 10px 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; align-items: center; }
+.ex-card .word { font-size: 1.2rem; color: var(--accent3); font-weight: 600; }
+.ex-card .pron { font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--text2); }
+.ex-card .meaning { font-size: .85rem; color: var(--text3); font-style: italic; }
+.ex-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: .8rem 0 1.5rem; }
+.rule-box { background: linear-gradient(135deg, #1e1a10, #221c12); border: 1px solid #5a4820; border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1rem 0; position: relative; overflow: hidden; }
+.rule-box::before { content: '★'; position: absolute; top: 10px; right: 14px; color: var(--accent2); font-size: .75rem; opacity: .5; }
+.rule-box p { color: var(--text); margin: 0; }
+.info-box { background: #0e1a1e; border: 1px solid #1e4a5a; border-radius: 10px; padding: 1rem 1.4rem; margin: 1rem 0; }
+.info-box p { color: var(--text2); margin: 0; font-size: .9rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: .88rem; }
+th { background: var(--card2); color: var(--accent); font-family: 'Unbounded', sans-serif; font-size: .62rem; letter-spacing: .1em; font-weight: 400; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: middle; }
+td:first-child { color: var(--accent3); font-size: 1.05rem; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--card); }
+.exercise { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; margin: 1rem 0; }
+.exercise > .ex-label { font-family: 'Unbounded', sans-serif; font-size: .68rem; letter-spacing: .2em; color: var(--accent2); margin: 0 0 .8rem; text-transform: uppercase; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.choice-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; color: var(--text2); font-family: 'Spectral', serif; font-size: .95rem; cursor: pointer; transition: all .2s; }
+.choice-btn:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent3); }
+.choice-btn.correct { background: #0e1e12; border-color: var(--green); color: var(--green); }
+.choice-btn.wrong { background: #1e0e0a; border-color: var(--red); color: var(--red); }
+.choice-btn:disabled { cursor: default; }
+.pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: .8rem 0 1.5rem; }
+.pair-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.pair-card .plabel { font-size: .68rem; font-family: 'JetBrains Mono', monospace; color: var(--text3); margin-bottom: 8px; }
+.pair-card .words { display: flex; flex-wrap: wrap; gap: 8px; }
+.pair-card .w { background: var(--bg3); border-radius: 4px; padding: 4px 10px; font-size: 1rem; }
+.pair-card.hard .w { color: var(--accent3); }
+.pair-card.soft .w { color: #a0d4f0; }
+.stress { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.hl { color: var(--accent3); font-weight: 600; }
+.hl-blue { color: var(--blue); }
+.hl-red { color: var(--red); }
+.hl-green { color: var(--green); }
+nav { padding: 1.5rem 2rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav-btn { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; color: var(--text2); font-family: 'Unbounded', sans-serif; font-size: .62rem; font-weight: 300; letter-spacing: .1em; cursor: pointer; transition: all .2s; text-transform: uppercase; }
+.nav-btn:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent3); background: var(--card2); }
+.nav-btn:disabled { opacity: .3; cursor: default; }
+.nav-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .2s; border: none; padding: 0; }
+.nav-dot:hover { background: var(--accent2); }
+.nav-dot.active { background: var(--accent); transform: scale(1.3); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+@media (max-width: 600px) {
+  h1.page-title { font-size: 1.3rem; }
+  .alpha-grid { grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); }
+  .ex-card { grid-template-columns: 1fr 1fr; }
+  .ex-card .meaning { grid-column: 1/-1; }
+  .pair-grid, .ex-2col { grid-template-columns: 1fr; }
+  header { flex-wrap: wrap; }
+  nav { gap: .5rem; }
+  .nav-btn { padding: 8px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header>
+  <div class="logo">Ruso · Nivel 0</div>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar" style="width:10%"></div>
+  </div>
+  <div class="page-counter" id="pageCounter">1 / 10</div>
+</header>
+
+<main>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page-1">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">El alfabeto cirílico</h1>
+  <p class="page-subtitle">33 letras, muchas más familiares de lo que crees</p>
+  <p>El ruso usa el <strong>alfabeto cirílico</strong>, creado en el siglo IX por los monjes Cirilo y Metodio, basado en el griego. Tiene <strong>33 letras</strong>: 10 vocales, 21 consonantes y 2 signos sin sonido propio.</p>
+  <div class="rule-box"><p>💡 Unas 8–10 letras se ven idénticas o casi idénticas al latín. Otras parecen latinas pero suenan diferente. El resto son completamente nuevas. ¡No son tantas como parece!</p></div>
+  <h2>Las 33 letras</h2>
+  <div class="legend">
+    <span><span class="dot dot-gold"></span>Consonantes</span>
+    <span><span class="dot dot-blue"></span>Vocales</span>
+    <span><span class="dot dot-red"></span>Signos especiales</span>
+  </div>
+  <div class="alpha-grid">
+    <div class="alpha-cell vowel"><div class="cyr">А а</div><div class="lat">[a]</div><div class="name-ru">а</div></div>
+    <div class="alpha-cell"><div class="cyr">Б б</div><div class="lat">[b]</div><div class="name-ru">бэ</div></div>
+    <div class="alpha-cell"><div class="cyr">В в</div><div class="lat">[v]</div><div class="name-ru">вэ</div></div>
+    <div class="alpha-cell"><div class="cyr">Г г</div><div class="lat">[g]</div><div class="name-ru">гэ</div></div>
+    <div class="alpha-cell"><div class="cyr">Д д</div><div class="lat">[d]</div><div class="name-ru">дэ</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Е е</div><div class="lat">[ye]</div><div class="name-ru">е</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Ё ё</div><div class="lat">[yo]</div><div class="name-ru">ё</div></div>
+    <div class="alpha-cell"><div class="cyr">Ж ж</div><div class="lat">[zh]</div><div class="name-ru">жэ</div></div>
+    <div class="alpha-cell"><div class="cyr">З з</div><div class="lat">[z]</div><div class="name-ru">зэ</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">И и</div><div class="lat">[i]</div><div class="name-ru">и</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Й й</div><div class="lat">[y]</div><div class="name-ru">краткое</div></div>
+    <div class="alpha-cell"><div class="cyr">К к</div><div class="lat">[k]</div><div class="name-ru">ка</div></div>
+    <div class="alpha-cell"><div class="cyr">Л л</div><div class="lat">[l]</div><div class="name-ru">эль</div></div>
+    <div class="alpha-cell"><div class="cyr">М м</div><div class="lat">[m]</div><div class="name-ru">эм</div></div>
+    <div class="alpha-cell"><div class="cyr">Н н</div><div class="lat">[n]</div><div class="name-ru">эн</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">О о</div><div class="lat">[o]</div><div class="name-ru">о</div></div>
+    <div class="alpha-cell"><div class="cyr">П п</div><div class="lat">[p]</div><div class="name-ru">пэ</div></div>
+    <div class="alpha-cell"><div class="cyr">Р р</div><div class="lat">[r]</div><div class="name-ru">эр</div></div>
+    <div class="alpha-cell"><div class="cyr">С с</div><div class="lat">[s]</div><div class="name-ru">эс</div></div>
+    <div class="alpha-cell"><div class="cyr">Т т</div><div class="lat">[t]</div><div class="name-ru">тэ</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">У у</div><div class="lat">[u]</div><div class="name-ru">у</div></div>
+    <div class="alpha-cell"><div class="cyr">Ф ф</div><div class="lat">[f]</div><div class="name-ru">эф</div></div>
+    <div class="alpha-cell"><div class="cyr">Х х</div><div class="lat">[kh]</div><div class="name-ru">ха</div></div>
+    <div class="alpha-cell"><div class="cyr">Ц ц</div><div class="lat">[ts]</div><div class="name-ru">цэ</div></div>
+    <div class="alpha-cell"><div class="cyr">Ч ч</div><div class="lat">[ch]</div><div class="name-ru">чэ</div></div>
+    <div class="alpha-cell"><div class="cyr">Ш ш</div><div class="lat">[sh]</div><div class="name-ru">ша</div></div>
+    <div class="alpha-cell"><div class="cyr">Щ щ</div><div class="lat">[shch]</div><div class="name-ru">ща</div></div>
+    <div class="alpha-cell special"><div class="cyr">Ъ ъ</div><div class="lat">[—]</div><div class="name-ru">твёрдый</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Ы ы</div><div class="lat">[ï]</div><div class="name-ru">ы</div></div>
+    <div class="alpha-cell special"><div class="cyr">Ь ь</div><div class="lat">[—]</div><div class="name-ru">мягкий</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Э э</div><div class="lat">[e]</div><div class="name-ru">э</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Ю ю</div><div class="lat">[yu]</div><div class="name-ru">ю</div></div>
+    <div class="alpha-cell vowel"><div class="cyr">Я я</div><div class="lat">[ya]</div><div class="name-ru">я</div></div>
+  </div>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 1 · Letras que suenan igual que en latín/español</div>
+    <p style="font-size:.85rem;color:var(--text3);margin-bottom:10px">Haz clic en las que crees que suenan igual. Cuidado con las trampas:</p>
+    <div class="choices">
+      <button class="choice-btn" onclick="checkChoice(this,true)">А = A ✓</button>
+      <button class="choice-btn" onclick="checkChoice(this,true)">М = M</button>
+      <button class="choice-btn" onclick="checkChoice(this,true)">К = K</button>
+      <button class="choice-btn" onclick="checkChoice(this,false)">Н ≠ H (suena N)</button>
+      <button class="choice-btn" onclick="checkChoice(this,true)">О = O</button>
+      <button class="choice-btn" onclick="checkChoice(this,false)">Р ≠ P (suena R)</button>
+      <button class="choice-btn" onclick="checkChoice(this,true)">Т = T</button>
+      <button class="choice-btn" onclick="checkChoice(this,false)">С ≠ C (suena S)</button>
+      <button class="choice-btn" onclick="checkChoice(this,true)">А, М, К, О, Т son iguales</button>
+    </div>
+    <p style="font-size:.78rem;color:var(--text3);margin-top:12px">⚠️ <span class="hl-red">Н</span>=N, <span class="hl-red">Р</span>=R, <span class="hl-red">С</span>=S, <span class="hl-red">У</span>=U, <span class="hl-red">В</span>=V — se parecen a otras letras latinas pero suenan diferente.</p>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page-2">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Las letras traicioneras</h1>
+  <p class="page-subtitle">Se parecen al latín pero suenan diferente</p>
+  <p>El mayor obstáculo al inicio son las letras que <strong>se ven iguales al alfabeto latino pero tienen otro sonido</strong>. Memorizarlas es la primera batalla.</p>
+  <h2>Falsas amigas del cirílico</h2>
+  <table>
+    <tr><th>Letra</th><th>Parece</th><th>Suena como</th><th>Ejemplo</th></tr>
+    <tr><td>В в</td><td>B</td><td><span class="hl-blue">V</span></td><td><span class="ru">вода</span> — [voda] agua</td></tr>
+    <tr><td>Е е</td><td>E</td><td><span class="hl-blue">YE</span></td><td><span class="ru">ем</span> — [yem] como</td></tr>
+    <tr><td>Н н</td><td>H</td><td><span class="hl-blue">N</span></td><td><span class="ru">нет</span> — [nyet] no</td></tr>
+    <tr><td>Р р</td><td>P</td><td><span class="hl-blue">R</span> (vibrante)</td><td><span class="ru">рот</span> — [rot] boca</td></tr>
+    <tr><td>С с</td><td>C</td><td><span class="hl-blue">S</span></td><td><span class="ru">суп</span> — [sup] sopa</td></tr>
+    <tr><td>У у</td><td>Y</td><td><span class="hl-blue">U</span></td><td><span class="ru">ум</span> — [um] mente</td></tr>
+    <tr><td>Х х</td><td>X</td><td><span class="hl-blue">J</span> (como en español)</td><td><span class="ru">хлеб</span> — [khlep] pan</td></tr>
+  </table>
+  <h2>Letras completamente nuevas</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">Ж ж</div><div class="pron">[zh]</div><div class="meaning">como "j" francesa: <em>journal</em></div></div>
+    <div class="ex-card"><div class="word">Ц ц</div><div class="pron">[ts]</div><div class="meaning">como "ts" en tsunami</div></div>
+    <div class="ex-card"><div class="word">Ш ш</div><div class="pron">[sh]</div><div class="meaning">como "sh" en show</div></div>
+    <div class="ex-card"><div class="word">Щ щ</div><div class="pron">[shch]</div><div class="meaning">sh prolongada y palatalizada</div></div>
+    <div class="ex-card"><div class="word">Ы ы</div><div class="pron">[ï]</div><div class="meaning">entre i y u, lengua atrás</div></div>
+    <div class="ex-card"><div class="word">Ю ю</div><div class="pron">[yu]</div><div class="meaning">como "yu" en yuca</div></div>
+    <div class="ex-card"><div class="word">Я я</div><div class="pron">[ya]</div><div class="meaning">como "ya" en ya voy</div></div>
+    <div class="ex-card"><div class="word">Ё ё</div><div class="pron">[yo]</div><div class="meaning">siempre tónica, como "yo"</div></div>
+  </div>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 2 · ¿Cómo se lee?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">¿Cómo suena <span class="ru-big">Р</span>?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Como la P española</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Como la R vibrante</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Sin sonido</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">¿Cómo suena <span class="ru-big">Н</span>?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Como H aspirada</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Sin sonido</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Como la N española</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">¿Cómo suena <span class="ru-big">Ж</span>?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'correct')">Como "j" francesa (sonora)</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Como la J española</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Como Z</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page-3">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Las 10 vocales</h1>
+  <p class="page-subtitle">Duras, blandas y el misterioso Ы</p>
+  <p>En ruso hay <strong>10 letras vocales</strong> pero solo <strong>6 sonidos vocálicos</strong>. La clave es que existen en parejas: una versión <em>dura</em> y una <em>blanda</em>. Las blandas palatalizan (suavizan) la consonante que las precede.</p>
+  <h2>Pares de vocales</h2>
+  <div class="pair-grid">
+    <div class="pair-card hard">
+      <div class="plabel">VOCALES DURAS — no palatalizan</div>
+      <div class="words"><span class="w">А</span><span class="w">О</span><span class="w">У</span><span class="w">Ы</span><span class="w">Э</span></div>
+    </div>
+    <div class="pair-card soft">
+      <div class="plabel">VOCALES BLANDAS — palatalizan la consonante anterior</div>
+      <div class="words"><span class="w">Я</span><span class="w">Ё</span><span class="w">Ю</span><span class="w">И</span><span class="w">Е</span></div>
+    </div>
+  </div>
+  <div class="rule-box"><p>📌 <strong>Regla clave:</strong> Н + А = НА [na], pero Н + Я = НЯ [nya]. Las blandas hacen que la lengua se acerque al paladar al pronunciar la consonante previa. Cada vocal dura tiene su pareja blanda: А↔Я, О↔Ё, У↔Ю, Ы↔И, Э↔Е.</p></div>
+  <h2>El sonido Ы — el más difícil para hispanohablantes</h2>
+  <p>La <span class="ru-big">Ы</span> no existe en español. Se produce con la lengua retraída y tensa, como si dijeras <em>"i"</em> pero con la boca algo más abierta y la lengua hacia atrás. Algunos la describen como el sonido al recibir un golpe en el estómago: "ugh".</p>
+  <div class="examples">
+    <div class="ex-card"><div class="word">ты</div><div class="pron">[tï]</div><div class="meaning">tú</div></div>
+    <div class="ex-card"><div class="word">мы</div><div class="pron">[mï]</div><div class="meaning">nosotros</div></div>
+    <div class="ex-card"><div class="word">рыба</div><div class="pron">[rïba]</div><div class="meaning">pescado</div></div>
+    <div class="ex-card"><div class="word">дым</div><div class="pron">[dïm]</div><div class="meaning">humo</div></div>
+    <div class="ex-card"><div class="word">сын</div><div class="pron">[sïn]</div><div class="meaning">hijo</div></div>
+    <div class="ex-card"><div class="word">крыша</div><div class="pron">[krïsha]</div><div class="meaning">techo</div></div>
+  </div>
+  <h2>Pares А / Я en palabras reales</h2>
+  <div class="ex-2col">
+    <div class="ex-card" style="grid-template-columns:1fr 1fr;"><div class="word">мама</div><div class="pron">[mama] mamá</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 1fr;"><div class="word">няня</div><div class="pron">[nyanya] niñera</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 1fr;"><div class="word">рада</div><div class="pron">[rada] contenta</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 1fr;"><div class="word">ряд</div><div class="pron">[ryad] fila</div></div>
+  </div>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 3 · Dura o blanda</div>
+    <p style="font-size:.85rem;color:var(--text3);margin-bottom:10px">Haz clic en cada vocal para revelar si es dura (D) o blanda (B):</p>
+    <div class="choices">
+      <button class="choice-btn" onclick="revealType(this,'Э','D')">Э</button>
+      <button class="choice-btn" onclick="revealType(this,'Ю','B')">Ю</button>
+      <button class="choice-btn" onclick="revealType(this,'О','D')">О</button>
+      <button class="choice-btn" onclick="revealType(this,'И','B')">И</button>
+      <button class="choice-btn" onclick="revealType(this,'У','D')">У</button>
+      <button class="choice-btn" onclick="revealType(this,'Я','B')">Я</button>
+      <button class="choice-btn" onclick="revealType(this,'Ы','D')">Ы</button>
+      <button class="choice-btn" onclick="revealType(this,'Е','B')">Е</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page-4">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Consonantes: sonoras y sordas</h1>
+  <p class="page-subtitle">Los pares que cambian al final de palabra</p>
+  <p>Las consonantes rusas se dividen en <strong>sonoras</strong> (con vibración de cuerdas vocales) y <strong>sordas</strong> (sin vibración). La mayoría forman pares. Esto es crucial porque las sonoras se vuelven sordas en ciertas posiciones.</p>
+  <h2>Los 6 pares principales</h2>
+  <table>
+    <tr><th>Sorda</th><th>Sonora</th><th>Ejemplo sorda</th><th>Ejemplo sonora</th></tr>
+    <tr><td>П [p]</td><td>Б [b]</td><td><span class="ru">папа</span> papa</td><td><span class="ru">баба</span> abuela</td></tr>
+    <tr><td>Ф [f]</td><td>В [v]</td><td><span class="ru">фото</span> foto</td><td><span class="ru">вода</span> agua</td></tr>
+    <tr><td>Т [t]</td><td>Д [d]</td><td><span class="ru">том</span> tomo</td><td><span class="ru">дом</span> casa</td></tr>
+    <tr><td>С [s]</td><td>З [z]</td><td><span class="ru">сон</span> sueño</td><td><span class="ru">зонт</span> paraguas</td></tr>
+    <tr><td>К [k]</td><td>Г [g]</td><td><span class="ru">кот</span> gato</td><td><span class="ru">год</span> año</td></tr>
+    <tr><td>Ш [sh]</td><td>Ж [zh]</td><td><span class="ru">шар</span> globo</td><td><span class="ru">жар</span> calor</td></tr>
+  </table>
+  <div class="rule-box"><p>⚠️ <strong>Ensordecimiento al final de palabra:</strong> Las consonantes sonoras al final de palabra se vuelven sordas. <span class="ru">год</span> (año) → [got], no [god]. <span class="ru">хлеб</span> (pan) → [khlyep].</p></div>
+  <h2>Ejemplos de ensordecimiento</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">гриб</div><div class="pron">[grip]</div><div class="meaning">hongo — Б→П al final</div></div>
+    <div class="ex-card"><div class="word">нож</div><div class="pron">[nosh]</div><div class="meaning">cuchillo — Ж→Ш al final</div></div>
+    <div class="ex-card"><div class="word">раз</div><div class="pron">[ras]</div><div class="meaning">vez — З→С al final</div></div>
+    <div class="ex-card"><div class="word">глаз</div><div class="pron">[glas]</div><div class="meaning">ojo — З→С al final</div></div>
+    <div class="ex-card"><div class="word">снег</div><div class="pron">[snyek]</div><div class="meaning">nieve — Г→К al final</div></div>
+    <div class="ex-card"><div class="word">зуб</div><div class="pron">[zup]</div><div class="meaning">diente — Б→П al final</div></div>
+  </div>
+  <div class="info-box"><p>ℹ️ También ocurre al revés: una sorda ante una sonora se vuelve sonora. <span class="ru">сделать</span> (hacer) → [zd'elat']. Esto se llama <em>sonorización</em> por asimilación.</p></div>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 4 · ¿Cómo suena la consonante final?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);margin-bottom:6px"><span class="ru-big">хлеб</span> (pan) — la Б final suena como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">B</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">P</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Sin sonido</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px"><span class="ru-big">снег</span> (nieve) — la Г final suena como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">G</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">K</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">J</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px"><span class="ru-big">глаз</span> (ojo) — la З final suena como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'correct')">S</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Z</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="page-5">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">El signo blando: Ь</h1>
+  <p class="page-subtitle">La letra que suaviza sin hacer ruido</p>
+  <p>El <strong>signo blando</strong> <span class="ru-big">Ь</span> no tiene sonido propio, pero <strong>palataliza la consonante que le precede</strong>: hace que la lengua se acerque al paladar, produciendo una consonante "suavizada" o "yodizada".</p>
+  <div class="rule-box"><p>🔑 Palatalizar = añadir un brevísimo [y] al final de la consonante. <span class="ru">Л</span> [l] dura vs. <span class="ru">Ль</span> [l'] suave. Es como la diferencia entre "la" y "lya".</p></div>
+  <h2>Pares mínimos con y sin Ь</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">мол</div><div class="pron">[mol]</div><div class="meaning">malecón</div></div>
+    <div class="ex-card"><div class="word">моль</div><div class="pron">[mol']</div><div class="meaning">polilla</div></div>
+    <div class="ex-card"><div class="word">брат</div><div class="pron">[brat]</div><div class="meaning">hermano</div></div>
+    <div class="ex-card"><div class="word">брать</div><div class="pron">[brat']</div><div class="meaning">tomar (infinitivo)</div></div>
+    <div class="ex-card"><div class="word">угол</div><div class="pron">[ugol]</div><div class="meaning">rincón / ángulo</div></div>
+    <div class="ex-card"><div class="word">уголь</div><div class="pron">[ugol']</div><div class="meaning">carbón</div></div>
+    <div class="ex-card"><div class="word">кон</div><div class="pron">[kon]</div><div class="meaning">inicio del juego</div></div>
+    <div class="ex-card"><div class="word">конь</div><div class="pron">[kon']</div><div class="meaning">caballo</div></div>
+    <div class="ex-card"><div class="word">стал</div><div class="pron">[stal]</div><div class="meaning">llegó a ser (pasado)</div></div>
+    <div class="ex-card"><div class="word">сталь</div><div class="pron">[stal']</div><div class="meaning">acero</div></div>
+  </div>
+  <h2>El Ь en todos los infinitivos</h2>
+  <p>Todos los infinitivos rusos terminan en <span class="ru">-ть</span> o <span class="ru">-чь</span>. El Ь es obligatorio:</p>
+  <div class="examples">
+    <div class="ex-card"><div class="word">читать</div><div class="pron">[chitat']</div><div class="meaning">leer</div></div>
+    <div class="ex-card"><div class="word">писать</div><div class="pron">[pisat']</div><div class="meaning">escribir</div></div>
+    <div class="ex-card"><div class="word">говорить</div><div class="pron">[govorit']</div><div class="meaning">hablar</div></div>
+    <div class="ex-card"><div class="word">быть</div><div class="pron">[bït']</div><div class="meaning">ser / estar</div></div>
+  </div>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 5 · ¿Lleva Ь?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">"Carbón" — ¿<span class="ru">угол</span> o <span class="ru">уголь</span>?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">угол (ángulo/rincón)</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">уголь (carbón, con Ь)</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">¿Cuál es el infinitivo "hablar"?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">говорит (él habla)</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">говорить (hablar, con Ь)</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">"Polilla" — ¿<span class="ru">мол</span> o <span class="ru">моль</span>?</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">мол (malecón, sin Ь)</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">моль (polilla, con Ь)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="page-6">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">El acento libre y móvil</h1>
+  <p class="page-subtitle">La nota musical que puede cambiar el significado</p>
+  <p>En ruso el acento es <strong>libre</strong> (cae en cualquier sílaba) y <strong>móvil</strong> (puede moverse al declinar o conjugar). No hay regla fija. El acento debe aprenderse con cada palabra nueva.</p>
+  <div class="rule-box"><p>⭐ En diccionarios y libros de texto, el acento se marca con una tilde aguda: <span class="ru">мо́жно</span>. En textos normales no se escribe. En esta página usamos subrayado para indicarlo.</p></div>
+  <h2>El acento cambia el significado</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">з<span class="stress">а</span>мок</div><div class="pron">[ZAmok]</div><div class="meaning">castillo</div></div>
+    <div class="ex-card"><div class="word">зам<span class="stress">о</span>к</div><div class="pron">[zaMOK]</div><div class="meaning">candado</div></div>
+    <div class="ex-card"><div class="word">м<span class="stress">у</span>ка</div><div class="pron">[MUka]</div><div class="meaning">harina</div></div>
+    <div class="ex-card"><div class="word">мук<span class="stress">а</span></div><div class="pron">[muKA]</div><div class="meaning">tormento</div></div>
+    <div class="ex-card"><div class="word">п<span class="stress">а</span>рить</div><div class="pron">[PArit']</div><div class="meaning">volar (como un ave)</div></div>
+    <div class="ex-card"><div class="word">пар<span class="stress">и</span>ть</div><div class="pron">[paRIT']</div><div class="meaning">cocinar al vapor</div></div>
+    <div class="ex-card"><div class="word">пис<span class="stress">а</span>ть</div><div class="pron">[piSAT']</div><div class="meaning">escribir</div></div>
+    <div class="ex-card"><div class="word">п<span class="stress">и</span>сать</div><div class="pron">[PISat']</div><div class="meaning">orinar (vulgar)</div></div>
+  </div>
+  <h2>El acento móvil en declinación</h2>
+  <table>
+    <tr><th>Singular</th><th>Acento</th><th>Plural / forma</th><th>Acento</th></tr>
+    <tr><td><span class="ru">рук<span class="stress">а</span></span></td><td>2.ª sílaba</td><td><span class="ru">р<span class="stress">у</span>ки</span></td><td>1.ª sílaba</td></tr>
+    <tr><td><span class="ru">г<span class="stress">о</span>род</span></td><td>1.ª sílaba</td><td><span class="ru">город<span class="stress">а</span></span></td><td>se mueve al final</td></tr>
+    <tr><td><span class="ru">сл<span class="stress">о</span>во</span></td><td>1.ª sílaba</td><td><span class="ru">слов<span class="stress">а</span></span></td><td>se mueve al final</td></tr>
+    <tr><td><span class="ru">ок<span class="stress">о</span>шко</span></td><td>2.ª sílaba</td><td><span class="ru">ок<span class="stress">о</span>шки</span></td><td>estable</td></tr>
+  </table>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 6 · ¿Castillo o candado?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">м<span class="stress">у</span>ка</span> (acento en 1.ª sílaba) significa:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'correct')">Harina</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Tormento</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">зам<span class="stress">о</span>к</span> (acento en 2.ª sílaba) significa:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Castillo</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Candado</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">пар<span class="stress">и</span>ть</span> (acento en 2.ª sílaba) significa:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Volar como un pájaro</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Cocinar al vapor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="page-7">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Reducción vocálica</h1>
+  <p class="page-subtitle">Por qué "молоко" suena "малако"</p>
+  <p>La <strong>reducción vocálica</strong> es el fenómeno más sorprendente del ruso. Las vocales <strong>О</strong> y <strong>Е/Я</strong> cambian de sonido cuando no están acentuadas. Por eso el ruso hablado suena muy diferente a como se escribe.</p>
+  <h2>La О inacentuada → suena [a]</h2>
+  <p>Cuando la <span class="ru-big">О</span> no lleva acento, se reduce a algo similar a <span class="hl">[a]</span>, especialmente en la sílaba justo antes del acento:</p>
+  <div class="examples">
+    <div class="ex-card"><div class="word">молок<span class="stress">о</span></div><div class="pron">[malakO]</div><div class="meaning">leche — ¡tres O, solo una suena O!</div></div>
+    <div class="ex-card"><div class="word">хорош<span class="stress">о</span></div><div class="pron">[kharasHO]</div><div class="meaning">bien</div></div>
+    <div class="ex-card"><div class="word">Москв<span class="stress">а</span></div><div class="pron">[maskVA]</div><div class="meaning">Moscú — О inicial → A</div></div>
+    <div class="ex-card"><div class="word">поним<span class="stress">а</span>ть</div><div class="pron">[paniMAT']</div><div class="meaning">entender</div></div>
+    <div class="ex-card"><div class="word">говор<span class="stress">и</span>ть</div><div class="pron">[gavaRIT']</div><div class="meaning">hablar — la О → A</div></div>
+    <div class="ex-card"><div class="word">окн<span class="stress">о</span></div><div class="pron">[akNO]</div><div class="meaning">ventana — О inicial → A</div></div>
+  </div>
+  <h2>La Е/Я inacentuada → suena [i]</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">пятн<span class="stress">а</span>дцать</div><div class="pron">[pitNAtsat']</div><div class="meaning">quince — Я→[i]</div></div>
+    <div class="ex-card"><div class="word">лес<span class="stress">а</span></div><div class="pron">[liSA]</div><div class="meaning">bosques — Е→[i]</div></div>
+    <div class="ex-card"><div class="word">сест<span class="stress">р</span>а</div><div class="pron">[sisTRA]</div><div class="meaning">hermana — Е→[i]</div></div>
+    <div class="ex-card"><div class="word">ян<span class="stress">в</span>арь</div><div class="pron">[yanVAR']</div><div class="meaning">enero</div></div>
+  </div>
+  <h2>Resumen</h2>
+  <table>
+    <tr><th>Vocal escrita</th><th>Con acento</th><th>Sin acento (cerca)</th><th>Sin acento (lejos)</th></tr>
+    <tr><td>О</td><td>[o]</td><td>[a] — молоко→малако</td><td>[ə] muy reducida</td></tr>
+    <tr><td>Е</td><td>[ye]</td><td>[yi] — леса→лиса</td><td>[ə] muy reducida</td></tr>
+    <tr><td>Я</td><td>[ya]</td><td>[yi] — пять→питнадцать</td><td>[ə] muy reducida</td></tr>
+    <tr><td>А, У, И</td><td colspan="3">Nunca se reducen significativamente</td></tr>
+  </table>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 7 · ¿Cómo se pronuncia realmente?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">хорошо́</span> (bien) suena más como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[khoroshó]</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">[kharashó]</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[khurushó]</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">молоко́</span> (leche) suena más como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'correct')">[malakó]</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[molokó]</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[mulukó]</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);font-size:1rem;margin-bottom:6px"><span class="ru">Москва́</span> (Moscú) suena como:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[Moskvá]</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">[maskVÁ]</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">[muSKVA]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="page-8">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Ё, Й y otros fonemas especiales</h1>
+  <p class="page-subtitle">La vocal que siempre lleva acento, la semivocal y la jota rusa</p>
+  <p>La <span class="ru-big">Ё</span> es única: <strong>siempre está acentuada</strong> y siempre suena [yo]. Sin embargo, en textos modernos frecuentemente se escribe como <span class="ru">Е</span>, lo que puede generar confusión.</p>
+  <div class="rule-box"><p>⚠️ <span class="ru">все</span> [fsye] = todos, pero <span class="ru">всё</span> [fsyo] = todo. <span class="ru">небо</span> [nyeba] = paladar/cielo. <span class="ru">нёбо</span> [nyoba] = paladar. La Ё marca diferencias reales de significado y pronunciación.</p></div>
+  <h2>Palabras comunes con Ё</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">ёж</div><div class="pron">[yozh]</div><div class="meaning">erizo</div></div>
+    <div class="ex-card"><div class="word">ёлка</div><div class="pron">[yolka]</div><div class="meaning">árbol navideño</div></div>
+    <div class="ex-card"><div class="word">всё</div><div class="pron">[vsyo]</div><div class="meaning">todo</div></div>
+    <div class="ex-card"><div class="word">её</div><div class="pron">[yeyo]</div><div class="meaning">de ella / la</div></div>
+    <div class="ex-card"><div class="word">пьёт</div><div class="pron">[pyot]</div><div class="meaning">él/ella bebe</div></div>
+    <div class="ex-card"><div class="word">чёрный</div><div class="pron">[chorny]</div><div class="meaning">negro</div></div>
+    <div class="ex-card"><div class="word">лёд</div><div class="pron">[lyot]</div><div class="meaning">hielo</div></div>
+    <div class="ex-card"><div class="word">сёстры</div><div class="pron">[syostry]</div><div class="meaning">hermanas</div></div>
+  </div>
+  <h2>Й — la semivocal</h2>
+  <p>La <span class="ru-big">Й</span> representa el sonido [y] de "mayo" o "yo". Aparece principalmente al final de sílaba y forma diptongos:</p>
+  <div class="examples">
+    <div class="ex-card"><div class="word">май</div><div class="pron">[may]</div><div class="meaning">mayo</div></div>
+    <div class="ex-card"><div class="word">чай</div><div class="pron">[chay]</div><div class="meaning">té</div></div>
+    <div class="ex-card"><div class="word">мой</div><div class="pron">[moy]</div><div class="meaning">mi / mío</div></div>
+    <div class="ex-card"><div class="word">твой</div><div class="pron">[tvoy]</div><div class="meaning">tu / tuyo</div></div>
+  </div>
+  <h2>Х — la "jota" rusa</h2>
+  <p>La <span class="ru-big">Х</span> es una fricativa velar sorda, como la J española de México o la ch alemana en "Bach". Más suave que la J española peninsular:</p>
+  <div class="examples">
+    <div class="ex-card"><div class="word">хорошо</div><div class="pron">[kharashO]</div><div class="meaning">bien</div></div>
+    <div class="ex-card"><div class="word">холодно</div><div class="pron">[KHoladno]</div><div class="meaning">hace frío</div></div>
+    <div class="ex-card"><div class="word">хочу</div><div class="pron">[khaCHU]</div><div class="meaning">quiero</div></div>
+    <div class="ex-card"><div class="word">хлеб</div><div class="pron">[KHlyep]</div><div class="meaning">pan</div></div>
+  </div>
+</div>
+
+<!-- PAGE 9 -->
+<div class="page" id="page-9">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">El signo duro: Ъ</h1>
+  <p class="page-subtitle">El separador silencioso entre prefijo y raíz</p>
+  <p>El <strong>signo duro</strong> <span class="ru-big">Ъ</span> también carece de sonido. Aparece <strong>solo entre un prefijo consonántico y una raíz que empieza con vocal blanda</strong> (Е, Ё, Ю, Я). Impide que el prefijo palatalice la raíz.</p>
+  <div class="rule-box"><p>🔑 Sin Ъ: <span class="ru">съесть</span> sin el signo duro sería <span class="ru">сесть</span> — que significa "sentarse". El signo duro preserva la separación entre el prefijo С- y la raíz ЕСТ-.</p></div>
+  <h2>Ejemplos con Ъ</h2>
+  <div class="examples">
+    <div class="ex-card"><div class="word">съесть</div><div class="pron">s + yest'</div><div class="meaning">comerse (algo) — prefijo С-</div></div>
+    <div class="ex-card"><div class="word">объяснить</div><div class="pron">ob + yasnit'</div><div class="meaning">explicar — prefijo ОБ-</div></div>
+    <div class="ex-card"><div class="word">въезд</div><div class="pron">v + yezd</div><div class="meaning">entrada en vehículo — prefijo В-</div></div>
+    <div class="ex-card"><div class="word">подъезд</div><div class="pron">pod + yezd</div><div class="meaning">portal de edificio — prefijo ПОД-</div></div>
+    <div class="ex-card"><div class="word">объём</div><div class="pron">ob + yom</div><div class="meaning">volumen — prefijo ОБ-</div></div>
+    <div class="ex-card"><div class="word">съезд</div><div class="pron">s + yezd</div><div class="meaning">congreso / bajada — prefijo С-</div></div>
+  </div>
+  <h2>Ъ vs Ь — comparativa</h2>
+  <table>
+    <tr><th>Característica</th><th>Ь (signo blando)</th><th>Ъ (signo duro)</th></tr>
+    <tr><td>Sonido propio</td><td>Ninguno</td><td>Ninguno</td></tr>
+    <tr><td>Función</td><td>Palataliza la consonante anterior</td><td>Impide palatalización; separa morfemas</td></tr>
+    <tr><td>Posición</td><td>Cualquier posición en la raíz</td><td>Solo entre prefijo consonántico y raíz blanda</td></tr>
+    <tr><td>Frecuencia</td><td>Muy común</td><td>Poco frecuente</td></tr>
+    <tr><td>Ejemplo</td><td><span class="ru">конь</span> [kon'] caballo</td><td><span class="ru">съесть</span> [syest'] comer</td></tr>
+  </table>
+  <div class="exercise">
+    <div class="ex-label">Ejercicio 8 · ¿Ь o Ъ?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">En <span class="ru">об_яснить</span> (explicar) — prefijo ОБ- + raíz:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Ь (signo blando)</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Ъ (signo duro) — объяснить</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">En <span class="ru">кон_</span> (caballo) — al final de la raíz:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'correct')">Ь — конь (palataliza Н)</button>
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Ъ (solo para prefijos)</button>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text);margin-bottom:6px">En <span class="ru">в_езд</span> (entrada) — prefijo В- + raíz:</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="mcq(this,'wrong')">Ь — вьезд</button>
+          <button class="choice-btn" onclick="mcq(this,'correct')">Ъ — въезд (separa prefijo y raíz)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 10 -->
+<div class="page" id="page-10">
+  <div class="page-tag">Lección 1 · Escritura y Fonética</div>
+  <h1 class="page-title">Repaso y práctica final</h1>
+  <p class="page-subtitle">Todo lo que aprendiste en este módulo</p>
+  <h2>Resumen del módulo</h2>
+  <div class="examples">
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">33 letras</div><div class="pron">Vocales, consonantes, signos Ь y Ъ</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Falsas amigas</div><div class="pron">В=V, Н=N, Р=R, С=S, У=U, Х=J</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">10 vocales</div><div class="pron">5 duras (А О У Ы Э) + 5 blandas (Я Ё Ю И Е)</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Ensordecimiento</div><div class="pron">Sonoras → sordas al final: год→[got]</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Signo blando Ь</div><div class="pron">Palataliza la consonante: конь, брать</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Acento libre</div><div class="pron">Cae en cualquier sílaba, es móvil</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Reducción О→А</div><div class="pron">О sin acento → [a]: молоко→[malakó]</div></div>
+    <div class="ex-card" style="grid-template-columns:1fr 2fr;border-left-color:var(--green)"><div class="word" style="color:var(--green)">Signo duro Ъ</div><div class="pron">Separa prefijo de raíz: съесть, объяснить</div></div>
+  </div>
+  <h2>Prueba final — Lee estas palabras</h2>
+  <p style="color:var(--text3);font-size:.85rem;margin-bottom:.5rem">Haz clic en cada tarjeta para revelar la pronunciación y el significado:</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;">
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[gatOvit\'] — cocinar')"><div class="word">готовить</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[paniMAT\'] — entender')"><div class="word">понимать</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[maskVA] — Moscú')"><div class="word">Москва</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[kharashO] — bien')"><div class="word">хорошо</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[RÏba] — pescado (Ы = i-u)')"><div class="word">рыба</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[snyek] — nieve; Г final → K')"><div class="word">снег</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[abYASnit\'] — explicar; Ъ entre prefijo y raíz')"><div class="word">объяснить</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+    <div class="ex-card" style="cursor:pointer;grid-template-columns:1fr;" onclick="flip(this,'[malakO] — leche; ¡3 О, solo 1 suena O!')"><div class="word">молоко</div><div class="pron" style="color:var(--text3);font-size:.8rem">toca para revelar</div></div>
+  </div>
+  <div class="rule-box" style="text-align:center;background:linear-gradient(135deg,#0e1a0e,#121e12);border-color:#2a5a2a;">
+    <p style="font-size:1.05rem;margin-bottom:.3rem">🎉 Завершено! Has completado el módulo de escritura y fonética.</p>
+    <p style="font-size:.82rem;color:var(--accent3);margin:0">Siguiente lección → Sustantivos: género, número y los 6 casos</p>
+  </div>
+</div>
+
+</main>
+
+<nav>
+  <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>
+    <span>←</span> Anterior
+  </button>
+  <div class="nav-dots" id="navDots"></div>
+  <button class="nav-btn" id="nextBtn" onclick="changePage(1)">
+    Siguiente <span>→</span>
+  </button>
+</nav>
+
+</div>
+<script>
+let current = 1;
+const total = 10;
+const dotsEl = document.getElementById('navDots');
+for (let i = 1; i <= total; i++) {
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i===1?' active':'');
+  d.title = 'Página '+i;
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+function goTo(n) {
+  document.getElementById('page-'+current).classList.remove('active');
+  document.querySelectorAll('.nav-dot')[current-1].classList.remove('active');
+  current = n;
+  document.getElementById('page-'+current).classList.add('active');
+  document.querySelectorAll('.nav-dot')[current-1].classList.add('active');
+  document.getElementById('prevBtn').disabled = current===1;
+  document.getElementById('nextBtn').disabled = current===total;
+  document.getElementById('pageCounter').textContent = current+' / '+total;
+  document.getElementById('progressBar').style.width = (current/total*100)+'%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function changePage(dir) { goTo(current+dir); }
+function checkChoice(btn, correct) {
+  if (btn.disabled) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  btn.disabled = true;
+}
+function mcq(btn, result) {
+  if (btn.disabled) return;
+  btn.closest('.choices').querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+  btn.classList.add(result==='correct' ? 'correct' : 'wrong');
+}
+function revealType(btn, letter, type) {
+  if (btn.disabled) return;
+  btn.classList.add('correct');
+  btn.textContent = letter + ' → ' + (type==='D' ? 'Dura ✓' : 'Blanda ✓');
+  btn.disabled = true;
+}
+function flip(el, text) {
+  const p = el.querySelector('.pron');
+  if (!p.dataset.revealed) {
+    p.textContent = text;
+    p.style.color = 'var(--accent3)';
+    p.style.fontSize = '.82rem';
+    p.dataset.revealed = '1';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight' && current<total) changePage(1);
+  if (e.key==='ArrowLeft' && current>1) changePage(-1);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperativ en Alemán</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            padding-bottom: 120px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            min-height: 80vh;
+        }
+        
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        h1 {
+            color: #f5576c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #f5576c;
+        }
+        
+        h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #f093fb;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .rule-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .example {
+            background: #ffe0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #f5576c;
+        }
+        
+        .imperative {
+            color: #f5576c;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #f5576c;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #fff5f8;
+        }
+        
+        .exercise {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 5px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #f5576c;
+        }
+        
+        button {
+            background: #f5576c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        
+        button:hover:not(:disabled) {
+            background: #f093fb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .tip {
+            background: #fff9c4;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #fbc02d;
+        }
+        
+        .warning {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e53935;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .form-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .form-title {
+            font-weight: bold;
+            color: #f5576c;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .form-subtitle {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation Controls */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: #f5576c;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+                padding-bottom: 100px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            input[type="text"] {
+                width: 100%;
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 10px 20px;
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active" data-slide="1">
+            <h1>Der Imperativ 📢</h1>
+            <p class="subtitle">Las formas imperativas en alemán</p>
+            
+            <div class="section" style="text-align: center; padding: 60px 40px;">
+                <h2 style="border: none; font-size: 2.5em; margin-bottom: 30px;">🇩🇪</h2>
+                <p style="font-size: 1.3em; color: #666; margin-bottom: 20px;">
+                    Aprende a dar órdenes, instrucciones y consejos en alemán
+                </p>
+                <p style="font-size: 1.1em; color: #999;">
+                    Formas: du, ihr, Sie
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introducción -->
+        <div class="slide" data-slide="2">
+            <div class="section">
+                <h2>📚 ¿Qué es el Imperativ?</h2>
+                <div class="rule-box">
+                    <p><strong>El Imperativ (imperativo)</strong> se usa para dar órdenes, instrucciones, consejos o hacer peticiones.</p>
+                    <p style="margin-top: 15px;">En alemán existen <strong>tres formas</strong> del imperativo:</p>
+                    <ul style="margin-left: 25px; margin-top: 10px; line-height: 1.8;">
+                        <li><strong>du</strong> (tú) - informal singular</li>
+                        <li><strong>ihr</strong> (vosotros/ustedes) - informal plural</li>
+                        <li><strong>Sie</strong> (usted/ustedes) - formal singular y plural</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    <strong>💡 Importante:</strong> En alemán NO se usa el pronombre personal en el imperativo (excepto con "Sie"). Por ejemplo: "Komm!" (¡Ven!), no "Du komm!"
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Formación del Imperativ -->
+        <div class="slide" data-slide="3">
+            <div class="section">
+                <h2>🔨 Formación del Imperativ</h2>
+                
+                <div class="form-grid">
+                    <div class="form-card">
+                        <div class="form-title">du (tú)</div>
+                        <div class="form-subtitle">informal singular</div>
+                        <p><strong>Raíz + (e)</strong></p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Se quita la terminación -st de la 2ª persona singular</p>
+                    </div>
+                    
+                    <div class="form-card">
+                        <div class="form-title">ihr (vosotros)</div>
+                        <div class="form-subtitle">informal plural</div>
+                        <p><strong>= forma de ihr</strong></p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Igual que la conjugación normal de ihr</p>
+                    </div>
+                    
+                    <div class="form-card">
+                        <div class="form-title">Sie (usted/es)</div>
+                        <div class="form-subtitle">formal singular/plural</div>
+                        <p><strong>Verbo + Sie</strong></p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Igual que la conjugación normal + Sie al final</p>
+                    </div>
+                </div>
+                
+                <h3>Ejemplo con el verbo "machen" (hacer)</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Forma</th>
+                            <th>Formación</th>
+                            <th>Imperativ</th>
+                            <th>Traducción</th>
+                        </tr>
+                        <tr>
+                            <td><strong>du</strong></td>
+                            <td>du mach<del>st</del></td>
+                            <td class="imperative">Mach!</td>
+                            <td>¡Haz!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ihr</strong></td>
+                            <td>ihr macht</td>
+                            <td class="imperative">Macht!</td>
+                            <td>¡Haced! / ¡Hagan!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sie</strong></td>
+                            <td>Sie machen</td>
+                            <td class="imperative">Machen Sie!</td>
+                            <td>¡Haga! / ¡Hagan!</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Atención:</strong> Con verbos cuya raíz termina en -t, -d, -n, -m se añade una "-e" en la forma "du" para facilitar la pronunciación: <strong>Warte!</strong> (¡Espera!), <strong>Öffne!</strong> (¡Abre!)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Ejemplos Regulares -->
+        <div class="slide" data-slide="4">
+            <div class="section">
+                <h2>📝 Ejemplos con Verbos Regulares</h2>
+                
+                <h3>kommen (venir)</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Komm!</span> (¡Ven!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Kommt!</span> (¡Venid! / ¡Vengan!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Kommen Sie!</span> (¡Venga! / ¡Vengan!)
+                </div>
+                
+                <h3>lernen (aprender/estudiar)</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Lern!</span> (¡Aprende!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Lernt!</span> (¡Aprended!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Lernen Sie!</span> (¡Aprenda!)
+                </div>
+                
+                <h3>schreiben (escribir)</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Schreib!</span> (¡Escribe!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Schreibt!</span> (¡Escribid!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Schreiben Sie!</span> (¡Escriba!)
+                </div>
+                
+                <h3>arbeiten (trabajar) - con "-e" extra</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Arbeite!</span> (¡Trabaja!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Arbeitet!</span> (¡Trabajad!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Arbeiten Sie!</span> (¡Trabaje!)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Excepciones - Cambio e→i/ie -->
+        <div class="slide" data-slide="5">
+            <div class="section">
+                <h2>⚠️ Excepciones: Cambio e → i/ie</h2>
+                
+                <div class="rule-box">
+                    <p>Los verbos que cambian <strong>e → i</strong> o <strong>e → ie</strong> en presente mantienen este cambio en el imperativo de "du", pero <strong>NO añaden -e</strong>.</p>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Verbo</th>
+                            <th>du (Presente)</th>
+                            <th>Imperativ du</th>
+                            <th>Imperativ ihr</th>
+                            <th>Imperativ Sie</th>
+                        </tr>
+                        <tr>
+                            <td><strong>essen</strong> (comer)</td>
+                            <td>du <strong>isst</strong></td>
+                            <td class="imperative">Iss!</td>
+                            <td class="imperative">Esst!</td>
+                            <td class="imperative">Essen Sie!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>geben</strong> (dar)</td>
+                            <td>du <strong>gibst</strong></td>
+                            <td class="imperative">Gib!</td>
+                            <td class="imperative">Gebt!</td>
+                            <td class="imperative">Geben Sie!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>lesen</strong> (leer)</td>
+                            <td>du <strong>liest</strong></td>
+                            <td class="imperative">Lies!</td>
+                            <td class="imperative">Lest!</td>
+                            <td class="imperative">Lesen Sie!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>sehen</strong> (ver)</td>
+                            <td>du <strong>siehst</strong></td>
+                            <td class="imperative">Sieh!</td>
+                            <td class="imperative">Seht!</td>
+                            <td class="imperative">Sehen Sie!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nehmen</strong> (tomar)</td>
+                            <td>du <strong>nimmst</strong></td>
+                            <td class="imperative">Nimm!</td>
+                            <td class="imperative">Nehmt!</td>
+                            <td class="imperative">Nehmen Sie!</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="tip">
+                    <strong>💡 Regla:</strong> Si el verbo cambia e→i/ie en presente (du), mantiene el cambio en imperativo (du) y NO lleva -e final.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Excepciones - Cambio a→ä -->
+        <div class="slide" data-slide="6">
+            <div class="section">
+                <h2>⚠️ Excepciones: Cambio a → ä</h2>
+                
+                <div class="rule-box">
+                    <p>Los verbos que cambian <strong>a → ä</strong> en presente <strong>NO</strong> mantienen este cambio en el imperativo.</p>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Verbo</th>
+                            <th>du (Presente)</th>
+                            <th>Imperativ du</th>
+                            <th>Imperativ ihr</th>
+                        </tr>
+                        <tr>
+                            <td><strong>fahren</strong> (conducir/ir)</td>
+                            <td>du <strong>fährst</strong></td>
+                            <td class="imperative">Fahr!</td>
+                            <td class="imperative">Fahrt!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>laufen</strong> (correr)</td>
+                            <td>du <strong>läufst</strong></td>
+                            <td class="imperative">Lauf!</td>
+                            <td class="imperative">Lauft!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>schlafen</strong> (dormir)</td>
+                            <td>du <strong>schläfst</strong></td>
+                            <td class="imperative">Schlaf!</td>
+                            <td class="imperative">Schlaft!</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> A diferencia de los verbos e→i/ie, los verbos con cambio a→ä usan la forma base en imperativo: <strong>Fahr!</strong> (no "Fähr!")
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Verbos Irregulares Especiales -->
+        <div class="slide" data-slide="7">
+            <div class="section">
+                <h2>🌟 Verbos Irregulares Especiales</h2>
+                
+                <h3>sein (ser/estar) - COMPLETAMENTE IRREGULAR</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Sei!</span> (¡Sé!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Seid!</span> (¡Sed!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Seien Sie!</span> (¡Sea! / ¡Sean!)
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Muy importante:</strong> El verbo "sein" es completamente irregular. ¡Aprende estas formas de memoria!
+                </div>
+                
+                <h3>haben (tener)</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Hab!</span> (¡Ten!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Habt!</span> (¡Tened!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Haben Sie!</span> (¡Tenga!)
+                </div>
+                
+                <h3>werden (convertirse/llegar a ser)</h3>
+                <div class="example">
+                    <strong>du:</strong> <span class="imperative">Werde!</span> (¡Conviértete!)<br>
+                    <strong>ihr:</strong> <span class="imperative">Werdet!</span> (¡Convertíos!)<br>
+                    <strong>Sie:</strong> <span class="imperative">Werden Sie!</span> (¡Conviértase!)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Verbos Separables -->
+        <div class="slide" data-slide="8">
+            <div class="section">
+                <h2>🔀 Verbos Separables</h2>
+                
+                <div class="rule-box">
+                    <p>Con verbos separables, el prefijo va <strong>al final</strong> de la oración:</p>
+                </div>
+                
+                <h3>aufstehen (levantarse)</h3>
+                <div class="example">
+                    du: <span class="imperative">Steh auf!</span> (¡Levántate!)<br>
+                    ihr: <span class="imperative">Steht auf!</span> (¡Levantaos!)<br>
+                    Sie: <span class="imperative">Stehen Sie auf!</span> (¡Levántese!)
+                </div>
+                
+                <h3>zumachen (cerrar)</h3>
+                <div class="example">
+                    du: <span class="imperative">Mach zu!</span> (¡Cierra!)<br>
+                    ihr: <span class="imperative">Macht zu!</span> (¡Cerrad!)<br>
+                    Sie: <span class="imperative">Machen Sie zu!</span> (¡Cierre!)
+                </div>
+
+                <h3>anrufen (llamar por teléfono)</h3>
+                <div class="example">
+                    du: <span class="imperative">Ruf an!</span> (¡Llama!)<br>
+                    ihr: <span class="imperative">Ruft an!</span> (¡Llamad!)<br>
+                    Sie: <span class="imperative">Rufen Sie an!</span> (¡Llame!)
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Recuerda:</strong> El prefijo separable siempre va al final de la oración imperativa.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Ejercicio 1 -->
+        <div class="slide" data-slide="9">
+            <div class="section">
+                <h2>✏️ Ejercicio 1: Completa el Imperativ</h2>
+                
+                <div class="exercise">
+                    <h3>Forma el imperativo en las tres formas (du, ihr, Sie)</h3>
+                    
+                    <div class="question">
+                        <p><strong>1. kommen (venir)</strong></p>
+                        <p>du: <input type="text" id="ex1q1" placeholder="Komm!"></p>
+                        <p>ihr: <input type="text" id="ex1q2" placeholder="Kommt!"></p>
+                        <p>Sie: <input type="text" id="ex1q3" placeholder="Kommen Sie!"></p>
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>2. lesen (leer) - cambio e→ie</strong></p>
+                        <p>du: <input type="text" id="ex1q4" placeholder="..."></p>
+                        <p>ihr: <input type="text" id="ex1q5" placeholder="..."></p>
+                        <p>Sie: <input type="text" id="ex1q6" placeholder="..."></p>
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>3. fahren (conducir/ir) - cambio a→ä en presente</strong></p>
+                        <p>du: <input type="text" id="ex1q7" placeholder="..."></p>
+                        <p>ihr: <input type="text" id="ex1q8" placeholder="..."></p>
+                    </div>
+                    
+                    <button onclick="checkExercise1()">Comprobar respuestas</button>
+                    <button onclick="resetExercise1()">Reiniciar</button>
+                    <div id="result1" class="result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Ejercicio 2 -->
+        <div class="slide" data-slide="10">
+            <div class="section">
+                <h2>✏️ Ejercicio 2: Traduce al alemán</h2>
+                
+                <div class="exercise">
+                    <div class="question">
+                        <p><strong>1. ¡Ven aquí! (du)</strong></p>
+                        <input type="text" id="ex2q1" style="width: 300px;" placeholder="Tu respuesta">
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>2. ¡Escriban la carta! (Sie)</strong></p>
+                        <input type="text" id="ex2q2" style="width: 300px;" placeholder="Tu respuesta">
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>3. ¡Lee el libro! (du) - lesen</strong></p>
+                        <input type="text" id="ex2q3" style="width: 300px;" placeholder="Tu respuesta">
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>4. ¡Sed buenos! (ihr) - sein</strong></p>
+                        <input type="text" id="ex2q4" style="width: 300px;" placeholder="Tu respuesta">
+                    </div>
+                    
+                    <div class="question">
+                        <p><strong>5. ¡Levántate! (du) - aufstehen</strong></p>
+                        <input type="text" id="ex2q5" style="width: 300px;" placeholder="Tu respuesta">
+                    </div>
+                    
+                    <button onclick="checkExercise2()">Comprobar respuestas</button>
+                    <button onclick="resetExercise2()">Reiniciar</button>
+                    <div id="result2" class="result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Resumen Final -->
+        <div class="slide" data-slide="11">
+            <div class="section">
+                <h2>📋 Resumen Final</h2>
+                
+                <div class="rule-box">
+                    <h3 style="color: #f5576c; margin-bottom: 15px;">Reglas Principales:</h3>
+                    
+                    <p><strong>1. Formación básica:</strong></p>
+                    <ul style="margin-left: 25px; margin-top: 10px; line-height: 2;">
+                        <li><strong>du:</strong> Raíz del verbo (sin -e final generalmente)</li>
+                        <li><strong>ihr:</strong> Igual que la conjugación normal</li>
+                        <li><strong>Sie:</strong> Verbo + Sie (igual que la conjugación normal)</li>
+                    </ul>
+                    
+                    <p style="margin-top: 20px;"><strong>2. Excepciones importantes:</strong></p>
+                    <ul style="margin-left: 25px; margin-top: 10px; line-height: 2;">
+                        <li>Verbos <strong>e→i/ie</strong>: mantienen el cambio en "du" (Lies!, Nimm!)</li>
+                        <li>Verbos <strong>a→ä</strong>: NO mantienen el cambio (Fahr!, no Fähr!)</li>
+                        <li><strong>sein</strong>: Completamente irregular (Sei!, Seid!, Seien Sie!)</li>
+                        <li>Verbos en <strong>-t, -d, -n, -m</strong>: añaden -e (Warte!, Öffne!)</li>
+                        <li><strong>Verbos separables</strong>: prefijo al final (Steh auf!)</li>
+                    </ul>
+                </div>
+                
+                <div class="tip">
+                    <strong>💡 Consejo final:</strong> Practica con situaciones cotidianas. El imperativo es muy común en alemán para dar instrucciones, recetas, indicaciones y consejos.
+                </div>
+                
+                <div class="example">
+                    <strong>Ejemplos en contexto:</strong><br><br>
+                    <span class="imperative">Mach das Fenster zu!</span> (¡Cierra la ventana!)<br>
+                    <span class="imperative">Seid ruhig!</span> (¡Estad tranquilos!)<br>
+                    <span class="imperative">Nehmen Sie Platz!</span> (¡Tome asiento!)<br>
+                    <span class="imperative">Gib mir das Buch!</span> (¡Dame el libro!)<br>
+                    <span class="imperative">Fahrt vorsichtig!</span> (¡Conducid con cuidado!)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Final -->
+        <div class="slide" data-slide="12">
+            <div class="section" style="text-align: center; padding: 80px 40px;">
+                <h1 style="font-size: 3em; margin-bottom: 30px;">¡Excelente! 🎉</h1>
+                <p style="font-size: 1.4em; color: #666; margin-bottom: 30px;">
+                    Has completado la guía del <strong class="imperative">Imperativ</strong>
+                </p>
+                <div style="background: #ffe0f0; padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <p style="font-size: 1.2em; color: #333; line-height: 1.8;">
+                        Ahora sabes cómo dar órdenes e instrucciones en alemán<br>
+                        usando las tres formas del imperativo.
+                    </p>
+                </div>
+                <p style="font-size: 1.3em; color: #f5576c; font-weight: bold; margin-top: 40px;">
+                    Viel Erfolg! 🇩🇪
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">
+            ← Anterior
+        </button>
+        <span class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">12</span>
+        </span>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">
+            Siguiente →
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            } else if (n < 1) {
+                currentSlide = 1;
+            } else {
+                currentSlide = n;
+            }
+
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+
+            prevBtn.disabled = (currentSlide === 1);
+            nextBtn.disabled = (currentSlide === totalSlides);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        // Exercise 1 functions
+        function checkExercise1() {
+            const answers = {
+                'ex1q1': 'Komm!',
+                'ex1q2': 'Kommt!',
+                'ex1q3': 'Kommen Sie!',
+                'ex1q4': 'Lies!',
+                'ex1q5': 'Lest!',
+                'ex1q6': 'Lesen Sie!',
+                'ex1q7': 'Fahr!',
+                'ex1q8': 'Fahrt!'
+            };
+
+            let allCorrect = true;
+            let resultText = '<strong>Resultados:</strong><br>';
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim();
+                const correctAnswer = answers[id];
+                
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    input.style.borderColor = '#2e7d32';
+                    resultText += `✓ ${id}: Correcto<br>`;
+                } else {
+                    input.style.borderColor = '#c62828';
+                    resultText += `✗ ${id}: Incorrecto. Respuesta correcta: ${correctAnswer}<br>`;
+                    allCorrect = false;
+                }
+            }
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.innerHTML = resultText;
+            resultDiv.className = allCorrect ? 'result correct' : 'result incorrect';
+        }
+
+        function resetExercise1() {
+            const inputs = ['ex1q1', 'ex1q2', 'ex1q3', 'ex1q4', 'ex1q5', 'ex1q6', 'ex1q7', 'ex1q8'];
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result1').innerHTML = '';
+            document.getElementById('result1').className = 'result';
+        }
+
+        // Exercise 2 functions
+        function checkExercise2() {
+            const answers = {
+                'ex2q1': 'Komm her!',
+                'ex2q2': 'Schreiben Sie den Brief!',
+                'ex2q3': 'Lies das Buch!',
+                'ex2q4': 'Seid gut!',
+                'ex2q5': 'Steh auf!'
+            };
+
+            let allCorrect = true;
+            let resultText = '<strong>Resultados:</strong><br>';
+
+            for (let id in answers) {
+                const input = document.getElementById(id);
+                const userAnswer = input.value.trim();
+                const correctAnswer = answers[id];
+                
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    input.style.borderColor = '#2e7d32';
+                    resultText += `✓ ${id}: Correcto<br>`;
+                } else {
+                    input.style.borderColor = '#c62828';
+                    resultText += `✗ ${id}: Incorrecto. Respuesta correcta: ${correctAnswer}<br>`;
+                    allCorrect = false;
+                }
+            }
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.innerHTML = resultText;
+            resultDiv.className = allCorrect ? 'result correct' : 'result incorrect';
+        }
+
+        function resetExercise2() {
+            const inputs = ['ex2q1', 'ex2q2', 'ex2q3', 'ex2q4', 'ex2q5'];
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.borderColor = '#ddd';
+            });
+            document.getElementById('result2').innerHTML = '';
+            document.getElementById('result2').className = 'result';
+        }
+
+        // Initialize
+        document.getElementById('totalSlides').textContent = totalSlides;
+        showSlide(1);
+    </script>
+</body>
+</html>

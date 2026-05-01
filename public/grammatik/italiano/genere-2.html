@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Genere in Italiano — Guida Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e11;
+  --surface: #16161b;
+  --surface2: #1e1e26;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8e4dc;
+  --muted: rgba(232,228,220,0.45);
+  --masc: #5b9bd5;
+  --masc-bg: rgba(91,155,213,0.10);
+  --masc-border: rgba(91,155,213,0.25);
+  --fem: #d4789a;
+  --fem-bg: rgba(212,120,154,0.10);
+  --fem-border: rgba(212,120,154,0.25);
+  --accent: #f0c060;
+  --accent-bg: rgba(240,192,96,0.10);
+  --green: #72b87a;
+  --red: #d46b6b;
+  --nav-h: 58px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* ══ NAV ══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(14,14,17,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  padding: 0 1.25rem;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--accent);
+  white-space: nowrap;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 0 0.5rem;
+}
+
+.nav-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.22);
+  white-space: nowrap;
+  padding: 0 0.4rem;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: rgba(232,228,220,0.5);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.35rem 0.65rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: all 0.18s;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-btn.active { color: var(--accent); background: var(--accent-bg); }
+
+/* ══ MAIN ══ */
+main {
+  padding-top: calc(var(--nav-h) + 2.5rem);
+  padding-bottom: 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.slide { display: none; animation: reveal 0.35s ease both; }
+.slide.active { display: block; }
+@keyframes reveal {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ══ SLIDE HEADER ══ */
+.slide-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.slide-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.slide-title em { font-style: italic; color: var(--accent); }
+.slide-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ══ RULE BOX ══ */
+.rule-box {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.35rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+  color: rgba(232,228,220,0.8);
+  line-height: 1.7;
+}
+.rule-box .rule-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+.rule-box strong { color: var(--text); }
+
+/* ══ GENDER COLUMNS ══ */
+.gender-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media(max-width:600px) { .gender-grid { grid-template-columns: 1fr; } }
+
+.gender-col {
+  border-radius: 10px;
+  padding: 1.25rem;
+  border: 1px solid;
+}
+.gender-col.masc {
+  background: var(--masc-bg);
+  border-color: var(--masc-border);
+}
+.gender-col.fem {
+  background: var(--fem-bg);
+  border-color: var(--fem-border);
+}
+.gender-col-title {
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.gender-col.masc .gender-col-title { color: var(--masc); }
+.gender-col.fem .gender-col-title { color: var(--fem); }
+
+.word-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.word-row:last-child { border-bottom: none; }
+.word-it {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.word-row.masc .word-it { color: var(--masc); }
+.word-row.fem .word-it { color: var(--fem); }
+.word-es {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+.word-note {
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+}
+
+/* ══ EXCEPTIONS BOX ══ */
+.exc-box {
+  background: var(--surface2);
+  border: 1px solid rgba(240,192,96,0.18);
+  border-radius: 8px;
+  padding: 1.1rem 1.35rem;
+  margin-bottom: 1.5rem;
+}
+.exc-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+}
+.exc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.exc-chip {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+}
+.exc-chip .chi { color: var(--masc); }
+.exc-chip .chf { color: var(--fem); }
+.exc-chip .arrow { color: var(--muted); font-size: 0.7rem; margin: 0 0.2rem; }
+.exc-chip .tr { color: var(--muted); font-size: 0.75rem; margin-left: 0.2rem; font-family: 'Syne', sans-serif; }
+
+/* ══ FULL TABLE ══ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.data-table thead tr {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.data-table th {
+  text-align: left;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.data-table td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+.it-word { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; }
+.it-word.m { color: var(--masc); }
+.it-word.f { color: var(--fem); }
+.badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+}
+.badge-m { background: var(--masc-bg); color: var(--masc); border: 1px solid var(--masc-border); }
+.badge-f { background: var(--fem-bg); color: var(--fem); border: 1px solid var(--fem-border); }
+.badge-exc { background: rgba(240,192,96,0.12); color: var(--accent); border: 1px solid rgba(240,192,96,0.25); }
+
+/* ══ PATTERN BOX ══ */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.pattern-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.15rem;
+  transition: border-color 0.2s;
+}
+.pattern-card:hover { border-color: rgba(255,255,255,0.14); }
+.pattern-card .pc-suffix {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.pattern-card .pc-suffix.m { color: var(--masc); }
+.pattern-card .pc-suffix.f { color: var(--fem); }
+.pattern-card .pc-rule {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+}
+.pattern-card .pc-ex {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: rgba(232,228,220,0.55);
+  font-style: italic;
+}
+
+/* ══ HOME ══ */
+.home-hero {
+  padding: 2rem 0 3rem;
+}
+.home-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.home-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.home-title em { color: var(--accent); font-style: italic; }
+.home-lead {
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem;
+}
+.index-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.index-card:hover {
+  border-color: rgba(240,192,96,0.3);
+  background: var(--surface2);
+  transform: translateY(-2px);
+}
+.ic-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 0.3rem;
+}
+.ic-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+}
+.ic-sub { font-size: 0.7rem; color: var(--muted); }
+
+/* ══ NAV ARROWS ══ */
+.slide-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.snav {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.18s;
+}
+.snav:hover { border-color: rgba(240,192,96,0.4); color: var(--accent); }
+.snav:disabled { opacity: 0.25; cursor: default; }
+
+/* ══ EXERCISES ══ */
+.ex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.ex-progress-bar {
+  height: 3px;
+  background: var(--surface2);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.ex-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.exercise-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s;
+}
+.exercise-card.answered-correct { border-color: rgba(114,184,122,0.5); background: rgba(114,184,122,0.05); }
+.exercise-card.answered-wrong   { border-color: rgba(212,107,107,0.5); background: rgba(212,107,107,0.05); }
+
+.ex-type {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.ex-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+}
+.ex-question .blank {
+  display: inline-block;
+  min-width: 80px;
+  border-bottom: 2px solid var(--accent);
+  padding: 0 0.25rem;
+  color: var(--accent);
+  font-style: italic;
+}
+
+.ex-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.ex-opt {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.55rem 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ex-opt:hover:not(:disabled) { border-color: rgba(240,192,96,0.4); color: var(--accent); }
+.ex-opt:disabled { cursor: default; }
+.ex-opt.correct  { border-color: var(--green); color: var(--green); background: rgba(114,184,122,0.12); }
+.ex-opt.wrong    { border-color: var(--red);   color: var(--red);   background: rgba(212,107,107,0.12); }
+
+/* fill in blank */
+.ex-fill-wrap { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+.ex-input {
+  background: var(--surface2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 0.55rem 0.9rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  outline: none;
+  min-width: 140px;
+  transition: border-color 0.2s;
+}
+.ex-input:focus { border-color: rgba(240,192,96,0.5); }
+.ex-input.correct { border-color: var(--green); color: var(--green); }
+.ex-input.wrong   { border-color: var(--red);   color: var(--red);   }
+.ex-submit {
+  background: var(--accent-bg);
+  border: 1px solid rgba(240,192,96,0.3);
+  color: var(--accent);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ex-submit:hover { background: rgba(240,192,96,0.18); }
+.ex-submit:disabled { opacity: 0.35; cursor: default; }
+
+.ex-feedback {
+  margin-top: 0.85rem;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  display: none;
+}
+.ex-feedback.show { display: block; }
+.ex-feedback.ok { color: var(--green); }
+.ex-feedback.ko { color: var(--red); }
+
+.ex-score-panel {
+  text-align: center;
+  padding: 3rem 1rem;
+  display: none;
+}
+.ex-score-panel.show { display: block; }
+.ex-score-panel .score-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.ex-score-panel .score-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+.ex-score-panel .score-msg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.btn-restart {
+  background: var(--surface);
+  border: 1px solid rgba(240,192,96,0.35);
+  color: var(--accent);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-restart:hover { background: var(--accent-bg); }
+
+/* ══ IRREGULAR TABLE ══ */
+.irr-section { margin-bottom: 1.5rem; }
+.irr-section h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+/* ══ TWO COL ══ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+@media(max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+
+/* segment table wrap */
+.seg-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.seg-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.1rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.seg-head-icon { font-size: 1.1rem; }
+.seg-head-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+.seg-head-sub { font-size: 0.68rem; color: var(--muted); margin-left: auto; }
+
+/* tip */
+.tip {
+  display: flex;
+  gap: 0.75rem;
+  background: rgba(240,192,96,0.07);
+  border: 1px solid rgba(240,192,96,0.15);
+  border-radius: 7px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+  color: rgba(232,228,220,0.75);
+  line-height: 1.6;
+}
+.tip-icon { font-size: 1rem; flex-shrink: 0; padding-top: 0.1rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Il Genere</span>
+  <button class="nav-btn active" onclick="goTo('home')">Inicio</button>
+  <div class="nav-divider"></div>
+  <span class="nav-label">Reglas</span>
+  <button class="nav-btn" onclick="goTo('terminaciones')">Terminaciones</button>
+  <button class="nav-btn" onclick="goTo('invariables')">Invariables</button>
+  <div class="nav-divider"></div>
+  <span class="nav-label">Campos semánticos</span>
+  <button class="nav-btn" onclick="goTo('personas')">Personas</button>
+  <button class="nav-btn" onclick="goTo('profesiones')">Profesiones</button>
+  <button class="nav-btn" onclick="goTo('animales')">Animales</button>
+  <button class="nav-btn" onclick="goTo('frutas')">Frutas/Verd.</button>
+  <button class="nav-btn" onclick="goTo('colores')">Colores</button>
+  <button class="nav-btn" onclick="goTo('cuerpo')">Cuerpo</button>
+  <button class="nav-btn" onclick="goTo('tiempo')">Tiempo</button>
+  <button class="nav-btn" onclick="goTo('geografia')">Geografía</button>
+  <button class="nav-btn" onclick="goTo('objetos')">Objetos/Casa</button>
+  <button class="nav-btn" onclick="goTo('abstractos')">Abstractos</button>
+  <button class="nav-btn" onclick="goTo('prestamos')">Préstamos</button>
+  <div class="nav-divider"></div>
+  <button class="nav-btn" onclick="goTo('ejercicios')">✏ Ejercicios</button>
+</nav>
+
+<main>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="slide active" id="slide-home">
+  <div class="home-hero">
+    <div class="home-kicker">// Grammatica italiana</div>
+    <h1 class="home-title">Il <em>Genere</em><br>dei Sostantivi</h1>
+    <p class="home-lead">Una guía visual y completa del género en italiano: reglas, excepciones, campos semánticos y ejercicios interactivos. Cada sustantivo tiene su lógica — descúbrela.</p>
+  </div>
+  <div class="index-grid">
+    <div class="index-card" onclick="goTo('terminaciones')"><div class="ic-num">01</div><div class="ic-name">Terminaciones</div><div class="ic-sub">-o / -a / -e / otras</div></div>
+    <div class="index-card" onclick="goTo('invariables')"><div class="ic-num">02</div><div class="ic-name">Invariables</div><div class="ic-sub">Palabras de género fijo</div></div>
+    <div class="index-card" onclick="goTo('personas')"><div class="ic-num">03</div><div class="ic-name">Personas y familia</div><div class="ic-sub">Padre, madre, figlio...</div></div>
+    <div class="index-card" onclick="goTo('profesiones')"><div class="ic-num">04</div><div class="ic-name">Profesiones</div><div class="ic-sub">Medico, avvocata...</div></div>
+    <div class="index-card" onclick="goTo('animales')"><div class="ic-num">05</div><div class="ic-name">Animales</div><div class="ic-sub">Gato → gatta, leone...</div></div>
+    <div class="index-card" onclick="goTo('frutas')"><div class="ic-num">06</div><div class="ic-name">Frutas y verduras</div><div class="ic-sub">Mela (f), pomodoro (m)...</div></div>
+    <div class="index-card" onclick="goTo('colores')"><div class="ic-num">07</div><div class="ic-name">Colores</div><div class="ic-sub">Invariables vs. variables</div></div>
+    <div class="index-card" onclick="goTo('cuerpo')"><div class="ic-num">08</div><div class="ic-name">Cuerpo humano</div><div class="ic-sub">Mano (f!), braccio (m)...</div></div>
+    <div class="index-card" onclick="goTo('tiempo')"><div class="ic-num">09</div><div class="ic-name">Tiempo y naturaleza</div><div class="ic-sub">Il sole, la luna...</div></div>
+    <div class="index-card" onclick="goTo('geografia')"><div class="ic-num">10</div><div class="ic-name">Geografía</div><div class="ic-sub">Países, ríos, ciudades...</div></div>
+    <div class="index-card" onclick="goTo('objetos')"><div class="ic-num">11</div><div class="ic-name">Objetos y hogar</div><div class="ic-sub">Tavolo, sedia, cucina...</div></div>
+    <div class="index-card" onclick="goTo('abstractos')"><div class="ic-num">12</div><div class="ic-name">Abstractos</div><div class="ic-sub">Libertà, amore, vita...</div></div>
+    <div class="index-card" onclick="goTo('prestamos')"><div class="ic-num">13</div><div class="ic-name">Préstamos del inglés</div><div class="ic-sub">Il computer, lo sport...</div></div>
+    <div class="index-card" onclick="goTo('ejercicios')" style="border-color:rgba(240,192,96,0.25); background: rgba(240,192,96,0.05)"><div class="ic-num" style="color:var(--accent)">✏</div><div class="ic-name" style="color:var(--accent)">Ejercicios</div><div class="ic-sub">30 preguntas interactivas</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ TERMINACIONES ═══════════ -->
+<div class="slide" id="slide-terminaciones">
+  <div class="slide-eyebrow">Regla fundamental</div>
+  <div class="slide-title">Las <em>Terminaciones</em></div>
+  <div class="slide-sub">La guía más útil para determinar el género de cualquier sustantivo</div>
+
+  <div class="rule-box">
+    <div class="rule-title">La regla del 80%</div>
+    En italiano, la terminación del sustantivo predice su género con alta fiabilidad: <strong>-o → masculino</strong>, <strong>-a → femenino</strong>. Pero la terminación <strong>-e</strong> puede ser de cualquier género, y existen numerosas excepciones.
+  </div>
+
+  <div class="pattern-grid">
+    <div class="pattern-card"><div class="pc-suffix m">-o</div><div class="pc-rule">→ Generalmente <strong style="color:var(--masc)">masculino</strong></div><div class="pc-ex">il libro, il tavolo, il vento</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-a</div><div class="pc-rule">→ Generalmente <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la casa, la porta, la mela</div></div>
+    <div class="pattern-card"><div class="pc-suffix m">-e</div><div class="pc-rule">→ <strong>Cualquier género</strong>: hay que memorizar</div><div class="pc-ex">il fiore (m) / la neve (f)</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-ione</div><div class="pc-rule">→ Casi siempre <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la stazione, l'azione, la nazione</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-tà / -tù</div><div class="pc-rule">→ Siempre <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la città, la libertà, la virtù</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-si / -si</div><div class="pc-rule">→ Generalmente <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la crisi, l'analisi, la tesi</div></tr></div>
+    <div class="pattern-card"><div class="pc-suffix m">-ore</div><div class="pc-rule">→ Generalmente <strong style="color:var(--masc)">masculino</strong></div><div class="pc-ex">il fiore, il colore, il dottore</div></div>
+    <div class="pattern-card"><div class="pc-suffix m">-ismo</div><div class="pc-rule">→ Siempre <strong style="color:var(--masc)">masculino</strong></div><div class="pc-ex">il fascismo, il turismo, il realismo</div></div>
+    <div class="pattern-card"><div class="pc-suffix m">-ema</div><div class="pc-rule">→ <strong style="color:var(--masc)">Masculino</strong> (origen griego)</div><div class="pc-ex">il problema, il sistema, il tema</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-ura</div><div class="pc-rule">→ Generalmente <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la natura, la cultura, la figura</div></div>
+    <div class="pattern-card"><div class="pc-suffix m">-aggio</div><div class="pc-rule">→ Generalmente <strong style="color:var(--masc)">masculino</strong></div><div class="pc-ex">il viaggio, il coraggio, il formaggio</div></div>
+    <div class="pattern-card"><div class="pc-suffix f">-ezza</div><div class="pc-rule">→ Siempre <strong style="color:var(--fem)">femenino</strong></div><div class="pc-ex">la bellezza, la dolcezza, la ricchezza</div></div>
+  </div>
+
+  <div class="exc-box">
+    <div class="exc-title">⚠ Excepciones clásicas (-o femenino / -a masculino)</div>
+    <div class="exc-grid">
+      <span class="exc-chip"><span class="chf">la mano</span><span class="tr">— la mano (f)</span></span>
+      <span class="exc-chip"><span class="chf">la foto</span><span class="tr">— la foto (f)</span></span>
+      <span class="exc-chip"><span class="chf">la radio</span><span class="tr">— la radio (f)</span></span>
+      <span class="exc-chip"><span class="chf">la moto</span><span class="tr">— la moto (f)</span></span>
+      <span class="exc-chip"><span class="chi">il problema</span><span class="tr">— problema (m)</span></span>
+      <span class="exc-chip"><span class="chi">il tema</span><span class="tr">— tema (m)</span></span>
+      <span class="exc-chip"><span class="chi">il sistema</span><span class="tr">— sistema (m)</span></span>
+      <span class="exc-chip"><span class="chi">il poema</span><span class="tr">— poema (m)</span></span>
+      <span class="exc-chip"><span class="chi">il panorama</span><span class="tr">— panorama (m)</span></span>
+      <span class="exc-chip"><span class="chi">il cinema</span><span class="tr">— cinema (m)</span></span>
+      <span class="exc-chip"><span class="chf">la virtù</span><span class="tr">— virtù (f)</span></span>
+      <span class="exc-chip"><span class="chi">il boia</span><span class="tr">— boia (m)</span></span>
+    </div>
+  </div>
+  <div class="slide-nav">
+    <button class="snav" disabled>← Anterior</button>
+    <button class="snav" onclick="goTo('invariables')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ INVARIABLES ═══════════ -->
+<div class="slide" id="slide-invariables">
+  <div class="slide-eyebrow">Categoría especial</div>
+  <div class="slide-title">Sustantivos <em>Invariables</em></div>
+  <div class="slide-sub">Palabras cuya forma no cambia con el género ni el número</div>
+
+  <div class="rule-box">
+    <div class="rule-title">¿Qué son?</div>
+    Los sustantivos invariables tienen la <strong>misma forma</strong> para masculino y femenino (y a veces para singular y plural). El género se determina por el artículo o el contexto.
+  </div>
+
+  <div class="two-col">
+    <div class="seg-wrap">
+      <div class="seg-head"><span class="seg-head-icon">🔠</span><span class="seg-head-title">Terminados en consonante (préstamos)</span></div>
+      <table class="data-table">
+        <thead><tr><th>Palabra</th><th>Gén.</th><th>Traducción</th></tr></thead>
+        <tbody>
+          <tr><td><span class="it-word m">il bar</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el bar</td></tr>
+          <tr><td><span class="it-word m">il film</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">la película</td></tr>
+          <tr><td><span class="it-word m">lo sport</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el deporte</td></tr>
+          <tr><td><span class="it-word m">il tram</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el tranvía</td></tr>
+          <tr><td><span class="it-word f">la toast</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">la tostada</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="seg-wrap">
+      <div class="seg-head"><span class="seg-head-icon">🔤</span><span class="seg-head-title">Términos en -i (griego) y -ì</span></div>
+      <table class="data-table">
+        <thead><tr><th>Palabra</th><th>Gén.</th><th>Traducción</th></tr></thead>
+        <tbody>
+          <tr><td><span class="it-word f">la crisi</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">la crisis</td></tr>
+          <tr><td><span class="it-word f">l'analisi</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">el análisis</td></tr>
+          <tr><td><span class="it-word f">la tesi</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">la tesis</td></tr>
+          <tr><td><span class="it-word f">la sintesi</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">la síntesis</td></tr>
+          <tr><td><span class="it-word m">il brindisi</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el brindis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="seg-wrap">
+    <div class="seg-head"><span class="seg-head-icon">♾</span><span class="seg-head-title">Misma forma — género cambia con artículo</span><span class="seg-head-sub">epicenos y comunes de dos</span></div>
+    <table class="data-table">
+      <thead><tr><th>Masculino</th><th>Femenino</th><th>Traducción</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td><span class="it-word m">il pianista</span></td><td><span class="it-word f">la pianista</span></td><td style="color:var(--muted); font-size:0.82rem">el/la pianista</td><td><span class="badge badge-exc">-ista</span></td></tr>
+        <tr><td><span class="it-word m">il cantante</span></td><td><span class="it-word f">la cantante</span></td><td style="color:var(--muted); font-size:0.82rem">el/la cantante</td><td><span class="badge badge-exc">-ante</span></td></tr>
+        <tr><td><span class="it-word m">il nipote</span></td><td><span class="it-word f">la nipote</span></td><td style="color:var(--muted); font-size:0.82rem">el sobrino / la sobrina</td><td><span class="badge badge-exc">-ote</span></td></tr>
+        <tr><td><span class="it-word m">il collega</span></td><td><span class="it-word f">la collega</span></td><td style="color:var(--muted); font-size:0.82rem">el/la colega</td><td><span class="badge badge-exc">-ega</span></td></tr>
+        <tr><td><span class="it-word m">il turista</span></td><td><span class="it-word f">la turista</span></td><td style="color:var(--muted); font-size:0.82rem">el/la turista</td><td><span class="badge badge-exc">-ista</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('terminaciones')">← Anterior</button>
+    <button class="snav" onclick="goTo('personas')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PERSONAS ═══════════ -->
+<div class="slide" id="slide-personas">
+  <div class="slide-eyebrow">Campo semántico 01</div>
+  <div class="slide-title">Personas <em>&amp; Familia</em></div>
+  <div class="slide-sub">Los sustantivos de personas suelen cambiar terminación según el sexo</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Patrón principal</div>
+    La mayoría de sustantivos de persona siguen el patrón <strong>-o (masc.) → -a (fem.)</strong>. Los términos en <strong>-e</strong> suelen ser invariables o cambian en -essa.
+  </div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Masculino</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il padre</span><span class="word-es">el padre</span></div>
+        <div class="word-row masc"><span class="word-it">il figlio</span><span class="word-es">el hijo</span></div>
+        <div class="word-row masc"><span class="word-it">il fratello</span><span class="word-es">el hermano</span></div>
+        <div class="word-row masc"><span class="word-it">il marito</span><span class="word-es">el marido</span></div>
+        <div class="word-row masc"><span class="word-it">il nonno</span><span class="word-es">el abuelo</span></div>
+        <div class="word-row masc"><span class="word-it">il zio</span><span class="word-es">el tío</span></div>
+        <div class="word-row masc"><span class="word-it">il cugino</span><span class="word-es">el primo</span></div>
+        <div class="word-row masc"><span class="word-it">il ragazzo</span><span class="word-es">el chico</span></div>
+        <div class="word-row masc"><span class="word-it">l'uomo</span><span class="word-es">el hombre</span><span class="word-note">irreg.</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Femenino</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la madre</span><span class="word-es">la madre</span></div>
+        <div class="word-row fem"><span class="word-it">la figlia</span><span class="word-es">la hija</span></div>
+        <div class="word-row fem"><span class="word-it">la sorella</span><span class="word-es">la hermana</span></div>
+        <div class="word-row fem"><span class="word-it">la moglie</span><span class="word-es">la esposa</span><span class="word-note">irreg.</span></div>
+        <div class="word-row fem"><span class="word-it">la nonna</span><span class="word-es">la abuela</span></div>
+        <div class="word-row fem"><span class="word-it">la zia</span><span class="word-es">la tía</span></div>
+        <div class="word-row fem"><span class="word-it">la cugina</span><span class="word-es">la prima</span></div>
+        <div class="word-row fem"><span class="word-it">la ragazza</span><span class="word-es">la chica</span></div>
+        <div class="word-row fem"><span class="word-it">la donna</span><span class="word-es">la mujer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exc-box">
+    <div class="exc-title">⚠ Irregolari notables</div>
+    <div class="exc-grid">
+      <span class="exc-chip"><span class="chi">il genero</span><span class="arrow">→</span><span class="chf">la nuora</span><span class="tr">(yerno / nuera)</span></span>
+      <span class="exc-chip"><span class="chi">il fratello</span><span class="arrow">→</span><span class="chf">la sorella</span><span class="tr">(hermano / hermana)</span></span>
+      <span class="exc-chip"><span class="chi">il marito</span><span class="arrow">→</span><span class="chf">la moglie</span><span class="tr">(marido / esposa)</span></span>
+      <span class="exc-chip"><span class="chi">il nipote</span><span class="arrow">=</span><span class="chf">la nipote</span><span class="tr">(sobrino / sobrina)</span></span>
+      <span class="exc-chip"><span class="chi">il re</span><span class="arrow">→</span><span class="chf">la regina</span><span class="tr">(rey / reina)</span></span>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('invariables')">← Anterior</button>
+    <button class="snav" onclick="goTo('profesiones')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PROFESIONES ═══════════ -->
+<div class="slide" id="slide-profesiones">
+  <div class="slide-eyebrow">Campo semántico 02</div>
+  <div class="slide-title"><em>Profesioni</em> e mestieri</div>
+  <div class="slide-sub">Las profesiones en italiano: patrones regulares, formas en -essa y casos especiales</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Tres grandes patrones</div>
+    <strong>1. -o / -a:</strong> infermiere→o, infermiera. &nbsp;<strong>2. -e invariable:</strong> il/la cantante. &nbsp;<strong>3. -essa para femenino:</strong> dottore→dottoressa, professore→professoressa. &nbsp;Muchas profesiones masculinas de prestigio aún resisten el femenino en uso coloquial.
+  </div>
+
+  <div class="seg-wrap">
+    <div class="seg-head"><span class="seg-head-icon">💼</span><span class="seg-head-title">Profesiones con cambio de terminación</span></div>
+    <table class="data-table">
+      <thead><tr><th>Masculino</th><th>Femenino</th><th>Patrón</th><th>Traducción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="it-word m">il dottore</span></td><td><span class="it-word f">la dottoressa</span></td><td><span class="badge badge-exc">-ore→-oressa</span></td><td style="color:var(--muted); font-size:0.82rem">médico/a</td></tr>
+        <tr><td><span class="it-word m">il professore</span></td><td><span class="it-word f">la professoressa</span></td><td><span class="badge badge-exc">-ore→-oressa</span></td><td style="color:var(--muted); font-size:0.82rem">profesor/a</td></tr>
+        <tr><td><span class="it-word m">l'avvocato</span></td><td><span class="it-word f">l'avvocata / l'avvocatessa</span></td><td><span class="badge badge-exc">doble forma</span></td><td style="color:var(--muted); font-size:0.82rem">abogado/a</td></tr>
+        <tr><td><span class="it-word m">il cameriere</span></td><td><span class="it-word f">la cameriera</span></td><td><span class="badge badge-exc">-iere→-iera</span></td><td style="color:var(--muted); font-size:0.82rem">camarero/a</td></tr>
+        <tr><td><span class="it-word m">l'infermiere</span></td><td><span class="it-word f">l'infermiera</span></td><td><span class="badge badge-exc">-iere→-iera</span></td><td style="color:var(--muted); font-size:0.82rem">enfermero/a</td></tr>
+        <tr><td><span class="it-word m">lo scrittore</span></td><td><span class="it-word f">la scrittrice</span></td><td><span class="badge badge-exc">-tore→-trice</span></td><td style="color:var(--muted); font-size:0.82rem">escritor/a</td></tr>
+        <tr><td><span class="it-word m">l'attore</span></td><td><span class="it-word f">l'attrice</span></td><td><span class="badge badge-exc">-tore→-trice</span></td><td style="color:var(--muted); font-size:0.82rem">actor/actriz</td></tr>
+        <tr><td><span class="it-word m">il direttore</span></td><td><span class="it-word f">la direttrice</span></td><td><span class="badge badge-exc">-tore→-trice</span></td><td style="color:var(--muted); font-size:0.82rem">director/a</td></tr>
+        <tr><td><span class="it-word m">il cuoco</span></td><td><span class="it-word f">la cuoca</span></td><td><span class="badge badge-exc">-o→-a</span></td><td style="color:var(--muted); font-size:0.82rem">cocinero/a</td></tr>
+        <tr><td><span class="it-word m">l'architetto</span></td><td><span class="it-word f">l'architetta</span></td><td><span class="badge badge-exc">-o→-a</span></td><td style="color:var(--muted); font-size:0.82rem">arquitecto/a</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="seg-wrap">
+    <div class="seg-head"><span class="seg-head-icon">⚖</span><span class="seg-head-title">Profesiones invariables (artículo diferencia el género)</span></div>
+    <table class="data-table">
+      <thead><tr><th>Masculino</th><th>Femenino</th><th>Traducción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="it-word m">il cantante</span></td><td><span class="it-word f">la cantante</span></td><td style="color:var(--muted); font-size:0.82rem">cantante</td></tr>
+        <tr><td><span class="it-word m">il pianista</span></td><td><span class="it-word f">la pianista</span></td><td style="color:var(--muted); font-size:0.82rem">pianista</td></tr>
+        <tr><td><span class="it-word m">il giornalista</span></td><td><span class="it-word f">la giornalista</span></td><td style="color:var(--muted); font-size:0.82rem">periodista</td></tr>
+        <tr><td><span class="it-word m">il dentista</span></td><td><span class="it-word f">la dentista</span></td><td style="color:var(--muted); font-size:0.82rem">dentista</td></tr>
+        <tr><td><span class="it-word m">il/l'interprete</span></td><td><span class="it-word f">l'interprete</span></td><td style="color:var(--muted); font-size:0.82rem">intérprete</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('personas')">← Anterior</button>
+    <button class="snav" onclick="goTo('animales')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ ANIMALES ═══════════ -->
+<div class="slide" id="slide-animales">
+  <div class="slide-eyebrow">Campo semántico 03</div>
+  <div class="slide-title">Gli <em>Animali</em></div>
+  <div class="slide-sub">Animales con formas diferenciadas y animales de género fijo</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Animali epiceni vs. con forma doble</div>
+    Muchos animales tienen <strong>forma masculina y femenina diferente</strong>. Otros son <strong>epicenos</strong>: solo tienen un género y la distinción sexual se indica con <em>maschio / femmina</em>.
+  </div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Con pareja femenina</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il gatto</span><span class="word-es">→ la gatta</span></div>
+        <div class="word-row masc"><span class="word-it">il cane</span><span class="word-es">→ la cagna</span><span class="word-note">irreg.</span></div>
+        <div class="word-row masc"><span class="word-it">il cavallo</span><span class="word-es">→ la cavalla</span></div>
+        <div class="word-row masc"><span class="word-it">il leone</span><span class="word-es">→ la leonessa</span></div>
+        <div class="word-row masc"><span class="word-it">il toro</span><span class="word-es">→ la mucca/vacca</span><span class="word-note">irreg.</span></div>
+        <div class="word-row masc"><span class="word-it">il gallo</span><span class="word-es">→ la gallina</span><span class="word-note">irreg.</span></div>
+        <div class="word-row masc"><span class="word-it">il maiale</span><span class="word-es">→ la scrofa</span><span class="word-note">irreg.</span></div>
+        <div class="word-row masc"><span class="word-it">il cervo</span><span class="word-es">→ la cerva</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Animales de género fijo (epicenos)</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la volpe</span><span class="word-es">el/la zorro/a (siempre f)</span></div>
+        <div class="word-row fem"><span class="word-it">la giraffa</span><span class="word-es">la jirafa (siempre f)</span></div>
+        <div class="word-row masc"><span class="word-it">il serpente</span><span class="word-es">la serpiente (siempre m)</span></div>
+        <div class="word-row masc"><span class="word-it">il coccodrillo</span><span class="word-es">el cocodrilo (siempre m)</span></div>
+        <div class="word-row masc"><span class="word-it">il moscerino</span><span class="word-es">el mosquito (siempre m)</span></div>
+        <div class="word-row fem"><span class="word-it">la tigre</span><span class="word-es">el/la tigre (siempre f)</span></div>
+        <div class="word-row masc"><span class="word-it">il leopardo</span><span class="word-es">el leopardo (siempre m)</span></div>
+        <div class="word-row masc"><span class="word-it">il gorilla</span><span class="word-es">el gorila (siempre m)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><span class="tip-icon">💡</span><span>Para los animales epicenos, si necesitas especificar el sexo se dice: <strong style="color:var(--text)">la volpe maschio</strong> (el zorro macho) o <strong style="color:var(--text)">il serpente femmina</strong> (la serpiente hembra).</span></div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('profesiones')">← Anterior</button>
+    <button class="snav" onclick="goTo('frutas')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ FRUTAS ═══════════ -->
+<div class="slide" id="slide-frutas">
+  <div class="slide-eyebrow">Campo semántico 04</div>
+  <div class="slide-title">Frutta &amp; <em>Verdura</em></div>
+  <div class="slide-sub">Las frutas tienden al femenino; las verduras son más variadas</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Tendencia general</div>
+    La mayoría de las <strong>frutas</strong> son <strong style="color:var(--fem)">femeninas</strong>. Las <strong>verduras y legumbres</strong> son más variadas. Atención a los pares fruta(f) / árbol(m): <em>la mela / il melo</em>, <em>la pera / il pero</em>.
+  </div>
+
+  <div class="gender-grid">
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Frutas (prevalentemente femminile)</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la mela</span><span class="word-es">la manzana</span></div>
+        <div class="word-row fem"><span class="word-it">la pera</span><span class="word-es">la pera</span></div>
+        <div class="word-row fem"><span class="word-it">la banana</span><span class="word-es">el plátano</span></div>
+        <div class="word-row fem"><span class="word-it">la fragola</span><span class="word-es">la fresa</span></div>
+        <div class="word-row fem"><span class="word-it">la pesca</span><span class="word-es">el durazno</span></div>
+        <div class="word-row fem"><span class="word-it">l'arancia</span><span class="word-es">la naranja</span></div>
+        <div class="word-row fem"><span class="word-it">la ciliegia</span><span class="word-es">la cereza</span></div>
+        <div class="word-row fem"><span class="word-it">l'uva</span><span class="word-es">la uva</span></div>
+        <div class="word-row masc"><span class="word-it">il limone</span><span class="word-es">el limón</span><span class="word-note">masc.</span></div>
+        <div class="word-row masc"><span class="word-it">il mango</span><span class="word-es">el mango</span><span class="word-note">masc.</span></div>
+        <div class="word-row masc"><span class="word-it">il melone</span><span class="word-es">el melón</span><span class="word-note">masc.</span></div>
+        <div class="word-row masc"><span class="word-it">il cocomero</span><span class="word-es">la sandía</span><span class="word-note">masc.</span></div>
+      </div>
+    </div>
+    <div class="gender-col masc">
+      <div class="gender-col-title">Verduras y legumbres</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il pomodoro</span><span class="word-es">el tomate</span></div>
+        <div class="word-row masc"><span class="word-it">il peperone</span><span class="word-es">el pimiento</span></div>
+        <div class="word-row masc"><span class="word-it">il broccolo</span><span class="word-es">el brócoli</span></div>
+        <div class="word-row masc"><span class="word-it">il carciofo</span><span class="word-es">la alcachofa</span></div>
+        <div class="word-row masc"><span class="word-it">il pisello</span><span class="word-es">el guisante</span></div>
+        <div class="word-row masc"><span class="word-it">il fagiolo</span><span class="word-es">el frijol</span></div>
+        <div class="word-row masc"><span class="word-it">il fungo</span><span class="word-es">el hongo</span></div>
+        <div class="word-row fem"><span class="word-it">la carota</span><span class="word-es">la zanahoria</span></div>
+        <div class="word-row fem"><span class="word-it">la cipolla</span><span class="word-es">la cebolla</span></div>
+        <div class="word-row fem"><span class="word-it">la zucchina</span><span class="word-es">el calabacín</span></div>
+        <div class="word-row fem"><span class="word-it">la patata</span><span class="word-es">la papa</span></div>
+        <div class="word-row fem"><span class="word-it">la melanzana</span><span class="word-es">la berenjena</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('animales')">← Anterior</button>
+    <button class="snav" onclick="goTo('colores')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ COLORES ═══════════ -->
+<div class="slide" id="slide-colores">
+  <div class="slide-eyebrow">Campo semántico 05</div>
+  <div class="slide-title">I <em>Colori</em></div>
+  <div class="slide-sub">Colores variables vs. invariables — el mayor campo de invariables del italiano</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Variables e invariables</div>
+    Los colores derivados de adjetivos <strong>concuerdan en género y número</strong>. Los colores que son sustantivos usados como adjetivos (rosa, arancione, viola, beige, blu, marrone) son <strong>invariables</strong>.
+  </div>
+
+  <div class="two-col">
+    <div class="seg-wrap">
+      <div class="seg-head"><span class="seg-head-icon">🎨</span><span class="seg-head-title">Colores variables (concuerdan)</span></div>
+      <table class="data-table">
+        <thead><tr><th>Masc. sing.</th><th>Fem. sing.</th><th>Masc. pl.</th><th>Fem. pl.</th></tr></thead>
+        <tbody>
+          <tr><td class="it-word m">rosso</td><td class="it-word f">rossa</td><td>rossi</td><td>rosse</td></tr>
+          <tr><td class="it-word m">bianco</td><td class="it-word f">bianca</td><td>bianchi</td><td>bianche</td></tr>
+          <tr><td class="it-word m">nero</td><td class="it-word f">nera</td><td>neri</td><td>nere</td></tr>
+          <tr><td class="it-word m">giallo</td><td class="it-word f">gialla</td><td>gialli</td><td>gialle</td></tr>
+          <tr><td class="it-word m">verde</td><td class="it-word f">verde</td><td>verdi</td><td>verdi</td></tr>
+          <tr><td class="it-word m">grigio</td><td class="it-word f">grigia</td><td>grigi</td><td>grigie</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="seg-wrap">
+      <div class="seg-head"><span class="seg-head-icon">🚫</span><span class="seg-head-title">Colores invariables (siempre igual)</span></div>
+      <table class="data-table">
+        <thead><tr><th>Color</th><th>Ejemplo</th><th>Origen</th></tr></thead>
+        <tbody>
+          <tr><td class="it-word" style="color:#e8a0b4">rosa</td><td style="font-size:0.82rem; color:var(--muted)">le scarpe rosa</td><td><span class="badge badge-exc">sustantivo</span></td></tr>
+          <tr><td class="it-word" style="color:#a87dd0">viola</td><td style="font-size:0.82rem; color:var(--muted)">i vestiti viola</td><td><span class="badge badge-exc">sustantivo</span></td></tr>
+          <tr><td class="it-word" style="color:#4a90c4">blu</td><td style="font-size:0.82rem; color:var(--muted)">gli occhi blu</td><td><span class="badge badge-exc">préstamo</span></td></tr>
+          <tr><td class="it-word" style="color:#e8863a">arancione</td><td style="font-size:0.82rem; color:var(--muted)">le arance arancioni*</td><td><span class="badge badge-exc">variable</span></td></tr>
+          <tr><td class="it-word" style="color:#d4b896">beige</td><td style="font-size:0.82rem; color:var(--muted)">il cappotto beige</td><td><span class="badge badge-exc">préstamo</span></td></tr>
+          <tr><td class="it-word" style="color:#8a7060">marrone</td><td style="font-size:0.82rem; color:var(--muted)">i capelli marroni*</td><td><span class="badge badge-exc">variable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tip"><span class="tip-icon">💡</span><span>*<strong style="color:var(--text)">Arancione</strong> y <strong style="color:var(--text)">marrone</strong> admiten plural (arancioni, marroni) pero no cambian en femenino: <em>una borsa marrone, due borse marrone/marroni</em>.</span></div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('frutas')">← Anterior</button>
+    <button class="snav" onclick="goTo('cuerpo')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ CUERPO ═══════════ -->
+<div class="slide" id="slide-cuerpo">
+  <div class="slide-eyebrow">Campo semántico 06</div>
+  <div class="slide-title">Il Corpo <em>Umano</em></div>
+  <div class="slide-sub">Con varias irregularidades clásicas que todo estudiante debe saber</div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Masculino</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il braccio</span><span class="word-es">el brazo</span><span class="word-note">pl. le braccia (f!)</span></div>
+        <div class="word-row masc"><span class="word-it">il dito</span><span class="word-es">el dedo</span><span class="word-note">pl. le dita (f!)</span></div>
+        <div class="word-row masc"><span class="word-it">il ginocchio</span><span class="word-es">la rodilla</span><span class="word-note">pl. le ginocchia</span></div>
+        <div class="word-row masc"><span class="word-it">il labbro</span><span class="word-es">el labio</span><span class="word-note">pl. le labbra (f!)</span></div>
+        <div class="word-row masc"><span class="word-it">l'occhio</span><span class="word-es">el ojo</span></div>
+        <div class="word-row masc"><span class="word-it">il naso</span><span class="word-es">la nariz</span></div>
+        <div class="word-row masc"><span class="word-it">il piede</span><span class="word-es">el pie</span></div>
+        <div class="word-row masc"><span class="word-it">il collo</span><span class="word-es">el cuello</span></div>
+        <div class="word-row masc"><span class="word-it">il polso</span><span class="word-es">la muñeca</span></div>
+        <div class="word-row masc"><span class="word-it">il petto</span><span class="word-es">el pecho</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Femenino</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la mano</span><span class="word-es">la mano</span><span class="word-note">-o pero FEM!</span></div>
+        <div class="word-row fem"><span class="word-it">la testa</span><span class="word-es">la cabeza</span></div>
+        <div class="word-row fem"><span class="word-it">la faccia</span><span class="word-es">la cara</span></div>
+        <div class="word-row fem"><span class="word-it">la bocca</span><span class="word-es">la boca</span></div>
+        <div class="word-row fem"><span class="word-it">la guancia</span><span class="word-es">la mejilla</span></div>
+        <div class="word-row fem"><span class="word-it">la spalla</span><span class="word-es">el hombro</span></div>
+        <div class="word-row fem"><span class="word-it">la schiena</span><span class="word-es">la espalda</span></div>
+        <div class="word-row fem"><span class="word-it">la gamba</span><span class="word-es">la pierna</span></div>
+        <div class="word-row fem"><span class="word-it">la caviglia</span><span class="word-es">el tobillo</span></div>
+        <div class="word-row fem"><span class="word-it">la fronte</span><span class="word-es">la frente</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exc-box">
+    <div class="exc-title">⭐ Plural heteróclito (masculino sing. → femenino pl.)</div>
+    <div class="exc-grid">
+      <span class="exc-chip"><span class="chi">il braccio</span><span class="arrow">→</span><span class="chf">le braccia</span></span>
+      <span class="exc-chip"><span class="chi">il dito</span><span class="arrow">→</span><span class="chf">le dita</span></span>
+      <span class="exc-chip"><span class="chi">il ginocchio</span><span class="arrow">→</span><span class="chf">le ginocchia</span></span>
+      <span class="exc-chip"><span class="chi">il labbro</span><span class="arrow">→</span><span class="chf">le labbra</span></span>
+      <span class="exc-chip"><span class="chi">l'osso</span><span class="arrow">→</span><span class="chf">le ossa</span></span>
+      <span class="exc-chip"><span class="chi">il sopracciglio</span><span class="arrow">→</span><span class="chf">le sopracciglia</span></span>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('colores')">← Anterior</button>
+    <button class="snav" onclick="goTo('tiempo')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ TIEMPO ═══════════ -->
+<div class="slide" id="slide-tiempo">
+  <div class="slide-eyebrow">Campo semántico 07</div>
+  <div class="slide-title">Tempo &amp; <em>Natura</em></div>
+  <div class="slide-sub">El tiempo, los fenómenos naturales y la geografía física</div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Masculino</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il sole</span><span class="word-es">el sol</span></div>
+        <div class="word-row masc"><span class="word-it">il vento</span><span class="word-es">el viento</span></div>
+        <div class="word-row masc"><span class="word-it">il cielo</span><span class="word-es">el cielo</span></div>
+        <div class="word-row masc"><span class="word-it">il temporale</span><span class="word-es">la tormenta</span></div>
+        <div class="word-row masc"><span class="word-it">il tuono</span><span class="word-es">el trueno</span></div>
+        <div class="word-row masc"><span class="word-it">il fulmine</span><span class="word-es">el rayo</span></div>
+        <div class="word-row masc"><span class="word-it">il mare</span><span class="word-es">el mar</span></div>
+        <div class="word-row masc"><span class="word-it">il lago</span><span class="word-es">el lago</span></div>
+        <div class="word-row masc"><span class="word-it">il bosco</span><span class="word-es">el bosque</span></div>
+        <div class="word-row masc"><span class="word-it">il deserto</span><span class="word-es">el desierto</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Femenino</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la luna</span><span class="word-es">la luna</span></div>
+        <div class="word-row fem"><span class="word-it">la pioggia</span><span class="word-es">la lluvia</span></div>
+        <div class="word-row fem"><span class="word-it">la neve</span><span class="word-es">la nieve</span></div>
+        <div class="word-row fem"><span class="word-it">la nebbia</span><span class="word-es">la niebla</span></div>
+        <div class="word-row fem"><span class="word-it">la grandine</span><span class="word-es">el granizo</span></div>
+        <div class="word-row fem"><span class="word-it">la montagna</span><span class="word-es">la montaña</span></div>
+        <div class="word-row fem"><span class="word-it">la foresta</span><span class="word-es">la selva</span></div>
+        <div class="word-row fem"><span class="word-it">la pianura</span><span class="word-es">la llanura</span></div>
+        <div class="word-row fem"><span class="word-it">la stella</span><span class="word-es">la estrella</span></div>
+        <div class="word-row fem"><span class="word-it">la tempesta</span><span class="word-es">la tempestad</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('cuerpo')">← Anterior</button>
+    <button class="snav" onclick="goTo('geografia')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ GEOGRAFÍA ═══════════ -->
+<div class="slide" id="slide-geografia">
+  <div class="slide-eyebrow">Campo semántico 08</div>
+  <div class="slide-title">La <em>Geografia</em></div>
+  <div class="slide-sub">Países, continentes, regiones, ríos y ciudades siguen patrones claros</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Reglas geográficas</div>
+    <strong>Países en -a:</strong> fem. (la Francia, la Spagna, la Germania). &nbsp;<strong>Países en -o / consonante:</strong> masc. (il Portogallo, il Giappone). &nbsp;<strong>Ríos:</strong> casi siempre masc. (il Tevere, il Po). &nbsp;<strong>Ciudades:</strong> casi siempre fem. aunque terminan en -o (Roma, Milano → usados sin artículo en general).
+  </div>
+
+  <div class="seg-wrap">
+    <div class="seg-head"><span class="seg-head-icon">🌍</span><span class="seg-head-title">Países y continentes</span></div>
+    <table class="data-table">
+      <thead><tr><th>País / Continente</th><th>Artículo</th><th>Gén.</th><th>Español</th></tr></thead>
+      <tbody>
+        <tr><td><span class="it-word f">Francia</span></td><td style="color:var(--fem); font-family:'JetBrains Mono'; font-size:0.85rem">la</td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">Francia (-a → f)</td></tr>
+        <tr><td><span class="it-word f">Italia</span></td><td style="color:var(--fem); font-family:'JetBrains Mono'; font-size:0.85rem">l'</td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">Italia (-a → f)</td></tr>
+        <tr><td><span class="it-word f">Germania</span></td><td style="color:var(--fem); font-family:'JetBrains Mono'; font-size:0.85rem">la</td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">Alemania (-a → f)</td></tr>
+        <tr><td><span class="it-word m">Portogallo</span></td><td style="color:var(--masc); font-family:'JetBrains Mono'; font-size:0.85rem">il</td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">Portugal (-o → m)</td></tr>
+        <tr><td><span class="it-word m">Giappone</span></td><td style="color:var(--masc); font-family:'JetBrains Mono'; font-size:0.85rem">il</td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">Japón (-e → m)</td></tr>
+        <tr><td><span class="it-word m">Messico</span></td><td style="color:var(--masc); font-family:'JetBrains Mono'; font-size:0.85rem">il</td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">México (-o → m)</td></tr>
+        <tr><td><span class="it-word f">Africa</span></td><td style="color:var(--fem); font-family:'JetBrains Mono'; font-size:0.85rem">l'</td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">África (-a → f)</td></tr>
+        <tr><td><span class="it-word f">Asia</span></td><td style="color:var(--fem); font-family:'JetBrains Mono'; font-size:0.85rem">l'</td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">Asia (-a → f)</td></tr>
+        <tr><td><span class="it-word f">Brasile</span></td><td style="color:var(--masc); font-family:'JetBrains Mono'; font-size:0.85rem">il</td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">Brasil (-e masc.)</td></tr>
+        <tr><td><span class="it-word f">Canada</span></td><td style="color:var(--masc); font-family:'JetBrains Mono'; font-size:0.85rem">il</td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">Canadá (masc.)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('tiempo')">← Anterior</button>
+    <button class="snav" onclick="goTo('objetos')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ OBJETOS ═══════════ -->
+<div class="slide" id="slide-objetos">
+  <div class="slide-eyebrow">Campo semántico 09</div>
+  <div class="slide-title">Oggetti &amp; <em>Casa</em></div>
+  <div class="slide-sub">Los objetos cotidianos y los espacios del hogar</div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Masculino</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">il tavolo</span><span class="word-es">la mesa</span></div>
+        <div class="word-row masc"><span class="word-it">il letto</span><span class="word-es">la cama</span></div>
+        <div class="word-row masc"><span class="word-it">il divano</span><span class="word-es">el sofá</span></div>
+        <div class="word-row masc"><span class="word-it">il frigorifero</span><span class="word-es">la nevera</span></div>
+        <div class="word-row masc"><span class="word-it">il computer</span><span class="word-es">la computadora</span></div>
+        <div class="word-row masc"><span class="word-it">il telefono</span><span class="word-es">el teléfono</span></div>
+        <div class="word-row masc"><span class="word-it">il bicchiere</span><span class="word-es">el vaso</span></div>
+        <div class="word-row masc"><span class="word-it">il piatto</span><span class="word-es">el plato</span></div>
+        <div class="word-row masc"><span class="word-it">il bagno</span><span class="word-es">el baño</span></div>
+        <div class="word-row masc"><span class="word-it">il corridoio</span><span class="word-es">el pasillo</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Femenino</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la sedia</span><span class="word-es">la silla</span></div>
+        <div class="word-row fem"><span class="word-it">la cucina</span><span class="word-es">la cocina</span></div>
+        <div class="word-row fem"><span class="word-it">la porta</span><span class="word-es">la puerta</span></div>
+        <div class="word-row fem"><span class="word-it">la finestra</span><span class="word-es">la ventana</span></div>
+        <div class="word-row fem"><span class="word-it">la lampada</span><span class="word-es">la lámpara</span></div>
+        <div class="word-row fem"><span class="word-it">la tazza</span><span class="word-es">la taza</span></div>
+        <div class="word-row fem"><span class="word-it">la forchetta</span><span class="word-es">el tenedor</span></div>
+        <div class="word-row fem"><span class="word-it">la camera</span><span class="word-es">la habitación</span></div>
+        <div class="word-row fem"><span class="word-it">la scala</span><span class="word-es">la escalera</span></div>
+        <div class="word-row fem"><span class="word-it">la chiave</span><span class="word-es">la llave</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('geografia')">← Anterior</button>
+    <button class="snav" onclick="goTo('abstractos')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ ABSTRACTOS ═══════════ -->
+<div class="slide" id="slide-abstractos">
+  <div class="slide-eyebrow">Campo semántico 10</div>
+  <div class="slide-title">Sostantivi <em>Astratti</em></div>
+  <div class="slide-sub">Emociones, conceptos y valores — con claros patrones de terminación</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Los abstractos siguen las terminaciones</div>
+    <strong>-tà / -tù → siempre fem.</strong> (la libertà, la virtù). &nbsp;<strong>-zione → siempre fem.</strong> (la nazione). &nbsp;<strong>-ismo → siempre masc.</strong> (il romanticismo). &nbsp;<strong>-ore → masc.</strong> (l'amore, il dolore).
+  </div>
+
+  <div class="gender-grid">
+    <div class="gender-col masc">
+      <div class="gender-col-title">♂ Masculino</div>
+      <div class="word-list">
+        <div class="word-row masc"><span class="word-it">l'amore</span><span class="word-es">el amor</span></div>
+        <div class="word-row masc"><span class="word-it">il coraggio</span><span class="word-es">el coraje</span></div>
+        <div class="word-row masc"><span class="word-it">il dolore</span><span class="word-es">el dolor</span></div>
+        <div class="word-row masc"><span class="word-it">il sogno</span><span class="word-es">el sueño</span></div>
+        <div class="word-row masc"><span class="word-it">il pensiero</span><span class="word-es">el pensamiento</span></div>
+        <div class="word-row masc"><span class="word-it">il silenzio</span><span class="word-es">el silencio</span></div>
+        <div class="word-row masc"><span class="word-it">il potere</span><span class="word-es">el poder</span></div>
+        <div class="word-row masc"><span class="word-it">il destino</span><span class="word-es">el destino</span></div>
+      </div>
+    </div>
+    <div class="gender-col fem">
+      <div class="gender-col-title">♀ Femenino</div>
+      <div class="word-list">
+        <div class="word-row fem"><span class="word-it">la libertà</span><span class="word-es">la libertad</span></div>
+        <div class="word-row fem"><span class="word-it">la vita</span><span class="word-es">la vida</span></div>
+        <div class="word-row fem"><span class="word-it">la pace</span><span class="word-es">la paz</span></div>
+        <div class="word-row fem"><span class="word-it">la speranza</span><span class="word-es">la esperanza</span></div>
+        <div class="word-row fem"><span class="word-it">la felicità</span><span class="word-es">la felicidad</span></div>
+        <div class="word-row fem"><span class="word-it">la paura</span><span class="word-es">el miedo</span></div>
+        <div class="word-row fem"><span class="word-it">la tristezza</span><span class="word-es">la tristeza</span></div>
+        <div class="word-row fem"><span class="word-it">la verità</span><span class="word-es">la verdad</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('objetos')">← Anterior</button>
+    <button class="snav" onclick="goTo('prestamos')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ═══════════ PRÉSTAMOS ═══════════ -->
+<div class="slide" id="slide-prestamos">
+  <div class="slide-eyebrow">Campo semántico 11</div>
+  <div class="slide-title">Prestiti <em>Stranieri</em></div>
+  <div class="slide-sub">Palabras del inglés, francés y otras lenguas adoptadas por el italiano</div>
+
+  <div class="rule-box">
+    <div class="rule-title">Regla general para extranjerismos</div>
+    La mayoría de préstamos son <strong>masculinos</strong> en italiano, especialmente los del inglés terminados en consonante. Algunos préstamos del francés son femeninos si la palabra original lo era. Se usan siempre en su forma original (invariables).
+  </div>
+
+  <div class="seg-wrap">
+    <div class="seg-head"><span class="seg-head-icon">🇬🇧</span><span class="seg-head-title">Anglicismos frecuentes</span></div>
+    <table class="data-table">
+      <thead><tr><th>Palabra</th><th>Género</th><th>Español</th><th>Plural</th></tr></thead>
+      <tbody>
+        <tr><td><span class="it-word m">il computer</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">la computadora</td><td style="color:var(--muted); font-size:0.82rem">i computer</td></tr>
+        <tr><td><span class="it-word m">lo smartphone</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el celular</td><td style="color:var(--muted); font-size:0.82rem">gli smartphone</td></tr>
+        <tr><td><span class="it-word m">il selfie</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el selfie</td><td style="color:var(--muted); font-size:0.82rem">i selfie</td></tr>
+        <tr><td><span class="it-word m">lo sport</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el deporte</td><td style="color:var(--muted); font-size:0.82rem">gli sport</td></tr>
+        <tr><td><span class="it-word m">il weekend</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el fin de semana</td><td style="color:var(--muted); font-size:0.82rem">i weekend</td></tr>
+        <tr><td><span class="it-word m">il marketing</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el marketing</td><td style="color:var(--muted); font-size:0.82rem">—</td></tr>
+        <tr><td><span class="it-word m">il blog</span></td><td><span class="badge badge-m">m</span></td><td style="color:var(--muted); font-size:0.82rem">el blog</td><td style="color:var(--muted); font-size:0.82rem">i blog</td></tr>
+        <tr><td><span class="it-word f">la star</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">la estrella (fam.)</td><td style="color:var(--muted); font-size:0.82rem">le star</td></tr>
+        <tr><td><span class="it-word f">la mail</span></td><td><span class="badge badge-f">f</span></td><td style="color:var(--muted); font-size:0.82rem">el correo electrónico</td><td style="color:var(--muted); font-size:0.82rem">le mail</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip"><span class="tip-icon">💡</span><span>Los anglicismos con artículo femenino suelen ser los que ya eran femeninos en inglés (<em>la star</em>, <em>la web</em>, <em>la mail</em>) o asociados a un referente femenino (<em>la newsletter</em>).</span></div>
+
+  <div class="slide-nav">
+    <button class="snav" onclick="goTo('abstractos')">← Anterior</button>
+    <button class="snav" onclick="goTo('ejercicios')" style="border-color:rgba(240,192,96,0.4); color:var(--accent)">✏ Ejercicios →</button>
+  </div>
+</div>
+
+<!-- ═══════════ EJERCICIOS ═══════════ -->
+<div class="slide" id="slide-ejercicios">
+  <div class="slide-eyebrow">Pratica interattiva</div>
+  <div class="slide-title">Esercizi sul <em>Genere</em></div>
+  <div class="slide-sub">30 preguntas sobre todos los campos semánticos</div>
+
+  <div class="ex-progress-bar"><div class="ex-progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <div id="exerciseContainer"></div>
+  <div class="ex-score-panel" id="scorePanel">
+    <div class="score-num" id="scoreNum">—</div>
+    <div class="score-label">de 30 respuestas correctas</div>
+    <div class="score-msg" id="scoreMsg"></div>
+    <button class="btn-restart" onclick="restartExercises()">Reiniciar ejercicios</button>
+  </div>
+
+  <div class="slide-nav" style="margin-top:1.5rem">
+    <button class="snav" onclick="goTo('prestamos')">← Anterior</button>
+    <button class="snav" onclick="goTo('home')">↑ Inicio</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ═══════════ NAV ═══════════
+function goTo(id) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('slide-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════ EXERCISES DATA ═══════════
+const exercises = [
+  // Terminaciones
+  { type: 'choice', q: '¿Cuál es el género de <em>il problema</em>?', opts: ['Masculino', 'Femenino'], correct: 0, fb: '¡Correcto! Aunque termina en -a, <em>il problema</em> es masculino (origen griego). Lo mismo ocurre con <em>il tema, il sistema</em>.' },
+  { type: 'choice', q: '¿Qué artículo lleva <em>___ libertà</em>?', opts: ['il', 'la', 'lo', 'l\''], correct: 3, fb: '<em>La libertà</em> es femenina. Todos los sustantivos en -tà son femeninos.' },
+  { type: 'choice', q: '¿Cuál de estas palabras es MASCULINA?', opts: ['la nazione', 'il problema', 'la bellezza', 'la crisi'], correct: 1, fb: '<em>Il problema</em> es masculino (origen griego en -ma). Las demás son femeninas.' },
+  { type: 'fill', q: 'La stazione, l\'azione, la nazione... Los sustantivos en <em>-ione</em> son casi siempre de género ___', correct: 'femenino', fb: '¡Exacto! Los sustantivos en -zione/-ione son casi siempre femeninos.' },
+  { type: 'choice', q: '<em>La mano</em> es una excepción porque...', opts: ['Termina en -o pero es femenina', 'Es masculina', 'No existe en italiano', 'Cambia con el contexto'], correct: 0, fb: '¡Bien! <em>La mano</em> es famosa excepción: termina en -o pero es femenina. Plural: <em>le mani</em>.' },
+
+  // Familia / personas
+  { type: 'choice', q: '¿Cómo se dice "la esposa" en italiano?', opts: ['la marita', 'la moglie', 'la donna', 'la sposa'], correct: 1, fb: '<em>La moglie</em> es la forma irregular de "esposa". El masculino es <em>il marito</em>.' },
+  { type: 'fill', q: 'Il fratello es el hermano. La ___ es la hermana.', correct: 'sorella', fb: '<em>La sorella</em>. Note que no existe *la fratella — son palabras completamente diferentes.' },
+  { type: 'choice', q: '¿Cuál es el femenino de <em>il nipote</em>?', opts: ['la nipota', 'la nipote', 'la nipotessa', 'la niece'], correct: 1, fb: '<em>La nipote</em>: ¡es invariable! Solo el artículo cambia. Significa sobrina o nieta según el contexto.' },
+
+  // Profesiones
+  { type: 'choice', q: '¿Cuál es el femenino de <em>lo scrittore</em>?', opts: ['la scrittora', 'la scrittoressa', 'la scrittrice', 'la scrittora'], correct: 2, fb: '<em>La scrittrice</em>. El patrón -tore → -trice es muy común: attore→attrice, direttore→direttrice.' },
+  { type: 'choice', q: 'Una mujer que canta es...', opts: ['il cantante', 'la cantanta', 'la cantante', 'la cantatrice'], correct: 2, fb: '<em>La cantante</em> es invariable. Solo el artículo diferencia el género en los sustantivos en -ante/-ente.' },
+  { type: 'fill', q: 'Il professore → La ___', correct: 'professoressa', fb: '<em>La professoressa</em>. El patrón -ore → -oressa también aplica a <em>dottore→dottoressa</em>.' },
+  { type: 'choice', q: '¿Cuál es el femenino de <em>l\'avvocato</em>?', opts: ['Solo l\'avvocata', 'Solo l\'avvocatessa', 'Ambas formas son válidas', 'No existe femenino'], correct: 2, fb: 'Ambas formas (<em>l\'avvocata</em> y <em>l\'avvocatessa</em>) son usadas en italiano contemporáneo.' },
+
+  // Animales
+  { type: 'choice', q: '¿Cómo se dice "la perra" en italiano?', opts: ['la cana', 'la cagna', 'la cane', 'la cagna o la cana'], correct: 1, fb: '<em>La cagna</em> es el femenino irregular de <em>il cane</em> (perro).' },
+  { type: 'choice', q: '<em>La volpe</em> (el zorro) es un animal epiceno. Eso significa que...', opts: ['No tiene género', 'Solo existe en femenino para ambos sexos', 'Cambia según el contexto', 'Tiene dos géneros diferentes'], correct: 1, fb: 'Los animales epicenos como <em>la volpe</em> solo tienen una forma. Para especificar: <em>la volpe maschio</em>.' },
+  { type: 'fill', q: 'Il leone è maschio. La ___ è femmina.', correct: 'leonessa', fb: '<em>La leonessa</em>. El sufijo -essa forma el femenino de muchos animales: leonessa, principessa, ecc.' },
+
+  // Frutas/Verduras
+  { type: 'choice', q: '¿Cuál de estas frutas es MASCULINA?', opts: ['la mela', 'la fragola', 'il limone', 'la pera'], correct: 2, fb: '<em>Il limone</em> es masculino. La mayoría de frutas son femeninas, pero los que terminan en -one son masculinos.' },
+  { type: 'choice', q: '¿Cuál es el género de <em>pomodoro</em>?', opts: ['Femenino', 'Masculino', 'Invariable', 'Depende'], correct: 1, fb: '<em>Il pomodoro</em> es masculino. Termina en -o, sigue la regla general.' },
+  { type: 'fill', q: 'La manzana es ___ mela.', correct: 'la', fb: '<em>La mela</em>. Las frutas en -a suelen ser femeninas: mela, pera, banana, arancia...' },
+
+  // Colores
+  { type: 'choice', q: '¿Cuál de estos colores es INVARIABLE (no cambia con el género)?', opts: ['rosso/rossa', 'bianco/bianca', 'viola', 'nero/nera'], correct: 2, fb: '<em>Viola</em> es invariable: una gonna viola, un cappello viola. También lo son: rosa, blu, beige.' },
+  { type: 'choice', q: '"Tengo los zapatos rosas" en italiano es...', opts: ['Ho le scarpe rosse', 'Ho le scarpe rosa', 'Ho le scarpe rose', 'Ho le scarpe rosi'], correct: 1, fb: '<em>Le scarpe rosa</em>. Los colores invariables como rosa no cambian: siempre rosa, nunca rosi/rose.' },
+  { type: 'choice', q: '¿Cuál es el plural de <em>bianco</em>?', opts: ['biancos', 'bianchi', 'bianchi / bianche', 'blancos'], correct: 2, fb: '<em>Bianchi</em> (masc. pl.) y <em>bianche</em> (fem. pl.). Cuidado con el cambio -co → -chi para preservar el sonido /k/.' },
+
+  // Cuerpo
+  { type: 'choice', q: '¿Cuál es el plural de <em>il braccio</em>?', opts: ['i bracci', 'le braccia', 'i braccio', 'i bracia'], correct: 1, fb: '<em>Le braccia</em>. ¡Masculino en singular, femenino en plural! Este fenómeno (plural heteróclito) ocurre con varias partes del cuerpo.' },
+  { type: 'fill', q: '<em>Il dito</em> (singular, masc.) → <em>___</em> (plural, fem.)', correct: 'le dita', fb: '<em>Le dita</em>. Junto con le braccia, le ginocchia, le labbra — son plurales en femenino de originales masculinos.' },
+  { type: 'choice', q: '¿Cuál es el género de <em>la fronte</em> (frente)?', opts: ['Masculino', 'Femenino', 'Invariable', 'Depende del contexto'], correct: 1, fb: '<em>La fronte</em> es femenina a pesar de terminar en -e. Los sustantivos en -e pueden ser de cualquier género.' },
+
+  // Tiempo/Naturaleza
+  { type: 'choice', q: 'En italiano, el sol y la luna tienen géneros opuestos al español. ¿Cuáles son?', opts: ['il sole (m), la luna (f) — igual que en español', 'la sole (f), il luna (m)', 'il sole es neutro', 'Ambos son masculinos'], correct: 0, fb: 'En este caso coinciden: <em>il sole</em> (m) y <em>la luna</em> (f). Pero en alemán es al revés: die Sonne (f), der Mond (m).' },
+  { type: 'fill', q: '¿Masculino o femenino? <em>il vento, il temporale, il tuono</em> → los fenómenos atmosféricos violentos tienden a ser ___', correct: 'masculino', fb: 'Tendencia interesante: el viento, la tormenta (temporale, m), el trueno... muchos son masculinos. Pero la neve, la pioggia son femeninos.' },
+
+  // Geografía
+  { type: 'choice', q: '¿Qué artículo lleva <em>Portogallo</em>?', opts: ['la', 'il', 'lo', 'l\''], correct: 1, fb: '<em>Il Portogallo</em>. Los países en -o son masculinos. Regla: países en -a → fem., países en -o → masc.' },
+  { type: 'choice', q: '¿Cuál es el género de <em>Brasile</em>?', opts: ['Femenino', 'Masculino', 'Neutro', 'Invariable'], correct: 1, fb: '<em>Il Brasile</em> es masculino, aunque termina en -e. Los países terminados en -e suelen ser masculinos.' },
+
+  // Abstractos + Préstamos
+  { type: 'choice', q: '¿Cuál es el género de <em>il coraggio</em>?', opts: ['Femenino', 'Masculino', 'Invariable', 'Neutro'], correct: 1, fb: '<em>Il coraggio</em> es masculino. Los sustantivos en -aggio son casi siempre masculinos: viaggio, formaggio, coraggio.' },
+  { type: 'choice', q: 'Los préstamos del inglés en italiano son generalmente...', opts: ['Femeninos', 'Masculinos', 'Invariables en género', 'Depende de la vocal final'], correct: 1, fb: 'La gran mayoría de anglicismos son masculinos en italiano: il computer, lo sport, il blog, il selfie...' },
+  { type: 'fill', q: '<em>La libertà, la felicità, la verità</em> — Los sustantivos en -tà son siempre de género ___', correct: 'femenino', fb: '¡Perfecto! Los sustantivos en -tà son SIEMPRE femeninos. Es una de las reglas más fiables del italiano.' },
+];
+
+let answered = 0;
+let correct = 0;
+let userAnswers = new Array(exercises.length).fill(null);
+
+function buildExercises() {
+  const container = document.getElementById('exerciseContainer');
+  container.innerHTML = '';
+  document.getElementById('scorePanel').classList.remove('show');
+  answered = 0; correct = 0;
+  userAnswers = new Array(exercises.length).fill(null);
+  updateProgress();
+
+  exercises.forEach((ex, i) => {
+    const card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = 'excard-' + i;
+
+    let html = `<div class="ex-type">${i+1} / ${exercises.length} — ${ex.type === 'choice' ? 'Opción múltiple' : 'Completa la frase'}</div>`;
+    html += `<div class="ex-question">${ex.q}</div>`;
+
+    if (ex.type === 'choice') {
+      html += '<div class="ex-options">';
+      ex.opts.forEach((opt, j) => {
+        html += `<button class="ex-opt" id="opt-${i}-${j}" onclick="answerChoice(${i}, ${j})">${opt}</button>`;
+      });
+      html += '</div>';
+    } else {
+      html += `<div class="ex-fill-wrap">
+        <input class="ex-input" id="fill-${i}" type="text" placeholder="tu respuesta...">
+        <button class="ex-submit" id="submit-${i}" onclick="answerFill(${i})">Comprobar</button>
+      </div>`;
+    }
+    html += `<div class="ex-feedback" id="fb-${i}"></div>`;
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
+}
+
+function answerChoice(exIdx, optIdx) {
+  if (userAnswers[exIdx] !== null) return;
+  userAnswers[exIdx] = optIdx;
+  const ex = exercises[exIdx];
+  const card = document.getElementById('excard-' + exIdx);
+  const fb = document.getElementById('fb-' + exIdx);
+  const isOk = optIdx === ex.correct;
+
+  ex.opts.forEach((_, j) => {
+    const btn = document.getElementById(`opt-${exIdx}-${j}`);
+    btn.disabled = true;
+    if (j === ex.correct) btn.classList.add('correct');
+    if (j === optIdx && !isOk) btn.classList.add('wrong');
+  });
+
+  fb.textContent = ''; fb.innerHTML = (isOk ? '✓ ' : '✗ ') + ex.fb;
+  fb.className = 'ex-feedback show ' + (isOk ? 'ok' : 'ko');
+  card.classList.add(isOk ? 'answered-correct' : 'answered-wrong');
+
+  if (isOk) correct++;
+  answered++;
+  updateProgress();
+  if (answered === exercises.length) showScore();
+}
+
+function answerFill(exIdx) {
+  const ex = exercises[exIdx];
+  const input = document.getElementById('fill-' + exIdx);
+  const submit = document.getElementById('submit-' + exIdx);
+  const fb = document.getElementById('fb-' + exIdx);
+  const card = document.getElementById('excard-' + exIdx);
+  if (userAnswers[exIdx] !== null) return;
+
+  const val = input.value.trim().toLowerCase();
+  const expected = ex.correct.toLowerCase();
+  const isOk = val === expected;
+
+  userAnswers[exIdx] = val;
+  input.disabled = true; submit.disabled = true;
+  input.classList.add(isOk ? 'correct' : 'wrong');
+  fb.innerHTML = (isOk ? '✓ ' : `✗ La respuesta es: <strong>${ex.correct}</strong>. `) + ex.fb;
+  fb.className = 'ex-feedback show ' + (isOk ? 'ok' : 'ko');
+  card.classList.add(isOk ? 'answered-correct' : 'answered-wrong');
+
+  if (isOk) correct++;
+  answered++;
+  updateProgress();
+  if (answered === exercises.length) showScore();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    for (let i = 0; i < exercises.length; i++) {
+      if (exercises[i].type === 'fill' && userAnswers[i] === null) {
+        const inp = document.getElementById('fill-' + i);
+        if (inp && document.activeElement === inp) { answerFill(i); break; }
+      }
+    }
+  }
+});
+
+function updateProgress() {
+  const pct = (answered / exercises.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function showScore() {
+  const panel = document.getElementById('scorePanel');
+  document.getElementById('scoreNum').textContent = correct + ' / ' + exercises.length;
+  let msg = '';
+  const pct = correct / exercises.length;
+  if (pct >= 0.9) msg = 'Eccellente! Hai una padronanza del genere straordinaria.';
+  else if (pct >= 0.7) msg = 'Molto bene! Qualche dettaglio ancora da perfezionare.';
+  else if (pct >= 0.5) msg = 'Non male! Ripassа le regole e riprova.';
+  else msg = 'Continua a studiare — ogni errore è un passo avanti!';
+  document.getElementById('scoreMsg').textContent = msg;
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function restartExercises() {
+  buildExercises();
+  document.getElementById('exerciseContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Init
+buildExercises();
+</script>
+</body>
+</html>

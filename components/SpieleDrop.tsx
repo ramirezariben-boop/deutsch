@@ -25,7 +25,7 @@ export function SpieleDrop() {
       </button>
 
       {open && (
-        <div className="absolute left-0 mt-1 w-56 flex flex-col gap-px z-10 rounded overflow-hidden shadow-xl">
+        <div className="absolute left-full top-0 ml-1 w-56 flex flex-col gap-px z-50 rounded overflow-hidden shadow-xl">
           <a
             href="https://lyrickahoot.ariiben.com/game/player.html"
             target="_blank"
@@ -35,12 +35,12 @@ export function SpieleDrop() {
             🎶 Lyrickahoot! 🧩
           </a>
 
-          <div className="group px-6 py-2 bg-slate-800 text-slate-500 text-center cursor-not-allowed select-none opacity-50 shadow-inner">
+          <div className="group px-6 py-2 bg-slate-900 text-slate-600 text-center cursor-not-allowed select-none shadow-inner">
             <span className="group-hover:hidden">Trivia</span>
             <span className="hidden group-hover:inline">🚫 Trivia</span>
           </div>
 
-          <div className="px-6 py-2 bg-slate-800 text-slate-500 text-center cursor-not-allowed select-none opacity-50 shadow-inner">
+          <div className="px-6 py-2 bg-slate-900 text-slate-600 text-center cursor-not-allowed select-none shadow-inner">
             próximamente...
           </div>
         </div>

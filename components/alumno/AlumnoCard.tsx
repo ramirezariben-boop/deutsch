@@ -107,7 +107,13 @@ function formatCourseLabel(course?: string | null) {
   return `${nivelMap[nivel.toLowerCase()] ?? nivel} ${numero}`;
 }
 
-export default function AlumnoCard({ alumno }: { alumno: Alumno }) {
+export default function AlumnoCard({
+  alumno,
+  onMinimize,
+}: {
+  alumno: Alumno;
+  onMinimize?: () => void;
+}) {
   const isCurrent = alumno.isCurrent === true;
   const courseId = alumno.resolvedCourseId ?? alumno.courseId ?? null;
 
@@ -193,7 +199,16 @@ export default function AlumnoCard({ alumno }: { alumno: Alumno }) {
   }
 
 return (
-  <div className="w-[420px] max-w-[95vw] rounded-xl bg-neutral-900 border border-neutral-700 p-6 shadow-xl">
+  <div className="w-[420px] max-w-[95vw] rounded-xl bg-neutral-900 border border-neutral-700 p-6 shadow-xl relative">
+    {onMinimize && (
+      <button
+        onClick={onMinimize}
+        title="Minimizar"
+        className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded text-neutral-700 hover:text-neutral-400 hover:bg-neutral-800 transition-colors text-sm leading-none"
+      >
+        &#8722;
+      </button>
+    )}
     <input
       ref={inputRef}
       type="file"

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import AlumnoCard from "@/components/alumno/AlumnoCard";
 import { SpieleDrop } from "@/components/SpieleDrop";
 
@@ -21,8 +22,8 @@ type Alumno = {
 };
 
 export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
-  const showAlumno = true;
   const isAdmin = Number(alumno.id) === 64;
+  const [cardVisible, setCardVisible] = useState(true);
 
   return (
     <div className="p-10 text-white relative">
@@ -145,12 +146,20 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
         </div>
       </div>
 
-      {showAlumno && (
+      {cardVisible ? (
         <div className="fixed inset-0 z-40 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-            <AlumnoCard alumno={alumno} />
+            <AlumnoCard alumno={alumno} onMinimize={() => setCardVisible(false)} />
           </div>
         </div>
+      ) : (
+        <button
+          onClick={() => setCardVisible(true)}
+          title="Mostrar mi tarjeta"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 px-4 py-2 bg-neutral-800/80 hover:bg-neutral-700 rounded-full text-neutral-400 hover:text-neutral-200 text-sm shadow-lg backdrop-blur-sm transition-colors"
+        >
+          👤
+        </button>
       )}
 
       <footer className="mt-16 mb-6 text-center text-sm text-neutral-500">

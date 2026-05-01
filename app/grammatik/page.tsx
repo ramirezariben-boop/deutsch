@@ -35,15 +35,6 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    title: "Intermedio 1 – extras B1",
-    requiredNivel: "intermedio_1",
-    buttons: [
-      { name: "werden",               href: "/grammatik/deutsch/werden.html" },
-      { name: "Relativsätze",         href: "/grammatik/deutsch/relativsaetze.html" },
-      { name: "Verben mit Präfixen",  href: "/grammatik/deutsch/verben-praefixe.html" },
-    ],
-  },
-  {
     title: "Intermedio 2",
     requiredNivel: "intermedio_2",
     buttons: [

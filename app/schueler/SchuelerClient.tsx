@@ -84,7 +84,9 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             🤓 Grammatik 📚
           </a>
+        </div>
 
+        <div className="flex flex-col gap-4">
           <a
             href="https://deutsch.ariiben.com/schueler/checkin"
             target="_blank"
@@ -93,9 +95,6 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
           >
             💫 CheckIn ✨
           </a>
-        </div>
-
-        <div className="flex flex-col gap-4">
           <a
             href="https://house-three-ochre.vercel.app/"
             target="_blank"

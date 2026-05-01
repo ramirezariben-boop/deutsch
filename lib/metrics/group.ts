@@ -229,9 +229,9 @@ export async function buildGroupMetricsAverage(args: {
       gradesContinua: m.formalGrades?.rollup.continua ?? null,
       gradesTotal: m.formalGrades?.rollup.total ?? null,
       gradesOverall: m.formalGrades?.rollup.overall ?? null,
-      pointsTotal: m.points?.summary.total ?? null,
-      pointsClass: m.points?.summary.claseTotal ?? null,
-      pointsExtra: m.points?.summary.extraTotal ?? null,
+      pointsTotal: m.points?.summary?.total ?? null,
+      pointsClass: m.points?.summary?.claseTotal ?? null,
+      pointsExtra: m.points?.summary?.extraTotal ?? null,
 
       core: {
         attendancePctLastN,
@@ -255,9 +255,9 @@ export async function buildGroupMetricsAverage(args: {
       },
 
       points: {
-        total: m.points?.summary.total ?? null,
-        class: m.points?.summary.claseTotal ?? null,
-        extra: m.points?.summary.extraTotal ?? null,
+        total: m.points?.summary?.total ?? null,
+        class: m.points?.summary?.claseTotal ?? null,
+        extra: m.points?.summary?.extraTotal ?? null,
         byCategory,
         bySubcategory,
       },

@@ -28,9 +28,8 @@ const sections = [
 
 export default async function DeutschGrammatikPage() {
   const session = await readSessionFromHeaders();
-  const isAdmin = session?.role === "ADMIN";
   const userNivel = session?.nivelActual ?? null;
-  const unlocked = isAdmin || canAccess(userNivel, REQUIRED_NIVEL);
+  const unlocked = canAccess(userNivel, REQUIRED_NIVEL);
 
   let colorIndex = 0;
 

@@ -43,11 +43,10 @@ export async function middleware(req: NextRequest) {
     if (!token) return NextResponse.redirect(new URL("/", req.url));
     try {
       const { payload } = await jwtVerify(token, SECRET);
-      const isAdmin = payload.role === "ADMIN";
       const folder = grammatikMatch[1]; // e.g. "basico-2"
       const requiredNivel = FOLDER_REQUIRED_NIVEL[folder];
 
-      if (requiredNivel && !isAdmin) {
+      if (requiredNivel) {
         const nivelActual = payload.nivelActual as string | undefined;
         if (!canAccess(nivelActual, requiredNivel)) {
           return NextResponse.redirect(

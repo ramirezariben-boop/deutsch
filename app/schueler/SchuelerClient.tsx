@@ -1,6 +1,7 @@
 "use client";
 
 import AlumnoCard from "@/components/alumno/AlumnoCard";
+import { SpieleDrop } from "@/components/SpieleDrop";
 
 type Alumno = {
   id: number | string;
@@ -49,14 +50,7 @@ export default function SchuelerClient({ alumno }: { alumno: Alumno }) {
             🤑 Extra MXP 💰
           </a>
 
-          <a
-            href="https://lyrickahoot.ariiben.com/game/player.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-2 bg-slate-600 hover:bg-slate-700 rounded text-center w-56"
-          >
-            🎶 Lyrickahoot! 🧩
-          </a>
+          <SpieleDrop />
 
           <a
             href="https://race-panel.onrender.com/student.html"
